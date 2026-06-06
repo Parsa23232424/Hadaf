@@ -51,7 +51,7 @@ function startGame() {
             alert("زمان تمام شد! امتیاز نهایی شما: " + score);
             target.style.display = 'none';
             startBtn.style.display = 'block';
-            startBtn.textContent = "دوباره بازی کن";
+            startBtn.textContent = "▶️";
         }
     }, 1000);
 }
