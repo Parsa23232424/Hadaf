@@ -26,6 +26,7 @@ function moveTarget() {
 // وقتی روی هدف کلیک می‌شود
 target.addEventListener('click', () => {
     score++;
+    alert("آفرین")
     scoreDisplay.textContent = score;
     moveTarget(); // بلافاصله به جای جدید برود
 });
