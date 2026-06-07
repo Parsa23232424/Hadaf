@@ -22,6 +22,7 @@ button { width:100%; padding:10px; background:black; color:white; border:none; }
 <button onclick="upload()">ارسال</button>
 
 <script>
+<script>
 const API = "https://script.google.com/macros/s/AKfycbwEF4ywacnChYT_fyCw3mQCzHvQhOFEBJs-vd2z9TTqSXG_RgDoQxy_vsPza-20baHc/exec";
 
 function upload() {
@@ -36,19 +37,29 @@ function upload() {
 
     fetch(API, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
-        title,
-        desc,
+        title: title,
+        desc: desc,
         image: file ? reader.result : ""
       })
-    }).then(() => alert("خبر ثبت شد"));
+    })
+    .then(res => res.text())
+    .then(data => {
+      console.log(data);
+      alert("خبر ثبت شد!");
+    });
 
   };
 
-  if (file) reader.readAsDataURL(file);
-  else reader.onload();
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    reader.onload();
+  }
 }
 </script>
-
 </body>
 </html>
