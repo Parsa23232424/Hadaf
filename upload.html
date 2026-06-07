@@ -5,9 +5,9 @@
 <title>آپلود خبر</title>
 
 <style>
-body { font-family: sans-serif; background:#f2f2f2; padding:20px; }
-input, textarea { width:100%; margin:10px 0; padding:10px; }
-button { padding:10px; background:black; color:white; border:none; }
+body { font-family:sans-serif; padding:20px; background:#f2f2f2; }
+input, textarea { width:100%; padding:10px; margin:10px 0; }
+button { width:100%; padding:10px; background:black; color:white; border:none; }
 </style>
 </head>
 
@@ -22,37 +22,31 @@ button { padding:10px; background:black; color:white; border:none; }
 <button onclick="upload()">ارسال</button>
 
 <script>
-async function upload() {
+const API = "https://script.google.com/macros/s/AKfycbwEF4ywacnChYT_fyCw3mQCzHvQhOFEBJs-vd2z9TTqSXG_RgDoQxy_vsPza-20baHc/exec";
+
+function upload() {
+
   const title = document.getElementById("title").value;
   const desc = document.getElementById("desc").value;
   const file = document.getElementById("image").files[0];
 
-  let imageData = "";
+  const reader = new FileReader();
 
-  if (file) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  reader.onload = function () {
 
-    reader.onload = async function () {
-      imageData = reader.result;
+    fetch(API, {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        desc,
+        image: file ? reader.result : ""
+      })
+    }).then(() => alert("خبر ثبت شد"));
 
-      sendData(title, desc, imageData);
-    };
-  } else {
-    sendData(title, desc, "");
-  }
-}
+  };
 
-function sendData(title, desc, image) {
-
-  fetch("YOUR_APPS_SCRIPT_URL", {
-    method: "POST",
-    body: JSON.stringify({ title, desc, image })
-  })
-  .then(res => res.text())
-  .then(data => {
-    alert("خبر ارسال شد!");
-  });
+  if (file) reader.readAsDataURL(file);
+  else reader.onload();
 }
 </script>
 
