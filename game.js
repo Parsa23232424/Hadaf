@@ -68,7 +68,7 @@ async function loadNews() {
     html += `
       <div style="border:1px solid #ccc;padding:10px;margin:10px;">
         <h3>${n.title}</h3>
-        <p>${n.desc}</p>
+        <p>${n.desc || ""}</p>
       </div>
     `;
   });
