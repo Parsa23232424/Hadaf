@@ -12,16 +12,10 @@ body{
   padding:20px;
 }
 
-h2{
-  text-align:center;
-}
-
 input, textarea{
   width:100%;
   padding:12px;
   margin:10px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
 }
 
 button{
@@ -30,7 +24,6 @@ button{
   background:black;
   color:white;
   border:none;
-  border-radius:8px;
 }
 </style>
 </head>
@@ -43,24 +36,20 @@ button{
 <textarea id="desc" placeholder="توضیحات"></textarea>
 <input type="file" id="image">
 
-<button onclick="upload()">ارسال</button>
+<button id="sendBtn">ارسال</button>
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
+document.getElementById("sendBtn").addEventListener("click", upload);
+
 function upload() {
 
-  const title = document.getElementById("title").value.trim();
-  const desc = document.getElementById("desc").value.trim();
-  const fileInput = document.getElementById("image");
-  const file = fileInput.files[0];
+  const title = document.getElementById("title").value;
+  const desc = document.getElementById("desc").value;
+  const file = document.getElementById("image").files[0];
 
-  if (!title && !desc && !file) {
-    alert("لطفاً چیزی وارد کن");
-    return;
-  }
-
-  const send = (imageData) => {
+  const send = (img) => {
 
     fetch(API, {
       method: "POST",
@@ -68,13 +57,30 @@ function upload() {
         "Content-Type": "text/plain;charset=utf-8"
       },
       body: JSON.stringify({
-        title: title,
-        desc: desc,
-        image: imageData || ""
+        title,
+        desc,
+        image: img || ""
       })
     })
-    .then(res => res.text())
-    .then(res => {
-      if (res.includes("ERROR")) {
-        alert("خطا در سرور ❌");
-      }
+    .then(r => r.text())
+    .then(r => {
+      alert("خبر ثبت شد ✔");
+    })
+    .catch(() => {
+      alert("خطا در ارسال ❌");
+    });
+
+  };
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => send(reader.result);
+    reader.readAsDataURL(file);
+  } else {
+    send("");
+  }
+}
+</script>
+
+</body>
+</html>
