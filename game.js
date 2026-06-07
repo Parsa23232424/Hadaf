@@ -31,7 +31,7 @@ target.addEventListener('click', () => {
 });
 
 function startGame() {
-    score = 1;
+    score = 0;
     timeLeft = 20;
     scoreDisplay.textContent = score;
     timeDisplay.textContent = timeLeft;
