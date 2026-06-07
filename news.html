@@ -109,8 +109,12 @@ async function loadNews() {
     console.log(e);
   }
 }
-
+const img =
+  (n.image && n.image.includes("http"))
+    ? n.image
+    : "https://via.placeholder.com/400x200?text=No+Image";
 loadNews();
+  
 </script>
 
 </body>
