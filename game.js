@@ -57,33 +57,40 @@ function startGame() {
 }
 async function loadNews() {
 
-  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/gviz/tq?tqx=out:csv&gid=0";
+  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/gviz/tq?tqx=out:json&gid=0";
 
-  const res = await fetch(url);
-  const text = await res.text();
+  try {
 
-  const rows = text.split("\n");
+    const res = await fetch(url);
+    const text = await res.text();
 
-  let html = "";
+    const json = JSON.parse(text.substring(47, text.length - 2));
 
-  for (let i = 1; i < rows.length; i++) {
+    const rows = json.table.rows;
 
-    const cols = rows[i].split(",");
+    let html = "";
 
-    const title = cols[0];
-    const desc = cols[1];
+    for (let i = 0; i < rows.length; i++) {
 
-    if (title && title !== "title") {
-      html += `
-        <div style="border:1px solid #ccc;padding:10px;margin:10px;">
-          <h3>${title}</h3>
-          <p>${desc}</p>
-        </div>
-      `;
+      const title = rows[i].c[0]?.v;
+      const desc = rows[i].c[1]?.v;
+
+      if (title) {
+        html += `
+          <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+            <h3>${title}</h3>
+            <p>${desc || ""}</p>
+          </div>
+        `;
+      }
     }
-  }
 
-  document.getElementById("news").innerHTML = html;
+    document.getElementById("news").innerHTML = html;
+
+  } catch (err) {
+    document.getElementById("news").innerHTML = "❌ خطا در دریافت اخبار";
+    console.log(err);
+  }
 }
 
 loadNews();
