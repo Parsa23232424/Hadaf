@@ -3,12 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>اخبار تکنولوژی 🧠</title>
+
+  <style>
+    .news-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+    }
+  </style>
 </head>
 
 <body>
 
 <h2>🧠 اخبار تکنولوژی</h2>
-<div class="news-item">
+
+<div id="news"></div>
 
 <script>
 async function loadNews() {
@@ -22,7 +31,7 @@ async function loadNews() {
 
   data.forEach(n => {
     html += `
-      <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+      <div class="news-item">
         <h3>${n.title}</h3>
         <p>${n.desc || ""}</p>
       </div>
