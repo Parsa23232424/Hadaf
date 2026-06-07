@@ -57,23 +57,23 @@ function startGame() {
 }
 async function loadNews() {
 
-  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/gviz/tq?tqx=out:json&gid=0";
+  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/gviz/tq?gid=0&tq=";
 
   try {
-
     const res = await fetch(url);
     const text = await res.text();
 
-    const json = JSON.parse(text.substring(47, text.length - 2));
+    // استخراج JSON واقعی
+    const jsonText = text.match(/google.visualization.Query.setResponse\((.*)\);/)[1];
+    const json = JSON.parse(jsonText);
 
     const rows = json.table.rows;
 
     let html = "";
 
-    for (let i = 0; i < rows.length; i++) {
-
-      const title = rows[i].c[0]?.v;
-      const desc = rows[i].c[1]?.v;
+    rows.forEach(r => {
+      const title = r.c[0]?.v;
+      const desc = r.c[1]?.v;
 
       if (title) {
         html += `
@@ -83,13 +83,13 @@ async function loadNews() {
           </div>
         `;
       }
-    }
+    });
 
     document.getElementById("news").innerHTML = html;
 
-  } catch (err) {
-    document.getElementById("news").innerHTML = "❌ خطا در دریافت اخبار";
-    console.log(err);
+  } catch (e) {
+    document.getElementById("news").innerHTML = "❌ خطا در لود اخبار";
+    console.log(e);
   }
 }
 
