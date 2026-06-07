@@ -42,6 +42,7 @@
       height: 200px;
       object-fit: cover;
       background: #ddd;
+      display: block;
     }
 
     .content {
@@ -80,25 +81,33 @@ async function loadNews() {
 
   const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
 
-  const res = await fetch(url);
-  const data = await res.json();
+  try {
+    const res = await fetch(url + "?nocache=" + Date.now());
+    const data = await res.json();
 
-  let html = "";
+    let html = "";
 
-  data.forEach(n => {
-    html += `
-      <div class="card">
-        <img src="https://i.postimg.cc/YSfkqM6c/In-Shot-20260531-135800602.jpg">
+    data.forEach(n => {
 
-        <div class="content">
-          <div class="title">${n.title}</div>
-          <div class="desc">${n.desc}</div>
+      const img = n.image || "https://via.placeholder.com/400x200?text=No+Image";
+
+      html += `
+        <div class="card">
+          <img src="${img}">
+          <div class="content">
+            <div class="title">${n.title}</div>
+            <div class="desc">${n.desc || ""}</div>
+          </div>
         </div>
-      </div>
-    `;
-  });
+      `;
+    });
 
-  document.getElementById("news").innerHTML = html;
+    document.getElementById("news").innerHTML = html;
+
+  } catch (e) {
+    document.getElementById("news").innerHTML = "❌ خطا در لود اخبار";
+    console.log(e);
+  }
 }
 
 loadNews();
