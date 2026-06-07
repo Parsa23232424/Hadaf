@@ -1,111 +1,49 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hadaf News 🧠</title>
+<meta charset="UTF-8">
+<title> Hadaf Tech 🧠 News 🎯</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #f2f2f2;
-    }
-
-    .header {
-      background: #111;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 18px;
-      position: sticky;
-      top: 0;
-    }
-
-    #news {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 10px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background: #ddd;
-    }
-
-    .content {
-      padding: 10px;
-    }
-
-    .title {
-      font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-
-    .desc {
-      font-size: 14px;
-      color: #555;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-    }
-  </style>
+<style>
+body { margin:0; font-family:sans-serif; background:#f2f2f2; }
+.header { background:#111; color:white; padding:15px; text-align:center; }
+.card { background:white; margin:10px; border-radius:10px; overflow:hidden; }
+.card img { width:100%; height:200px; object-fit:cover; }
+.content { padding:10px; }
+</style>
 </head>
 
 <body>
 
-<div class="header">🧠 Hadaf Tech News</div>
-
-<div id="news">
-  <div class="loading">در حال بارگذاری اخبار...</div>
-</div>
+<div class="header">🧠 News</div>
+<div id="news">Loading...</div>
 
 <script>
-async function loadNews() {
+const API = "YOUR_API_URL";
 
-  const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
+async function load() {
 
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
+  const res = await fetch(API);
+  const data = await res.json();
 
-    let html = "";
+  let html = "";
 
-    data.forEach(n => {
-      html += `
-        <div class="card">
-          <img src="${n.image || 'https://via.placeholder.com/400x200'}">
-          <div class="content">
-            <div class="title">${n.title}</div>
-            <div class="desc">${n.desc || ""}</div>
-          </div>
+  data.forEach(n => {
+    html += `
+      <div class="card">
+        <img src="${n.image || 'https://via.placeholder.com/400x200'}">
+        <div class="content">
+          <b>${n.title}</b>
+          <p>${n.desc || ""}</p>
         </div>
-      `;
-    });
+      </div>
+    `;
+  });
 
-    document.getElementById("news").innerHTML = html;
-
-  } catch (e) {
-    document.getElementById("news").innerHTML = "❌ خطا در لود اخبار";
-    console.log(e);
-  }
+  document.getElementById("news").innerHTML = html;
 }
 
-loadNews();
+load();
 </script>
 
 </body>
