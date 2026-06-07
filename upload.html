@@ -22,7 +22,6 @@ input, textarea{
   margin:10px 0;
   border-radius:8px;
   border:1px solid #ccc;
-  font-size:14px;
 }
 
 button{
@@ -32,7 +31,6 @@ button{
   color:white;
   border:none;
   border-radius:8px;
-  font-size:16px;
 }
 </style>
 </head>
@@ -41,14 +39,13 @@ button{
 
 <h2>📤 آپلود خبر</h2>
 
-<input id="title" placeholder="عنوان خبر">
-<textarea id="desc" placeholder="توضیحات خبر"></textarea>
+<input id="title" placeholder="عنوان">
+<textarea id="desc" placeholder="توضیحات"></textarea>
 <input type="file" id="image">
 
 <button onclick="upload()">ارسال</button>
 
 <script>
-
 const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
 function upload() {
@@ -59,11 +56,11 @@ function upload() {
   const file = fileInput.files[0];
 
   if (!title && !desc && !file) {
-    alert("لطفاً اطلاعات وارد کن");
+    alert("لطفاً چیزی وارد کن");
     return;
   }
 
-  const sendData = (img) => {
+  const send = (imageData) => {
 
     fetch(API, {
       method: "POST",
@@ -73,22 +70,19 @@ function upload() {
       body: JSON.stringify({
         title: title,
         desc: desc,
-        image: img || ""
+        image: imageData || ""
       })
     })
     .then(res => res.text())
     .then(res => {
-
       if (res.includes("ERROR")) {
         alert("خطا در سرور ❌");
       } else {
         alert("خبر ثبت شد ✔");
-
         document.getElementById("title").value = "";
         document.getElementById("desc").value = "";
-        document.getElementById("image").value = "";
+        fileInput.value = "";
       }
-
     })
     .catch(() => {
       alert("خطا در اتصال ❌");
@@ -98,13 +92,12 @@ function upload() {
 
   if (file) {
     const reader = new FileReader();
-    reader.onload = () => sendData(reader.result);
+    reader.onload = () => send(reader.result);
     reader.readAsDataURL(file);
   } else {
-    sendData("");
+    send("");
   }
 }
-
 </script>
 
 </body>
