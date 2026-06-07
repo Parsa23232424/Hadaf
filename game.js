@@ -54,3 +54,35 @@ function startGame() {
         }
     }, 1000);
 }
+async function loadNews() {
+
+  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/export?format=csv&gid=0";
+
+  const res = await fetch(url);
+  const text = await res.text();
+
+  const rows = text.split("\n");
+
+  let html = "";
+
+  for (let i = 1; i < rows.length; i++) {
+
+    const cols = rows[i].split(",");
+
+    const title = cols[0];
+    const desc = cols[1];
+
+    if (title) {
+      html += `
+        <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+          <h3>${title}</h3>
+          <p>${desc}</p>
+        </div>
+      `;
+    }
+  }
+
+  document.getElementById("news").innerHTML = html;
+}
+
+loadNews();
