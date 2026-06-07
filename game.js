@@ -56,7 +56,7 @@ function startGame() {
 }
 async function loadNews() {
 
-  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/export?format=csv&gid=0";
+  const url = "https://docs.google.com/spreadsheets/d/1kFAxBtSGbAEcJKumSnYhR2YG4_1RMqQBompriUQ7NwU/gviz/tq?tqx=out:csv&gid=0";
 
   const res = await fetch(url);
   const text = await res.text();
@@ -72,7 +72,7 @@ async function loadNews() {
     const title = cols[0];
     const desc = cols[1];
 
-    if (title) {
+    if (title && title !== "title") {
       html += `
         <div style="border:1px solid #ccc;padding:10px;margin:10px;">
           <h3>${title}</h3>
