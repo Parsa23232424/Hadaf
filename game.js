@@ -55,13 +55,26 @@ function startGame() {
         }
     }, 1000);
 }
+let cachedNews = null;
+
 async function loadNews() {
+
+  if (cachedNews) {
+    renderNews(cachedNews);
+    return;
+  }
 
   const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
 
   const res = await fetch(url);
   const data = await res.json();
 
+  cachedNews = data;
+
+  renderNews(data);
+}
+
+function renderNews(data) {
   let html = "";
 
   data.forEach(n => {
