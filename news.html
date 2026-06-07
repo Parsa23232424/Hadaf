@@ -80,30 +80,24 @@ async function loadNews() {
 
   const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
 
-  try {
-    const res = await fetch(url + "?nocache=" + Date.now());
-    const data = await res.json();
+  const res = await fetch(url);
+  const data = await res.json();
 
-    let html = "";
+  let html = "";
 
-    data.forEach(n => {
-      html += `
-        <div class="card">
-          <img src="${(n.image && n.image.startsWith('http')) ? n.image : 'https://via.placeholder.com/400x200'}">
-          <div class="content">
-            <div class="title">${n.title}</div>
-            <div class="desc">${n.desc || ""}</div>
-          </div>
+  data.forEach(n => {
+    html += `
+      <div class="card">
+        <img src="${n.image}">
+        <div class="content">
+          <div class="title">${n.title}</div>
+          <div class="desc">${n.desc}</div>
         </div>
-      `;
-    });
+      </div>
+    `;
+  });
 
-    document.getElementById("news").innerHTML = html;
-
-  } catch (e) {
-    document.getElementById("news").innerHTML = "❌ خطا در لود اخبار";
-    console.log(e);
-  }
+  document.getElementById("news").innerHTML = html;
 }
 
 loadNews();
