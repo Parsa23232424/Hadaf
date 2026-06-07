@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اخبار تکنولوژی 🧠</title>
+</head>
+
+<body>
+
+<h2>🧠 اخبار تکنولوژی</h2>
+<div id="news"></div>
+
+<script>
+async function loadNews() {
+
+  const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  let html = "";
+
+  data.forEach(n => {
+    html += `
+      <div style="border:1px solid #ccc;padding:10px;margin:10px;">
+        <h3>${n.title}</h3>
+        <p>${n.desc || ""}</p>
+      </div>
+    `;
+  });
+
+  document.getElementById("news").innerHTML = html;
+}
+
+loadNews();
+</script>
+
+</body>
+</html>
