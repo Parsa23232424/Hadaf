@@ -41,8 +41,8 @@
       width: 100%;
       height: 200px;
       object-fit: cover;
-      display: block;
       background: #ddd;
+      display: block;
     }
 
     .content {
@@ -77,6 +77,17 @@
 </div>
 
 <script>
+function fixDriveUrl(url) {
+  if (!url) return "";
+
+  const match = url.match(/[-\w]{25,}/);
+  if (match) {
+    return `https://drive.google.com/uc?export=view&id=${match[0]}`;
+  }
+
+  return url;
+}
+
 async function loadNews() {
 
   const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
@@ -89,13 +100,12 @@ async function loadNews() {
 
     data.forEach(n => {
 
-      const img = (n.image && n.image.includes("http"))
-        ? n.image
-        : "https://via.placeholder.com/400x200?text=No+Image";
+      const img = fixDriveUrl(n.image);
 
       html += `
         <div class="card">
-          <img src="${img}">
+          <img src="${img || 'https://via.placeholder.com/400x200?text=No+Image'}"
+               onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
           <div class="content">
             <div class="title">${n.title}</div>
             <div class="desc">${n.desc || ""}</div>
