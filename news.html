@@ -20,7 +20,6 @@
       font-size: 18px;
       position: sticky;
       top: 0;
-      z-index: 10;
     }
 
     #news {
@@ -42,7 +41,6 @@
       height: 200px;
       object-fit: cover;
       background: #ddd;
-      display: block;
     }
 
     .content {
@@ -73,39 +71,24 @@
 <div class="header">🧠 Hadaf Tech News</div>
 
 <div id="news">
-  <div class="loading">⏳ در حال بارگذاری اخبار...</div>
+  <div class="loading">در حال بارگذاری اخبار...</div>
 </div>
- <img src="https://drive.google.com/uc?export=view&id=1ELF3sDjKQMgL7iTjYjsvOPIea1zeJPwA">
+
 <script>
-function fixDriveUrl(url) {
-  if (!url) return "";
-
-  const match = url.match(/[-\w]{25,}/);
-  if (match) {
-    return `https://drive.google.com/uc?export=view&id=${match[0]}`;
-  }
-
-  return url;
-}
-
 async function loadNews() {
 
   const url = "https://script.google.com/macros/s/AKfycbwsN8_iEVf3ti3_9AufI5Vg3-QyG3TvVBXOWIgsuKoU-JNf7_0MVn02AKSbNMZsp63RYw/exec";
 
   try {
-    const res = await fetch(url + "?nocache=" + Date.now());
+    const res = await fetch(url);
     const data = await res.json();
 
     let html = "";
 
     data.forEach(n => {
-
-      const img = fixDriveUrl(n.image);
-
       html += `
         <div class="card">
-          <img src="${img || 'https://via.placeholder.com/400x200?text=No+Image'}"
-               onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
+          <img src="${n.image || 'https://via.placeholder.com/400x200'}">
           <div class="content">
             <div class="title">${n.title}</div>
             <div class="desc">${n.desc || ""}</div>
