@@ -46,3 +46,8 @@ body {
     border-radius: 10px;
     cursor: pointer;
 }
+.news-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+}
