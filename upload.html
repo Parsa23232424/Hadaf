@@ -6,29 +6,31 @@
 <title>آپلود خبر</title>
 
 <style>
-body {
-  font-family: sans-serif;
-  background: #f2f2f2;
-  padding: 20px;
+body{
+  font-family:sans-serif;
+  background:#f2f2f2;
+  padding:20px;
 }
 
-h2 { text-align: center; }
-
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+h2{
+  text-align:center;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 8px;
+input, textarea{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:black;
+  color:white;
+  border:none;
+  border-radius:8px;
 }
 </style>
 </head>
@@ -44,16 +46,21 @@ button {
 <button onclick="upload()">ارسال</button>
 
 <script>
-
 const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
 function upload() {
 
-  const title = document.getElementById("title").value;
-  const desc = document.getElementById("desc").value;
-  const file = document.getElementById("image").files[0];
+  const title = document.getElementById("title").value.trim();
+  const desc = document.getElementById("desc").value.trim();
+  const fileInput = document.getElementById("image");
+  const file = fileInput.files[0];
 
-  const send = (img) => {
+  if (!title && !desc && !file) {
+    alert("لطفاً چیزی وارد کن");
+    return;
+  }
+
+  const send = (imageData) => {
 
     fetch(API, {
       method: "POST",
@@ -61,33 +68,13 @@ function upload() {
         "Content-Type": "text/plain;charset=utf-8"
       },
       body: JSON.stringify({
-        title,
-        desc,
-        image: img
+        title: title,
+        desc: desc,
+        image: imageData || ""
       })
     })
     .then(res => res.text())
     .then(res => {
-      console.log(res);
-      alert("خبر ثبت شد ✔");
-    })
-    .catch(err => {
-      console.log(err);
-      alert("خطا در ارسال ❌");
-    });
-
-  };
-
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = () => send(reader.result);
-    reader.readAsDataURL(file);
-  } else {
-    send("");
-  }
-}
-
-</script>
-
-</body>
-</html>
+      if (res.includes("ERROR")) {
+        alert("خطا در سرور ❌");
+      }
