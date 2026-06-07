@@ -32,12 +32,7 @@ target.addEventListener('click', () => {
 
 function startGame() {
     alert("پارسا تهامی پور در حال حل مشکل است لطفا شکیبا باشید👨‍💻")
-    score = 0;
-    timeLeft = 20;
-    scoreDisplay.textContent = score;
-    timeDisplay.textContent = timeLeft;
-    startBtn.style.display = 'none';
-    target.style.display = 'block';
+    
      
     moveTarget();
 
