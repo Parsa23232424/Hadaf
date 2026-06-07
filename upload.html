@@ -2,12 +2,36 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>آپلود خبر</title>
 
 <style>
-body { font-family:sans-serif; padding:20px; background:#f2f2f2; }
-input, textarea { width:100%; padding:10px; margin:10px 0; }
-button { width:100%; padding:10px; background:black; color:white; border:none; }
+body {
+  font-family: sans-serif;
+  background: #f2f2f2;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
 </style>
 </head>
 
@@ -18,11 +42,11 @@ button { width:100%; padding:10px; background:black; color:white; border:none; }
 <input id="title" placeholder="عنوان">
 <textarea id="desc" placeholder="توضیحات"></textarea>
 <input type="file" id="image">
+
 <button onclick="upload()">ارسال</button>
 
-
 <script>
-const API = "https://script.google.com/macros/s/AKfycbw5kO0QPb0rkCLfh2rgzCZM_dnyc57WZG-yAJOipnJ4MmRSgt2jnK7Be6WnbExCrxB1lQ/exec";
+const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
 function upload() {
 
@@ -30,22 +54,23 @@ function upload() {
   const desc = document.getElementById("desc").value;
   const file = document.getElementById("image").files[0];
 
-  const sendData = (img) => {
+  const send = (img) => {
+
     fetch(API, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "text/plain;charset=utf-8"
       },
       body: JSON.stringify({
-        title,
-        desc,
-        image: img || ""
+        title: title,
+        desc: desc,
+        image: img
       })
     })
     .then(res => res.text())
-    .then(data => {
-      console.log(data);
-      alert("خبر ثبت شد!");
+    .then(res => {
+      console.log(res);
+      alert("خبر ثبت شد ✔");
     })
     .catch(err => {
       console.log(err);
@@ -55,10 +80,13 @@ function upload() {
 
   if (file) {
     const reader = new FileReader();
-    reader.onload = () => sendData(reader.result);
+    reader.onload = () => send(reader.result);
     reader.readAsDataURL(file);
   } else {
-    sendData("");
+    send("");
   }
 }
 </script>
+
+</body>
+</html>
