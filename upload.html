@@ -52,50 +52,45 @@ function upload() {
 
   const title = document.getElementById("title").value.trim();
   const desc = document.getElementById("desc").value.trim();
-  const fileInput = document.getElementById("image");
-  const file = fileInput.files[0];
+  const file = document.getElementById("image").files[0];
 
   if (!title && !desc && !file) {
     alert("لطفاً چیزی وارد کن");
     return;
   }
 
-  const send = (imageData) => {
+  const sendData = (imageData) => {
+
+    const data = {
+      title: title,
+      desc: desc,
+      image: imageData || ""
+    };
 
     fetch(API, {
       method: "POST",
+      mode: "no-cors",   // مهم برای مشکل CORS
       headers: {
-        "Content-Type": "text/plain;charset=utf-8"
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        title: title,
-        desc: desc,
-        image: imageData || ""
-      })
-    })
-    .then(res => res.text())
-    .then(res => {
-      if (res.includes("ERROR")) {
-        alert("خطا در سرور ❌");
-      } else {
-        alert("خبر ثبت شد ✔");
-        document.getElementById("title").value = "";
-        document.getElementById("desc").value = "";
-        fileInput.value = "";
-      }
-    })
-    .catch(() => {
-      alert("خطا در اتصال ❌");
+      body: JSON.stringify(data)
     });
+
+    alert("درخواست ارسال شد ✔");
+
+    // پاک کردن فرم
+    document.getElementById("title").value = "";
+    document.getElementById("desc").value = "";
+    document.getElementById("image").value = "";
 
   };
 
   if (file) {
     const reader = new FileReader();
-    reader.onload = () => send(reader.result);
+    reader.onload = () => sendData(reader.result);
     reader.readAsDataURL(file);
   } else {
-    send("");
+    sendData("");
   }
 }
 </script>
