@@ -19,22 +19,31 @@ body { margin:0; font-family:sans-serif; background:#f2f2f2; }
 <div id="news">Loading...</div>
 
 <script>
-const API = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnQiphSaiZwSQV9AHM6IuB_LtbKi5NVLvLamwhcyNpMzkEpNcH8IHWYHsHn7FzKWTypRjV8j_jMtWz6Lq_AcCypfK2ZQ8LVZ5e65pt80SlKEl4bu3fZt9RthKrU4q7CIhxh-3wDGFZEEXmRCUAV6S4KOEdLX8teo4IsMCbm0hsA2pV8evzSzX0UGHkZgsLlnYxVglAIG_eM9H_hZ-9vbXiWOlCdiGVOlKok0AIaYA7AqhrW7fLZiHYv1QH-mawFDrqutTKMFPY7HImBL1ApJQMYmuErPoQ&lib=MMpfL_QYt-Eruxoopyt9t-j8gKJ1jhRyL";
+const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
 async function load() {
-  try {
-    const res = await fetch(API);
-    const text = await res.text();
 
-    document.getElementById("news").innerHTML =
-      "✅ API جواب داد: " + text.slice(0, 100);
-  } catch (e) {
-    document.getElementById("news").innerHTML =
-      "❌ خطا در API";
-  }
+  const res = await fetch(API);
+  const data = await res.json();
+
+  let html = "";
+
+  data.forEach(n => {
+    html += `
+      <div class="card">
+        <img src="${n.image || 'https://via.placeholder.com/400x200'}">
+        <div class="content">
+          <b>${n.title}</b>
+          <p>${n.desc || ""}</p>
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById("news").innerHTML = html;
 }
 
-load();;
+load();
 </script>
 
 </body>
