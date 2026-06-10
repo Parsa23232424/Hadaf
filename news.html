@@ -2,8 +2,9 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title> Hadaf Tech 🧠 News 🎯</title>
- <link rel="icon" href="logo.ico" type="image/x-icon">
+<title>Hadaf Tech 🧠 News 🎯</title>
+<link rel="icon" href="logo.ico" type="image/x-icon">
+
 <style>
 body { margin:0; font-family:sans-serif; background:#f2f2f2; }
 .header { background:#111; color:white; padding:15px; text-align:center; }
@@ -19,34 +20,33 @@ body { margin:0; font-family:sans-serif; background:#f2f2f2; }
 <div id="news">Loading...</div>
 
 <script>
- 
-fetch("data.json")
-  .then(res => res.json())
-  .then(data => {
-    document.body.innerHTML += JSON.stringify(data);
-  });
 const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
 async function load() {
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
 
-  const res = await fetch(API);
-  const data = await res.json();
+    let html = "";
 
-  let html = "";
-
-  data.forEach(n => {
-    html += `
-      <div class="card">
-        <img src="${n.image || 'https://via.placeholder.com/400x200'}">
-        <div class="content">
-          <b>${n.title}</b>
-          <p>${n.desc || ""}</p>
+    data.forEach(n => {
+      html += `
+        <div class="card">
+          <img src="${n.image || 'https://via.placeholder.com/400x200'}">
+          <div class="content">
+            <b>${n.title}</b>
+            <p>${n.desc || ""}</p>
+          </div>
         </div>
-      </div>
-    `;
-  });
+      `;
+    });
 
-  document.getElementById("news").innerHTML = html;
+    document.getElementById("news").innerHTML = html;
+
+  } catch (err) {
+    document.getElementById("news").innerHTML = "خطا در لود خبرها 😢";
+    console.error(err);
+  }
 }
 
 load();
