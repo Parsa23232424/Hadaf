@@ -20,12 +20,9 @@ body { margin:0; font-family:sans-serif; background:#f2f2f2; }
 <div id="news">Loading...</div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
-
-async function load() {
-  try {
-    const res = await fetch(API);
-    const data = await res.json();
+fetch("data.json")
+  .then(res => res.json())
+  .then(data => {
 
     let html = "";
 
@@ -43,13 +40,11 @@ async function load() {
 
     document.getElementById("news").innerHTML = html;
 
-  } catch (err) {
-    document.getElementById("news").innerHTML = "خطا در لود خبرها 😢";
+  })
+  .catch(err => {
+    document.getElementById("news").innerHTML = "خطا در لود دیتا 😢";
     console.error(err);
-  }
-}
-
-load();
+  });
 </script>
 
 </body>
