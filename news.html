@@ -19,6 +19,12 @@ body { margin:0; font-family:sans-serif; background:#f2f2f2; }
 <div id="news">Loading...</div>
 
 <script>
+ 
+fetch("data.json")
+  .then(res => res.json())
+  .then(data => {
+    document.body.innerHTML += JSON.stringify(data);
+  });
 const API = "https://script.google.com/macros/s/AKfycbzA97rZ33__TQLxg9AfXex6cHPq-N-3yTMvaejfT9Rj_mTSV7hRhrs3tdDeAQhtjwf-tw/exec";
 
 async function load() {
