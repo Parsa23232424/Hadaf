@@ -2,47 +2,55 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hadaf Tech 🧠 News 🎯</title>
 <link rel="icon" href="logo.ico" type="image/x-icon">
 
 <style>
-body { margin:0; font-family:sans-serif; background:#f2f2f2; }
-.header { background:#111; color:white; padding:15px; text-align:center; }
-.card { background:white; margin:10px; border-radius:10px; overflow:hidden; }
-.card img { width:100%; height:200px; object-fit:cover; }
-.content { padding:10px; }
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f2f2f2;
+}
+
+.header {
+    background: #111;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.card {
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.content {
+    padding: 10px;
+}
+
+.content b {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
 </style>
 </head>
 
-<body>
-
-<div class="header">🧠 News</div>
-<div id = "loading"></div>
-<script>
- fetch("data.json")  
-  .then(res => res.json())
-  .then(data => {
-
-    let html = "";
-
-    data.forEach(n => {
-      html += `
-        <div class="card">
-          <img src="${n.image || 'https://via.placeholder.com/400x200'}">
-          <div class="content">
-            <b>${n.title}</b>
-            <p>${n.desc || ""}</p>
-          </div>
-        </div>
-      `;
-    });
-
-    document.getElementById("news").innerHTML = html;
-
-  })
-
-  });
-</script>
-
-</body>
-</html>
+<body
