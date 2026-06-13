@@ -53,4 +53,45 @@ body {
 </style>
 </head>
 
-<body
+<body>
+
+<div class="header">🧠 News</div>
+
+<div id="news">
+    <div class="loading">در حال بارگذاری اخبار...</div>
+</div>
+
+<script>
+fetch("data.json")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("خطا در دریافت فایل data.json");
+        }
+        return response.json();
+    })
+    .then(data => {
+        let html = "";
+
+        data.forEach(news => {
+            html += `
+            <div class="card">
+                <img src="${news.image || 'https://via.placeholder.com/400x200'}" alt="">
+                <div class="content">
+                    <b>${news.title || 'بدون عنوان'}</b>
+                    <p>${news.desc || ''}</p>
+                </div>
+            </div>
+            `;
+        });
+
+        document.getElementById("news").innerHTML = html;
+    })
+    .catch(error => {
+        console.error(error);
+        document.getElementById("news").innerHTML =
+            "<div class='loading'>❌ خطا در بارگذاری اخبار</div>";
+    });
+</script>
+
+</body>
+</html>
