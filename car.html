@@ -10,57 +10,154 @@ body{
     color:white;
     text-align:center;
     font-family:tahoma;
+    margin:0;
+}
+
+h1{
+    margin-top:10px;
 }
 
 canvas{
-    background:#444;
+    background:#2a2a2a;
     border:3px solid white;
+    margin-top:10px;
+}
+
+.controls{
+    margin-top:15px;
+}
+
+button{
+    font-size:24px;
+    padding:10px 20px;
+    margin:5px;
+    cursor:pointer;
 }
 </style>
-
 </head>
+
 <body>
 
 <h1>🚗 ماشین‌بازی</h1>
 
+<div>
+🏆 امتیاز:
+<span id="score">0</span>
+</div>
+
 <canvas id="game" width="400" height="600"></canvas>
 
-<br><br>
-
+<div class="controls">
 <button onclick="moveLeft()">⬅️</button>
 <button onclick="moveRight()">➡️</button>
+</div>
 
 <script>
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let carX = 170;
+let score = 0;
 
+let car = {
+    x:170,
+    y:500,
+    width:60,
+    height:100
+};
+
+let roadOffset = 0;
+
+// کنترل کیبورد
 document.addEventListener("keydown",(e)=>{
-    if(e.key==="ArrowLeft") moveLeft();
-    if(e.key==="ArrowRight") moveRight();
+
+    if(e.key==="ArrowLeft"){
+        moveLeft();
+    }
+
+    if(e.key==="ArrowRight"){
+        moveRight();
+    }
+
 });
 
 function moveLeft(){
-    carX -= 15;
+
+    if(car.x > 105){
+        car.x -= 20;
+    }
+
 }
 
 function moveRight(){
-    carX += 15;
+
+    if(car.x < 235){
+        car.x += 20;
+    }
+
 }
+
+// افزایش امتیاز
+setInterval(()=>{
+
+    score++;
+
+    document.getElementById("score").innerText = score;
+
+},1000);
 
 function draw(){
 
     ctx.clearRect(0,0,400,600);
 
+    // چمن کنار جاده
+    ctx.fillStyle = "green";
+    ctx.fillRect(0,0,100,600);
+    ctx.fillRect(300,0,100,600);
+
     // جاده
-    ctx.fillStyle="#555";
+    ctx.fillStyle = "#555";
     ctx.fillRect(100,0,200,600);
 
+    // خط وسط متحرک
+    ctx.fillStyle = "white";
+
+    for(let y=-40;y<600;y+=80){
+
+        ctx.fillRect(
+            195,
+            y + roadOffset,
+            10,
+            40
+        );
+
+    }
+
+    roadOffset += 6;
+
+    if(roadOffset >= 80){
+        roadOffset = 0;
+    }
+
     // ماشین
-    ctx.fillStyle="red";
-    ctx.fillRect(carX,500,60,100);
+    ctx.fillStyle = "red";
+
+    ctx.fillRect(
+        car.x,
+        car.y,
+        car.width,
+        car.height
+    );
+
+    // شیشه
+    ctx.fillStyle = "#87CEEB";
+
+    ctx.fillRect(
+        car.x + 10,
+        car.y + 15,
+        40,
+        25
+    );
 
     requestAnimationFrame(draw);
 }
