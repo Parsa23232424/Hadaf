@@ -24,6 +24,7 @@ button{
     font-size:24px;
     padding:10px 20px;
     margin:5px;
+    cursor:pointer;
 }
 
 #gameOver{
@@ -31,6 +32,10 @@ button{
     font-size:40px;
     color:red;
     margin-top:10px;
+}
+
+#restartBtn{
+    display:none;
 }
 </style>
 </head>
@@ -48,6 +53,12 @@ button{
 💥 GAME OVER 💥
 </div>
 
+<button id="restartBtn" onclick="restartGame()">
+🔄 بازی دوباره
+</button>
+
+<br>
+
 <canvas id="game" width="400" height="600"></canvas>
 
 <br>
@@ -62,6 +73,7 @@ const ctx = canvas.getContext("2d");
 
 let score = 0;
 let gameRunning = true;
+let roadOffset = 0;
 
 let car = {
     x:170,
@@ -77,9 +89,9 @@ let enemy = {
     height:100
 };
 
-let roadOffset = 0;
-
 document.addEventListener("keydown",(e)=>{
+    if(!gameRunning) return;
+
     if(e.key==="ArrowLeft") moveLeft();
     if(e.key==="ArrowRight") moveRight();
 });
@@ -106,11 +118,30 @@ function collision(a,b){
 }
 
 setInterval(()=>{
+
     if(gameRunning){
         score++;
         document.getElementById("score").innerText = score;
     }
+
 },1000);
+
+function restartGame(){
+
+    score = 0;
+    gameRunning = true;
+
+    document.getElementById("score").innerText = 0;
+    document.getElementById("gameOver").style.display = "none";
+    document.getElementById("restartBtn").style.display = "none";
+
+    car.x = 170;
+
+    enemy.y = -100;
+    enemy.x = 100 + Math.random()*140;
+
+    draw();
+}
 
 function draw(){
 
@@ -144,6 +175,10 @@ function draw(){
     ctx.fillStyle="red";
     ctx.fillRect(car.x,car.y,car.width,car.height);
 
+    // شیشه
+    ctx.fillStyle="skyblue";
+    ctx.fillRect(car.x+10,car.y+15,40,25);
+
     // ماشین دشمن
     ctx.fillStyle="blue";
     ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
@@ -158,7 +193,10 @@ function draw(){
     // برخورد
     if(collision(car,enemy)){
         gameRunning = false;
-        document.getElementById("gameOver").style.display="block";
+
+        document.getElementById("gameOver").style.display = "block";
+        document.getElementById("restartBtn").style.display = "inline-block";
+
         return;
     }
 
@@ -171,5 +209,4 @@ draw();
 
 </body>
 </html>
-```
 
