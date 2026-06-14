@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -13,25 +14,23 @@ body{
     margin:0;
 }
 
-h1{
-    margin-top:10px;
-}
-
 canvas{
     background:#2a2a2a;
     border:3px solid white;
     margin-top:10px;
 }
 
-.controls{
-    margin-top:15px;
-}
-
 button{
     font-size:24px;
     padding:10px 20px;
     margin:5px;
-    cursor:pointer;
+}
+
+#gameOver{
+    display:none;
+    font-size:40px;
+    color:red;
+    margin-top:10px;
 }
 </style>
 </head>
@@ -45,12 +44,16 @@ button{
 <span id="score">0</span>
 </div>
 
+<div id="gameOver">
+💥 GAME OVER 💥
+</div>
+
 <canvas id="game" width="400" height="600"></canvas>
 
-<div class="controls">
+<br>
+
 <button onclick="moveLeft()">⬅️</button>
 <button onclick="moveRight()">➡️</button>
-</div>
 
 <script>
 
@@ -58,6 +61,7 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 let score = 0;
+let gameRunning = true;
 
 let car = {
     x:170,
@@ -66,71 +70,68 @@ let car = {
     height:100
 };
 
+let enemy = {
+    x:100 + Math.random()*140,
+    y:-100,
+    width:60,
+    height:100
+};
+
 let roadOffset = 0;
 
-// کنترل کیبورد
 document.addEventListener("keydown",(e)=>{
-
-    if(e.key==="ArrowLeft"){
-        moveLeft();
-    }
-
-    if(e.key==="ArrowRight"){
-        moveRight();
-    }
-
+    if(e.key==="ArrowLeft") moveLeft();
+    if(e.key==="ArrowRight") moveRight();
 });
 
 function moveLeft(){
-
     if(car.x > 105){
         car.x -= 20;
     }
-
 }
 
 function moveRight(){
-
     if(car.x < 235){
         car.x += 20;
     }
-
 }
 
-// افزایش امتیاز
+function collision(a,b){
+    return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+    );
+}
+
 setInterval(()=>{
-
-    score++;
-
-    document.getElementById("score").innerText = score;
-
+    if(gameRunning){
+        score++;
+        document.getElementById("score").innerText = score;
+    }
 },1000);
 
 function draw(){
 
+    if(!gameRunning) return;
+
     ctx.clearRect(0,0,400,600);
 
-    // چمن کنار جاده
-    ctx.fillStyle = "green";
+    // چمن
+    ctx.fillStyle="green";
     ctx.fillRect(0,0,100,600);
     ctx.fillRect(300,0,100,600);
 
     // جاده
-    ctx.fillStyle = "#555";
+    ctx.fillStyle="#555";
     ctx.fillRect(100,0,200,600);
 
-    // خط وسط متحرک
-    ctx.fillStyle = "white";
+    // خط وسط
+    ctx.fillStyle="white";
 
     for(let y=-40;y<600;y+=80){
-
-        ctx.fillRect(
-            195,
-            y + roadOffset,
-            10,
-            40
-        );
-
+        ctx.fillRect(195,y+roadOffset,10,40);
     }
 
     roadOffset += 6;
@@ -139,25 +140,27 @@ function draw(){
         roadOffset = 0;
     }
 
-    // ماشین
-    ctx.fillStyle = "red";
+    // ماشین بازیکن
+    ctx.fillStyle="red";
+    ctx.fillRect(car.x,car.y,car.width,car.height);
 
-    ctx.fillRect(
-        car.x,
-        car.y,
-        car.width,
-        car.height
-    );
+    // ماشین دشمن
+    ctx.fillStyle="blue";
+    ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
 
-    // شیشه
-    ctx.fillStyle = "#87CEEB";
+    enemy.y += 7;
 
-    ctx.fillRect(
-        car.x + 10,
-        car.y + 15,
-        40,
-        25
-    );
+    if(enemy.y > 650){
+        enemy.y = -100;
+        enemy.x = 100 + Math.random()*140;
+    }
+
+    // برخورد
+    if(collision(car,enemy)){
+        gameRunning = false;
+        document.getElementById("gameOver").style.display="block";
+        return;
+    }
 
     requestAnimationFrame(draw);
 }
@@ -168,3 +171,5 @@ draw();
 
 </body>
 </html>
+```
+
