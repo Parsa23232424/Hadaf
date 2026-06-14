@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>ماشین‌بازی</title>
+
+<style>
+body{
+    background:#222;
+    color:white;
+    text-align:center;
+    font-family:tahoma;
+}
+
+canvas{
+    background:#444;
+    border:3px solid white;
+}
+</style>
+
+</head>
+<body>
+
+<h1>🚗 ماشین‌بازی</h1>
+
+<canvas id="game" width="400" height="600"></canvas>
+
+<br><br>
+
+<button onclick="moveLeft()">⬅️</button>
+<button onclick="moveRight()">➡️</button>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let carX = 170;
+
+document.addEventListener("keydown",(e)=>{
+    if(e.key==="ArrowLeft") moveLeft();
+    if(e.key==="ArrowRight") moveRight();
+});
+
+function moveLeft(){
+    carX -= 15;
+}
+
+function moveRight(){
+    carX += 15;
+}
+
+function draw(){
+
+    ctx.clearRect(0,0,400,600);
+
+    // جاده
+    ctx.fillStyle="#555";
+    ctx.fillRect(100,0,200,600);
+
+    // ماشین
+    ctx.fillStyle="red";
+    ctx.fillRect(carX,500,60,100);
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
