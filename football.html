@@ -72,7 +72,7 @@ header {
 <script>
 async function loadMatches() {
   try {
-    const res = await fetch("/api/live");
+    const res = await fetch("/api/api");
     const data = await res.json();
 
     const container = document.getElementById("matches");
