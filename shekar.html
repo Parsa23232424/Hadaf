@@ -2,15 +2,79 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0>
-     
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e3a8a, #0f172a);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-  
+#game-container {
+    text-align: center;
+    position: relative;
+}
+
+#ui {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+#target {
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, #facc15, #f97316);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    transition: 0.2s;
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.7);
+}
+
+#target:hover {
+    transform: scale(1.1);
+}
+
+#start-btn {
+    margin-top: 30px;
+    padding: 12px 25px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    background: #22c55e;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(34,197,94,0.4);
+}
+
+#start-btn:hover {
+    background: #16a34a;
+    transform: scale(1.05);
+}
+  </style>
 
 </head>
+
 <body>
-    <div id="game-container">
+
+<div id="game-container">
     <div id="ui">
         امتیاز: <span id="score">0</span> | زمان: <span id="time">20</span> ثانیه
     </div>
@@ -19,5 +83,6 @@
 
     <button id="start-btn" onclick="startGame()">▶️</button>
 </div>
+
 </body>
-    </html>
+</html>
