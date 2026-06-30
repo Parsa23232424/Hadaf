@@ -1,92 +1,78 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>هدف</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="logo.ico" type="image/x-icon">
-    <meta name="google-site-verification" content="F1Hp034Gn3CETRBPHF-vsaZBKmsWe4ucffevrOMzfP4" />
-    
+<meta charset="UTF-8">
+<title>بازی شکار هدف 🏹</title>
 
-<body style=
-  "  body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #1e3a8a, #2563eb);
-  color: white;
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
 }
 
 /* هدر */
 header {
-  text-align: center;
-  padding: 20px;
-  font-size: 28px;
-  font-weight: bold;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+    text-align: center;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 /* کانتینر */
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
 }
 
-/* کارت بازی */
-.card {
-  background: rgba(255, 255, 255, 0.12);
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  transition: 0.3s;
+/* دکمه‌ها */
+.btn {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 18px;
+
+    background: #22c55e; /* سبز */
+    color: white;
+
+    transition: 0.3s;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.18);
+.btn:hover {
+    background: #16a34a;
+    transform: scale(1.05);
 }
+</style>
 
-/* تیم‌ها */
-.team {
-  font-size: 20px;
-  font-weight: bold;
-}
+</head>
 
-/* امتیاز */
-.score {
-  font-size: 18px;
-  margin-top
-   .a {
-   color:"black"
-   
-       
-   } 
-    
-    
-    ">
+<body>
 
+<header>
+    بازی شکار هدف 🏹
+</header>
 
+<div class="container">
 
-<a href="news.html">
-  🧠 رفتن به اخبار تکنولوژی
-</a>
-     <a href="https://daramet.com/parsa2323" class="a">
-     حمایت
- </a>
-    <a href="car.html"> 
-        رفتن به ماشین بازی
-    </a>
-    <a href="football.html" class="a">
-     رفتن به لایو فوتبال   
-    </a>
-        
-    
+    <a href="news.html" class="btn">🧠 رفتن به اخبار تکنولوژی</a>
 
-    <script src="game.js"></script>
+    <a href="https://daramet.com/parsa2323" class="btn">💚 حمایت</a>
+
+    <a href="car.html" class="btn">🚗 رفتن به ماشین بازی</a>
+
+    <a href="football.html" class="btn">⚽ رفتن به لایو فوتبال</a>
+
+</div>
+
+<script src="game.js"></script>
 
 </body>
 </html>
