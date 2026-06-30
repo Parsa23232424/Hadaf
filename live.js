@@ -5,7 +5,7 @@ export async function GET() {
       {
         method: "GET",
         headers: {
-          "x-apisports-key": process.env.FOOTBALL_API_KEY
+          "x-apisports-key": process.env.cfff451286add902c5d0704851db46c5
         }
       }
     );
