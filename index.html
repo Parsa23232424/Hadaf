@@ -57,7 +57,7 @@ header {
 <body>
 
 <header>
-    بازی شکار هدف 🏹
+      به سوپر اپلیکیشن هدف خوش آمدید
 </header>
 
 <div class="container">
@@ -68,11 +68,15 @@ header {
 
     <a href="car.html" class="btn">🚗 رفتن به ماشین بازی</a>
 
-    <a href="football.html" class="btn">(آزمایشی درست نیست)⚽ رفتن به لایو فوتبال</a>
+    <a id="football" class="btn">(آزمایشی درست نیست)⚽ رفتن به لایو فوتبال</a>
 
 </div>
 
 <script src="game.js"></script>
-
+<script>
+    if (onclick(football)) {
+     alert("لطفا باز نکنید")
+    }
+</script>
 </body>
 </html>
