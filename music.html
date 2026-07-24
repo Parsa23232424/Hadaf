@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پارسا موزیک - Parsa music</title>
+    <title>پارسا موزیک - جستجوی آهنگ ایرانی</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -130,7 +130,7 @@
     <div class="container">
         <header>
             <div class="logo">🎵 پارسا <span>موزیک</span></div>
-            <div style="font-size:0.9rem;color:#888;">جستجوی آهنگ ایرانی</div>
+            <div style="font-size:0.9rem;color:#888;">جستجوی آهنگ با One-api.ir</div>
         </header>
 
         <div class="search-section">
@@ -144,8 +144,8 @@
 
     <script>
         // ============================================================
-        //  جستجو در سایت‌های ایرانی (با استفاده از API یکپارچه)
-        //  در اینجا از one-api.ir استفاده میکنیم که APIهای ایرانی رو جمع کرده
+        //  استفاده از One-api.ir که جدیداً آپدیت شده
+        //  این API از ساندکلاود برای جستجوی آهنگ ایرانی استفاده میکنه [citation:3]
         // ============================================================
 
         const searchInput = document.getElementById('search-input');
@@ -153,18 +153,13 @@
         const resultsGrid = document.getElementById('results-grid');
         const messageBox = document.getElementById('message-box');
 
-        // ============================================================
-        //  جستجو با استفاده از API یکپارچه ایرانی
-        // ============================================================
-
-        async function searchIranianMusic(query) {
+        async function searchMusic(query) {
             try {
-                showMessage('در حال جستجو در بانک‌های موسیقی ایرانی...', 'loading');
+                showMessage('در حال جستجو در One-api.ir...', 'loading');
                 resultsGrid.innerHTML = '';
 
-                // استفاده از one-api.ir برای جستجوی آهنگ ایرانی [citation:1]
-                // این API اطلاعات آهنگ‌های ایرانی رو از منابع معتبر جمع‌آوری کرده
-                const url = `https://one-api.ir/music/?action=search&q=${encodeURIComponent(query)}`;
+                // طبق آپدیت جدید One-api.ir [citation:3]
+                const url = `https://one-api.ir/api-soundcloud/?action=search&q=${encodeURIComponent(query)}`;
 
                 const response = await fetch(url);
                 
@@ -173,13 +168,14 @@
                 }
 
                 const data = await response.json();
+                console.log('دیتا:', data);
 
-                if (!data.result || data.result.length === 0) {
-                    showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
+                // بررسی ساختار پاسخ
+                if (!data || !data.result) {
+                    showMessage('هیچ نتیجه‌ای پیدا نشد یا ساختار پاسخ تغییر کرده.', 'info');
                     return;
                 }
 
-                // تبدیل نتایج
                 const tracks = data.result.map((item, index) => ({
                     id: index,
                     title: item.title || item.name || 'بدون نام',
@@ -187,6 +183,11 @@
                     cover: item.cover || item.image || 'https://picsum.photos/seed/music/300/300',
                     audio: item.link || item.url || item.mp3 || null
                 }));
+
+                if (tracks.length === 0) {
+                    showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
+                    return;
+                }
 
                 hideMessage();
                 renderTracks(tracks);
@@ -197,17 +198,8 @@
             }
         }
 
-        // ============================================================
-        //  نمایش آهنگ‌ها
-        // ============================================================
-
         function renderTracks(tracks) {
             resultsGrid.innerHTML = '';
-
-            if (!tracks || tracks.length === 0) {
-                resultsGrid.innerHTML = '<p style="text-align:center;color:#888;">هیچ آهنگی پیدا نشد.</p>';
-                return;
-            }
 
             tracks.forEach((track) => {
                 const card = document.createElement('div');
@@ -248,10 +240,6 @@
             });
         }
 
-        // ============================================================
-        //  توابع کمکی
-        // ============================================================
-
         function showMessage(text, type = 'info') {
             messageBox.textContent = text;
             messageBox.className = 'message-box show';
@@ -274,17 +262,13 @@
             messageBox.classList.remove('show');
         }
 
-        // ============================================================
-        //  رویدادها
-        // ============================================================
-
         searchBtn.addEventListener('click', () => {
             const query = searchInput.value.trim();
             if (!query) {
                 showMessage('لطفاً نام خواننده یا آهنگ را وارد کنید.', 'info');
                 return;
             }
-            searchIranianMusic(query);
+            searchMusic(query);
         });
 
         searchInput.addEventListener('keypress', (e) => {
@@ -293,16 +277,9 @@
             }
         });
 
-        // ============================================================
-        //  جستجوی پیش‌فرض
-        // ============================================================
-
-        console.log('🎵 پارسا موزیک - جستجوی آهنگ ایرانی');
-        console.log('📌 مثال: شادمهر, محسن چاوشی, یا اسم آهنگ');
-        
         // جستجوی پیش‌فرض
         searchInput.value = 'شادمهر';
-        setTimeout(() => searchIranianMusic('شادمهر'), 500);
+        setTimeout(() => searchMusic('شادمهر'), 500);
     </script>
 </body>
 </html>
