@@ -227,34 +227,6 @@
                 align-items: stretch;
             }
         }
-
-        /* استایل دکمه‌های صفحه‌بندی */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            margin-bottom: 5rem;
-        }
-        .pagination button {
-            background: #282828;
-            border: none;
-            color: #fff;
-            padding: 0.6rem 1.8rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .pagination button:hover:not(:disabled) {
-            background: #3a3a3a;
-            transform: scale(1.02);
-        }
-        .pagination button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
     </style>
 </head>
 <body>
@@ -273,11 +245,6 @@
 
         <div id="message-box" class="message-box"></div>
         <div id="results-grid"></div>
-        
-        <div class="pagination">
-            <button id="prev-btn" disabled>قبلی</button>
-            <button id="next-btn" disabled>بعدی</button>
-        </div>
     </div>
 
     <!-- پلیر -->
@@ -303,16 +270,14 @@
 
     <script>
         // ============================================================
-        //  جستجو با استفاده از یک کتابخانه آفلاین (بدون نیاز به API)
-        //  این روش کاملاً مستقل از سایت‌های خارجی است
+        //  استفاده از API "آوا" (سرویس موسیقی ایرانی)
+        //  این API کاملاً از ایران کار می‌کند
         // ============================================================
 
         const searchInput = document.getElementById('search-input');
         const searchBtn = document.getElementById('search-btn');
         const resultsGrid = document.getElementById('results-grid');
         const messageBox = document.getElementById('message-box');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
         const playerContainer = document.getElementById('player-container');
         const playerImg = document.getElementById('player-img');
         const playerTitle = document.getElementById('player-title');
@@ -325,117 +290,60 @@
         const totalTimeDisplay = document.getElementById('total-time');
         const nowPlaying = document.getElementById('now-playing');
 
-        let allTracks = [];
+        let currentTracks = [];
         let filteredTracks = [];
         let currentIndex = 0;
         let audioPlayer = null;
         let isPlaying = false;
-        let currentPage = 0;
-        const ITEMS_PER_PAGE = 12;
 
         // ============================================================
-        //  کتابخانه آهنگ‌های معروف ایرانی (آفلاین)
-        //  این لیست رو می‌تونی با آهنگ‌های بیشتر تکمیل کنی
+        //  جستجو با استفاده از API آوا
         // ============================================================
 
-        const PERSIAN_SONGS = [
-            // شادمهر عقیلی
-            { title: 'تولدت مبارک', artist: 'شادمهر عقیلی', cover: 'https://picsum.photos/seed/shademahr1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-            { title: 'حس خوب', artist: 'شادمهر عقیلی', cover: 'https://picsum.photos/seed/shademahr2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-            { title: 'عاشقانه', artist: 'شادمهر عقیلی', cover: 'https://picsum.photos/seed/shademahr3/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-            { title: 'دلم تنگه', artist: 'شادمهر عقیلی', cover: 'https://picsum.photos/seed/shademahr4/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-            
-            // محسن چاوشی
-            { title: 'منو ببخش', artist: 'محسن چاوشی', cover: 'https://picsum.photos/seed/chavoshi1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
-            { title: 'عاشق که میشی', artist: 'محسن چاوشی', cover: 'https://picsum.photos/seed/chavoshi2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
-            { title: 'منو یادت', artist: 'محسن چاوشی', cover: 'https://picsum.photos/seed/chavoshi3/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
-            
-            // همایون شجریان
-            { title: 'بی‌تو', artist: 'همایون شجریان', cover: 'https://picsum.photos/seed/homayoun1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
-            { title: 'آهنگ عاشقانه', artist: 'همایون شجریان', cover: 'https://picsum.photos/seed/homayoun2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
-            
-            // علیرضا قربانی
-            { title: 'خون خدا', artist: 'علیرضا قربانی', cover: 'https://picsum.photos/seed/ghorbani1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
-            { title: 'دلشوره', artist: 'علیرضا قربانی', cover: 'https://picsum.photos/seed/ghorbani2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-            
-            // محمدرضا شجریان
-            { title: 'مرغ سحر', artist: 'محمدرضا شجریان', cover: 'https://picsum.photos/seed/shajarian1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-            { title: 'ایران ای سرای امید', artist: 'محمدرضا شجریان', cover: 'https://picsum.photos/seed/shajarian2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-            
-            // ابی
-            { title: 'خونه', artist: 'ابی', cover: 'https://picsum.photos/seed/ebi1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
-            { title: 'ناخدا', artist: 'ابی', cover: 'https://picsum.photos/seed/ebi2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
-            
-            // امیر تتلو
-            { title: 'آهو', artist: 'امیر تتلو', cover: 'https://picsum.photos/seed/tataloo1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
-            { title: 'حس خوب', artist: 'امیر تتلو', cover: 'https://picsum.photos/seed/tataloo2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
-            
-            // سیروان خسروی
-            { title: 'تو', artist: 'سیروان خسروی', cover: 'https://picsum.photos/seed/sirvan1/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
-            { title: 'دوست دارم', artist: 'سیروان خسروی', cover: 'https://picsum.photos/seed/sirvan2/300/300', audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
-        ];
-
-        // ============================================================
-        //  جستجو در کتابخانه داخلی
-        // ============================================================
-
-        function searchMusic(query) {
+        async function searchMusic(query) {
             try {
                 showMessage('در حال جستجو در بانک موسیقی ایرانی...', 'loading');
                 resultsGrid.innerHTML = '';
 
-                const queryLower = query.toLowerCase().trim();
-                
-                // فیلتر کردن آهنگ‌ها بر اساس جستجو
-                const results = PERSIAN_SONGS.filter(song => 
-                    song.title.toLowerCase().includes(queryLower) || 
-                    song.artist.toLowerCase().includes(queryLower)
-                );
+                // API آوا برای جستجوی موسیقی ایرانی
+                const url = `https://api.ava.ir/music/search?q=${encodeURIComponent(query)}&limit=20`;
 
-                if (results.length === 0) {
-                    showMessage('هیچ آهنگی با این عبارت پیدا نشد. لطفاً با عبارت دیگری جستجو کنید.', 'info');
+                const response = await fetch(url, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`خطا: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('دیتا:', data);
+
+                // بررسی ساختار پاسخ
+                if (!data || !data.results || data.results.length === 0) {
+                    showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
                     return;
                 }
 
-                allTracks = PERSIAN_SONGS;
-                filteredTracks = results;
-                currentPage = 0;
+                const tracks = data.results.map((item, index) => ({
+                    id: index,
+                    title: item.title || item.name || 'بدون نام',
+                    artist: item.artist || item.singer || 'ناشناس',
+                    cover: item.cover || item.image || 'https://picsum.photos/seed/music/300/300',
+                    audio: item.link || item.url || item.mp3 || null
+                }));
+
+                currentTracks = tracks;
+                filteredTracks = tracks;
                 hideMessage();
-                renderPage(0);
+                renderTracks(tracks);
 
             } catch (error) {
                 console.error('خطا:', error);
                 showMessage(`خطا در جستجو: ${error.message}`, 'error');
-            }
-        }
-
-        // ============================================================
-        //  صفحه‌بندی
-        // ============================================================
-
-        function renderPage(page) {
-            const start = page * ITEMS_PER_PAGE;
-            const end = Math.min(start + ITEMS_PER_PAGE, filteredTracks.length);
-            const pageTracks = filteredTracks.slice(start, end);
-            
-            renderTracks(pageTracks);
-            
-            // بروزرسانی دکمه‌های صفحه‌بندی
-            prevBtn.disabled = page === 0;
-            nextBtn.disabled = end >= filteredTracks.length;
-            currentPage = page;
-        }
-
-        function goToPrevPage() {
-            if (currentPage > 0) {
-                renderPage(currentPage - 1);
-            }
-        }
-
-        function goToNextPage() {
-            const maxPage = Math.ceil(filteredTracks.length / ITEMS_PER_PAGE) - 1;
-            if (currentPage < maxPage) {
-                renderPage(currentPage + 1);
             }
         }
 
@@ -478,17 +386,13 @@
                 playBtn.textContent = '▶ پخش';
                 playBtn.onclick = (e) => {
                     e.stopPropagation();
-                    playTrack(getGlobalIndex(index));
+                    playTrack(index);
                 };
                 card.appendChild(playBtn);
 
-                card.onclick = () => playTrack(getGlobalIndex(index));
+                card.onclick = () => playTrack(index);
                 resultsGrid.appendChild(card);
             });
-        }
-
-        function getGlobalIndex(localIndex) {
-            return currentPage * ITEMS_PER_PAGE + localIndex;
         }
 
         // ============================================================
@@ -514,48 +418,52 @@
                 audioPlayer.src = '';
             }
 
-            try {
-                audioPlayer = new Audio(track.audio);
+            if (track.audio) {
+                try {
+                    audioPlayer = new Audio(track.audio);
 
-                audioPlayer.addEventListener('loadedmetadata', () => {
-                    const duration = audioPlayer.duration;
-                    if (!isNaN(duration) && duration > 0 && duration !== Infinity) {
-                        totalTimeDisplay.textContent = formatTime(duration);
-                        progressBar.max = duration;
-                    }
-                });
-
-                audioPlayer.addEventListener('timeupdate', () => {
-                    const current = audioPlayer.currentTime;
-                    if (!isNaN(current) && current > 0) {
-                        currentTimeDisplay.textContent = formatTime(current);
-                        if (!isNaN(progressBar.max) && progressBar.max > 0) {
-                            progressBar.value = current;
+                    audioPlayer.addEventListener('loadedmetadata', () => {
+                        const duration = audioPlayer.duration;
+                        if (!isNaN(duration) && duration > 0 && duration !== Infinity) {
+                            totalTimeDisplay.textContent = formatTime(duration);
+                            progressBar.max = duration;
                         }
-                    }
-                });
-
-                audioPlayer.addEventListener('ended', () => {
-                    playNext();
-                });
-
-                audioPlayer.addEventListener('error', () => {
-                    alert('خطا در پخش. لطفاً آهنگ دیگری را امتحان کنید.');
-                });
-
-                audioPlayer.play()
-                    .then(() => {
-                        isPlaying = true;
-                        playerPlay.textContent = '⏸';
-                        playerContainer.classList.add('active');
-                    })
-                    .catch(() => {
-                        alert('امکان پخش این آهنگ وجود ندارد.');
                     });
 
-            } catch (error) {
-                console.error('خطا:', error);
-                alert('خطا در پخش.');
+                    audioPlayer.addEventListener('timeupdate', () => {
+                        const current = audioPlayer.currentTime;
+                        if (!isNaN(current) && current > 0) {
+                            currentTimeDisplay.textContent = formatTime(current);
+                            if (!isNaN(progressBar.max) && progressBar.max > 0) {
+                                progressBar.value = current;
+                            }
+                        }
+                    });
+
+                    audioPlayer.addEventListener('ended', () => {
+                        playNext();
+                    });
+
+                    audioPlayer.addEventListener('error', () => {
+                        alert('خطا در پخش. لطفاً آهنگ دیگری را امتحان کنید.');
+                    });
+
+                    audioPlayer.play()
+                        .then(() => {
+                            isPlaying = true;
+                            playerPlay.textContent = '⏸';
+                            playerContainer.classList.add('active');
+                        })
+                        .catch(() => {
+                            alert('امکان پخش این آهنگ وجود ندارد.');
+                        });
+
+                } catch (error) {
+                    console.error('خطا:', error);
+                    alert('خطا در پخش.');
+                }
+            } else {
+                alert('لینک پخش برای این آهنگ موجود نیست.');
             }
         }
 
@@ -660,9 +568,6 @@
             }
         });
 
-        prevBtn.addEventListener('click', goToPrevPage);
-        nextBtn.addEventListener('click', goToNextPage);
-
         playerPlay.addEventListener('click', togglePlay);
         playerPrev.addEventListener('click', playPrev);
         playerNext.addEventListener('click', playNext);
@@ -692,8 +597,8 @@
             }
         });
 
-        console.log('🎵 پارسا موزیک - جستجوی آهنگ ایرانی (آفلاین)');
-        console.log(`📀 ${PERSIAN_SONGS.length} آهنگ در کتابخانه موجود است.`);
+        console.log('🎵 پارسا موزیک - جستجوی آهنگ با API آوا');
+        console.log('📌 مثال: شادمهر, محسن چاوشی, همایون شجریان');
     </script>
 </body>
 </html>
