@@ -1,40 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پارسا موزیک - Parsa music</title>
+    <style>
+        body { background: #121212; color: #fff; font-family: sans-serif; padding: 20px; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        .search-box input { flex: 1; padding: 12px; border-radius: 30px; border: none; background: #282828; color: #fff; }
+        .search-box button { padding: 12px 30px; background: #1db954; border: none; border-radius: 30px; color: #fff; font-weight: bold; cursor: pointer; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: #181818; padding: 15px; border-radius: 10px; text-align: center; }
+        .card img { width: 100%; border-radius: 8px; }
+        .card h4 { margin: 10px 0 5px; }
+        .card p { color: #b3b3b3; font-size: 14px; margin: 0; }
+        .preview { background: #3a3a3a; border: none; color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; margin-top: 10px; }
+        .preview:hover { background: #1db954; }
+    </style>
 </head>
 <body>
- <script>
- // Authorization token that must have been created previously. See : https://developer.spotify.com/documentation/web-api/concepts/authorization
-const token = 'undefined';
-async function fetchWebApi(endpoint, method, body) {
-  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    method,
-    body:JSON.stringify(body)
-  });
-  return await res.json();
-}
+    <h1>🎵 پارسا موزیک</h1>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="نام آهنگ یا آرتیست را جستجو کن..." />
+        <button onclick="search()">جستجو</button>
+    </div>
+    <div id="results" class="grid"></div>
 
-async function getTopTracks(){
-  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
-  return (await fetchWebApi(
-    'v1/me/top/tracks?time_range=long_term&limit=5', 'GET'
-  )).items;
-}
-
-const topTracks = await getTopTracks();
-console.log(
-  topTracks?.map(
-    ({name, artists}) =>
-      `${name} by ${artists.map(artist => artist.name).join(', ')}`
-  )
-);
-     
- </script>
+    <script>
+        // ===== کلید عمومی جیمیندو (بدون نیاز به ثبت‌نام) =====
+        const CLIENT_ID = 'YOUR_CLIENT_ID'; // این رو باید از jamendo.com بگیرید
+        
+        async function search() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) return alert('لطفاً عبارت جستجو را وارد کنید.');
+            
+            const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=20&search=${encodeURIComponent(query)}`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const tracks = data.results || [];
+                
+                const container = document.getElementById('results');
+                container.innerHTML = '';
+                
+                if (tracks.length === 0) {
+                    container.innerHTML = '<p style="text-align:center;color:#888;">هیچ نتیجه‌ای پیدا نشد.</p>';
+                    return;
+                }
+                
+                tracks.forEach(track => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    
+                    const img = document.createElement('img');
+                    img.src = track.album_image || 'https://via.placeholder.com/200';
+                    card.appendChild(img);
+                    
+                    const title = document.createElement('h4');
+                    title.textContent = track.name;
+                    card.appendChild(title);
+                    
+                    const artist = document.createElement('p');
+                    artist.textContent = track.artist_name;
+                    card.appendChild(artist);
+                    
+                    if (track.audio) {
+                        const btn = document.createElement('button');
+                        btn.className = 'preview';
+                        btn.textContent = '▶ پخش نمونه';
+                        btn.onclick = () => {
+                            new Audio(track.audio).play().catch(() => alert('خطا در پخش'));
+                        };
+                        card.appendChild(btn);
+                    }
+                    
+                    container.appendChild(card);
+                });
+                
+            } catch (error) {
+                alert('خطا در جستجو: ' + error.message);
+            }
+        }
+    </script>
 </body>
 </html>
