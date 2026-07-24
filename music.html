@@ -139,13 +139,103 @@
             border-color: #6b6b2a;
             color: #ffff8a;
         }
+
+        .player-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #181818;
+            border-top: 1px solid #282828;
+            padding: 1rem 2rem;
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+        .player-container.active { display: flex; }
+        .player-container .player-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        .player-container .player-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .player-container .player-info .details .title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .player-container .player-info .details .artist {
+            color: #b3b3b3;
+            font-size: 0.85rem;
+        }
+        .player-container .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .player-container .player-controls button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        .player-container .player-controls button:hover { color: #1db954; }
+        .player-container .player-controls .play-pause { font-size: 2.5rem; }
+        .player-container .progress-container {
+            flex: 2;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .player-container .progress-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #404040;
+            border-radius: 2px;
+            outline: none;
+        }
+        .player-container .progress-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #1db954;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .player-container .progress-container .time {
+            font-size: 0.8rem;
+            color: #b3b3b3;
+            min-width: 40px;
+        }
+        @media (max-width: 600px) {
+            .player-container {
+                padding: 0.8rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <div class="logo">🎵 پارسا <span>موزیک</span></div>
-            <div style="font-size:0.9rem;color:#888;">جستجوی آهنگ ایرانی</div>
+            <div style="font-size:0.9rem;color:#888;">
+                <span id="now-playing" style="color:#1db954;">آماده پخش</span>
+            </div>
         </header>
 
         <div class="search-section">
@@ -157,53 +247,112 @@
         <div id="results-grid"></div>
     </div>
 
+    <!-- پلیر -->
+    <div id="player-container" class="player-container">
+        <div class="player-info">
+            <img id="player-img" src="" alt="آلبوم">
+            <div class="details">
+                <div class="title" id="player-title">نام آهنگ</div>
+                <div class="artist" id="player-artist">نام خواننده</div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button id="player-prev">⏮</button>
+            <button id="player-play" class="play-pause">▶</button>
+            <button id="player-next">⏭</button>
+        </div>
+        <div class="progress-container">
+            <span class="time" id="current-time">0:00</span>
+            <input type="range" id="progress-bar" min="0" max="100" value="0">
+            <span class="time" id="total-time">0:00</span>
+        </div>
+    </div>
+
     <script>
         // ============================================================
-        //  استفاده از API صوتی یکپارچه ایرانی
-        //  آخرین بروزرسانی: ۱۴ فروردین ۱۴۰۴
-        //  ساخته شده توسط: مهدی اسدی
+        //  جستجو در musics-fa.com (با S در آخر)
         // ============================================================
 
         const searchInput = document.getElementById('search-input');
         const searchBtn = document.getElementById('search-btn');
         const resultsGrid = document.getElementById('results-grid');
         const messageBox = document.getElementById('message-box');
+        const playerContainer = document.getElementById('player-container');
+        const playerImg = document.getElementById('player-img');
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        const playerPlay = document.getElementById('player-play');
+        const playerPrev = document.getElementById('player-prev');
+        const playerNext = document.getElementById('player-next');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const totalTimeDisplay = document.getElementById('total-time');
+        const nowPlaying = document.getElementById('now-playing');
+
+        let currentTracks = [];
+        let filteredTracks = [];
+        let currentIndex = 0;
+        let audioPlayer = null;
+        let isPlaying = false;
 
         // ============================================================
-        //  جستجو در API صوتی یکپارچه
+        //  جستجو در musics-fa.com
         // ============================================================
 
-        async function searchIranianMusic(query) {
+        async function searchMusic(query) {
             try {
                 showMessage('در حال جستجو در بانک موسیقی ایرانی...', 'loading');
                 resultsGrid.innerHTML = '';
 
-                // استفاده از API صوتی یکپارچه با آپدیت جدید
-                const url = `https://api.sound.ir/search?q=${encodeURIComponent(query)}&limit=20`;
-
-                const response = await fetch(url);
+                // لینک درست musics-fa.com
+                const searchUrl = `https://musics-fa.com/?s=${encodeURIComponent(query)}`;
                 
-                if (!response.ok) {
-                    throw new Error(`خطا: ${response.status}`);
+                // استفاده از پروکسی‌های مختلف
+                const proxyUrls = [
+                    `https://api.allorigins.win/get?url=${encodeURIComponent(searchUrl)}`,
+                    `https://corsproxy.io/?${encodeURIComponent(searchUrl)}`,
+                    `https://api.allorigins.win/raw?url=${encodeURIComponent(searchUrl)}`
+                ];
+
+                let html = null;
+                let lastError = null;
+
+                for (const proxyUrl of proxyUrls) {
+                    try {
+                        const response = await fetch(proxyUrl, {
+                            headers: {
+                                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            html = data.contents || data;
+                            if (html && html.length > 1000) {
+                                break;
+                            }
+                        }
+                    } catch (err) {
+                        lastError = err;
+                        console.warn('پروکسی جواب نداد:', err.message);
+                    }
                 }
 
-                const data = await response.json();
-                console.log('دیتا:', data);
+                if (!html || html.length < 1000) {
+                    throw new Error('مشکل در دریافت اطلاعات. لطفاً دوباره امتحان کنید.');
+                }
 
-                // بررسی ساختار پاسخ
-                if (!data || !data.results || data.results.length === 0) {
-                    showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
+                // استخراج اطلاعات از HTML
+                const tracks = extractTracksFromHTML(html);
+
+                if (tracks.length === 0) {
+                    showMessage('هیچ آهنگی با این عبارت پیدا نشد. لطفاً با عبارت دیگری جستجو کنید.', 'info');
                     return;
                 }
 
-                const tracks = data.results.map((item, index) => ({
-                    id: index,
-                    title: item.title || item.name || 'بدون نام',
-                    artist: item.artist || item.singer || 'ناشناس',
-                    cover: item.cover || item.image || 'https://picsum.photos/seed/music/300/300',
-                    audio: item.link || item.url || item.mp3 || null
-                }));
-
+                currentTracks = tracks;
+                filteredTracks = tracks;
                 hideMessage();
                 renderTracks(tracks);
 
@@ -211,6 +360,78 @@
                 console.error('خطا:', error);
                 showMessage(`خطا در جستجو: ${error.message}`, 'error');
             }
+        }
+
+        // ============================================================
+        //  استخراج اطلاعات از HTML
+        // ============================================================
+
+        function extractTracksFromHTML(html) {
+            const tracks = [];
+            
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // جستجوی آیتم‌های آهنگ در musics-fa.com
+            const items = doc.querySelectorAll('.post, .item, .music-item, .song-item, article, .entry');
+
+            items.forEach(item => {
+                try {
+                    // استخراج عنوان
+                    const titleEl = item.querySelector('h2 a, h3 a, .title, .entry-title, .song-title');
+                    let title = titleEl ? titleEl.textContent.trim() : null;
+
+                    if (!title) {
+                        const linkEl = item.querySelector('a[href*="download"], a[href*="song"], a[href*="music"]');
+                        if (linkEl) {
+                            title = linkEl.textContent.trim() || linkEl.getAttribute('title');
+                        }
+                    }
+
+                    // استخراج خواننده
+                    const artistEl = item.querySelector('.artist, .singer, .author, .artist-name, .musician');
+                    const artist = artistEl ? artistEl.textContent.trim() : 'ناشناس';
+
+                    // استخراج لینک
+                    const linkEl = item.querySelector('a[href*="download"], a[href*="song"], a[href*="music"]');
+                    const link = linkEl ? linkEl.href : null;
+
+                    // استخراج تصویر
+                    const imgEl = item.querySelector('img');
+                    const image = imgEl ? imgEl.src : 'https://picsum.photos/seed/music/300/300';
+
+                    if (title && title.length > 2) {
+                        tracks.push({
+                            title: title,
+                            artist: artist,
+                            cover: image,
+                            audio: link,
+                            link: link
+                        });
+                    }
+                } catch (err) {
+                    console.error('خطا در استخراج:', err);
+                }
+            });
+
+            // اگر هیچی پیدا نشد، سعی کن از کل صفحه استخراج کنی
+            if (tracks.length === 0) {
+                const allLinks = doc.querySelectorAll('a[href*="download"], a[href*="song"]');
+                allLinks.forEach(link => {
+                    const title = link.textContent.trim() || link.getAttribute('title');
+                    if (title && title.length > 2) {
+                        tracks.push({
+                            title: title,
+                            artist: 'ناشناس',
+                            cover: 'https://picsum.photos/seed/music/300/300',
+                            audio: link.href,
+                            link: link.href
+                        });
+                    }
+                });
+            }
+
+            return tracks;
         }
 
         // ============================================================
@@ -225,7 +446,7 @@
                 return;
             }
 
-            tracks.forEach((track) => {
+            tracks.forEach((track, index) => {
                 const card = document.createElement('div');
                 card.className = 'track-card';
 
@@ -252,21 +473,146 @@
                 playBtn.textContent = '▶ پخش';
                 playBtn.onclick = (e) => {
                     e.stopPropagation();
-                    if (track.audio) {
-                        window.open(track.audio, '_blank');
-                    } else {
-                        alert('لینک پخش برای این آهنگ موجود نیست.');
-                    }
+                    playTrack(index);
                 };
                 card.appendChild(playBtn);
 
+                card.onclick = () => playTrack(index);
                 resultsGrid.appendChild(card);
             });
         }
 
         // ============================================================
+        //  پخش آهنگ
+        // ============================================================
+
+        function playTrack(index) {
+            if (index < 0 || index >= filteredTracks.length) return;
+
+            currentIndex = index;
+            const track = filteredTracks[index];
+
+            playerTitle.textContent = track.title;
+            playerArtist.textContent = track.artist;
+            playerImg.src = track.cover || 'https://picsum.photos/seed/music/300/300';
+            playerImg.onerror = function() {
+                this.src = 'https://picsum.photos/seed/music/300/300';
+            };
+            nowPlaying.textContent = `در حال پخش: ${track.title} - ${track.artist}`;
+
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer.src = '';
+            }
+
+            if (track.link) {
+                try {
+                    audioPlayer = new Audio(track.link);
+
+                    audioPlayer.addEventListener('loadedmetadata', () => {
+                        const duration = audioPlayer.duration;
+                        if (!isNaN(duration) && duration > 0 && duration !== Infinity) {
+                            totalTimeDisplay.textContent = formatTime(duration);
+                            progressBar.max = duration;
+                        }
+                    });
+
+                    audioPlayer.addEventListener('timeupdate', () => {
+                        const current = audioPlayer.currentTime;
+                        if (!isNaN(current) && current > 0) {
+                            currentTimeDisplay.textContent = formatTime(current);
+                            if (!isNaN(progressBar.max) && progressBar.max > 0) {
+                                progressBar.value = current;
+                            }
+                        }
+                    });
+
+                    audioPlayer.addEventListener('ended', () => {
+                        playNext();
+                    });
+
+                    audioPlayer.addEventListener('error', () => {
+                        alert('خطا در پخش. لطفاً آهنگ دیگری را امتحان کنید.');
+                    });
+
+                    audioPlayer.play()
+                        .then(() => {
+                            isPlaying = true;
+                            playerPlay.textContent = '⏸';
+                            playerContainer.classList.add('active');
+                        })
+                        .catch(() => {
+                            alert('امکان پخش این آهنگ وجود ندارد.');
+                        });
+
+                } catch (error) {
+                    console.error('خطا:', error);
+                    alert('خطا در پخش.');
+                }
+            } else {
+                alert('لینک پخش برای این آهنگ موجود نیست.');
+            }
+        }
+
+        // ============================================================
+        //  کنترل‌های پلیر
+        // ============================================================
+
+        function togglePlay() {
+            if (!audioPlayer) return;
+
+            if (isPlaying) {
+                audioPlayer.pause();
+                playerPlay.textContent = '▶';
+                isPlaying = false;
+            } else {
+                audioPlayer.play()
+                    .then(() => {
+                        playerPlay.textContent = '⏸';
+                        isPlaying = true;
+                    })
+                    .catch(() => {
+                        alert('خطا در پخش.');
+                    });
+            }
+        }
+
+        function playPrev() {
+            if (currentIndex > 0) {
+                playTrack(currentIndex - 1);
+            } else if (filteredTracks.length > 0) {
+                playTrack(filteredTracks.length - 1);
+            }
+        }
+
+        function playNext() {
+            if (currentIndex < filteredTracks.length - 1) {
+                playTrack(currentIndex + 1);
+            } else if (filteredTracks.length > 0) {
+                playTrack(0);
+            }
+        }
+
+        function seekTo(value) {
+            if (audioPlayer && !isNaN(value) && value >= 0) {
+                try {
+                    audioPlayer.currentTime = value;
+                } catch (e) {
+                    console.error('خطا:', e);
+                }
+            }
+        }
+
+        // ============================================================
         //  توابع کمکی
         // ============================================================
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds === Infinity || seconds < 0) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
 
         function showMessage(text, type = 'info') {
             messageBox.textContent = text;
@@ -300,7 +646,7 @@
                 showMessage('لطفاً نام خواننده یا آهنگ را وارد کنید.', 'info');
                 return;
             }
-            searchIranianMusic(query);
+            searchMusic(query);
         });
 
         searchInput.addEventListener('keypress', (e) => {
@@ -309,15 +655,29 @@
             }
         });
 
+        playerPlay.addEventListener('click', togglePlay);
+        playerPrev.addEventListener('click', playPrev);
+        playerNext.addEventListener('click', playNext);
+        progressBar.addEventListener('input', (e) => {
+            seekTo(parseFloat(e.target.value));
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName !== 'INPUT' && e.key === ' ') {
+                e.preventDefault();
+                togglePlay();
+            }
+        });
+
         // ============================================================
-        //  جستجوی پیش‌فرض با خواننده‌های معروف
+        //  جستجوی پیش‌فرض
         // ============================================================
 
         console.log('🎵 پارسا موزیک - جستجوی آهنگ ایرانی');
         console.log('📌 مثال: شادمهر, محسن چاوشی, همایون شجریان');
         
         searchInput.value = 'شادمهر';
-        setTimeout(() => searchIranianMusic('شادمهر'), 500);
+        setTimeout(() => searchMusic('شادمهر'), 500);
     </script>
 </body>
 </html>
