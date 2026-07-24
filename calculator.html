@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماشین حساب هدف 🧮</title>
+    <style>
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .calculator {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        .display {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            direction: ltr;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        .display .previous-operand {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.2rem;
+            min-height: 25px;
+        }
+        .display .current-operand {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        button {
+            padding: 20px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        button:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.25);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        .span-two {
+            grid-column: span 2;
+        }
+        .operator {
+            background: rgba(255, 165, 0, 0.3);
+            color: #ffa500;
+        }
+        .operator:hover {
+            background: rgba(255, 165, 0, 0.5);
+        }
+        .equals {
+            background: #ffa500;
+            color: #1a1a2e;
+        }
+        .equals:hover {
+            background: #ffb733;
+        }
+        .clear {
+            background: rgba(255, 69, 58, 0.3);
+            color: #ff453a;
+        }
+        .clear:hover {
+            background: rgba(255, 69, 58, 0.5);
+        }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        @media (max-width: 480px) {
+            .calculator { padding: 15px; }
+            button { padding: 15px; font-size: 1.2rem; }
+            .display .current-operand { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="previous-operand" id="previous-operand"></div>
+            <div class="current-operand" id="current-operand">0</div>
+        </div>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">AC</button>
+            <button class="back-btn" onclick="deleteLast()">⌫</button>
+            <button class="operator" onclick="appendOperator('/')">÷</button>
+            <button class="operator" onclick="appendOperator('*')">×</button>
+            
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('-')">−</button>
+            
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="equals span-two" onclick="calculate()">=</button>
+            
+            <button onclick="appendNumber('0')" class="span-two">0</button>
+            <button onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        let currentOperand = '0';
+        let previousOperand = '';
+        let operation = undefined;
+
+        function updateDisplay() {
+            document.getElementById('current-operand').textContent = currentOperand;
+            document.getElementById('previous-operand').textContent = previousOperand;
+        }
+
+        function appendNumber(number) {
+            if (number === '.' && currentOperand.includes('.')) return;
+            if (currentOperand === '0' && number !== '.') {
+                currentOperand = number;
+            } else {
+                currentOperand += number;
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op) {
+            if (currentOperand === '') return;
+            if (previousOperand !== '') {
+                calculate();
+            }
+            operation = op;
+            previousOperand = currentOperand + ' ' + getSymbol(op);
+            currentOperand = '0';
+            updateDisplay();
+        }
+
+        function getSymbol(op) {
+            switch(op) {
+                case '+': return '+';
+                case '-': return '−';
+                case '*': return '×';
+                case '/': return '÷';
+                default: return '';
+            }
+        }
+
+        function calculate() {
+            let result;
+            const prev = parseFloat(previousOperand);
+            const curr = parseFloat(currentOperand);
+            if (isNaN(prev) || isNaN(curr)) return;
+            switch(operation) {
+                case '+': result = prev + curr; break;
+                case '-': result = prev - curr; break;
+                case '*': result = prev * curr; break;
+                case '/': 
+                    if (curr === 0) {
+                        alert('نمیشه بر صفر تقسیم کرد!');
+                        clearDisplay();
+                        return;
+                    }
+                    result = prev / curr; 
+                    break;
+                default: return;
+            }
+            currentOperand = result.toString();
+            previousOperand = '';
+            operation = undefined;
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentOperand = '0';
+            previousOperand = '';
+            operation = undefined;
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (currentOperand.length === 1) {
+                currentOperand = '0';
+            } else {
+                currentOperand = currentOperand.slice(0, -1);
+            }
+            updateDisplay();
+        }
+
+        // صفحه‌کیبورد
+        document.addEventListener('keydown', function(e) {
+            if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
+            if (e.key === '.') appendNumber('.');
+            if (e.key === '+') appendOperator('+');
+            if (e.key === '-') appendOperator('-');
+            if (e.key === '*') appendOperator('*');
+            if (e.key === '/') appendOperator('/');
+            if (e.key === 'Enter' || e.key === '=') calculate();
+            if (e.key === 'Backspace') deleteLast();
+            if (e.key === 'Escape') clearDisplay();
+        });
+    </script>
+</body>
+</html>
