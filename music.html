@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پارسا موزیک - جستجوی آهنگ ایرانی</title>
+    <title>پارسا موزیک - music-fa.com</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -130,7 +130,7 @@
     <div class="container">
         <header>
             <div class="logo">🎵 پارسا <span>موزیک</span></div>
-            <div style="font-size:0.9rem;color:#888;">جستجوی آهنگ با One-api.ir</div>
+            <div style="font-size:0.9rem;color:#888;">جستجو در music-fa.com</div>
         </header>
 
         <div class="search-section">
@@ -144,8 +144,8 @@
 
     <script>
         // ============================================================
-        //  استفاده از One-api.ir که جدیداً آپدیت شده
-        //  این API از ساندکلاود برای جستجوی آهنگ ایرانی استفاده میکنه [citation:3]
+        //  جستجو در music-fa.com با استفاده از Web Scraping
+        //  الهام‌گرفته از کتابخانه SearchMusic پایتون
         // ============================================================
 
         const searchInput = document.getElementById('search-input');
@@ -153,36 +153,32 @@
         const resultsGrid = document.getElementById('results-grid');
         const messageBox = document.getElementById('message-box');
 
+        // ============================================================
+        //  جستجو با استفاده از پروکسی برای دور زدن CORS
+        // ============================================================
+
         async function searchMusic(query) {
             try {
-                showMessage('در حال جستجو در One-api.ir...', 'loading');
+                showMessage('در حال جستجو در music-fa.com...', 'loading');
                 resultsGrid.innerHTML = '';
 
-                // طبق آپدیت جدید One-api.ir [citation:3]
-                const url = `https://one-api.ir/api-soundcloud/?action=search&q=${encodeURIComponent(query)}`;
-
-                const response = await fetch(url);
+                // طبق الگوی کتابخانه SearchMusic [citation:2]
+                // درخواست به صفحه جستجوی music-fa.com
+                const searchUrl = `https://music-fa.com/?s=${encodeURIComponent(query)}`;
                 
+                // استفاده از پروکسی برای دریافت HTML
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(searchUrl)}`;
+                const response = await fetch(proxyUrl);
+
                 if (!response.ok) {
                     throw new Error(`خطا: ${response.status}`);
                 }
 
                 const data = await response.json();
-                console.log('دیتا:', data);
+                const html = data.contents;
 
-                // بررسی ساختار پاسخ
-                if (!data || !data.result) {
-                    showMessage('هیچ نتیجه‌ای پیدا نشد یا ساختار پاسخ تغییر کرده.', 'info');
-                    return;
-                }
-
-                const tracks = data.result.map((item, index) => ({
-                    id: index,
-                    title: item.title || item.name || 'بدون نام',
-                    artist: item.artist || item.singer || 'ناشناس',
-                    cover: item.cover || item.image || 'https://picsum.photos/seed/music/300/300',
-                    audio: item.link || item.url || item.mp3 || null
-                }));
+                // استخراج آهنگ‌ها از HTML
+                const tracks = extractTracksFromHTML(html);
 
                 if (tracks.length === 0) {
                     showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
@@ -197,6 +193,60 @@
                 showMessage(`خطا در جستجو: ${error.message}`, 'error');
             }
         }
+
+        // ============================================================
+        //  استخراج اطلاعات از HTML (Web Scraping)
+        //  این بخش باید بر اساس ساختار واقعی سایت تنظیم شود
+        // ============================================================
+
+        function extractTracksFromHTML(html) {
+            const tracks = [];
+            
+            // ایجاد یک DOM موقت برای پردازش HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // پیدا کردن آیتم‌های آهنگ در صفحه
+            // طبق الگوی SearchMusic، music-fa.com از کلاس‌های خاصی استفاده می‌کند
+            const items = doc.querySelectorAll('.post, .music-item, article, .entry');
+
+            items.forEach(item => {
+                try {
+                    // استخراج عنوان
+                    const titleEl = item.querySelector('h2, h3, .title, .entry-title');
+                    const title = titleEl ? titleEl.textContent.trim() : 'بدون نام';
+
+                    // استخراج خواننده
+                    const artistEl = item.querySelector('.artist, .singer, .author');
+                    const artist = artistEl ? artistEl.textContent.trim() : 'ناشناس';
+
+                    // استخراج لینک دانلود
+                    const linkEl = item.querySelector('a[href*="download"]');
+                    const link = linkEl ? linkEl.href : null;
+
+                    // استخراج تصویر
+                    const imgEl = item.querySelector('img');
+                    const image = imgEl ? imgEl.src : 'https://picsum.photos/seed/music/300/300';
+
+                    if (title && title !== 'بدون نام') {
+                        tracks.push({
+                            title: title,
+                            artist: artist,
+                            cover: image,
+                            audio: link
+                        });
+                    }
+                } catch (err) {
+                    console.error('خطا در استخراج:', err);
+                }
+            });
+
+            return tracks;
+        }
+
+        // ============================================================
+        //  نمایش آهنگ‌ها
+        // ============================================================
 
         function renderTracks(tracks) {
             resultsGrid.innerHTML = '';
@@ -240,6 +290,10 @@
             });
         }
 
+        // ============================================================
+        //  توابع کمکی
+        // ============================================================
+
         function showMessage(text, type = 'info') {
             messageBox.textContent = text;
             messageBox.className = 'message-box show';
@@ -261,6 +315,10 @@
         function hideMessage() {
             messageBox.classList.remove('show');
         }
+
+        // ============================================================
+        //  رویدادها
+        // ============================================================
 
         searchBtn.addEventListener('click', () => {
             const query = searchInput.value.trim();
