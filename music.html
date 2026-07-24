@@ -1,86 +1,796 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>پارسا موزیک - Parsa music</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پارسا موزیک - آپارات</title>
     <style>
-        body { background: #121212; color: #fff; font-family: sans-serif; padding: 20px; }
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
-        .search-box input { flex: 1; padding: 12px; border-radius: 30px; border: none; background: #282828; color: #fff; }
-        .search-box button { padding: 12px 30px; background: #1db954; border: none; border-radius: 30px; color: #fff; font-weight: bold; cursor: pointer; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .card { background: #181818; padding: 15px; border-radius: 10px; text-align: center; }
-        .card img { width: 100%; border-radius: 8px; }
-        .card h4 { margin: 10px 0 5px; }
-        .card p { color: #b3b3b3; font-size: 14px; margin: 0; }
-        .preview { background: #3a3a3a; border: none; color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; margin-top: 10px; }
-        .preview:hover { background: #1db954; }
+        /* ===== ریست و فونت ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        /* ===== کانتینر اصلی ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== هدر ===== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #282828;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e91e63;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: #fff;
+            font-weight: 300;
+        }
+
+        /* ===== بخش جستجو ===== */
+        .search-section {
+            background: #181818;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .search-section input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #333;
+            background: #2a2a2a;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .search-section input:focus {
+            border-color: #e91e63;
+        }
+        .search-section input::placeholder {
+            color: #888;
+        }
+
+        .search-section button {
+            background: #e91e63;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-section button:hover {
+            background: #c2185b;
+        }
+
+        /* ===== آمار نتایج ===== */
+        .stats {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== شبکه نتایج ===== */
+        #results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== کارت آهنگ ===== */
+        .track-card {
+            background: #181818;
+            border-radius: 10px;
+            padding: 1rem;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        .track-card:hover {
+            background: #282828;
+            transform: translateY(-4px);
+        }
+
+        .track-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            background: #333;
+        }
+
+        .track-card .track-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.4rem;
+        }
+
+        .track-card .track-artists {
+            font-size: 0.85rem;
+            color: #b3b3b3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            margin-bottom: 0.6rem;
+        }
+
+        .track-card .preview-btn {
+            background: #3a3a3a;
+            border: none;
+            color: #fff;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        .track-card .preview-btn:hover {
+            background: #e91e63;
+        }
+        .track-card .preview-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #3a3a3a;
+        }
+
+        /* ===== پلیر پخش ===== */
+        .player-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #181818;
+            border-top: 1px solid #282828;
+            padding: 1rem 2rem;
+            display: none;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        .player-container.active {
+            display: flex;
+        }
+
+        .player-container .player-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .player-container .player-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .player-container .player-info .details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .player-container .player-info .details .title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .player-container .player-info .details .artist {
+            color: #b3b3b3;
+            font-size: 0.85rem;
+        }
+
+        .player-container .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .player-container .player-controls button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0.5rem;
+        }
+
+        .player-container .player-controls button:hover {
+            color: #e91e63;
+        }
+
+        .player-container .player-controls .play-pause {
+            font-size: 2.5rem;
+        }
+
+        .player-container .progress-container {
+            flex: 2;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .player-container .progress-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #404040;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .player-container .progress-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #e91e63;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .player-container .progress-container .time {
+            font-size: 0.8rem;
+            color: #b3b3b3;
+            min-width: 40px;
+        }
+
+        /* ===== پیام خطا ===== */
+        .message-box {
+            background: #1f0f0f;
+            border: 1px solid #6b2a2a;
+            color: #ff8a8a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 1.5rem;
+            display: none;
+        }
+        .message-box.show {
+            display: block;
+        }
+
+        .message-box.loading {
+            background: #0f1f0f;
+            border-color: #2a6b2a;
+            color: #8aff8a;
+        }
+
+        /* ===== صفحه‌بندی ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            margin-bottom: 5rem;
+            flex-wrap: wrap;
+        }
+        .pagination button {
+            background: #282828;
+            border: none;
+            color: #fff;
+            padding: 0.6rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pagination button:hover:not(:disabled) {
+            background: #3a3a3a;
+            transform: scale(1.02);
+        }
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== ریسپانسیو ===== */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .search-section {
+                flex-direction: column;
+            }
+            .search-section input {
+                width: 100%;
+            }
+            .search-section button {
+                width: 100%;
+            }
+            #results-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .player-container {
+                padding: 0.8rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .player-container .player-info {
+                min-width: unset;
+            }
+            .player-container .progress-container {
+                min-width: unset;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>🎵 پارسا موزیک</h1>
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="نام آهنگ یا آرتیست را جستجو کن..." />
-        <button onclick="search()">جستجو</button>
+
+    <div class="container">
+
+        <!-- ========== هدر ========== -->
+        <header>
+            <div class="logo">🎵 پارسا <span>موزیک</span></div>
+            <div style="font-size:0.9rem;color:#888;">
+                <span id="now-playing" style="color:#e91e63;">آماده پخش</span>
+            </div>
+        </header>
+
+        <!-- ========== بخش جستجو ========== -->
+        <div class="search-section">
+            <input type="text" id="search-input" placeholder="نام آهنگ، خواننده یا آلبوم را جستجو کن..." />
+            <button id="search-btn">🔍 جستجو</button>
+        </div>
+
+        <!-- آمار نتایج -->
+        <div id="stats" class="stats"></div>
+
+        <!-- پیام خطا -->
+        <div id="message-box" class="message-box"></div>
+
+        <!-- ========== نتایج ========== -->
+        <div id="results-grid"></div>
+
+        <!-- ========== صفحه‌بندی ========== -->
+        <div class="pagination">
+            <button id="prev-btn" disabled>قبلی</button>
+            <button id="next-btn" disabled>بعدی</button>
+        </div>
+
     </div>
-    <div id="results" class="grid"></div>
+
+    <!-- ========== پلیر پخش (پایین صفحه) ========== -->
+    <div id="player-container" class="player-container">
+        <div class="player-info">
+            <img id="player-img" src="" alt="آلبوم">
+            <div class="details">
+                <div class="title" id="player-title">نام آهنگ</div>
+                <div class="artist" id="player-artist">نام خواننده</div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button id="player-prev" title="آهنگ قبلی">⏮</button>
+            <button id="player-play" class="play-pause" title="پخش/مکث">▶</button>
+            <button id="player-next" title="آهنگ بعدی">⏭</button>
+        </div>
+        <div class="progress-container">
+            <span class="time" id="current-time">0:00</span>
+            <input type="range" id="progress-bar" min="0" max="100" value="0">
+            <span class="time" id="total-time">0:00</span>
+        </div>
+    </div>
 
     <script>
-        // ===== کلید عمومی جیمیندو (بدون نیاز به ثبت‌نام) =====
-        const CLIENT_ID = 'YOUR_CLIENT_ID'; // این رو باید از jamendo.com بگیرید
-        
-        async function search() {
-            const query = document.getElementById('searchInput').value.trim();
-            if (!query) return alert('لطفاً عبارت جستجو را وارد کنید.');
-            
-            const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${CLIENT_ID}&format=json&limit=20&search=${encodeURIComponent(query)}`;
-            
+        // ============================================================
+        //  متغیرهای عمومی
+        // ============================================================
+        let currentTracks = [];
+        let currentIndex = 0;
+        let audioPlayer = null;
+        let isPlaying = false;
+        let currentPage = 0;
+        let totalPages = 0;
+        let currentQuery = '';
+
+        // عناصر DOM
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const resultsGrid = document.getElementById('results-grid');
+        const messageBox = document.getElementById('message-box');
+        const stats = document.getElementById('stats');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const playerContainer = document.getElementById('player-container');
+        const playerImg = document.getElementById('player-img');
+        const playerTitle = document.getElementById('player-title');
+        const playerArtist = document.getElementById('player-artist');
+        const playerPlay = document.getElementById('player-play');
+        const playerPrev = document.getElementById('player-prev');
+        const playerNext = document.getElementById('player-next');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const totalTimeDisplay = document.getElementById('total-time');
+        const nowPlaying = document.getElementById('now-playing');
+
+        // ============================================================
+        //  جستجو در آپارات موزیک
+        // ============================================================
+
+        async function searchAparat(query, page = 0) {
+            const limit = 20;
+            const offset = page * limit;
+
             try {
+                showMessage('در حال جستجو...', 'loading');
+                resultsGrid.innerHTML = '';
+                stats.innerHTML = '';
+
+                const url = `https://www.aparat.com/etc/api/music/search?q=${encodeURIComponent(query)}&limit=${limit}&offset=${offset}`;
+
                 const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`خطا در ارتباط با سرور: ${response.status}`);
+                }
+
                 const data = await response.json();
-                const tracks = data.results || [];
-                
-                const container = document.getElementById('results');
-                container.innerHTML = '';
-                
-                if (tracks.length === 0) {
-                    container.innerHTML = '<p style="text-align:center;color:#888;">هیچ نتیجه‌ای پیدا نشد.</p>';
+
+                if (!data.music || data.music.length === 0) {
+                    showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
+                    resultsGrid.innerHTML = '';
+                    stats.innerHTML = '';
+                    prevBtn.disabled = true;
+                    nextBtn.disabled = true;
                     return;
                 }
-                
-                tracks.forEach(track => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    
-                    const img = document.createElement('img');
-                    img.src = track.album_image || 'https://via.placeholder.com/200';
-                    card.appendChild(img);
-                    
-                    const title = document.createElement('h4');
-                    title.textContent = track.name;
-                    card.appendChild(title);
-                    
-                    const artist = document.createElement('p');
-                    artist.textContent = track.artist_name;
-                    card.appendChild(artist);
-                    
-                    if (track.audio) {
-                        const btn = document.createElement('button');
-                        btn.className = 'preview';
-                        btn.textContent = '▶ پخش نمونه';
-                        btn.onclick = () => {
-                            new Audio(track.audio).play().catch(() => alert('خطا در پخش'));
-                        };
-                        card.appendChild(btn);
-                    }
-                    
-                    container.appendChild(card);
-                });
-                
+
+                currentTracks = data.music;
+                currentQuery = query;
+                currentPage = page;
+                totalPages = Math.ceil(data.total / limit) || 1;
+
+                hideMessage();
+                renderTracks(data.music);
+
+                // آمار
+                stats.innerHTML = `
+                    ${data.total || data.music.length} آهنگ پیدا شد
+                    ${totalPages > 1 ? ` - صفحه ${page + 1} از ${totalPages}` : ''}
+                `;
+
+                // دکمه‌های صفحه‌بندی
+                prevBtn.disabled = page === 0;
+                nextBtn.disabled = page >= totalPages - 1;
+
             } catch (error) {
-                alert('خطا در جستجو: ' + error.message);
+                showMessage(`خطا در جستجو: ${error.message}`, 'error');
+                console.error('خطای جستجو:', error);
             }
         }
+
+        // ============================================================
+        //  رندر کردن آهنگ‌ها
+        // ============================================================
+
+        function renderTracks(tracks) {
+            resultsGrid.innerHTML = '';
+
+            if (!tracks || tracks.length === 0) {
+                resultsGrid.innerHTML = '<p style="text-align:center;color:#888;">هیچ نتیجه‌ای پیدا نشد.</p>';
+                return;
+            }
+
+            tracks.forEach((track, index) => {
+                const card = document.createElement('div');
+                card.className = 'track-card';
+
+                // تصویر
+                const img = document.createElement('img');
+                img.src = track.thumbnail_url || 'https://via.placeholder.com/300/181818/e91e63?text=🎵';
+                img.alt = track.title || 'آهنگ';
+                card.appendChild(img);
+
+                // نام آهنگ
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'track-name';
+                nameDiv.textContent = track.title || 'بدون نام';
+                card.appendChild(nameDiv);
+
+                // خواننده
+                const artistDiv = document.createElement('div');
+                artistDiv.className = 'track-artists';
+                artistDiv.textContent = track.artist || 'ناشناس';
+                card.appendChild(artistDiv);
+
+                // دکمه پخش
+                const playBtn = document.createElement('button');
+                playBtn.className = 'preview-btn';
+                playBtn.textContent = '▶ پخش';
+                playBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    playTrack(index);
+                };
+                card.appendChild(playBtn);
+
+                // کلیک روی کارت
+                card.onclick = () => playTrack(index);
+
+                resultsGrid.appendChild(card);
+            });
+        }
+
+        // ============================================================
+        //  پخش آهنگ
+        // ============================================================
+
+        function playTrack(index) {
+            if (index < 0 || index >= currentTracks.length) return;
+
+            currentIndex = index;
+            const track = currentTracks[index];
+
+            // بروزرسانی پلیر
+            playerTitle.textContent = track.title || 'بدون نام';
+            playerArtist.textContent = track.artist || 'ناشناس';
+            playerImg.src = track.thumbnail_url || 'https://via.placeholder.com/60/181818/e91e63?text=🎵';
+            nowPlaying.textContent = `در حال پخش: ${track.title} - ${track.artist}`;
+
+            // آدرس فایل صوتی
+            let audioUrl = track.audio_url || track.url || track.download_url || track.mp3_url;
+
+            // اگر audio_url نداشت، از url آپارات استفاده کن
+            if (!audioUrl && track.url) {
+                audioUrl = track.url;
+            }
+
+            // اگر URL معتبر نبود، پیام بده
+            if (!audioUrl) {
+                alert('امکان پخش این آهنگ وجود ندارد (فایل صوتی پیدا نشد).');
+                return;
+            }
+
+            // ساختن پلیر جدید
+            if (audioPlayer) {
+                audioPlayer.pause();
+                audioPlayer.src = '';
+            }
+
+            audioPlayer = new Audio(audioUrl);
+
+            // رویدادها
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                const duration = audioPlayer.duration;
+                if (!isNaN(duration)) {
+                    totalTimeDisplay.textContent = formatTime(duration);
+                    progressBar.max = duration;
+                }
+            });
+
+            audioPlayer.addEventListener('timeupdate', () => {
+                const current = audioPlayer.currentTime;
+                currentTimeDisplay.textContent = formatTime(current);
+                if (!isNaN(progressBar.max) && progressBar.max > 0) {
+                    progressBar.value = current;
+                }
+            });
+
+            audioPlayer.addEventListener('ended', () => {
+                playNext();
+            });
+
+            audioPlayer.addEventListener('error', (e) => {
+                console.error('خطای پخش:', e);
+                alert('خطا در پخش فایل صوتی. ممکن است لینک معتبر نباشد.');
+            });
+
+            // پخش
+            audioPlayer.play()
+                .then(() => {
+                    isPlaying = true;
+                    playerPlay.textContent = '⏸';
+                    playerContainer.classList.add('active');
+                })
+                .catch(err => {
+                    console.error('خطا در شروع پخش:', err);
+                    alert('امکان پخش این آهنگ وجود ندارد. لطفاً آهنگ دیگری را امتحان کنید.');
+                });
+        }
+
+        // ============================================================
+        //  کنترل‌های پلیر
+        // ============================================================
+
+        function togglePlay() {
+            if (!audioPlayer) return;
+
+            if (isPlaying) {
+                audioPlayer.pause();
+                playerPlay.textContent = '▶';
+                isPlaying = false;
+            } else {
+                audioPlayer.play()
+                    .then(() => {
+                        playerPlay.textContent = '⏸';
+                        isPlaying = true;
+                    })
+                    .catch(err => {
+                        console.error('خطا:', err);
+                    });
+            }
+        }
+
+        function playPrev() {
+            if (currentIndex > 0) {
+                playTrack(currentIndex - 1);
+            }
+        }
+
+        function playNext() {
+            if (currentIndex < currentTracks.length - 1) {
+                playTrack(currentIndex + 1);
+            } else {
+                // حلقه: برگشت به اول
+                if (currentTracks.length > 0) {
+                    playTrack(0);
+                }
+            }
+        }
+
+        function seekTo(value) {
+            if (audioPlayer && !isNaN(value)) {
+                audioPlayer.currentTime = value;
+            }
+        }
+
+        // ============================================================
+        //  توابع کمکی
+        // ============================================================
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds === Infinity) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function showMessage(text, type = 'info') {
+            messageBox.textContent = text;
+            messageBox.className = 'message-box show';
+            if (type === 'error') {
+                messageBox.style.borderColor = '#6b2a2a';
+                messageBox.style.color = '#ff8a8a';
+                messageBox.style.background = '#1f0f0f';
+            } else if (type === 'loading') {
+                messageBox.style.borderColor = '#2a6b2a';
+                messageBox.style.color = '#8aff8a';
+                messageBox.style.background = '#0f1f0f';
+            } else {
+                messageBox.style.borderColor = '#3a3a3a';
+                messageBox.style.color = '#ccc';
+                messageBox.style.background = '#181818';
+            }
+        }
+
+        function hideMessage() {
+            messageBox.classList.remove('show');
+        }
+
+        // ============================================================
+        //  رویدادها
+        // ============================================================
+
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) {
+                showMessage('لطفاً یک عبارت برای جستجو وارد کنید.', 'info');
+                return;
+            }
+            currentPage = 0;
+            searchAparat(query, currentPage);
+        }
+
+        function goToPrevPage() {
+            if (currentPage > 0) {
+                searchAparat(currentQuery, currentPage - 1);
+            }
+        }
+
+        function goToNextPage() {
+            if (currentPage < totalPages - 1) {
+                searchAparat(currentQuery, currentPage + 1);
+            }
+        }
+
+        // ============================================================
+        //  مقداردهی اولیه
+        // ============================================================
+
+        // جستجو
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+
+        // صفحه‌بندی
+        prevBtn.addEventListener('click', goToPrevPage);
+        nextBtn.addEventListener('click', goToNextPage);
+
+        // کنترل‌های پلیر
+        playerPlay.addEventListener('click', togglePlay);
+        playerPrev.addEventListener('click', playPrev);
+        playerNext.addEventListener('click', playNext);
+        progressBar.addEventListener('input', (e) => {
+            seekTo(parseFloat(e.target.value));
+        });
+
+        // کیبورد (اسپیس برای پخش/مکث)
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName !== 'INPUT' && e.key === ' ') {
+                e.preventDefault();
+                togglePlay();
+            }
+        });
+
+        // ============================================================
+        //  جستجوی پیش‌فرض (اختیاری)
+        // ============================================================
+
+        // نمایش آهنگ‌های محبوب در ابتدا
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                searchInput.placeholder = 'مثلاً: عارف, شادمهر, یا اسم آهنگ...';
+                // جستجوی پیش‌فرض با یک کلمه محبوب
+                searchInput.value = 'محبوب';
+                performSearch();
+            }, 500);
+        });
+
+        console.log('🎵 پارسا موزیک - با موفقیت بارگذاری شد!');
+        console.log('📌 برای جستجو از بخش بالا استفاده کنید.');
+        console.log('🔊 روی هر آهنگ کلیک کنید تا پخش شود.');
     </script>
+
 </body>
 </html>
