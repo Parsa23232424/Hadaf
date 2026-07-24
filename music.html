@@ -270,7 +270,7 @@
 
     <script>
         // ============================================================
-        //  جستجو در musics-fa.com (با S در آخر)
+        //  جستجو در musics-fa.com
         // ============================================================
 
         const searchInput = document.getElementById('search-input');
@@ -304,10 +304,8 @@
                 showMessage('در حال جستجو در بانک موسیقی ایرانی...', 'loading');
                 resultsGrid.innerHTML = '';
 
-                // لینک درست musics-fa.com
                 const searchUrl = `https://musics-fa.com/?s=${encodeURIComponent(query)}`;
                 
-                // استفاده از پروکسی‌های مختلف
                 const proxyUrls = [
                     `https://api.allorigins.win/get?url=${encodeURIComponent(searchUrl)}`,
                     `https://corsproxy.io/?${encodeURIComponent(searchUrl)}`,
@@ -315,7 +313,6 @@
                 ];
 
                 let html = null;
-                let lastError = null;
 
                 for (const proxyUrl of proxyUrls) {
                     try {
@@ -334,7 +331,6 @@
                             }
                         }
                     } catch (err) {
-                        lastError = err;
                         console.warn('پروکسی جواب نداد:', err.message);
                     }
                 }
@@ -343,11 +339,10 @@
                     throw new Error('مشکل در دریافت اطلاعات. لطفاً دوباره امتحان کنید.');
                 }
 
-                // استخراج اطلاعات از HTML
                 const tracks = extractTracksFromHTML(html);
 
                 if (tracks.length === 0) {
-                    showMessage('هیچ آهنگی با این عبارت پیدا نشد. لطفاً با عبارت دیگری جستجو کنید.', 'info');
+                    showMessage('هیچ آهنگی با این عبارت پیدا نشد.', 'info');
                     return;
                 }
 
@@ -372,12 +367,10 @@
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
 
-            // جستجوی آیتم‌های آهنگ در musics-fa.com
             const items = doc.querySelectorAll('.post, .item, .music-item, .song-item, article, .entry');
 
             items.forEach(item => {
                 try {
-                    // استخراج عنوان
                     const titleEl = item.querySelector('h2 a, h3 a, .title, .entry-title, .song-title');
                     let title = titleEl ? titleEl.textContent.trim() : null;
 
@@ -388,15 +381,12 @@
                         }
                     }
 
-                    // استخراج خواننده
                     const artistEl = item.querySelector('.artist, .singer, .author, .artist-name, .musician');
                     const artist = artistEl ? artistEl.textContent.trim() : 'ناشناس';
 
-                    // استخراج لینک
                     const linkEl = item.querySelector('a[href*="download"], a[href*="song"], a[href*="music"]');
                     const link = linkEl ? linkEl.href : null;
 
-                    // استخراج تصویر
                     const imgEl = item.querySelector('img');
                     const image = imgEl ? imgEl.src : 'https://picsum.photos/seed/music/300/300';
 
@@ -414,7 +404,6 @@
                 }
             });
 
-            // اگر هیچی پیدا نشد، سعی کن از کل صفحه استخراج کنی
             if (tracks.length === 0) {
                 const allLinks = doc.querySelectorAll('a[href*="download"], a[href*="song"]');
                 allLinks.forEach(link => {
@@ -637,6 +626,21 @@
         }
 
         // ============================================================
+        //  صفحه‌بندی (اگر نیاز بود)
+        // ============================================================
+
+        let currentPage = 0;
+        const ITEMS_PER_PAGE = 12;
+
+        function showPage(page) {
+            const start = page * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageTracks = filteredTracks.slice(start, end);
+            renderTracks(pageTracks);
+            currentPage = page;
+        }
+
+        // ============================================================
         //  رویدادها
         // ============================================================
 
@@ -670,14 +674,23 @@
         });
 
         // ============================================================
-        //  جستجوی پیش‌فرض
+        //  جستجوی پیش‌فرض با prompt
         // ============================================================
+
+        window.addEventListener('load', () => {
+            // درخواست از کاربر برای وارد کردن نام خواننده یا آهنگ
+            const userQuery = prompt('🎵 نام خواننده یا آهنگ مورد نظر را وارد کنید:', 'شادمهر');
+            
+            if (userQuery !== null && userQuery.trim() !== '') {
+                searchInput.value = userQuery.trim();
+                searchMusic(userQuery.trim());
+            } else {
+                showMessage('برای جستجو، نام خواننده یا آهنگ را وارد کنید.', 'info');
+            }
+        });
 
         console.log('🎵 پارسا موزیک - جستجوی آهنگ ایرانی');
         console.log('📌 مثال: شادمهر, محسن چاوشی, همایون شجریان');
-        
-        searchInput.value = 'شادمهر';
-        setTimeout(() => searchMusic('شادمهر'), 500);
     </script>
 </body>
 </html>
