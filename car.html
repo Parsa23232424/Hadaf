@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width",inital-scale1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ماشین‌بازی</title>
 
 <style>
@@ -71,6 +70,10 @@ button{
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+
+// ====== بارگذاری عکس ماشین ======
+const carImage = new Image();
+carImage.src = "Car.png"; // عکس رو توی همین پوشه بذار
 
 let score = 0;
 let gameRunning = true;
@@ -172,15 +175,19 @@ function draw(){
         roadOffset = 0;
     }
 
-    // ماشین بازیکن
-    ctx.fillStyle="red";
-    ctx.fillRect(car.x,car.y,car.width,car.height);
+    // ====== ماشین بازیکن با عکس ======
+    if (carImage.complete && carImage.naturalWidth !== 0) {
+        ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
+    } else {
+        // اگه عکس پیدا نشد، یه مستطیل قرمز بکش
+        ctx.fillStyle = "red";
+        ctx.fillRect(car.x, car.y, car.width, car.height);
+        ctx.fillStyle = "white";
+        ctx.font = "12px tahoma";
+        ctx.fillText("عکس نیست!", car.x+5, car.y+50);
+    }
 
-    // شیشه
-    ctx.fillStyle="skyblue";
-    ctx.fillRect(car.x+10,car.y+15,40,25);
-
-    // ماشین دشمن
+    // ماشین دشمن (همون آبی که بود)
     ctx.fillStyle="blue";
     ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
 
@@ -210,4 +217,3 @@ draw();
 
 </body>
 </html>
-
