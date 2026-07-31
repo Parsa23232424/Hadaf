@@ -2,22 +2,32 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>ماشین‌بازی</title>
 
 <style>
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 body{
     background:#222;
     color:white;
     text-align:center;
     font-family:tahoma;
     margin:0;
+    padding:10px;
+    touch-action: none;
 }
 
 canvas{
     background:#2a2a2a;
     border:3px solid white;
-    margin-top:10px;
+    max-width:100%;
+    height:auto;
+    touch-action: none;
 }
 
 button{
@@ -25,6 +35,7 @@ button{
     padding:10px 20px;
     margin:5px;
     cursor:pointer;
+    touch-action: manipulation;
 }
 
 #gameOver{
@@ -40,6 +51,42 @@ button{
 
 #hiddenCar {
     display: none;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.back-btn:hover {
+    background: #45a049;
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+.control-btn {
+    font-size: 40px;
+    padding: 15px 30px;
+    margin: 5px;
+    background: #444;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    min-width: 80px;
+    touch-action: manipulation;
+}
+
+.control-btn:active {
+    background: #666;
+    transform: scale(0.95);
 }
 </style>
 </head>
@@ -67,19 +114,34 @@ button{
 
 <br>
 
-<button onclick="moveRight()">➡️</button>
-<button onclick="moveLeft()">⬅️</button>
+<div class="controls">
+    <button class="control-btn" id="leftBtn">⬅️</button>
+    <button class="control-btn" id="rightBtn">➡️</button>
+</div>
 
-<!-- ====== عکس با آدرس درست برای Vercel ====== -->
-<img id="hiddenCar" src="./Car.png" alt="ماشین">
+<br>
+
+<a href="/" class="back-btn">🏠 بازگشت به صفحه اصلی</a>
+
+<!-- ====== عکس خودت ====== -->
+<img id="hiddenCar" src="Car.png" alt="ماشین">
 
 <script>
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-// ====== گرفتن عکس از تگ مخفی ======
+// ====== گرفتن عکس ======
 const carImage = document.getElementById("hiddenCar");
+let imageLoaded = false;
+
+carImage.onload = function() {
+    imageLoaded = true;
+};
+
+if (carImage.complete && carImage.naturalWidth !== 0) {
+    imageLoaded = true;
+}
 
 let score = 0;
 let gameRunning = true;
@@ -102,12 +164,23 @@ let enemy = {
 // ====== کنترل با کیبورد ======
 document.addEventListener("keydown",(e)=>{
     if(!gameRunning) return;
-
     if(e.key==="ArrowLeft") moveLeft();
     if(e.key==="ArrowRight") moveRight();
 });
 
-// ====== حرکت ماشین ======
+// ====== کنترل با دکمه‌های لمسی ======
+document.getElementById("leftBtn").addEventListener("click", moveLeft);
+document.getElementById("leftBtn").addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveLeft();
+});
+
+document.getElementById("rightBtn").addEventListener("click", moveRight);
+document.getElementById("rightBtn").addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveRight();
+});
+
 function moveLeft(){
     if(car.x > 105){
         car.x -= 20;
@@ -120,7 +193,6 @@ function moveRight(){
     }
 }
 
-// ====== تشخیص برخورد ======
 function collision(a,b){
     return (
         a.x < b.x + b.width &&
@@ -130,7 +202,6 @@ function collision(a,b){
     );
 }
 
-// ====== افزایش امتیاز هر ثانیه ======
 setInterval(()=>{
     if(gameRunning){
         score++;
@@ -138,69 +209,52 @@ setInterval(()=>{
     }
 },1000);
 
-// ====== بازی دوباره ======
 function restartGame(){
-
     score = 0;
     gameRunning = true;
-
     document.getElementById("score").innerText = 0;
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("restartBtn").style.display = "none";
-
     car.x = 170;
-
     enemy.y = -100;
     enemy.x = 100 + Math.random()*140;
-
     draw();
 }
 
-// ====== حلقه‌ی اصلی بازی ======
 function draw(){
-
     if(!gameRunning) return;
 
-    // پاک کردن صفحه
     ctx.clearRect(0,0,400,600);
 
-    // چمن
     ctx.fillStyle="green";
     ctx.fillRect(0,0,100,600);
     ctx.fillRect(300,0,100,600);
 
-    // جاده
     ctx.fillStyle="#555";
     ctx.fillRect(100,0,200,600);
 
-    // خط وسط جاده
     ctx.fillStyle="white";
-
     for(let y=-40;y<600;y+=80){
         ctx.fillRect(195,y+roadOffset,10,40);
     }
 
     roadOffset += 6;
-
     if(roadOffset >= 80){
         roadOffset = 0;
     }
 
-    // ====== ماشین بازیکن با عکس ======
-    if (carImage.complete && carImage.naturalWidth !== 0) {
+    // ====== کشیدن ماشین ======
+    if (imageLoaded) {
         ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
     } else {
         // اگه عکس پیدا نشد، ماشین نقاشی شده
         ctx.fillStyle = "red";
         ctx.fillRect(car.x, car.y, car.width, car.height);
-        
         ctx.fillStyle = "skyblue";
         ctx.fillRect(car.x+10, car.y+15, 40, 25);
-        
         ctx.fillStyle = "yellow";
         ctx.fillRect(car.x+5, car.y+5, 10, 10);
         ctx.fillRect(car.x+45, car.y+5, 10, 10);
-        
         ctx.fillStyle = "black";
         ctx.fillRect(car.x-5, car.y+15, 10, 25);
         ctx.fillRect(car.x+55, car.y+15, 10, 25);
@@ -208,31 +262,25 @@ function draw(){
         ctx.fillRect(car.x+55, car.y+60, 10, 25);
     }
 
-    // ====== ماشین دشمن ======
     ctx.fillStyle="blue";
     ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
 
     enemy.y += 3;
-
     if(enemy.y > 650){
         enemy.y = -100;
         enemy.x = 100 + Math.random()*140;
     }
 
-    // ====== بررسی برخورد ======
     if(collision(car,enemy)){
         gameRunning = false;
-
         document.getElementById("gameOver").style.display = "block";
         document.getElementById("restartBtn").style.display = "inline-block";
-
         return;
     }
 
     requestAnimationFrame(draw);
 }
 
-// ====== شروع بازی ======
 draw();
 
 </script>
