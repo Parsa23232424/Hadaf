@@ -39,7 +39,7 @@ button{
 }
 
 #hiddenCar {
-    display: none; /* عکس رو مخفی میکنیم ولی توی مرورگر هست */
+    display: none;
 }
 </style>
 </head>
@@ -70,7 +70,7 @@ button{
 <button onclick="moveRight()">➡️</button>
 <button onclick="moveLeft()">⬅️</button>
 
-<!-- ====== عکس رو اینجا مخفی میذاریم ====== -->
+<!-- ====== عکس با آدرس درست برای Vercel ====== -->
 <img id="hiddenCar" src="/Car.png" alt="ماشین">
 
 <script>
@@ -78,7 +78,7 @@ button{
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-// ====== عکس رو از تگ مخفی میگیریم ======
+// ====== گرفتن عکس از تگ مخفی ======
 const carImage = document.getElementById("hiddenCar");
 
 let score = 0;
@@ -99,6 +99,7 @@ let enemy = {
     height:70
 };
 
+// ====== کنترل با کیبورد ======
 document.addEventListener("keydown",(e)=>{
     if(!gameRunning) return;
 
@@ -106,6 +107,7 @@ document.addEventListener("keydown",(e)=>{
     if(e.key==="ArrowRight") moveRight();
 });
 
+// ====== حرکت ماشین ======
 function moveLeft(){
     if(car.x > 105){
         car.x -= 20;
@@ -118,6 +120,7 @@ function moveRight(){
     }
 }
 
+// ====== تشخیص برخورد ======
 function collision(a,b){
     return (
         a.x < b.x + b.width &&
@@ -127,15 +130,15 @@ function collision(a,b){
     );
 }
 
+// ====== افزایش امتیاز هر ثانیه ======
 setInterval(()=>{
-
     if(gameRunning){
         score++;
         document.getElementById("score").innerText = score;
     }
-
 },1000);
 
+// ====== بازی دوباره ======
 function restartGame(){
 
     score = 0;
@@ -153,10 +156,12 @@ function restartGame(){
     draw();
 }
 
+// ====== حلقه‌ی اصلی بازی ======
 function draw(){
 
     if(!gameRunning) return;
 
+    // پاک کردن صفحه
     ctx.clearRect(0,0,400,600);
 
     // چمن
@@ -168,7 +173,7 @@ function draw(){
     ctx.fillStyle="#555";
     ctx.fillRect(100,0,200,600);
 
-    // خط وسط
+    // خط وسط جاده
     ctx.fillStyle="white";
 
     for(let y=-40;y<600;y+=80){
@@ -181,24 +186,21 @@ function draw(){
         roadOffset = 0;
     }
 
-    // ====== ماشین بازیکن با عکس (از تگ مخفی) ======
+    // ====== ماشین بازیکن با عکس ======
     if (carImage.complete && carImage.naturalWidth !== 0) {
         ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
     } else {
-        // اگه عکس پیدا نشد، یه ماشین قشنگ با رنگ بکش
+        // اگه عکس پیدا نشد، ماشین نقاشی شده
         ctx.fillStyle = "red";
         ctx.fillRect(car.x, car.y, car.width, car.height);
         
-        // شیشه
         ctx.fillStyle = "skyblue";
         ctx.fillRect(car.x+10, car.y+15, 40, 25);
         
-        // چراغ جلو
         ctx.fillStyle = "yellow";
         ctx.fillRect(car.x+5, car.y+5, 10, 10);
         ctx.fillRect(car.x+45, car.y+5, 10, 10);
         
-        // چرخ‌ها
         ctx.fillStyle = "black";
         ctx.fillRect(car.x-5, car.y+15, 10, 25);
         ctx.fillRect(car.x+55, car.y+15, 10, 25);
@@ -206,7 +208,7 @@ function draw(){
         ctx.fillRect(car.x+55, car.y+60, 10, 25);
     }
 
-    // ماشین دشمن
+    // ====== ماشین دشمن ======
     ctx.fillStyle="blue";
     ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
 
@@ -217,7 +219,7 @@ function draw(){
         enemy.x = 100 + Math.random()*140;
     }
 
-    // برخورد
+    // ====== بررسی برخورد ======
     if(collision(car,enemy)){
         gameRunning = false;
 
@@ -230,6 +232,7 @@ function draw(){
     requestAnimationFrame(draw);
 }
 
+// ====== شروع بازی ======
 draw();
 
 </script>
