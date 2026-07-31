@@ -37,6 +37,10 @@ button{
 #restartBtn{
     display:none;
 }
+
+#hiddenCar {
+    display: none; /* عکس رو مخفی میکنیم ولی توی مرورگر هست */
+}
 </style>
 </head>
 
@@ -66,14 +70,17 @@ button{
 <button onclick="moveRight()">➡️</button>
 <button onclick="moveLeft()">⬅️</button>
 
+<!-- ====== عکس رو اینجا مخفی میذاریم ====== -->
+<img id="hiddenCar" src="Car.png" alt="ماشین">
+
 <script>
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-// ====== بارگذاری عکس ماشین ======
-const carImage = new Image();
-carImage.src = "./Car.png";
+// ====== عکس رو از تگ مخفی میگیریم ======
+const carImage = document.getElementById("hiddenCar");
+
 let score = 0;
 let gameRunning = true;
 let roadOffset = 0;
@@ -174,19 +181,32 @@ function draw(){
         roadOffset = 0;
     }
 
-    // ====== ماشین بازیکن با عکس ======
+    // ====== ماشین بازیکن با عکس (از تگ مخفی) ======
     if (carImage.complete && carImage.naturalWidth !== 0) {
         ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
     } else {
-        // اگه عکس پیدا نشد، یه مستطیل قرمز بکش
+        // اگه عکس پیدا نشد، یه ماشین قشنگ با رنگ بکش
         ctx.fillStyle = "red";
         ctx.fillRect(car.x, car.y, car.width, car.height);
-        ctx.fillStyle = "white";
-        ctx.font = "12px tahoma";
-        ctx.fillText("عکس نیست!", car.x+5, car.y+50);
+        
+        // شیشه
+        ctx.fillStyle = "skyblue";
+        ctx.fillRect(car.x+10, car.y+15, 40, 25);
+        
+        // چراغ جلو
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(car.x+5, car.y+5, 10, 10);
+        ctx.fillRect(car.x+45, car.y+5, 10, 10);
+        
+        // چرخ‌ها
+        ctx.fillStyle = "black";
+        ctx.fillRect(car.x-5, car.y+15, 10, 25);
+        ctx.fillRect(car.x+55, car.y+15, 10, 25);
+        ctx.fillRect(car.x-5, car.y+60, 10, 25);
+        ctx.fillRect(car.x+55, car.y+60, 10, 25);
     }
 
-    // ماشین دشمن (همون آبی که بود)
+    // ماشین دشمن
     ctx.fillStyle="blue";
     ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
 
