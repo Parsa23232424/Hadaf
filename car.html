@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ماشین‌بازی</title>
 
 <style>
@@ -10,6 +10,7 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    box-sizing: border-box;
 }
 
 body{
@@ -20,6 +21,11 @@ body{
     margin:0;
     padding:10px;
     touch-action: none;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 }
 
 canvas{
@@ -28,6 +34,8 @@ canvas{
     max-width:100%;
     height:auto;
     touch-action: none;
+    display:block;
+    margin:0 auto;
 }
 
 button{
@@ -36,6 +44,15 @@ button{
     margin:5px;
     cursor:pointer;
     touch-action: manipulation;
+    border-radius:10px;
+    border:2px solid white;
+    background:#444;
+    color:white;
+}
+
+button:active {
+    transform: scale(0.95);
+    background:#666;
 }
 
 #gameOver{
@@ -43,10 +60,17 @@ button{
     font-size:40px;
     color:red;
     margin-top:10px;
+    text-shadow:0 0 10px rgba(255,0,0,0.5);
 }
 
 #restartBtn{
     display:none;
+    background:#ff4444;
+    border-color:#ff4444;
+}
+
+#restartBtn:active {
+    background:#cc0000;
 }
 
 #hiddenCar {
@@ -62,42 +86,67 @@ button{
     text-decoration: none;
     border-radius: 5px;
     font-size: 18px;
+    border:2px solid #4CAF50;
 }
 
-.back-btn:hover {
+.back-btn:active {
     background: #45a049;
+    transform: scale(0.95);
 }
 
 .controls {
     margin-top: 10px;
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    touch-action: none;
 }
 
 .control-btn {
-    font-size: 40px;
-    padding: 15px 30px;
-    margin: 5px;
+    font-size: 45px;
+    padding: 15px 35px;
+    margin: 0;
     background: #444;
     color: white;
-    border: 2px solid white;
-    border-radius: 10px;
-    min-width: 80px;
+    border: 3px solid white;
+    border-radius: 15px;
+    min-width: 100px;
     touch-action: manipulation;
+    transition: all 0.1s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .control-btn:active {
-    background: #666;
-    transform: scale(0.95);
+    background: #777;
+    transform: scale(0.92);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.score-display {
+    font-size:24px;
+    margin:10px 0;
+    background:rgba(255,255,255,0.1);
+    padding:8px 20px;
+    border-radius:10px;
+    display:inline-block;
+}
+
+/* جلوگیری از اسکرول صفحه در موبایل */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🚗 ماشین‌بازی</h1>
+<h1 style="margin:5px 0;">🚗 ماشین‌بازی</h1>
 
-<div>
-🏆 امتیاز:
-<span id="score">0</span>
+<div class="score-display">
+🏆 امتیاز: <span id="score">0</span>
 </div>
 
 <div id="gameOver">
@@ -115,8 +164,8 @@ button{
 <br>
 
 <div class="controls">
-    <button class="control-btn" id="leftBtn">⬅️</button>
-    <button class="control-btn" id="rightBtn">➡️</button>
+    <button class="control-btn" id="leftBtn">◀</button>
+    <button class="control-btn" id="rightBtn">▶</button>
 </div>
 
 <br>
@@ -124,7 +173,7 @@ button{
 <a href="/" class="back-btn">🏠 بازگشت به صفحه اصلی</a>
 
 <!-- ====== عکس از پست‌ایمیج ====== -->
-<img id="hiddenCar" src="https://i.postimg.cc/XZGYpPFg/Car.png" alt="ماشین">
+<img id="hiddenCar" src="https://i.postimg.cc/XZGYpPFg/Car.png" alt="ماشین" crossorigin="anonymous">
 
 <script>
 
@@ -134,10 +183,12 @@ const ctx = canvas.getContext("2d");
 const carImage = document.getElementById("hiddenCar");
 let imageLoaded = false;
 
+// بارگذاری تصویر
 carImage.onload = function() {
     imageLoaded = true;
 };
 
+// اگر تصویر قبلاً بارگذاری شده
 if (carImage.complete && carImage.naturalWidth !== 0) {
     imageLoaded = true;
 }
@@ -145,53 +196,80 @@ if (carImage.complete && carImage.naturalWidth !== 0) {
 let score = 0;
 let gameRunning = true;
 let roadOffset = 0;
+let frameId = null;
+let speed = 3; // سرعت ماشین دشمن
 
-let car = {
+const car = {
     x:170,
     y:500,
     width:60,
     height:100
 };
 
-let enemy = {
+const enemy = {
     x:100 + Math.random()*140,
     y:-100,
     width:60,
     height:70
 };
 
-// ====== کنترل با کیبورد ======
-document.addEventListener("keydown",(e)=>{
-    if(!gameRunning) return;
-    if(e.key==="ArrowLeft") moveLeft();
-    if(e.key==="ArrowRight") moveRight();
-});
-
-// ====== کنترل با دکمه‌های لمسی ======
-document.getElementById("leftBtn").addEventListener("click", moveLeft);
-document.getElementById("leftBtn").addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    moveLeft();
-});
-
-document.getElementById("rightBtn").addEventListener("click", moveRight);
-document.getElementById("rightBtn").addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    moveRight();
-});
-
+// ====== توابع حرکت ======
 function moveLeft(){
-    if(car.x > 105){
+    if(!gameRunning) return;
+    if(car.x > 100){
         car.x -= 20;
+        // محدود کردن به لبه
+        if(car.x < 100) car.x = 100;
     }
 }
 
 function moveRight(){
-    if(car.x < 235){
+    if(!gameRunning) return;
+    if(car.x < 240){
         car.x += 20;
+        if(car.x > 240) car.x = 240;
     }
 }
 
+// ====== کنترل با کیبورد ======
+document.addEventListener("keydown",(e)=>{
+    if(!gameRunning) return;
+    if(e.key === "ArrowLeft") {
+        e.preventDefault();
+        moveLeft();
+    }
+    if(e.key === "ArrowRight") {
+        e.preventDefault();
+        moveRight();
+    }
+});
+
+// ====== کنترل با دکمه‌های لمسی ======
+const leftBtn = document.getElementById("leftBtn");
+const rightBtn = document.getElementById("rightBtn");
+
+// جلوگیری از رفتار پیش‌فرض و حرکت
+leftBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    moveLeft();
+});
+
+leftBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveLeft();
+}, {passive: false});
+
+rightBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    moveRight();
+});
+
+rightBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveRight();
+}, {passive: false});
+
+// ====== تشخیص برخورد ======
 function collision(a,b){
     return (
         a.x < b.x + b.width &&
@@ -201,40 +279,55 @@ function collision(a,b){
     );
 }
 
-setInterval(()=>{
+// ====== افزایش امتیاز هر ثانیه ======
+let scoreInterval = setInterval(()=>{
     if(gameRunning){
         score++;
         document.getElementById("score").innerText = score;
     }
 },1000);
 
+// ====== ریستارت بازی ======
 function restartGame(){
     score = 0;
     gameRunning = true;
-    document.getElementById("score").innerText = 0;
+    speed = 3;
+    document.getElementById("score").innerText = "0";
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("restartBtn").style.display = "none";
     car.x = 170;
+    car.y = 500;
     enemy.y = -100;
     enemy.x = 100 + Math.random()*140;
+    
+    if(frameId) cancelAnimationFrame(frameId);
     draw();
 }
 
+// ====== حلقه اصلی بازی ======
 function draw(){
-    if(!gameRunning) return;
+    if(!gameRunning) {
+        // نمایش صفحه game over
+        return;
+    }
 
+    // پاک کردن صفحه
     ctx.clearRect(0,0,400,600);
 
-    ctx.fillStyle="green";
+    // ====== جاده ======
+    // حاشیه سبز
+    ctx.fillStyle="#228B22";
     ctx.fillRect(0,0,100,600);
     ctx.fillRect(300,0,100,600);
 
+    // جاده خاکستری
     ctx.fillStyle="#555";
     ctx.fillRect(100,0,200,600);
 
+    // خط‌های سفید جاده
     ctx.fillStyle="white";
-    for(let y=-40;y<600;y+=80){
-        ctx.fillRect(195,y+roadOffset,10,40);
+    for(let y=-40; y<600; y+=80){
+        ctx.fillRect(195, y + roadOffset, 10, 40);
     }
 
     roadOffset += 6;
@@ -242,11 +335,11 @@ function draw(){
         roadOffset = 0;
     }
 
-    // ====== کشیدن ماشین ======
+    // ====== کشیدن ماشین بازیکن ======
     if (imageLoaded) {
         ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
     } else {
-        // اگه عکس پیدا نشد، ماشین نقاشی شده
+        // ماشین پیش‌فرض
         ctx.fillStyle = "red";
         ctx.fillRect(car.x, car.y, car.width, car.height);
         ctx.fillStyle = "skyblue";
@@ -261,26 +354,59 @@ function draw(){
         ctx.fillRect(car.x+55, car.y+60, 10, 25);
     }
 
-    ctx.fillStyle="blue";
-    ctx.fillRect(enemy.x,enemy.y,enemy.width,enemy.height);
+    // ====== کشیدن ماشین دشمن ======
+    ctx.fillStyle = "#1a4f8a";
+    ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+    // پنجره‌های دشمن
+    ctx.fillStyle = "#88ccff";
+    ctx.fillRect(enemy.x+8, enemy.y+12, 18, 15);
+    ctx.fillRect(enemy.x+34, enemy.y+12, 18, 15);
+    ctx.fillRect(enemy.x+8, enemy.y+40, 18, 15);
+    ctx.fillRect(enemy.x+34, enemy.y+40, 18, 15);
+    // چراغ‌ها
+    ctx.fillStyle = "#ffcc00";
+    ctx.fillRect(enemy.x+5, enemy.y+2, 12, 6);
+    ctx.fillRect(enemy.x+43, enemy.y+2, 12, 6);
+    ctx.fillStyle = "#ff4444";
+    ctx.fillRect(enemy.x+5, enemy.y+62, 12, 6);
+    ctx.fillRect(enemy.x+43, enemy.y+62, 12, 6);
 
-    enemy.y += 3;
+    // ====== حرکت دشمن ======
+    enemy.y += speed;
+    
+    // افزایش سرعت با امتیاز
+    if(score > 0 && score % 5 === 0 && speed < 10) {
+        speed += 0.5;
+    }
+    
     if(enemy.y > 650){
         enemy.y = -100;
         enemy.x = 100 + Math.random()*140;
     }
 
-    if(collision(car,enemy)){
+    // ====== بررسی برخورد ======
+    if(collision(car, enemy)){
         gameRunning = false;
         document.getElementById("gameOver").style.display = "block";
         document.getElementById("restartBtn").style.display = "inline-block";
+        document.getElementById("restartBtn").style.margin = "10px auto";
+        if(frameId) cancelAnimationFrame(frameId);
         return;
     }
 
-    requestAnimationFrame(draw);
+    // ====== ادامه حلقه ======
+    frameId = requestAnimationFrame(draw);
 }
 
+// شروع بازی
 draw();
+
+// جلوگیری از اسکرول در موبایل
+document.addEventListener('touchmove', function(e) {
+    if(e.target === canvas || e.target.closest('.controls')) {
+        e.preventDefault();
+    }
+}, {passive: false});
 
 </script>
 
