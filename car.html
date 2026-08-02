@@ -242,7 +242,7 @@ let score = 0;
 let gameRunning = true;
 let roadOffset = 0;
 let frameId = null;
-let enemySpeed = 2;
+let enemySpeed = 4;
 let gameOverDisplayed = false;
 
 // ماشین بازیکن
@@ -253,7 +253,7 @@ const car = {
     height: 100,
     minX: 100,
     maxX: 240,
-    step: 22
+    step: 20
 };
 
 // ماشین دشمن
@@ -315,7 +315,7 @@ setupButton(rightBtn, moveRight);
 
 // ====== تشخیص برخورد ======
 function collision(a, b) {
-    const shrink = 8; // کاهش کمی برای برخورد واقع‌گرایانه‌تر
+    const shrink = 8;
     return (
         a.x + shrink < b.x + b.width - shrink &&
         a.x + a.width - shrink > b.x + shrink &&
@@ -329,14 +329,11 @@ let scoreInterval = setInterval(() => {
     if (gameRunning) {
         score++;
         document.getElementById("score").textContent = score;
-        
-        }
     }
 }, 1000);
 
 // ====== ریستارت بازی ======
 function restartGame() {
-    // ریستارت متغیرها
     score = 0;
     gameRunning = true;
     gameOverDisplayed = false;
@@ -350,7 +347,6 @@ function restartGame() {
     enemy.y = -100;
     enemy.x = 100 + Math.random() * 140;
     
-    // قطع حلقه قبلی و شروع دوباره
     if (frameId) {
         cancelAnimationFrame(frameId);
         frameId = null;
@@ -376,26 +372,21 @@ function draw() {
         return;
     }
 
-    // ====== پاک کردن صفحه ======
     ctx.clearRect(0, 0, 400, 600);
 
     // ====== کشیدن جاده ======
-    // چمن
     ctx.fillStyle = "#228B22";
     ctx.fillRect(0, 0, 100, 600);
     ctx.fillRect(300, 0, 100, 600);
     
-    // جاده
     ctx.fillStyle = "#4a4a4a";
     ctx.fillRect(100, 0, 200, 600);
     
-    // خط وسط
     ctx.fillStyle = "#ffffff";
     for (let y = -40; y < 600; y += 80) {
         ctx.fillRect(195, y + roadOffset, 10, 40);
     }
     
-    // حرکت خطوط
     roadOffset += 6;
     if (roadOffset >= 80) roadOffset = 0;
 
@@ -403,7 +394,6 @@ function draw() {
     if (imageLoaded) {
         ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
     } else {
-        // ماشین جایگزین
         ctx.fillStyle = "#e74c3c";
         ctx.shadowColor = "rgba(255,0,0,0.3)";
         ctx.shadowBlur = 10;
@@ -441,7 +431,6 @@ function draw() {
     ctx.fill();
     ctx.shadowBlur = 0;
     
-    // پنجره‌های دشمن
     ctx.fillStyle = "#85c1e9";
     ctx.beginPath();
     ctx.roundRect(enemy.x + 8, enemy.y + 12, 18, 15, 4);
@@ -456,7 +445,6 @@ function draw() {
     ctx.roundRect(enemy.x + 34, enemy.y + 40, 18, 15, 4);
     ctx.fill();
     
-    // چراغ‌های دشمن
     ctx.fillStyle = "#f39c12";
     ctx.fillRect(enemy.x + 5, enemy.y + 3, 12, 6);
     ctx.fillRect(enemy.x + 43, enemy.y + 3, 12, 6);
