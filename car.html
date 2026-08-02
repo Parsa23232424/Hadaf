@@ -242,7 +242,7 @@ let score = 0;
 let gameRunning = true;
 let roadOffset = 0;
 let frameId = null;
-let enemySpeed = 4;
+let enemySpeed = 2;
 let gameOverDisplayed = false;
 
 // ماشین بازیکن
@@ -330,9 +330,6 @@ let scoreInterval = setInterval(() => {
         score++;
         document.getElementById("score").textContent = score;
         
-        // افزایش سرعت هر 10 امتیاز
-        if (score % 10 === 0 && enemySpeed < 12) {
-            enemySpeed += 0.5;
         }
     }
 }, 1000);
