@@ -242,7 +242,7 @@ let score = 0;
 let gameRunning = true;
 let roadOffset = 0;
 let frameId = null;
-let enemySpeed = 4;
+let enemySpeed = 2.5; // سرعت پایین‌تر
 let gameOverDisplayed = false;
 
 // ماشین بازیکن
@@ -293,7 +293,6 @@ const leftBtn = document.getElementById("leftBtn");
 const rightBtn = document.getElementById("rightBtn");
 
 function setupButton(btn, action) {
-    // جلوگیری از رفتار پیش‌فرض
     btn.addEventListener("mousedown", (e) => {
         e.preventDefault();
         action();
@@ -304,7 +303,6 @@ function setupButton(btn, action) {
         action();
     }, { passive: false });
     
-    // جلوگیری از رویدادهای اضافی
     btn.addEventListener("mouseup", (e) => e.preventDefault());
     btn.addEventListener("touchend", (e) => e.preventDefault());
     btn.addEventListener("touchcancel", (e) => e.preventDefault());
@@ -337,7 +335,7 @@ function restartGame() {
     score = 0;
     gameRunning = true;
     gameOverDisplayed = false;
-    enemySpeed = 4;
+    enemySpeed = 2.5;
     document.getElementById("score").textContent = "0";
     document.getElementById("gameOver").style.display = "none";
     document.getElementById("restartBtn").style.display = "none";
