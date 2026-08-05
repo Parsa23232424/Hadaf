@@ -140,58 +140,80 @@
 </div>
 
 <script>
-    document.getElementById('signupBtn').addEventListener('click', async () => {
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const msgDiv = document.getElementById('message');
+    const BIN_ID = 'اینجا Bin ID رو بذار';
+const API_KEY = 'اینجا API Key رو بذار';
 
-        if (!username || !email || !password) {
-            msgDiv.style.display = 'block';
-            msgDiv.style.background = 'rgba(255,70,70,0.15)';
-            msgDiv.style.color = '#ff6b6b';
-            msgDiv.textContent = '❌ همه‌ی فیلدها رو پر کن!';
-            return;
-        }
-
-        if (password.length < 6) {
-            msgDiv.style.display = 'block';
-            msgDiv.style.background = 'rgba(255,70,70,0.15)';
-            msgDiv.style.color = '#ff6b6b';
-            msgDiv.textContent = '❌ رمز عبور حداقل ۶ کاراکتر باشه!';
-            return;
-        }
-
-        try {
-            const response = await fetch('https://your-api-url.com/api/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                msgDiv.style.display = 'block';
-                msgDiv.style.background = 'rgba(70,255,70,0.15)';
-                msgDiv.style.color = '#6cff6c';
-                msgDiv.textContent = '✅ ثبت نام موفق! حالا برو وارد شو.';
-                document.getElementById('username').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('password').value = '';
-            } else {
-                msgDiv.style.display = 'block';
-                msgDiv.style.background = 'rgba(255,70,70,0.15)';
-                msgDiv.style.color = '#ff6b6b';
-                msgDiv.textContent = '❌ ' + (data.error || 'خطا در ثبت نام!');
-            }
-        } catch (error) {
-            msgDiv.style.display = 'block';
-            msgDiv.style.background = 'rgba(255,70,70,0.15)';
-            msgDiv.style.color = '#ff6b6b';
-            msgDiv.textContent = '❌ خطای شبکه! سرور رو چک کن.';
-        }
+// تابع برای خواندن اطلاعات فعلی
+async function getData() {
+    const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        headers: { 'X-Master-Key': API_KEY }
     });
+    const data = await response.json();
+    return data.record; // { users: [], notes: [] }
+}
+
+// تابع برای ذخیره‌سازی اطلاعات جدید
+async function saveData(data) {
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': API_KEY
+        },
+        body: JSON.stringify(data)
+    });
+}
+
+// ====== ثبت‌نام ======
+document.getElementById('signupBtn').addEventListener('click', async () => {
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const msgDiv = document.getElementById('message');
+
+    if (!username || !email || !password) {
+        msgDiv.style.display = 'block';
+        msgDiv.style.background = 'rgba(255,70,70,0.15)';
+        msgDiv.style.color = '#ff6b6b';
+        msgDiv.textContent = '❌ همه‌ی فیلدها رو پر کن!';
+        return;
+    }
+
+    try {
+        const currentData = await getData();
+        if (currentData.users.find(u => u.username === username || u.email === email)) {
+            msgDiv.style.display = 'block';
+            msgDiv.style.background = 'rgba(255,70,70,0.15)';
+            msgDiv.style.color = '#ff6b6b';
+            msgDiv.textContent = '❌ این کاربر یا ایمیل قبلاً ثبت شده!';
+            return;
+        }
+
+        const newUser = {
+            id: currentData.users.length + 1,
+            username,
+            email,
+            password // (بعداً بهتره هش بشه)
+        };
+
+        currentData.users.push(newUser);
+        await saveData(currentData);
+
+        msgDiv.style.display = 'block';
+        msgDiv.style.background = 'rgba(70,255,70,0.15)';
+        msgDiv.style.color = '#6cff6c';
+        msgDiv.textContent = '✅ ثبت نام موفق! حالا برو وارد شو.';
+        document.getElementById('username').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('password').value = '';
+
+    } catch (error) {
+        msgDiv.style.display = 'block';
+        msgDiv.style.background = 'rgba(255,70,70,0.15)';
+        msgDiv.style.color = '#ff6b6b';
+        msgDiv.textContent = '❌ خطا در ارتباط با سرور!';
+    }
+});
 </script>
 
 </body>
