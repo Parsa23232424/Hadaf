@@ -107,72 +107,59 @@
     </div>
 </div>
 
-<!-- بارگذاری Supabase با UMD -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
 </script>
-
 <script>
-    // ========== تنظیمات ==========
-    const supabaseUrl = 'https://jnmgncodjjilbxynhuyi.supabase.co';
-    const supabaseKey = 'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabase = supabase.createClient(
+        'https://jnmgncodjjilbxynhuyi.supabase.co',
+        'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
+    );
 
-    // ========== المان‌ها ==========
-    const signupBtn = document.getElementById('signupBtn');
-    const msgDiv = document.getElementById('message');
-
-    // ========== تابع نمایش پیام ==========
-    async function showMessage(text, isError = false) {
-        msgDiv.style.display = 'block';
-        msgDiv.textContent = text;
-        msgDiv.style.background = isError ? 'rgba(255,70,70,0.15)' : 'rgba(70,255,70,0.15)';
-        msgDiv.style.color = isError ? '#ff6b6b' : '#6cff6c';
-    }
-
-    // ========== رویداد کلیک دکمه ==========
-    signupBtn.addEventListener('click', async () => {
-        // گرفتن مقادیر
+    document.getElementById('signupBtn').addEventListener('click', async function() {
         const username = document.getElementById('username').value.trim();
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
+        const msg = document.getElementById('message');
 
-        // اعتبارسنجی
         if (!username || !email || !password) {
-            await showMessage('❌ همه‌ی فیلدها رو پر کن!', true);
+            msg.style.display = 'block';
+            msg.textContent = '❌ همه فیلدها رو پر کن!';
+            msg.style.background = 'rgba(255,70,70,0.15)';
+            msg.style.color = '#ff6b6b';
             return;
         }
 
         if (password.length < 6) {
-            await showMessage('❌ رمز عبور حداقل ۶ کاراکتر باشه!', true);
+            msg.style.display = 'block';
+            msg.textContent = '❌ رمز عبور حداقل ۶ کاراکتر!';
+            msg.style.background = 'rgba(255,70,70,0.15)';
+            msg.style.color = '#ff6b6b';
             return;
         }
 
         try {
-            // ارسال به Supabase
             const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: { username: username }
-                }
+                email,
+                password,
+                options: { data: { username } }
             });
 
-            if (error) {
-                await showMessage('❌ ' + error.message, true);
-                return;
-            }
+            if (error) throw error;
 
-            if (data.user) {
-                await showMessage('✅ ثبت نام موفق! یه ایمیل تأیید برات فرستاده شد.', false);
-                // پاک کردن فرم
-                document.getElementById('username').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('password').value = '';
-            }
+            msg.style.display = 'block';
+            msg.textContent = '✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.';
+            msg.style.background = 'rgba(70,255,70,0.15)';
+            msg.style.color = '#6cff6c';
+
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
 
         } catch (error) {
-            await showMessage('❌ خطا در ارتباط با سرور!', true);
-            console.error('خطا:', error);
+            msg.style.display = 'block';
+            msg.textContent = '❌ ' + error.message;
+            msg.style.background = 'rgba(255,70,70,0.15)';
+            msg.style.color = '#ff6b6b';
         }
     });
 </script>
