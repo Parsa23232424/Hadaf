@@ -1,85 +1,165 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width",inital-scale1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت هدف🏹</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<title>سایت هدف🏹</title>
-   
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1e3a8a, #2563eb);
-    color: white;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
 
-/* هدر */
-header {
-    text-align: center;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.2);
-}
+        header {
+            text-align: center;
+            font-size: clamp(20px, 5vw, 36px);
+            font-weight: 800;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            padding: 18px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 700px;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
 
-/* کانتینر */
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
-}
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-/* دکمه‌ها */
-.btn {
-    display: block;
-    text-align: center;
-    padding: 15px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 18px;
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 600;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            word-break: break-word;
+        }
 
-    background: #22c55e; /* سبز */
-    color: white;
+        .btn:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+        }
 
-    transition: 0.3s;
-}
+        /* رنگ‌های خاص دکمه‌ها */
+        .btn-news {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+        }
+        .btn-news:hover {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
 
-.btn:hover {
-    background: #16a34a;
-    transform: scale(1.05);
-}
-</style>
+        .btn-support {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+        .btn-support:hover {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
 
+        .btn-car {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+        .btn-car:hover {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .btn-calc {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+        }
+        .btn-calc:hover {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        /* ======== ریسپانسیو ======== */
+
+        /* تبلت و لب‌تاپ کوچک */
+        @media (min-width: 500px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            header {
+                font-size: clamp(24px, 4vw, 40px);
+            }
+        }
+
+        /* لب‌تاپ بزرگ و دسکتاپ */
+        @media (min-width: 900px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                max-width: 800px;
+                gap: 20px;
+            }
+            .btn {
+                padding: 20px 28px;
+                font-size: 22px;
+            }
+        }
+
+        /* موبایل خیلی کوچک */
+        @media (max-width: 380px) {
+            .btn {
+                font-size: 14px;
+                padding: 14px 12px;
+            }
+            header {
+                font-size: 16px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-      به سوپر اپلیکیشن هدف خوش آمدید
-</header>
+    <header>
+        🏹 به سوپر اپلیکیشن هدف خوش آمدید
+    </header>
 
-<div class="container">
+    <div class="container">
+        <a href="news.html" class="btn btn-news">🧠 اخبار تکنولوژی</a>
+        <a href="https://daramet.com/parsa2323" class="btn btn-support">💚 حمایت</a>
+        <a href="car.html" class="btn btn-car">🚗 ماشین بازی</a>
+        <a href="calculator.html" class="btn btn-calc">🧮 ماشین حساب</a>
+    </div>
 
-    <a href="news.html" class="btn">🧠 رفتن به اخبار تکنولوژی</a>
+    <script src="game.js"></script>
+    <script>
+        // این اسکریپت رو ولش کن فعلاً
+        console.log('سایت هدف بارگذاری شد');
+    </script>
 
-    <a href="https://daramet.com/parsa2323" class="btn">💚 حمایت</a>
-
-    <a href="car.html" class="btn">🚗 رفتن به ماشین بازی</a>
-   <a href="calculator.html" class="btn">🧮 ماشین حساب</a>
-
-    
-
-</div>
-
-<script src="game.js"></script>
-<script>
-    if (onclick(football)) {
-     alert("لطفا باز نکنید")
-    }
-</script>
 </body>
 </html>
