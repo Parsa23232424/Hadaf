@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ثبت نام | هدف</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -16,36 +20,52 @@
             padding: 20px;
         }
         .container {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
-        h1 { color: #fff; font-size: 28px; text-align: center; margin-bottom: 8px; }
-        .subtitle { color: #aaa; text-align: center; margin-bottom: 30px; font-size: 14px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; color: #ddd; font-size: 14px; margin-bottom: 6px; }
+        h1 {
+            color: #fff;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            color: #ddd;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
         input {
             width: 100%;
             padding: 14px 16px;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
             color: #fff;
             font-size: 16px;
-            transition: all 0.3s ease;
         }
         input:focus {
             outline: none;
             border-color: #6c63ff;
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 0 0 4px rgba(108,99,255,0.15);
+            background: rgba(255, 255, 255, 0.1);
         }
-        input::placeholder { color: #666; }
+        input::placeholder {
+            color: #666;
+        }
         button {
             width: 100%;
             padding: 14px;
@@ -56,14 +76,12 @@
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             margin-top: 8px;
         }
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(108,99,255,0.3);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
         }
-        button:active { transform: scale(0.98); }
         #message {
             margin-top: 16px;
             padding: 12px;
@@ -72,97 +90,108 @@
             font-size: 14px;
             display: none;
         }
-        .login-link { text-align: center; color: #aaa; margin-top: 20px; font-size: 14px; }
-        .login-link a { color: #6c63ff; text-decoration: none; font-weight: 600; }
-        .login-link a:hover { text-decoration: underline; }
+        .login-link {
+            text-align: center;
+            color: #aaa;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>🚀 ثبت نام</h1>
+        <p class="subtitle">به خانواده‌ی هدف خوش آمدی!</p>
 
-<div class="container">
-    <h1>🚀 ثبت نام</h1>
-    <p class="subtitle">به خانواده‌ی هدف خوش آمدی!</p>
+        <div class="form-group">
+            <label>👤 نام کاربری</label>
+            <input type="text" id="username" placeholder="مثلا: parsabravo" />
+        </div>
+        <div class="form-group">
+            <label>📧 ایمیل</label>
+            <input type="email" id="email" placeholder="example@gmail.com" />
+        </div>
+        <div class="form-group">
+            <label>🔒 رمز عبور</label>
+            <input type="password" id="password" placeholder="حداقل ۶ کاراکتر" />
+        </div>
 
-    <div class="form-group">
-        <label>👤 نام کاربری</label>
-        <input type="text" id="username" placeholder="مثلا: parsabravo" />
+        <!-- دکمه ثبت نام -->
+        <button id="signupBtn">ثبت نام ✨</button>
+
+        <div id="message"></div>
+
+        <div class="login-link">
+            قبلاً عضو شدی؟ <a href="login.html">وارد شو</a>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label>📧 ایمیل</label>
-        <input type="email" id="email" placeholder="example@gmail.com" />
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+    </script>
+    <script>
+        // اتصال به Supabase با کلیدهای خودت
+        const supabase = supabase.createClient(
+            'https://jnmgncodjjilbxynhuyi.supabase.co',
+            'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
+        );
 
-    <div class="form-group">
-        <label>🔒 رمز عبور</label>
-        <input type="password" id="password" placeholder="حداقل ۶ کاراکتر" />
-    </div>
+        // پیدا کردن دکمه و گوش دادن به کلیک
+        document.getElementById('signupBtn').addEventListener('click', async function() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const msg = document.getElementById('message');
 
-    <button id="signupBtn">ثبت نام ✨</button>
+            // اعتبارسنجی ساده
+            if (!username || !email || !password) {
+                msg.style.display = 'block';
+                msg.textContent = '❌ همه فیلدها رو پر کن!';
+                msg.style.background = 'rgba(255,70,70,0.15)';
+                msg.style.color = '#ff6b6b';
+                return;
+            }
+            if (password.length < 6) {
+                msg.style.display = 'block';
+                msg.textContent = '❌ رمز عبور حداقل ۶ کاراکتر!';
+                msg.style.background = 'rgba(255,70,70,0.15)';
+                msg.style.color = '#ff6b6b';
+                return;
+            }
 
-    <div id="message"></div>
+            try {
+                // ثبت نام با Supabase
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: { data: { username: username } }
+                });
 
-    <div class="login-link">
-        قبلاً عضو شدی؟ <a href="login.html">وارد شو</a>
-    </div>
-</div>
+                if (error) throw error;
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
-</script>
-<script>
-    const supabase = supabase.createClient(
-        'https://jnmgncodjjilbxynhuyi.supabase.co',
-        'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
-    );
+                // موفق
+                msg.style.display = 'block';
+                msg.textContent = '✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.';
+                msg.style.background = 'rgba(70,255,70,0.15)';
+                msg.style.color = '#6cff6c';
 
-    document.getElementById('signupBtn').addEventListener('click', async function() {
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-        const msg = document.getElementById('message');
+                // پاک کردن فرم
+                document.getElementById('username').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
 
-        if (!username || !email || !password) {
-            msg.style.display = 'block';
-            msg.textContent = '❌ همه فیلدها رو پر کن!';
-            msg.style.background = 'rgba(255,70,70,0.15)';
-            msg.style.color = '#ff6b6b';
-            return;
-        }
-
-        if (password.length < 6) {
-            msg.style.display = 'block';
-            msg.textContent = '❌ رمز عبور حداقل ۶ کاراکتر!';
-            msg.style.background = 'rgba(255,70,70,0.15)';
-            msg.style.color = '#ff6b6b';
-            return;
-        }
-
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: { data: { username } }
-            });
-
-            if (error) throw error;
-
-            msg.style.display = 'block';
-            msg.textContent = '✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.';
-            msg.style.background = 'rgba(70,255,70,0.15)';
-            msg.style.color = '#6cff6c';
-
-            document.getElementById('username').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-
-        } catch (error) {
-            msg.style.display = 'block';
-            msg.textContent = '❌ ' + error.message;
-            msg.style.background = 'rgba(255,70,70,0.15)';
-            msg.style.color = '#ff6b6b';
-        }
-    });
-</script>
-
+            } catch (error) {
+                // خطا
+                msg.style.display = 'block';
+                msg.textContent = '❌ ' + error.message;
+                msg.style.background = 'rgba(255,70,70,0.15)';
+                msg.style.color = '#ff6b6b';
+            }
+        });
+    </script>
 </body>
 </html>
