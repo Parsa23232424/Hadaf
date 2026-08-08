@@ -124,7 +124,9 @@
     <div id="debug">⏳ منتظر کلیک...</div>
 </div>
 
-<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- ===== استفاده از cdnjs به جای unpkg ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.0/umd/supabase.min.js"></script>
+
 <script>
     // ===== دیباگ =====
     const debug = document.getElementById('debug');
@@ -139,6 +141,10 @@
     // ===== اتصال به Supabase =====
     let _supabase = null;
     try {
+        // بررسی اینکه آیا supabase تعریف شده
+        if (typeof supabase === 'undefined') {
+            throw new Error('supabase library not loaded');
+        }
         _supabase = supabase.createClient(
             'https://jnmgncodjjilbxynhuyi.supabase.co',
             'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
@@ -146,6 +152,7 @@
         log('✅ Supabase متصل شد');
     } catch (e) {
         log('❌ خطا در اتصال به Supabase: ' + e.message);
+        alert('خطا در بارگذاری کتابخانه Supabase. لطفاً با VPN یا اینترنت همراه تست کنید.');
     }
 
     // ===== دکمه =====
@@ -162,7 +169,6 @@
         log('📨 پیام: ' + text);
     }
 
-    // استفاده از addEventListener به جای onclick
     btn.addEventListener('click', function() {
         log('✅ دکمه کلیک شد!');
         const username = document.getElementById('username').value.trim();
@@ -178,6 +184,12 @@
 
         if (password.length < 6) {
             show('❌ رمز عبور حداقل ۶ کاراکتر!', true);
+            return;
+        }
+
+        if (!_supabase) {
+            show('❌ اتصال به Supabase برقرار نیست!', true);
+            log('❌ _supabase null است');
             return;
         }
 
