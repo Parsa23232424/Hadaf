@@ -259,18 +259,20 @@
             log('📤 ذخیره داده در JSONBin...');
             await saveData(currentData);
 
-            show('✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.', false);
-            log('✅ ثبت نام موفق');
+            // ===== ذخیره مقادیر قبل از خالی کردن فیلدها =====
+            const userEmail = email;
+            const userName = username;
 
-            // ارسال ایمیل با EmailJS
-            sendVerificationEmail(email, username);
-            const userName = userName;
-            const userEmail = userEmail 
-            
-
+            // ===== خالی کردن فیلدها =====
             document.getElementById('username').value = '';
             document.getElementById('email').value = '';
             document.getElementById('password').value = '';
+
+            // ===== ارسال ایمیل =====
+            sendVerificationEmail(userEmail, userName);
+
+            show('✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.', false);
+            log('✅ ثبت نام موفق');
 
         } catch (error) {
             show('❌ خطا: ' + error.message, true);
