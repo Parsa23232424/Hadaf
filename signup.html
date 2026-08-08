@@ -128,6 +128,7 @@
 </script>
 
 <script>
+    // ===== دیباگ =====
     const debug = document.getElementById('debug');
 
     function log(msg) {
@@ -137,6 +138,7 @@
 
     log('🚀 صفحه بارگذاری شد');
 
+    // ===== مقداردهی EmailJS =====
     (function() {
         try {
             emailjs.init({
@@ -148,9 +150,11 @@
         }
     })();
 
+    // ===== تنظیمات JSONBin =====
     const BIN_ID = '674f4e08ad19ca34f8d8d1d0';
     const API_KEY = '$2b$10$bSF1e6iK1eTp2wpHNkfGYuQ4R1Vj5C5M5q6R7S8T9U0V1W2X3Y4Z';
 
+    // ===== توابع JSONBin =====
     async function getData() {
         try {
             const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
@@ -181,6 +185,27 @@
         }
     }
 
+    // ===== تابع ارسال ایمیل با EmailJS =====
+    function sendVerificationEmail(userEmail, username) {
+        log('📧 ارسال ایمیل به: ' + userEmail);
+
+        const templateParams = {
+            to_email: userEmail,
+            to_name: username,
+            verification_link: 'https://hadaf.site/verify?email=' + encodeURIComponent(userEmail)
+        };
+
+        emailjs.send('service_xeltni9', 'template_k94e2cs', templateParams)
+            .then(function(response) {
+                log('✅ ایمیل تأیید با EmailJS فرستاده شد');
+                console.log('✅ EmailJS response:', response);
+            }, function(error) {
+                log('❌ خطا در ارسال ایمیل با EmailJS: ' + error.text);
+                console.error('❌ EmailJS error:', error);
+            });
+    }
+
+    // ===== دکمه ثبت نام =====
     const btn = document.getElementById('signupBtn');
     const msg = document.getElementById('message');
 
@@ -235,20 +260,7 @@
             await saveData(currentData);
 
             // ===== ارسال ایمیل (قبل از خالی کردن فیلدها) =====
-            log('📧 ارسال ایمیل به: ' + email);
-            const templateParams = {
-                to_email: email,
-                to_name: username,
-                verification_link: 'https://hadaf.site/verify?email=' + encodeURIComponent(email)
-            };
-
-            try {
-                await emailjs.send('service_xeltni9', 'template_k94e2cs', templateParams);
-                log('✅ ایمیل تأیید با EmailJS فرستاده شد');
-            } catch (emailError) {
-                log('❌ خطا در ارسال ایمیل: ' + emailError.text);
-                // حتی با خطای ایمیل، ثبت‌نام انجام شده
-            }
+            await sendVerificationEmail(email, username);
 
             // ===== حالا فیلدها رو خالی کن (بعد از ارسال ایمیل) =====
             document.getElementById('username').value = '';
