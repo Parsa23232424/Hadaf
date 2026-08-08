@@ -5,14 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ثبت نام | هدف</title>
     <style>
-        /* همون استایل‌های قبلی */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #fff;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            color: #ddd;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #6c63ff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.15);
+        }
+        input::placeholder {
+            color: #666;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c63ff, #3f3d9e);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        #message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+        .login-link {
+            text-align: center;
+            color: #aaa;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <!-- فرم ثبت نام (همون قبلی) -->
 
-    <script type="module">
-        import { supabase } from './supabase.js';
+    <div class="container">
+        <h1>🚀 ثبت نام</h1>
+        <p class="subtitle">به خانواده‌ی هدف خوش آمدی!</p>
+
+        <div class="form-group">
+            <label>👤 نام کاربری</label>
+            <input type="text" id="username" placeholder="مثلا: parsabravo" />
+        </div>
+
+        <div class="form-group">
+            <label>📧 ایمیل</label>
+            <input type="email" id="email" placeholder="example@gmail.com" />
+        </div>
+
+        <div class="form-group">
+            <label>🔒 رمز عبور</label>
+            <input type="password" id="password" placeholder="حداقل ۶ کاراکتر" />
+        </div>
+
+        <button id="signupBtn">ثبت نام ✨</button>
+
+        <div id="message"></div>
+
+        <div class="login-link">
+            قبلاً عضو شدی؟ <a href="login.html">وارد شو</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        // ===== اتصال به Supabase =====
+        const supabase = supabase.createClient(
+            'https://jnmgncodjjilbxynhuyi.supabase.co',
+            'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
+        );
 
         const btn = document.getElementById('signupBtn');
         const msg = document.getElementById('message');
@@ -59,5 +196,6 @@
             });
         };
     </script>
+
 </body>
 </html>
