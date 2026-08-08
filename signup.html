@@ -107,34 +107,28 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-    // ===== اتصال به Supabase =====
-    const _supabase = supabase.createClient(
+    const supabase = supabase.createClient(
         'https://jnmgncodjjilbxynhuyi.supabase.co',
         'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
     );
 
-    // ===== گرفتن دکمه =====
     const btn = document.getElementById('signupBtn');
     const msg = document.getElementById('message');
 
-    // ===== وقتی دکمه کلیک شد =====
+    function show(text, isError) {
+        msg.style.display = 'block';
+        msg.textContent = text;
+        msg.style.background = isError ? 'rgba(255,70,70,0.15)' : 'rgba(70,255,70,0.15)';
+        msg.style.color = isError ? '#ff6b6b' : '#6cff6c';
+    }
+
     btn.onclick = function() {
-        // گرفتن مقادیر
         const username = document.getElementById('username').value.trim();
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
 
-        // نمایش پیام
-        function show(text, isError) {
-            msg.style.display = 'block';
-            msg.textContent = text;
-            msg.style.background = isError ? 'rgba(255,70,70,0.15)' : 'rgba(70,255,70,0.15)';
-            msg.style.color = isError ? '#ff6b6b' : '#6cff6c';
-        }
-
-        // چک کردن خالی نبودن
         if (!username || !email || !password) {
             show('❌ همه فیلدها رو پر کن!', true);
             return;
@@ -145,8 +139,7 @@
             return;
         }
 
-        // ثبت نام
-        _supabase.auth.signUp({
+        supabase.auth.signUp({
             email: email,
             password: password,
             options: { data: { username: username } }
