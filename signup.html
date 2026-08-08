@@ -124,8 +124,10 @@
     <div id="debug">⏳ منتظر کلیک...</div>
 </div>
 
-<!-- استفاده از jsDelivr به جای cdnjs -->
+<!-- ===== کتابخانه‌ها ===== -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
 
 <script>
@@ -142,30 +144,17 @@
     // ===== اتصال به Supabase =====
     let _supabase = null;
 
-    // تلاش برای بارگذاری با روش‌های مختلف
     function initSupabase() {
         try {
-            // روش اول: بررسی global supabase
             if (typeof supabase !== 'undefined') {
                 _supabase = supabase.createClient(
                     'https://jnmgncodjjilbxynhuyi.supabase.co',
                     'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
                 );
-                log('✅ Supabase متصل شد (روش اول)');
+                log('✅ Supabase متصل شد');
                 return true;
             }
-
-            // روش دوم: بررسی window.supabase
-            if (typeof window.supabase !== 'undefined') {
-                _supabase = window.supabase.createClient(
-                    'https://jnmgncodjjilbxynhuyi.supabase.co',
-                    'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
-                );
-                log('✅ Supabase متصل شد (روش دوم)');
-                return true;
-            }
-
-            log('❌ هیچ نسخه‌ای از Supabase پیدا نشد');
+            log('❌ Supabase پیدا نشد');
             return false;
         } catch (e) {
             log('❌ خطا در اتصال به Supabase: ' + e.message);
@@ -173,16 +162,43 @@
         }
     }
 
-    // تلاش برای اتصال با تاخیر (برای بارگذاری کامل کتابخونه)
     setTimeout(() => {
-        const result = initSupabase();
-        if (!result) {
-            log('❌ اتصال به Supabase ناموفق بود');
-            alert('خطا در بارگذاری کتابخانه. لطفاً با VPN یا اینترنت همراه تست کنید.');
+        if (!initSupabase()) {
+            alert('خطا در بارگذاری کتابخانه Supabase. لطفاً با VPN تست کنید.');
         }
     }, 1000);
 
-    // ===== دکمه =====
+    // ===== مقداردهی EmailJS =====
+    (function() {
+        try {
+            emailjs.init({
+                publicKey: 'OIV0VJKImeRxTYHk8'  // <-- کلید عمومی EmailJS رو اینجا بذار
+            });
+            log('✅ EmailJS مقداردهی شد');
+        } catch (e) {
+            log('❌ خطا در مقداردهی EmailJS: ' + e.message);
+        }
+    })();
+
+    // ===== تابع ارسال ایمیل با EmailJS =====
+    function sendVerificationEmail(userEmail, username) {
+        const templateParams = {
+            to_email: userEmail,
+            to_name: username,
+            verification_link: 'https://hadaf.site/verify?email=' + encodeURIComponent(userEmail)
+        };
+
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            .then(function(response) {
+                log('✅ ایمیل تأیید با EmailJS فرستاده شد');
+                console.log('✅ EmailJS response:', response);
+            }, function(error) {
+                log('❌ خطا در ارسال ایمیل با EmailJS: ' + error.text);
+                console.error('❌ EmailJS error:', error);
+            });
+    }
+
+    // ===== دکمه ثبت نام =====
     const btn = document.getElementById('signupBtn');
     const msg = document.getElementById('message');
 
@@ -215,9 +231,8 @@
         }
 
         if (!_supabase) {
-            show('❌ اتصال به Supabase برقرار نیست! لطفاً صفحه رو رفرش کن.', true);
+            show('❌ اتصال به Supabase برقرار نیست!', true);
             log('❌ _supabase null است');
-            // تلاش مجدد برای اتصال
             initSupabase();
             return;
         }
@@ -230,13 +245,15 @@
             options: { data: { username: username } }
         })
         .then(result => {
-            log('📥 پاسخ دریافت شد');
+            log('📥 پاسخ Supabase دریافت شد');
             if (result.error) {
                 show('❌ ' + result.error.message, true);
                 log('❌ خطا: ' + result.error.message);
             } else {
                 show('✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.', false);
                 log('✅ ثبت نام موفق');
+                // ارسال ایمیل تأیید با EmailJS
+                sendVerificationEmail(email, username);
                 document.getElementById('username').value = '';
                 document.getElementById('email').value = '';
                 document.getElementById('password').value = '';
