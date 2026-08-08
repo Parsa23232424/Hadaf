@@ -190,7 +190,7 @@
         log('📧 ارسال ایمیل به: ' + userEmail);
 
         const templateParams = {
-            email: userEmail,   // <-- تغییر به email برای هماهنگی با قالب
+            to_email: userEmail,   // با قالب EmailJS هماهنگ است
             to_name: username,
             verification_link: 'https://hadaf.site/verify?email=' + encodeURIComponent(userEmail)
         };
