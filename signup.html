@@ -124,8 +124,9 @@
     <div id="debug">⏳ منتظر کلیک...</div>
 </div>
 
-<!-- ===== استفاده از cdnjs به جای unpkg ===== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.0/umd/supabase.min.js"></script>
+<!-- استفاده از jsDelivr به جای cdnjs -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
+</script>
 
 <script>
     // ===== دیباگ =====
@@ -140,20 +141,46 @@
 
     // ===== اتصال به Supabase =====
     let _supabase = null;
-    try {
-        // بررسی اینکه آیا supabase تعریف شده
-        if (typeof supabase === 'undefined') {
-            throw new Error('supabase library not loaded');
+
+    // تلاش برای بارگذاری با روش‌های مختلف
+    function initSupabase() {
+        try {
+            // روش اول: بررسی global supabase
+            if (typeof supabase !== 'undefined') {
+                _supabase = supabase.createClient(
+                    'https://jnmgncodjjilbxynhuyi.supabase.co',
+                    'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
+                );
+                log('✅ Supabase متصل شد (روش اول)');
+                return true;
+            }
+
+            // روش دوم: بررسی window.supabase
+            if (typeof window.supabase !== 'undefined') {
+                _supabase = window.supabase.createClient(
+                    'https://jnmgncodjjilbxynhuyi.supabase.co',
+                    'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
+                );
+                log('✅ Supabase متصل شد (روش دوم)');
+                return true;
+            }
+
+            log('❌ هیچ نسخه‌ای از Supabase پیدا نشد');
+            return false;
+        } catch (e) {
+            log('❌ خطا در اتصال به Supabase: ' + e.message);
+            return false;
         }
-        _supabase = supabase.createClient(
-            'https://jnmgncodjjilbxynhuyi.supabase.co',
-            'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
-        );
-        log('✅ Supabase متصل شد');
-    } catch (e) {
-        log('❌ خطا در اتصال به Supabase: ' + e.message);
-        alert('خطا در بارگذاری کتابخانه Supabase. لطفاً با VPN یا اینترنت همراه تست کنید.');
     }
+
+    // تلاش برای اتصال با تاخیر (برای بارگذاری کامل کتابخونه)
+    setTimeout(() => {
+        const result = initSupabase();
+        if (!result) {
+            log('❌ اتصال به Supabase ناموفق بود');
+            alert('خطا در بارگذاری کتابخانه. لطفاً با VPN یا اینترنت همراه تست کنید.');
+        }
+    }, 1000);
 
     // ===== دکمه =====
     const btn = document.getElementById('signupBtn');
@@ -188,8 +215,10 @@
         }
 
         if (!_supabase) {
-            show('❌ اتصال به Supabase برقرار نیست!', true);
+            show('❌ اتصال به Supabase برقرار نیست! لطفاً صفحه رو رفرش کن.', true);
             log('❌ _supabase null است');
+            // تلاش مجدد برای اتصال
+            initSupabase();
             return;
         }
 
