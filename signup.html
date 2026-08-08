@@ -124,9 +124,6 @@
     <div id="debug">⏳ منتظر کلیک...</div>
 </div>
 
-<!-- ===== کتابخانه‌ها ===== -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
 
@@ -141,44 +138,52 @@
 
     log('🚀 صفحه بارگذاری شد');
 
-    // ===== اتصال به Supabase =====
-    let _supabase = null;
-
-    function initSupabase() {
-        try {
-            if (typeof supabase !== 'undefined') {
-                _supabase = supabase.createClient(
-                    'https://jnmgncodjjilbxynhuyi.supabase.co',
-                    'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
-                );
-                log('✅ Supabase متصل شد');
-                return true;
-            }
-            log('❌ Supabase پیدا نشد');
-            return false;
-        } catch (e) {
-            log('❌ خطا در اتصال به Supabase: ' + e.message);
-            return false;
-        }
-    }
-
-    setTimeout(() => {
-        if (!initSupabase()) {
-            alert('خطا در بارگذاری کتابخانه Supabase. لطفاً با VPN تست کنید.');
-        }
-    }, 1000);
-
     // ===== مقداردهی EmailJS =====
     (function() {
         try {
             emailjs.init({
-                publicKey: 'OIV0VJKImeRxTYHk8'  // <-- کلید عمومی EmailJS رو اینجا بذار
+                publicKey: 'OIV0VJKImeRxTYHk8'
             });
             log('✅ EmailJS مقداردهی شد');
         } catch (e) {
             log('❌ خطا در مقداردهی EmailJS: ' + e.message);
         }
     })();
+
+    // ===== تنظیمات JSONBin =====
+    const BIN_ID = '6a7377c7da38895dfebdfff2'; // <-- Bin ID خودت رو بذار
+    const API_KEY = '$2a$10$boAAkT8ZeLz5ixAL06yMneT4ztDqy49DcOx0GhbkOCr1hZ5MyOJr.'; // <-- API Key خودت رو بذار
+
+    // ===== توابع JSONBin =====
+    async function getData() {
+        try {
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                headers: { 'X-Master-Key': API_KEY }
+            });
+            const data = await res.json();
+            return data.record || { users: [] };
+        } catch (e) {
+            log('❌ خطا در خواندن داده: ' + e.message);
+            return { users: [] };
+        }
+    }
+
+    async function saveData(data) {
+        try {
+            await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': API_KEY
+                },
+                body: JSON.stringify(data)
+            });
+            log('✅ داده ذخیره شد');
+        } catch (e) {
+            log('❌ خطا در ذخیره داده: ' + e.message);
+            throw e;
+        }
+    }
 
     // ===== تابع ارسال ایمیل با EmailJS =====
     function sendVerificationEmail(userEmail, username) {
@@ -212,7 +217,7 @@
         log('📨 پیام: ' + text);
     }
 
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', async function() {
         log('✅ دکمه کلیک شد!');
         const username = document.getElementById('username').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -230,39 +235,42 @@
             return;
         }
 
-        if (!_supabase) {
-            show('❌ اتصال به Supabase برقرار نیست!', true);
-            log('❌ _supabase null است');
-            initSupabase();
-            return;
-        }
+        try {
+            log('📤 خواندن داده‌ها از JSONBin...');
+            const currentData = await getData();
 
-        log('📤 ارسال به Supabase...');
-
-        _supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: { data: { username: username } }
-        })
-        .then(result => {
-            log('📥 پاسخ Supabase دریافت شد');
-            if (result.error) {
-                show('❌ ' + result.error.message, true);
-                log('❌ خطا: ' + result.error.message);
-            } else {
-                show('✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.', false);
-                log('✅ ثبت نام موفق');
-                // ارسال ایمیل تأیید با EmailJS
-                sendVerificationEmail(email, username);
-                document.getElementById('username').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('password').value = '';
+            if (currentData.users.find(u => u.email === email)) {
+                show('❌ این ایمیل قبلاً ثبت شده!', true);
+                log('❌ ایمیل تکراری');
+                return;
             }
-        })
-        .catch(err => {
-            show('❌ خطا: ' + err.message, true);
-            log('❌ خطا: ' + err.message);
-        });
+
+            const newUser = {
+                id: Date.now(),
+                username: username,
+                email: email,
+                password: password,
+                created_at: new Date().toISOString()
+            };
+            currentData.users.push(newUser);
+
+            log('📤 ذخیره داده در JSONBin...');
+            await saveData(currentData);
+
+            show('✅ ثبت نام موفق! ایمیل تأیید برات فرستاده شد.', false);
+            log('✅ ثبت نام موفق');
+
+            // ارسال ایمیل تأیید با EmailJS
+            sendVerificationEmail(email, username);
+
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+
+        } catch (error) {
+            show('❌ خطا: ' + error.message, true);
+            log('❌ خطا: ' + error.message);
+        }
     });
 </script>
 
