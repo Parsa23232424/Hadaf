@@ -142,15 +142,14 @@
             قبلاً عضو شدی؟ <a href="login.html">وارد شو</a>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>
-    // ===== اتصال به Supabase =====
-    const supabase = supabase.createClient(
-        'https://jnmgncodjjilbxynhuyi.supabase.co',
-        'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
-    );
-    
-    // ... بقیه کدت
+    <script>
+        // ===== اتصال به Supabase =====
+        const supabase = supabase.createClient(
+            'https://jnmgncodjjilbxynhuyi.supabase.co',
+            'sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2'
+        );
 
         // ===== دکمه ثبت نام =====
         document.getElementById('signupBtn').addEventListener('click', async function() {
