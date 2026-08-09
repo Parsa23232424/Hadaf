@@ -161,22 +161,27 @@
                 headers: { 'X-Master-Key': API_KEY }
             });
             const data = await res.json();
-            return data.record || { users: [] };
+            return data.record || { users: [], notes: [] };
         } catch (e) {
             log('❌ خطا در خواندن داده: ' + e.message);
-            return { users: [] };
+            return { users: [], notes: [] };
         }
     }
 
     async function saveData(data) {
         try {
+            // حفظ ساختار کامل (users و notes)
+            const payload = {
+                users: data.users || [],
+                notes: data.notes || []
+            };
             await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Master-Key': API_KEY
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(payload)
             });
             log('✅ داده ذخیره شد');
         } catch (e) {
@@ -190,7 +195,7 @@
         log('📧 ارسال ایمیل به: ' + userEmail);
 
         const templateParams = {
-            to_email: userEmail,   // با قالب EmailJS هماهنگ است
+            to_email: userEmail,
             to_name: username,
             verification_link: 'https://hadaf.site/verify?email=' + encodeURIComponent(userEmail)
         };
