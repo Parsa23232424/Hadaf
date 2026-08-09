@@ -161,7 +161,14 @@
                 headers: { 'X-Master-Key': API_KEY }
             });
             const data = await res.json();
-            return data.record || { users: [], notes: [] };
+            // چک کردن ساختار
+            if (data.record) {
+                return data.record;
+            } else if (data.users) {
+                return data;
+            } else {
+                return { users: [], notes: [] };
+            }
         } catch (e) {
             log('❌ خطا در خواندن داده: ' + e.message);
             return { users: [], notes: [] };
@@ -170,7 +177,6 @@
 
     async function saveData(data) {
         try {
-            // حفظ ساختار کامل (users و notes)
             const payload = {
                 users: data.users || [],
                 notes: data.notes || []
