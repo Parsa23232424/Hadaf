@@ -316,18 +316,12 @@ async function askAI(prompt) {
     {
       method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-
-        "Authorization":
-          "Bearer " + API_KEY,
-
-        "HTTP-Referer":
-          "https://hadaf.site",
-
-        "X-Title":
-          "چالش هوش هدف"
-      },
+headers: {
+  "Content-Type": "application/json",
+  "Authorization": "Bearer " + API_KEY,
+  "HTTP-Referer": "https://hadaf.site",
+  "X-Title": "Hadaf AI Challenge"
+},
 
       body: JSON.stringify({
 
