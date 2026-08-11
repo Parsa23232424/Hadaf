@@ -262,21 +262,24 @@
     </div>
   </div>
 
-
 <script>
 
 /* =====================================================
    🔐 OPENROUTER API KEY
 ===================================================== */
 
-const API_KEY = "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";
+/*
+   کلید OpenRouter خودت را اینجا بگذار.
+*/
+
+const API_KEY = "YOUR_OPENROUTER_API_KEY";
 
 
 /* =====================================================
-   🤖 مدل
+   🤖 مدل رایگان
 ===================================================== */
 
-const MODEL = "openai/gpt-5-chat";
+const MODEL = "openrouter/free";
 
 
 /* =====================================================
@@ -303,11 +306,13 @@ async function askAI(prompt) {
 
   if (
     !API_KEY ||
-    API_KEY === "YOUR_APIKEY"
+    API_KEY === "YOUR_OPENROUTER_API_KEY"
   ) {
+
     throw new Error(
-      "اول API Key مربوط به OpenRouter را وارد کن."
+      "API Key مربوط به OpenRouter را وارد نکرده‌ای."
     );
+
   }
 
 
@@ -316,16 +321,16 @@ async function askAI(prompt) {
     {
       method: "POST",
 
-headers: {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer " + API_KEY,
-  "HTTP-Referer": "https://hadaf.site",
-  "X-Title": "Hadaf AI Challenge"
-},
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + API_KEY,
+        "HTTP-Referer": "https://hadaf.site",
+        "X-Title": "Hadaf AI Challenge"
+      },
 
       body: JSON.stringify({
 
-        const MODEL = "openai/gpt-4o-mini";
+        model: MODEL,
 
         messages: [
 
@@ -375,7 +380,9 @@ headers: {
 
     data = await response.json();
 
-  } catch {
+  }
+
+  catch {
 
     throw new Error(
       "پاسخ OpenRouter قابل خواندن نبود."
@@ -436,6 +443,12 @@ async function newChallenge() {
   document.getElementById(
     "checkButton"
   ).disabled = true;
+
+
+  document.getElementById(
+    "challenge"
+  ).innerText =
+    "🤖 پیکو داره یک چالش جدید می‌سازه...";
 
 
   try {
