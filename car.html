@@ -239,7 +239,8 @@ let score = 0;
 let gameRunning = true;
 let roadOffset = 0;
 let frameId = null;
-let enemySpeed = 10.5; // سرعت پایین‌تر
+let enemySpeed = 2.5; // سرعت اولیه
+const MAX_SPEED = 16; // حداکثر سرعت
 let gameOverDisplayed = false;
 
 // ماشین بازیکن
@@ -319,11 +320,16 @@ function collision(a, b) {
     );
 }
 
-// ====== افزایش امتیاز ======
+// ====== افزایش امتیاز و سرعت ======
 let scoreInterval = setInterval(() => {
     if (gameRunning) {
         score++;
         document.getElementById("score").textContent = score;
+        
+        // افزایش سرعت هر ۵ امتیاز
+        if (score % 5 === 0 && enemySpeed < MAX_SPEED) {
+            enemySpeed += 1.2; // افزایش تدریجی
+        }
     }
 }, 1000);
 
