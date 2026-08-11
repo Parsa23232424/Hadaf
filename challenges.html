@@ -37,8 +37,6 @@
       box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
     }
 
-    /* شخصیت پیکو */
-
     .pico-box {
       text-align: center;
       margin-bottom: 10px;
@@ -196,11 +194,6 @@
 
       <div class="pico-box">
 
-        <!--
-          فایل شخصیت را با نام pico.png
-          در کنار index.html داخل GitHub قرار بده.
-        -->
-
         <img
           id="picoImage"
           class="pico-image"
@@ -239,9 +232,7 @@
       <div class="score">
 
         ⭐ امتیاز:
-        <span id="score">
-          0
-        </span>
+        <span id="score">0</span>
 
       </div>
 
@@ -266,7 +257,7 @@
       ></textarea>
 
 
-      <!-- بررسی -->
+      <!-- بررسی جواب -->
 
       <button
         id="checkButton"
@@ -334,9 +325,7 @@
 
 
       <div class="footer">
-
         🏹 چالش هوش هدف
-
       </div>
 
     </div>
@@ -348,128 +337,131 @@
 
 
 /* =====================================================
-   🔐 API KEY
-   =====================================================
+   🔐 GEMINI API KEY
 
-   کلید DeepSeek خودت را اینجا قرار بده.
+   کلید Gemini خودت را اینجا وارد کن.
 
    مثال:
 
-   const API_KEY = "sk-47da8bcabeb749ba87d1bbeb5f7320cd";
+   const API_KEY = "AQ.Ab8RN6KGgwkdDA_RRjNtllHNrGCPBxIiE2hKfptIFUl5AMehEA";
 
    ⚠️ این روش برای تست است.
-   برای سایت عمومی امن نیست.
 ===================================================== */
 
-
-const API_KEY = "sk-47da8bcabeb749ba87d1bbeb5f7320cd";
-
-
-/* آدرس API */
-
-const API_URL =
-  "https://api.deepseek.com/chat/completions";
+const API_KEY = "AQ.Ab8RN6KGgwkdDA_RRjNtllHNrGCPBxIiE2hKfptIFUl5AMehEA";
 
 
-/* مدل فعلی DeepSeek */
+/* =====================================================
+   🤖 مدل Gemini
+===================================================== */
 
-const MODEL =
-  "deepseek-v4-flash";
+const MODEL = "gemini-2.5-flash-lite";
 
 
 /* متغیرهای بازی */
 
 let currentChallenge = "";
-
 let score = 0;
 
 
 /* =====================================================
-   ارسال درخواست به DeepSeek
+   ارسال درخواست به Gemini
 ===================================================== */
 
-async function askDeepSeek(prompt) {
+async function askGemini(prompt) {
 
   if (
     !API_KEY ||
-    API_KEY === "sk-e467848910f04d90acccecb11ff58dbb"
+    API_KEY === "YOUR_GEMINI_API_KEY"
   ) {
 
     throw new Error(
-      "API Key را داخل کد وارد نکرده‌ای."
+      "API Key جِمینی را داخل کد وارد نکرده‌ای."
     );
 
   }
 
 
   const response = await fetch(
-    API_URL,
+
+    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+
     {
 
       method: "POST",
 
       headers: {
 
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
 
-        "Authorization":
-          "Bearer " + API_KEY
+        "x-goog-api-key": API_KEY
 
       },
 
       body: JSON.stringify({
 
-        model: MODEL,
+        systemInstruction: {
 
-        thinking: {
-          type: "disabled"
+          parts: [
+
+            {
+              text: `
+تو «پیکو» هستی؛
+شخصیت کارتونی سایت چالش هوش هدف.
+
+همیشه فارسی، دوستانه و بانمک صحبت کن.
+
+چالش‌های مناسب کودکان و نوجوانان بساز.
+
+چالش‌ها می‌توانند:
+ریاضی، منطقی، کلمه‌ای،
+معمایی یا دقت و تمرکز باشند.
+
+چالش‌ها باید امن و مناسب باشند.
+
+وقتی کاربر هنوز جواب نداده،
+جواب چالش را لو نده.
+
+پاسخ‌ها خیلی طولانی نباشند.
+              `
+            }
+
+          ]
+
         },
 
-        messages: [
+        contents: [
 
           {
-            role: "system",
 
-            content:
-              `
-تو «پیکو» هستی؛
-شخصیت کارتونی هوش مصنوعی سایت هدف.
+            parts: [
 
-وظیفه تو ساختن و بررسی چالش‌های هوش است.
+              {
+                text: prompt
+              }
 
-قوانین:
+            ]
 
-1. همیشه فارسی صحبت کن.
-2. دوستانه و بانمک باش.
-3. چالش‌ها مناسب کودکان و نوجوانان باشند.
-4. از محتوای خطرناک استفاده نکن.
-5. چالش‌ها می‌توانند ریاضی، منطقی،
-   کلمه‌ای، معمایی یا دقت و تمرکز باشند.
-6. جواب را وقتی کاربر هنوز جواب نداده، لو نده.
-7. پاسخ‌ها خیلی طولانی نباشند.
-              `
-          },
-
-          {
-            role: "user",
-
-            content: prompt
           }
 
         ],
 
-        stream: false,
+        generationConfig: {
 
-        max_tokens: 500
+          temperature: 0.8,
+
+          maxOutputTokens: 500
+
+        }
 
       })
 
     }
+
   );
 
 
-  /* دریافت پاسخ */
+  /* دریافت اطلاعات */
 
   let data;
 
@@ -482,7 +474,7 @@ async function askDeepSeek(prompt) {
   catch {
 
     throw new Error(
-      "پاسخ DeepSeek قابل خواندن نبود."
+      "پاسخ Gemini قابل خواندن نبود."
     );
 
   }
@@ -493,14 +485,14 @@ async function askDeepSeek(prompt) {
   if (!response.ok) {
 
     console.error(
-      "DeepSeek API Error:",
+      "Gemini API Error:",
       data
     );
 
 
     const message =
       data?.error?.message ||
-      `خطای DeepSeek: ${response.status}`;
+      `خطای Gemini: ${response.status}`;
 
 
     throw new Error(message);
@@ -508,22 +500,41 @@ async function askDeepSeek(prompt) {
   }
 
 
-  /* بررسی وجود جواب */
+  /* بررسی پاسخ */
 
   if (
-    !data.choices ||
-    !data.choices[0] ||
-    !data.choices[0].message
+    !data.candidates ||
+    !data.candidates[0] ||
+    !data.candidates[0].content
   ) {
 
     throw new Error(
-      "DeepSeek پاسخ معتبری برنگرداند."
+      "Gemini پاسخ معتبری برنگرداند."
     );
 
   }
 
 
-  return data.choices[0].message.content;
+  const parts =
+    data.candidates[0].content.parts || [];
+
+
+  const text =
+    parts
+      .map(part => part.text || "")
+      .join("");
+
+
+  if (!text) {
+
+    throw new Error(
+      "Gemini متن پاسخی برنگرداند."
+    );
+
+  }
+
+
+  return text;
 
 }
 
@@ -552,19 +563,25 @@ async function newChallenge() {
   try {
 
     const result =
-      await askDeepSeek(
+      await askGemini(
 
         `
 یک چالش هوش جدید بساز.
 
 نوع چالش را خودت انتخاب کن:
-ریاضی، منطقی، کلمه‌ای،
-معمایی یا دقت.
 
-چالش:
+ریاضی،
+منطقی،
+کلمه‌ای،
+معمایی،
+یا دقت و تمرکز.
+
+قوانین:
+
 - کوتاه باشد.
 - جذاب باشد.
 - جواب مشخص داشته باشد.
+- مناسب کودکان و نوجوانان باشد.
 - جواب را در این پیام نگو.
 
 فقط متن چالش را بنویس.
@@ -593,8 +610,8 @@ async function newChallenge() {
       "checkButton"
     ).disabled = false;
 
-
   }
+
 
   catch (error) {
 
@@ -650,7 +667,7 @@ async function checkAnswer() {
   try {
 
     const result =
-      await askDeepSeek(
+      await askGemini(
 
         `
 این چالش را بررسی کن:
@@ -670,7 +687,7 @@ ${answer}
 اگر جواب درست است:
 
 - بگو «آفرین! جواب درست بود 🎉»
-- یک توضیح کوتاه بده.
+- توضیح کوتاه بده.
 - بگو 10 امتیاز گرفته است.
 
 اگر جواب غلط است:
@@ -693,7 +710,7 @@ ${answer}
     );
 
 
-    /* تشخیص تقریبی پاسخ درست */
+    /* تشخیص تقریبی جواب درست */
 
     const lower =
       result.toLowerCase();
@@ -720,8 +737,8 @@ ${answer}
 
     }
 
-
   }
+
 
   catch (error) {
 
@@ -760,7 +777,7 @@ async function getHint() {
   try {
 
     const result =
-      await askDeepSeek(
+      await askGemini(
 
         `
 برای این چالش یک راهنمایی کوچک بده:
@@ -793,6 +810,7 @@ ${currentChallenge}
       result;
 
   }
+
 
   catch (error) {
 
