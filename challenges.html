@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>چالش هوش هدف 🤖 | چالش‌های هوش مصنوعی</title>
+
+  <meta name="description"
+        content="چالش هوش هدف؛ با پیکو، شخصیت هوش مصنوعی هدف، معما و چالش‌های جذاب حل کن.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      color: #172033;
+    }
+
+    .container {
+      width: min(700px, 92%);
+      margin: 40px auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 25px;
+      padding: 25px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.12);
+    }
+
+    .robot {
+      text-align: center;
+      font-size: 80px;
+      margin-bottom: 5px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .pico {
+      background: #eef2ff;
+      border-radius: 18px;
+      padding: 18px;
+      line-height: 2;
+      margin: 20px 0;
+    }
+
+    .challenge {
+      background: #fff7ed;
+      border: 2px solid #fed7aa;
+      border-radius: 18px;
+      padding: 20px;
+      line-height: 2;
+      font-size: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      margin-top: 15px;
+      padding: 15px;
+      border: 2px solid #dbe2ea;
+      border-radius: 15px;
+      font-family: inherit;
+      font-size: 16px;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #6366f1;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 12px;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #6366f1;
+      color: white;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .new {
+      background: #10b981;
+    }
+
+    .hint {
+      background: #fef3c7;
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 15px;
+      line-height: 2;
+      display: none;
+    }
+
+    .result {
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 15px;
+      line-height: 2;
+      display: none;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .loading {
+      text-align: center;
+      display: none;
+      padding: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card">
+
+    <div class="robot">🤖</div>
+
+    <h1>🧠 چالش هوش هدف</h1>
+
+    <div class="pico" id="pico">
+      🤖 پیکو: سلام! من پیکو هستم.
+      آماده‌ای یک چالش هوش مصنوعی حل کنی؟ 😎
+    </div>
+
+    <div class="score">
+      ⭐ امتیاز: <span id="score">0</span>
+    </div>
+
+    <div class="challenge" id="challenge">
+      برای شروع روی «چالش جدید» بزن!
+    </div>
+
+    <textarea
+      id="answer"
+      placeholder="جوابت رو اینجا بنویس..."
+    ></textarea>
+
+    <button id="checkBtn" onclick="checkAnswer()" disabled>
+      ✅ بررسی جواب
+    </button>
+
+    <button class="new" onclick="newChallenge()">
+      🧩 چالش جدید
+    </button>
+
+    <button onclick="getHint()">
+      💡 راهنمایی
+    </button>
+
+    <div class="loading" id="loading">
+      🤖 پیکو داره فکر می‌کنه...
+    </div>
+
+    <div class="hint" id="hint"></div>
+
+    <div class="result" id="result"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  // =====================================================
+  // 🔐 کلید DeepSeek را اینجا برای تست وارد کن
+  // =====================================================
+
+  const API_KEY = "sk-e467848910f04d90acccecb11ff58dbb";
+
+
+  const API_URL = "https://api.deepseek.com/chat/completions";
+
+
+  let currentChallenge = "";
+  let score = 0;
+
+
+  async function askDeepSeek(prompt) {
+
+    const response = await fetch(API_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + API_KEY
+      },
+
+      body: JSON.stringify({
+
+        model: "deepseek-chat",
+
+        messages: [
+
+          {
+            role: "system",
+
+            content:
+              "تو پیکو هستی، شخصیت کارتونی و دوستانه سایت هدف. " +
+              "با کاربر فارسی و ساده صحبت کن. " +
+              "چالش‌ها باید مناسب کودکان و نوجوانان باشند و محتوای خطرناک نداشته باشند."
+          },
+
+          {
+            role: "user",
+            content: prompt
+          }
+
+        ],
+
+        temperature: 0.8
+
+      })
+
+    });
+
+
+    if (!response.ok) {
+      throw new Error("خطا در ارتباط با DeepSeek");
+    }
+
+
+    const data = await response.json();
+
+    return data.choices[0].message.content;
+  }
+
+
+
+  async function newChallenge() {
+
+    setLoading(true);
+
+    hideResult();
+
+    document.getElementById("answer").value = "";
+
+    document.getElementById("checkBtn").disabled = true;
+
+
+    try {
+
+      const result = await askDeepSeek(
+
+        "یک چالش هوش جذاب و کوتاه برای کاربر بساز. " +
+        "می‌تواند معمای منطقی، ریاضی، کلمه‌ای یا دقت باشد. " +
+        "فقط خود چالش را بنویس و جواب را نگو. " +
+        "چالش را با یک عنوان کوتاه شروع کن."
+
+      );
+
+
+      currentChallenge = result;
+
+      document.getElementById("challenge").innerText =
+        result;
+
+
+      document.getElementById("pico").innerText =
+        "🤖 پیکو: اینم چالش جدیدت! خوب فکر کن... 🧠";
+
+
+      document.getElementById("checkBtn").disabled = false;
+
+      document.getElementById("hint").style.display = "none";
+
+
+    } catch (error) {
+
+      document.getElementById("pico").innerText =
+        "😢 پیکو: متأسفانه نتونستم به هوش مصنوعی وصل بشم.";
+
+      console.error(error);
+
+    }
+
+
+    setLoading(false);
+  }
+
+
+
+  async function checkAnswer() {
+
+    const answer =
+      document.getElementById("answer").value.trim();
+
+
+    if (!answer) {
+
+      alert("اول جوابت رو بنویس! 😄");
+
+      return;
+    }
+
+
+    setLoading(true);
+
+
+    try {
+
+      const result = await askDeepSeek(
+
+        `این چالش است:
+
+${currentChallenge}
+
+جواب کاربر:
+
+${answer}
+
+جواب کاربر را بررسی کن.
+
+اگر درست بود:
+- بگو درست است
+- یک توضیح کوتاه بده
+- 10 امتیاز پیشنهاد کن
+
+اگر غلط بود:
+- بگو اشتباه است
+- جواب صحیح را فعلاً نگو
+- یک راهنمایی کوتاه بده
+
+پاسخ را فارسی و دوستانه بنویس.`
+
+      );
+
+
+      document.getElementById("result").style.display =
+        "block";
+
+      document.getElementById("result").innerText =
+        "🤖 پیکو:\n" + result;
+
+
+      if (
+        result.includes("درست") ||
+        result.includes("آفرین") ||
+        result.includes("صحیح")
+      ) {
+
+        score += 10;
+
+        document.getElementById("score").innerText =
+          score;
+      }
+
+
+    } catch (error) {
+
+      document.getElementById("result").style.display =
+        "block";
+
+      document.getElementById("result").innerText =
+        "❌ خطا در بررسی جواب.";
+
+      console.error(error);
+
+    }
+
+
+    setLoading(false);
+  }
+
+
+
+  async function getHint() {
+
+    if (!currentChallenge) {
+
+      alert("اول یک چالش بساز! 😄");
+
+      return;
+    }
+
+
+    setLoading(true);
+
+
+    try {
+
+      const result = await askDeepSeek(
+
+        `برای این چالش یک راهنمایی کوچک بده:
+
+${currentChallenge}
+
+جواب نهایی را نگو.
+راهنمایی باید کمک‌کننده ولی نه خیلی واضح باشد.`
+
+      );
+
+
+      const hint =
+        document.getElementById("hint");
+
+
+      hint.style.display = "block";
+
+      hint.innerText =
+        "💡 راهنمای پیکو:\n" + result;
+
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+
+    setLoading(false);
+  }
+
+
+
+  function setLoading(value) {
+
+    document.getElementById("loading").style.display =
+      value ? "block" : "none";
+
+  }
+
+
+
+  function hideResult() {
+
+    document.getElementById("result").style.display =
+      "none";
+
+  }
+
+</script>
+
+</body>
+</html>
