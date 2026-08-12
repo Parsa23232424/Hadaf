@@ -31,7 +31,7 @@
       background: white;
       border-radius: 28px;
       padding: 25px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, .12);
     }
 
     .pico-box {
@@ -65,6 +65,7 @@
       line-height: 2;
       margin-bottom: 20px;
       font-size: 16px;
+      white-space: pre-wrap;
     }
 
     .score {
@@ -120,11 +121,11 @@
     }
 
     button:hover {
-      opacity: 0.9;
+      opacity: .9;
     }
 
     button:disabled {
-      opacity: 0.5;
+      opacity: .5;
       cursor: not-allowed;
     }
 
@@ -191,8 +192,7 @@
           class="pico-image"
           src="pico.png"
           alt="پیکو - شخصیت هوش مصنوعی هدف"
-          onerror="showRobotFallback()"
-        >
+          onerror="showRobotFallback()">
 
         <div id="robotFallback" class="robot-fallback">
           🤖
@@ -201,6 +201,10 @@
       </div>
 
       <h1>🧠 چالش هوش هدف</h1>
+
+      <div id="score" class="score">
+        ⭐ امتیاز: 0
+      </div>
 
       <div id="picoMessage" class="message">
         🤖 پیکو:
@@ -216,8 +220,7 @@
 
       <textarea
         id="answer"
-        placeholder="✍️ جوابت رو اینجا بنویس..."
-      ></textarea>
+        placeholder="✍️ جوابت رو اینجا بنویس..."></textarea>
 
       <button
         id="checkButton"
@@ -227,12 +230,14 @@
       </button>
 
       <button
+        id="newButton"
         class="new-button"
         onclick="newChallenge()">
         🧩 چالش جدید
       </button>
 
       <button
+        id="hintButton"
         class="hint-button"
         onclick="getHint()">
         💡 راهنمایی
@@ -256,16 +261,14 @@
 
     </div>
   </div>
-  <script>
+
+<script>
+
 /* =====================================================
    🤖 تنظیمات پیکو
 ===================================================== */
 
-/*
-  کلید خودت را اینجا قرار بده.
-  کلید را داخل GitHub عمومی قرار نده.
-*/
-const API_KEY = "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";
+const API_KEY = "YOUR_OPENROUTER_KEY";
 
 const MODEL = "openai/gpt-4o-mini";
 
@@ -274,7 +277,7 @@ const API_URL =
 
 
 /* =====================================================
-   🎯 متغیرهای بازی
+   🎯 وضعیت بازی
 ===================================================== */
 
 let currentChallenge = "";
@@ -282,7 +285,7 @@ let score = 0;
 
 
 /* =====================================================
-   🔧 عناصر صفحه
+   🔧 عناصر
 ===================================================== */
 
 const challengeBox =
@@ -293,6 +296,12 @@ const answerBox =
 
 const checkButton =
   document.getElementById("checkButton");
+
+const newButton =
+  document.getElementById("newButton");
+
+const hintButton =
+  document.getElementById("hintButton");
 
 const loadingBox =
   document.getElementById("loading");
@@ -309,33 +318,47 @@ const errorBox =
 const picoMessage =
   document.getElementById("picoMessage");
 
+const scoreBox =
+  document.getElementById("score");
+
 
 /* =====================================================
-   🤖 ارتباط با OpenRouter
+   🤖 درخواست به OpenRouter
 ===================================================== */
 
 async function askAI(prompt) {
 
   if (
     !API_KEY ||
-    API_KEY === "کلید-فعلی-خودت"
+    API_KEY === "YOUR_OPENROUTER_KEY"
   ) {
+
     throw new Error(
-      "کلید OpenRouter را وارد نکرده‌ای."
+      "کلید OpenRouter تنظیم نشده است."
     );
+
   }
 
 
-  const response = await fetch(
-    API_URL,
-    {
+  const response =
+    await fetch(API_URL, {
+
       method: "POST",
 
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_KEY}`,
-        "HTTP-Referer": "https://hadaf.site",
-        "X-Title": "Hadaf AI Challenge"
+
+        "Content-Type":
+          "application/json",
+
+        "Authorization":
+          "Bearer " + API_KEY,
+
+        "HTTP-Referer":
+          window.location.origin,
+
+        "X-Title":
+          "Hadaf AI Challenge"
+
       },
 
       body: JSON.stringify({
@@ -376,8 +399,8 @@ async function askAI(prompt) {
         max_tokens: 500
 
       })
-    }
-  );
+
+    });
 
 
   let data;
@@ -398,13 +421,14 @@ async function askAI(prompt) {
   if (!response.ok) {
 
     console.error(
-      "OpenRouter error:",
+      "OpenRouter:",
       data
     );
 
     throw new Error(
       data?.error?.message ||
-      `خطای OpenRouter: ${response.status}`
+      "خطای OpenRouter: " +
+      response.status
     );
 
   }
@@ -419,19 +443,15 @@ async function askAI(prompt) {
     typeof text !== "string"
   ) {
 
-    console.error(
-      "پاسخ کامل OpenRouter:",
-      data
-    );
-
     throw new Error(
-      "OpenRouter متن معتبری برنگرداند."
+      "OpenRouter پاسخی برنگرداند."
     );
 
   }
 
 
   return text.trim();
+
 }
 
 
@@ -449,6 +469,11 @@ async function newChallenge() {
 
   checkButton.disabled = true;
 
+  newButton.disabled = true;
+
+  hintButton.disabled = true;
+
+
   challengeBox.innerText =
     "🤖 پیکو داره یک چالش جدید می‌سازه...";
 
@@ -459,7 +484,8 @@ async function newChallenge() {
 
   try {
 
-    const result = await askAI(`
+    const result =
+      await askAI(`
 
 یک چالش هوش جدید بساز.
 
@@ -508,7 +534,12 @@ async function newChallenge() {
 
     setLoading(false);
 
+    newButton.disabled = false;
+
+    hintButton.disabled = false;
+
   }
+
 }
 
 
@@ -529,6 +560,7 @@ async function checkAnswer() {
     );
 
     return;
+
   }
 
 
@@ -539,6 +571,7 @@ async function checkAnswer() {
     );
 
     return;
+
   }
 
 
@@ -548,10 +581,15 @@ async function checkAnswer() {
 
   checkButton.disabled = true;
 
+  newButton.disabled = true;
+
+  hintButton.disabled = true;
+
 
   try {
 
-    const result = await askAI(`
+    const result =
+      await askAI(`
 
 چالش:
 
@@ -595,10 +633,6 @@ ${answer}
     );
 
 
-    /*
-      تشخیص ساده جواب درست
-    */
-
     const normalized =
       result
         .replace(/ي/g, "ی")
@@ -609,7 +643,6 @@ ${answer}
     const correct =
       normalized.includes("جواب درست بود") ||
       normalized.includes("پاسخ درست بود") ||
-      normalized.includes("آفرین") ||
       normalized.includes("کاملاً درست");
 
 
@@ -636,7 +669,12 @@ ${answer}
     checkButton.disabled =
       !currentChallenge;
 
+    newButton.disabled = false;
+
+    hintButton.disabled = false;
+
   }
+
 }
 
 
@@ -653,6 +691,7 @@ async function getHint() {
     );
 
     return;
+
   }
 
 
@@ -660,10 +699,17 @@ async function getHint() {
 
   setLoading(true);
 
+  hintButton.disabled = true;
+
+  newButton.disabled = true;
+
+  checkButton.disabled = true;
+
 
   try {
 
-    const result = await askAI(`
+    const result =
+      await askAI(`
 
 برای این چالش یک راهنمایی بده:
 
@@ -698,7 +744,15 @@ ${currentChallenge}
 
     setLoading(false);
 
+    hintButton.disabled = false;
+
+    newButton.disabled = false;
+
+    checkButton.disabled =
+      !currentChallenge;
+
   }
+
 }
 
 
@@ -708,39 +762,9 @@ ${currentChallenge}
 
 function updateScore() {
 
-  let scoreElement =
-    document.getElementById("score");
-
-
-  if (!scoreElement) {
-
-    scoreElement =
-      document.createElement("div");
-
-    scoreElement.id = "score";
-
-    scoreElement.className =
-      "score";
-
-    scoreElement.innerText =
-      "⭐ امتیاز: 0";
-
-
-    const card =
-      document.querySelector(".card");
-
-    const message =
-      document.getElementById("picoMessage");
-
-    card.insertBefore(
-      scoreElement,
-      message
-    );
-  }
-
-
-  scoreElement.innerText =
+  scoreBox.innerText =
     "⭐ امتیاز: " + score;
+
 }
 
 
@@ -752,11 +776,12 @@ function setLoading(value) {
 
   loadingBox.style.display =
     value ? "block" : "none";
+
 }
 
 
 /* =====================================================
-   ❌ نمایش خطا
+   ❌ خطا
 ===================================================== */
 
 function showError(error) {
@@ -776,11 +801,12 @@ function showError(error) {
     "Pico Error:",
     error
   );
+
 }
 
 
 /* =====================================================
-   🎉 نمایش نتیجه
+   🎉 نتیجه
 ===================================================== */
 
 function showResult(text) {
@@ -790,6 +816,7 @@ function showResult(text) {
 
   resultBox.innerText =
     text;
+
 }
 
 
@@ -807,6 +834,7 @@ function hideMessages() {
 
   errorBox.style.display =
     "none";
+
 }
 
 
@@ -817,14 +845,10 @@ function hideMessages() {
 function showRobotFallback() {
 
   const image =
-    document.getElementById(
-      "picoImage"
-    );
+    document.getElementById("picoImage");
 
   const fallback =
-    document.getElementById(
-      "robotFallback"
-    );
+    document.getElementById("robotFallback");
 
 
   image.style.display =
@@ -832,11 +856,12 @@ function showRobotFallback() {
 
   fallback.style.display =
     "block";
+
 }
 
 
 /* =====================================================
-   🚀 آماده‌سازی
+   🚀 شروع
 ===================================================== */
 
 updateScore();
@@ -846,12 +871,6 @@ console.log(
 );
 
 </script>
-
-
-
-
-
-
 
 </body>
 </html>
