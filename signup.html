@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -10,19 +9,19 @@
 
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: Tahoma, "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 20px;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     }
 
     .container {
@@ -30,10 +29,10 @@
       max-width: 420px;
       padding: 35px;
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
 
     h1 {
@@ -63,8 +62,8 @@
       width: 100%;
       padding: 14px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, .15);
-      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.07);
       color: white;
       font-size: 16px;
       outline: none;
@@ -72,7 +71,7 @@
 
     input:focus {
       border-color: #6c63ff;
-      box-shadow: 0 0 0 3px rgba(108, 99, 255, .2);
+      box-shadow: 0 0 0 3px rgba(108,99,255,.2);
     }
 
     input::placeholder {
@@ -82,26 +81,18 @@
     button {
       width: 100%;
       padding: 14px;
-      margin-top: 8px;
       border: 0;
       border-radius: 12px;
-      background: linear-gradient(135deg, #6c63ff, #3f3d9e);
+      background: linear-gradient(135deg,#6c63ff,#3f3d9e);
       color: white;
       font-size: 18px;
       font-weight: bold;
       cursor: pointer;
-      transition: .2s;
-    }
-
-    button:hover {
-      opacity: .9;
-      transform: translateY(-1px);
     }
 
     button:disabled {
       opacity: .5;
       cursor: not-allowed;
-      transform: none;
     }
 
     #message {
@@ -139,32 +130,32 @@
     </p>
 
     <div class="form-group">
-      <label for="username">👤 نام کاربری</label>
+      <label>👤 نام کاربری</label>
 
       <input
-        type="text"
         id="username"
+        type="text"
         placeholder="مثلاً: parsabravo"
-        autocomplete="username"
-        maxlength="30">
+        maxlength="30"
+        autocomplete="username">
     </div>
 
     <div class="form-group">
-      <label for="email">📧 ایمیل</label>
+      <label>📧 ایمیل</label>
 
       <input
-        type="email"
         id="email"
+        type="email"
         placeholder="example@gmail.com"
         autocomplete="email">
     </div>
 
     <div class="form-group">
-      <label for="password">🔒 رمز عبور</label>
+      <label>🔒 رمز عبور</label>
 
       <input
-        type="password"
         id="password"
+        type="password"
         placeholder="حداقل ۶ کاراکتر"
         autocomplete="new-password">
     </div>
@@ -182,43 +173,26 @@
 
   </div>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
 
-    const SUPABASE_URL =
-      "https://jnmgncodjjilbxynhuyi.supabase.co";
+    /*
+      آدرس Web App گوگل اسکریپت را اینجا قرار بده
+    */
 
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2";
-
-
-    const { createClient } = window.supabase;
-
-    const supabaseClient = createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY,
-      {
-        auth: {
-          persistSession: true,
-          autoRefreshToken: true,
-          detectSessionInUrl: true
-        }
-      }
-    );
+    const API_URL =
+      "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
 
-    const usernameInput =
+    const username =
       document.getElementById("username");
 
-    const emailInput =
+    const email =
       document.getElementById("email");
 
-    const passwordInput =
+    const password =
       document.getElementById("password");
 
-    const signupBtn =
+    const button =
       document.getElementById("signupBtn");
 
     const message =
@@ -234,7 +208,7 @@
       if (error) {
 
         message.style.background =
-          "rgba(255,70,70,0.15)";
+          "rgba(255,70,70,.15)";
 
         message.style.color =
           "#ff6b6b";
@@ -242,7 +216,7 @@
       } else {
 
         message.style.background =
-          "rgba(70,255,70,0.15)";
+          "rgba(70,255,70,.15)";
 
         message.style.color =
           "#6cff6c";
@@ -250,295 +224,136 @@
     }
 
 
-    function validEmail(email) {
+    function validEmail(value) {
 
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
     }
 
 
-    async function register() {
+    async function signup() {
 
-      const username =
-        usernameInput.value.trim();
+      const user =
+        username.value.trim();
 
-      const email =
-        emailInput.value.trim();
+      const mail =
+        email.value.trim();
 
-      const password =
-        passwordInput.value;
-
-
-      if (!username) {
-
-        showMessage(
-          "❌ نام کاربری را وارد کن.",
-          true
-        );
-
-        usernameInput.focus();
-
-        return;
-      }
+      const pass =
+        password.value;
 
 
-      if (username.length < 3) {
+      if (user.length < 3) {
 
         showMessage(
           "❌ نام کاربری باید حداقل ۳ کاراکتر باشد.",
           true
         );
 
-        usernameInput.focus();
-
         return;
       }
 
 
-      if (!email) {
+      if (!validEmail(mail)) {
 
         showMessage(
-          "❌ ایمیل را وارد کن.",
+          "❌ ایمیل معتبر وارد کن.",
           true
         );
 
-        emailInput.focus();
-
         return;
       }
 
 
-      if (!validEmail(email)) {
-
-        showMessage(
-          "❌ ایمیل واردشده معتبر نیست.",
-          true
-        );
-
-        emailInput.focus();
-
-        return;
-      }
-
-
-      if (!password) {
-
-        showMessage(
-          "❌ رمز عبور را وارد کن.",
-          true
-        );
-
-        passwordInput.focus();
-
-        return;
-      }
-
-
-      if (password.length < 6) {
+      if (pass.length < 6) {
 
         showMessage(
           "❌ رمز عبور باید حداقل ۶ کاراکتر باشد.",
           true
         );
 
-        passwordInput.focus();
-
         return;
       }
 
 
-      signupBtn.disabled = true;
+      button.disabled = true;
 
-      signupBtn.textContent =
+      button.textContent =
         "⏳ در حال ثبت نام...";
-
-      message.style.display = "none";
 
 
       try {
 
-        /*
-          حداکثر ۳۰ ثانیه برای پاسخ Supabase
-        */
+        const response =
+          await fetch(API_URL, {
 
-        const request =
-          supabaseClient.auth.signUp({
+            method: "POST",
 
-            email: email,
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8"
+            },
 
-            password: password,
+            body: JSON.stringify({
 
-            options: {
+              action: "signup",
 
-              data: {
-                username: username
-              }
+              username: user,
 
-            }
+              email: mail,
 
-          });
+              password: pass
 
-
-        const timeout =
-          new Promise((_, reject) => {
-
-            setTimeout(() => {
-
-              reject(
-                new Error("TIMEOUT")
-              );
-
-            }, 30000);
+            })
 
           });
 
 
         const result =
-          await Promise.race([
-            request,
-            timeout
-          ]);
+          await response.json();
 
 
-        const data =
-          result.data;
-
-        const error =
-          result.error;
-
-
-        if (error) {
-          throw error;
-        }
-
-
-        if (!data || !data.user) {
+        if (!result.success) {
 
           throw new Error(
+            result.message ||
             "ثبت نام انجام نشد."
           );
 
         }
 
 
-        /*
-          اگر تأیید ایمیل فعال باشد
-        */
-
-        if (!data.session) {
-
-          showMessage(
-            "✅ ثبت نام با موفقیت انجام شد! 🎉\n\n" +
-            "📧 یک ایمیل تأیید برایت ارسال شده است.\n" +
-            "لطفاً ایمیلت را بررسی کن."
-          );
-
-        } else {
-
-          showMessage(
-            "🎉 ثبت نام با موفقیت انجام شد!"
-          );
-
-          setTimeout(() => {
-
-            window.location.href =
-              "index.html";
-
-          }, 1500);
-
-        }
+        showMessage(
+          "🎉 ثبت نام با موفقیت انجام شد!\n\n" +
+          "اکنون می‌توانی وارد حساب خودت شوی."
+        );
 
 
-        usernameInput.value = "";
-        emailInput.value = "";
-        passwordInput.value = "";
+        username.value = "";
+        email.value = "";
+        password.value = "";
+
+
+        setTimeout(() => {
+
+          location.href =
+            "login.html";
+
+        }, 1500);
 
 
       } catch (error) {
 
-        console.error(
-          "Signup Error:",
-          error
-        );
-
-
-        let text =
-          error?.message ||
-          "خطای ناشناخته";
-
-
-        const lower =
-          text.toLowerCase();
-
-
-        if (
-          text === "TIMEOUT" ||
-          lower.includes("failed to fetch")
-        ) {
-
-          text =
-            "ارتباط با سرور برقرار نشد. 🌐\n" +
-            "لطفاً اینترنت یا اتصال Supabase را بررسی کن و دوباره تلاش کن.";
-
-        }
-
-        else if (
-          lower.includes(
-            "user already registered"
-          )
-        ) {
-
-          text =
-            "این ایمیل قبلاً ثبت شده است. ❌";
-
-        }
-
-        else if (
-          lower.includes(
-            "invalid email"
-          )
-        ) {
-
-          text =
-            "ایمیل واردشده معتبر نیست. 📧";
-
-        }
-
-        else if (
-          lower.includes(
-            "password"
-          )
-        ) {
-
-          text =
-            "رمز عبور مناسب نیست. 🔒";
-
-        }
-
-        else if (
-          lower.includes(
-            "rate limit"
-          )
-        ) {
-
-          text =
-            "تعداد درخواست‌ها زیاد شده است. ⏳\n" +
-            "کمی بعد دوباره امتحان کن.";
-
-        }
-
-
         showMessage(
-          "❌ " + text,
+          "❌ " +
+          error.message,
           true
         );
 
-
       } finally {
 
-        signupBtn.disabled = false;
+        button.disabled = false;
 
-        signupBtn.textContent =
+        button.textContent =
           "ثبت نام ✨";
 
       }
@@ -546,18 +361,18 @@
     }
 
 
-    signupBtn.addEventListener(
+    button.addEventListener(
       "click",
-      register
+      signup
     );
 
 
-    passwordInput.addEventListener(
+    password.addEventListener(
       "keydown",
-      function(event) {
+      event => {
 
         if (event.key === "Enter") {
-          register();
+          signup();
         }
 
       }
@@ -566,5 +381,4 @@
   </script>
 
 </body>
-
 </html>
