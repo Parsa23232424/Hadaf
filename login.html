@@ -66,8 +66,8 @@
             width: 100%;
             padding: 14px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, .15);
-            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.07);
             color: white;
             font-size: 16px;
             outline: none;
@@ -75,7 +75,7 @@
 
         input:focus {
             border-color: #6c63ff;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, .2);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
         }
 
         input::placeholder {
@@ -93,16 +93,16 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: .25s;
+            transition: 0.25s;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(108, 99, 255, .3);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
         }
 
         button:disabled {
-            opacity: .5;
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
@@ -136,442 +136,551 @@
         #debug {
             margin-top: 20px;
             padding: 12px;
-            background: rgba(0, 0, 0, .5);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
             color: #7cff7c;
             font-size: 12px;
             font-family: monospace;
             direction: ltr;
             text-align: left;
-            max-height: 150px;
+            max-height: 180px;
             overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>🔐 ورود</h1>
+    <h1>🔐 ورود</h1>
 
-        <p class="subtitle">
-            به خانواده‌ی هدف خوش آمدی! 🏹
-        </p>
+    <p class="subtitle">
+        به خانواده‌ی هدف خوش آمدی! 🏹
+    </p>
 
-        <div class="form-group">
 
-            <label for="email">
-                📧 ایمیل
-            </label>
+    <div class="form-group">
 
-            <input
-                type="email"
-                id="email"
-                placeholder="example@gmail.com"
-                autocomplete="email"
-            >
+        <label for="email">
+            📧 ایمیل
+        </label>
 
-        </div>
-
-        <div class="form-group">
-
-            <label for="password">
-                🔒 رمز عبور
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="رمز عبور خود را وارد کنید"
-                autocomplete="current-password"
-            >
-
-        </div>
-
-        <button id="loginBtn">
-            ورود 🚀
-        </button>
-
-        <div id="message"></div>
-
-        <div class="signup-link">
-
-            هنوز ثبت‌نام نکردی؟
-
-            <br>
-
-            <a href="signup.html">
-                🚀 ساخت حساب جدید
-            </a>
-
-        </div>
-
-        <div id="debug">
-            ⏳ آماده...
-        </div>
+        <input
+            type="email"
+            id="email"
+            placeholder="example@gmail.com"
+            autocomplete="email"
+        >
 
     </div>
 
 
-    <script>
+    <div class="form-group">
 
-        /* ==========================================
-           🔐 تنظیمات Supabase
-        ========================================== */
+        <label for="password">
+            🔒 رمز عبور
+        </label>
 
-        const SUPABASE_URL =
-            "https://jnmgncodjjilbxynhuyi.supabase.co";
+        <input
+            type="password"
+            id="password"
+            placeholder="رمز عبور خود را وارد کن"
+            autocomplete="current-password"
+        >
 
-        const SUPABASE_ANON_KEY =
-            "sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2";
+    </div>
 
 
-        /* ==========================================
-           🚀 اتصال به Supabase
-        ========================================== */
+    <button id="loginBtn">
+        ورود 🚀
+    </button>
+
+
+    <div id="message"></div>
+
+
+    <div class="signup-link">
+
+        هنوز ثبت‌نام نکردی؟
+
+        <br>
+
+        <a href="signup.html">
+            🚀 ساخت حساب جدید
+        </a>
+
+    </div>
+
+
+    <div id="debug">
+        ⏳ آماده...
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   🔐 تنظیمات Supabase
+===================================================== */
+
+const SUPABASE_URL =
+    "https://jnmgncodjjilbxynhuyi.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2";
+
+
+/* =====================================================
+   🚀 ساخت کلاینت Supabase
+===================================================== */
+
+const {
+    createClient
+} = window.supabase;
+
+
+const supabaseClient =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY,
+        {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true
+            }
+        }
+    );
+
+
+/* =====================================================
+   🎯 عناصر صفحه
+===================================================== */
+
+const emailInput =
+    document.getElementById("email");
+
+
+const passwordInput =
+    document.getElementById("password");
+
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+
+const message =
+    document.getElementById("message");
+
+
+const debug =
+    document.getElementById("debug");
+
+
+/* =====================================================
+   📝 دیباگ
+===================================================== */
+
+function log(text) {
+
+    debug.innerHTML +=
+        "🟢 " +
+        new Date().toLocaleTimeString() +
+        " - " +
+        text +
+        "<br>";
+
+    debug.scrollTop =
+        debug.scrollHeight;
+}
+
+
+log("🚀 صفحه ورود آماده شد");
+
+
+/* =====================================================
+   💬 نمایش پیام
+===================================================== */
+
+function showMessage(
+    text,
+    isError = false
+) {
+
+    message.style.display =
+        "block";
+
+    message.textContent =
+        text;
+
+
+    if (isError) {
+
+        message.style.background =
+            "rgba(255,70,70,0.15)";
+
+        message.style.color =
+            "#ff6b6b";
+
+    } else {
+
+        message.style.background =
+            "rgba(70,255,70,0.15)";
+
+        message.style.color =
+            "#6cff6c";
+
+    }
+
+}
+
+
+/* =====================================================
+   🔐 ورود
+===================================================== */
+
+async function login() {
+
+    const email =
+        emailInput.value.trim();
+
+
+    const password =
+        passwordInput.value;
+
+
+    /* ---------------------------------
+       بررسی اطلاعات
+    --------------------------------- */
+
+    if (!email || !password) {
+
+        showMessage(
+            "❌ لطفاً ایمیل و رمز عبور را وارد کن.",
+            true
+        );
+
+        return;
+    }
+
+
+    if (!email.includes("@")) {
+
+        showMessage(
+            "❌ ایمیل واردشده صحیح نیست.",
+            true
+        );
+
+        return;
+    }
+
+
+    /* ---------------------------------
+       قفل کردن دکمه
+    --------------------------------- */
+
+    loginBtn.disabled =
+        true;
+
+    loginBtn.textContent =
+        "⏳ در حال ورود...";
+
+
+    log(
+        "📤 ارسال اطلاعات به Supabase..."
+    );
+
+
+    try {
+
+        /* =================================
+           ورود با Supabase Auth
+        ================================= */
 
         const {
-            createClient
-        } = window.supabase;
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
 
-        const supabaseClient =
-            createClient(
-                SUPABASE_URL,
-                SUPABASE_ANON_KEY
+                    email: email,
+
+                    password: password
+
+                });
+
+
+        log(
+            "📥 پاسخ Supabase دریافت شد."
+        );
+
+
+        /* ---------------------------------
+           بررسی خطا
+        --------------------------------- */
+
+        if (error) {
+
+            console.error(
+                "Supabase error:",
+                error
             );
 
-
-        /* ==========================================
-           🎯 عناصر صفحه
-        ========================================== */
-
-        const emailInput =
-            document.getElementById("email");
-
-        const passwordInput =
-            document.getElementById("password");
-
-        const loginBtn =
-            document.getElementById("loginBtn");
-
-        const message =
-            document.getElementById("message");
-
-        const debug =
-            document.getElementById("debug");
-
-
-        /* ==========================================
-           📝 دیباگ
-        ========================================== */
-
-        function log(text) {
-
-            debug.innerHTML +=
-                "🟢 " +
-                new Date().toLocaleTimeString() +
-                " - " +
-                text +
-                "<br>";
-
-            debug.scrollTop =
-                debug.scrollHeight;
-
+            throw error;
         }
 
 
-        log("🚀 صفحه ورود آماده شد");
+        if (!data || !data.user) {
 
-
-        /* ==========================================
-           💬 پیام
-        ========================================== */
-
-        function showMessage(text, error = false) {
-
-            message.style.display = "block";
-
-            message.textContent = text;
-
-            if (error) {
-
-                message.style.background =
-                    "rgba(255,70,70,0.15)";
-
-                message.style.color =
-                    "#ff6b6b";
-
-            } else {
-
-                message.style.background =
-                    "rgba(70,255,70,0.15)";
-
-                message.style.color =
-                    "#6cff6c";
-
-            }
-
+            throw new Error(
+                "کاربر دریافت نشد."
+            );
         }
 
 
-        /* ==========================================
-           🔐 ورود
-        ========================================== */
+        /* ---------------------------------
+           گرفتن اطلاعات کاربر
+        --------------------------------- */
 
-        async function login() {
+        const user =
+            data.user;
 
-            const email =
-                emailInput.value.trim();
 
-            const password =
-                passwordInput.value;
+        const username =
+            user.user_metadata?.username ||
+            user.email?.split("@")[0] ||
+            "کاربر";
 
 
-            /* بررسی */
-
-            if (!email || !password) {
-
-                showMessage(
-                    "❌ لطفاً ایمیل و رمز عبور را وارد کن.",
-                    true
-                );
-
-                return;
-            }
-
-
-            if (!email.includes("@")) {
-
-                showMessage(
-                    "❌ ایمیل واردشده صحیح نیست.",
-                    true
-                );
-
-                return;
-            }
-
-
-            /* دکمه */
-
-            loginBtn.disabled = true;
-
-            loginBtn.textContent =
-                "⏳ در حال ورود...";
-
-
-            try {
-
-                log("📤 در حال ورود به Supabase...");
-
-
-                /* ======================================
-                   🔑 ورود واقعی Supabase
-                ====================================== */
-
-                const {
-                    data,
-                    error
-                } =
-                    await supabaseClient.auth
-                        .signInWithPassword({
-
-                            email: email,
-
-                            password: password
-
-                        });
-
-
-                if (error) {
-
-                    throw error;
-
-                }
-
-
-                if (!data.user) {
-
-                    throw new Error(
-                        "کاربر پیدا نشد."
-                    );
-
-                }
-
-
-                log(
-                    "✅ ورود موفق: " +
-                    data.user.email
-                );
-
-
-                /* ======================================
-                   👤 گرفتن نام کاربری
-                ====================================== */
-
-                const username =
-                    data.user.user_metadata?.username ||
-                    data.user.email.split("@")[0];
-
-
-                showMessage(
-                    "✅ ورود موفق بود! خوش آمدی " +
-                    username +
-                    " 🎉"
-                );
-
-
-                /* ======================================
-                   ⏳ انتقال به صفحه اصلی
-                ====================================== */
-
-                setTimeout(function () {
-
-                    window.location.href =
-                        "index.html";
-
-                }, 1000);
-
-
-            } catch (error) {
-
-                console.error(
-                    "Supabase Login Error:",
-                    error
-                );
-
-                log(
-                    "❌ " +
-                    (error.message || error)
-                );
-
-
-                let errorMessage =
-                    error.message ||
-                    "خطایی هنگام ورود رخ داد.";
-
-
-                /* پیام‌های دوستانه */
-
-                if (
-                    errorMessage
-                        .toLowerCase()
-                        .includes("invalid login credentials")
-                ) {
-
-                    errorMessage =
-                        "❌ ایمیل یا رمز عبور اشتباه است.";
-
-                }
-
-                else if (
-                    errorMessage
-                        .toLowerCase()
-                        .includes("email not confirmed")
-                ) {
-
-                    errorMessage =
-                        "📧 ابتدا ایمیلت را تأیید کن.";
-
-                }
-
-
-                showMessage(
-                    errorMessage,
-                    true
-                );
-
-
-            } finally {
-
-                loginBtn.disabled = false;
-
-                loginBtn.textContent =
-                    "ورود 🚀";
-
-            }
-
-        }
-
-
-        /* ==========================================
-           🖱️ کلیک روی دکمه
-        ========================================== */
-
-        loginBtn.addEventListener(
-            "click",
-            login
+        log(
+            "✅ ورود موفق: " +
+            username
         );
 
 
-        /* ==========================================
-           ⌨️ Enter
-        ========================================== */
+        /* ---------------------------------
+           پیام موفقیت
+        --------------------------------- */
 
-        emailInput.addEventListener(
-            "keydown",
-            function (event) {
-
-                if (event.key === "Enter") {
-
-                    login();
-
-                }
-
-            }
+        showMessage(
+            "🎉 ورود موفق بود!\nخوش آمدی " +
+            username
         );
 
 
-        passwordInput.addEventListener(
-            "keydown",
-            function (event) {
+        /* ---------------------------------
+           انتقال به صفحه اصلی
+        --------------------------------- */
 
-                if (event.key === "Enter") {
+        setTimeout(() => {
 
-                    login();
+            window.location.href =
+                "index.html";
 
-                }
+        }, 1200);
 
-            }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Login Error:",
+            error
         );
 
 
-        /* ==========================================
-           🔍 بررسی نشست فعلی
-        ========================================== */
-
-        async function checkExistingSession() {
-
-            const {
-                data
-            } =
-                await supabaseClient.auth
-                    .getSession();
+        let errorText =
+            error?.message ||
+            "یک خطای ناشناخته رخ داد.";
 
 
-            if (data.session) {
+        /* ---------------------------------
+           پیام‌های فارسی
+        --------------------------------- */
 
-                const username =
-                    data.session.user
-                        .user_metadata?.username ||
-                    data.session.user.email
-                        .split("@")[0];
+        const lower =
+            errorText.toLowerCase();
 
 
-                log(
-                    "👋 قبلاً وارد شده‌ای: " +
-                    username
-                );
+        if (
+            lower.includes(
+                "invalid login credentials"
+            )
+        ) {
 
-            }
+            errorText =
+                "❌ ایمیل یا رمز عبور اشتباه است.";
+
+        }
+
+        else if (
+            lower.includes(
+                "email not confirmed"
+            )
+        ) {
+
+            errorText =
+                "📧 ابتدا ایمیلت را تأیید کن.";
+
+        }
+
+        else if (
+            lower.includes(
+                "failed to fetch"
+            )
+        ) {
+
+            errorText =
+                "🌐 اتصال به Supabase برقرار نشد.\nاینترنت یا VPN را بررسی کن.";
 
         }
 
 
-        checkExistingSession();
+        showMessage(
+            errorText,
+            true
+        );
 
-    </script>
+
+        log(
+            "❌ " +
+            errorText
+        );
+
+    }
+
+
+    finally {
+
+        loginBtn.disabled =
+            false;
+
+        loginBtn.textContent =
+            "ورود 🚀";
+
+    }
+
+}
+
+
+/* =====================================================
+   🖱️ کلیک روی ورود
+===================================================== */
+
+loginBtn.addEventListener(
+    "click",
+    login
+);
+
+
+/* =====================================================
+   ⌨️ ورود با Enter
+===================================================== */
+
+emailInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            login();
+
+        }
+
+    }
+);
+
+
+passwordInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            login();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   👤 بررسی اینکه قبلاً وارد شده یا نه
+===================================================== */
+
+async function checkSession() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .getSession();
+
+
+        if (error) {
+
+            log(
+                "⚠️ خطا در بررسی نشست: " +
+                error.message
+            );
+
+            return;
+        }
+
+
+        if (data.session) {
+
+            const user =
+                data.session.user;
+
+
+            const username =
+                user.user_metadata?.username ||
+                user.email?.split("@")[0] ||
+                "کاربر";
+
+
+            log(
+                "👋 نشست فعال است: " +
+                username
+            );
+
+        } else {
+
+            log(
+                "ℹ️ کاربری وارد نشده است."
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        log(
+            "⚠️ خطا: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+checkSession();
+
+</script>
 
 </body>
-
 </html>
