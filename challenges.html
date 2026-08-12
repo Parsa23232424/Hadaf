@@ -256,56 +256,73 @@
 
     </div>
   </div>
-
-<script>
-
+  <script>
 /* =====================================================
-   🔐 OPENROUTER API KEY
+   🤖 تنظیمات پیکو
 ===================================================== */
 
 /*
-   کلید OpenRouter خودت را اینجا بگذار.
+  کلید خودت را اینجا قرار بده.
+  کلید را داخل GitHub عمومی قرار نده.
 */
-
-const API_KEY = "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";
-
-
-/* =====================================================
-   🤖 مدل رایگان
-===================================================== */
+const API_KEY = "کلید-فعلی-خودت";
 
 const MODEL = "openai/gpt-4o-mini";
-
-
-/* =====================================================
-   🌐 آدرس OpenRouter
-===================================================== */
 
 const API_URL =
   "https://openrouter.ai/api/v1/chat/completions";
 
 
 /* =====================================================
-   متغیرهای بازی
+   🎯 متغیرهای بازی
 ===================================================== */
 
-let currentChallenge = ""
+let currentChallenge = "";
+let score = 0;
+
 
 /* =====================================================
-   🤖 درخواست به OpenRouter
+   🔧 عناصر صفحه
+===================================================== */
+
+const challengeBox =
+  document.getElementById("challenge");
+
+const answerBox =
+  document.getElementById("answer");
+
+const checkButton =
+  document.getElementById("checkButton");
+
+const loadingBox =
+  document.getElementById("loading");
+
+const resultBox =
+  document.getElementById("result");
+
+const hintBox =
+  document.getElementById("hint");
+
+const errorBox =
+  document.getElementById("error");
+
+const picoMessage =
+  document.getElementById("picoMessage");
+
+
+/* =====================================================
+   🤖 ارتباط با OpenRouter
 ===================================================== */
 
 async function askAI(prompt) {
 
   if (
     !API_KEY ||
-    API_KEY === "YOUR_OPENROUTER_API_KEY"
+    API_KEY === "کلید-فعلی-خودت"
   ) {
-
     throw new Error(
-      "API Key مربوط به OpenRouter را وارد نکرده‌ای."
+      "کلید OpenRouter را وارد نکرده‌ای."
     );
-
   }
 
 
@@ -316,7 +333,7 @@ async function askAI(prompt) {
 
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + API_KEY,
+        "Authorization": `Bearer ${API_KEY}`,
         "HTTP-Referer": "https://hadaf.site",
         "X-Title": "Hadaf AI Challenge"
       },
@@ -332,22 +349,18 @@ async function askAI(prompt) {
 
             content: `
 تو «پیکو» هستی؛
-شخصیت کارتونی سایت چالش هوش هدف.
+شخصیت هوش مصنوعی سایت هدف.
 
 همیشه فارسی، دوستانه و بانمک صحبت کن.
 
-چالش‌های مناسب کودکان و نوجوانان بساز.
+چالش‌ها باید:
+- مناسب کودکان و نوجوانان باشند
+- امن باشند
+- جواب مشخص داشته باشند
+- کوتاه و قابل فهم باشند
 
-چالش‌ها می‌توانند:
-ریاضی، منطقی، کلمه‌ای،
-معمایی یا دقت و تمرکز باشند.
-
-چالش‌ها باید امن و مناسب باشند.
-
-وقتی کاربر هنوز جواب نداده،
-جواب چالش را لو نده.
-
-پاسخ‌ها کوتاه و قابل فهم باشند.
+اگر کاربر جواب نداده است،
+جواب نهایی چالش را لو نده.
 `
           },
 
@@ -373,9 +386,7 @@ async function askAI(prompt) {
 
     data = await response.json();
 
-  }
-
-  catch {
+  } catch {
 
     throw new Error(
       "پاسخ OpenRouter قابل خواندن نبود."
@@ -387,7 +398,7 @@ async function askAI(prompt) {
   if (!response.ok) {
 
     console.error(
-      "OpenRouter Error:",
+      "OpenRouter error:",
       data
     );
 
@@ -403,17 +414,24 @@ async function askAI(prompt) {
     data?.choices?.[0]?.message?.content;
 
 
-  if (!text) {
+  if (
+    !text ||
+    typeof text !== "string"
+  ) {
+
+    console.error(
+      "پاسخ کامل OpenRouter:",
+      data
+    );
 
     throw new Error(
-      "OpenRouter پاسخ متنی نداد."
+      "OpenRouter متن معتبری برنگرداند."
     );
 
   }
 
 
-  return text;
-
+  return text.trim();
 }
 
 
@@ -427,68 +445,53 @@ async function newChallenge() {
 
   setLoading(true);
 
+  answerBox.value = "";
 
-  document.getElementById(
-    "answer"
-  ).value = "";
+  checkButton.disabled = true;
 
-
-  document.getElementById(
-    "checkButton"
-  ).disabled = true;
-
-
-  document.getElementById(
-    "challenge"
-  ).innerText =
+  challengeBox.innerText =
     "🤖 پیکو داره یک چالش جدید می‌سازه...";
+
+
+  picoMessage.innerText =
+    "🤖 پیکو: صبر کن ببینم چه چالشی برات بسازم! 😎";
 
 
   try {
 
-    const result =
-      await askAI(`
+    const result = await askAI(`
 
 یک چالش هوش جدید بساز.
 
-نوع چالش را خودت انتخاب کن:
+یکی از این نوع‌ها را انتخاب کن:
 
 ریاضی،
 منطقی،
 کلمه‌ای،
 معمایی،
-یا دقت و تمرکز.
+دقت و تمرکز.
 
 قوانین:
 
 - کوتاه باشد.
 - جذاب باشد.
+- مناسب کودک و نوجوان باشد.
 - جواب مشخص داشته باشد.
-- مناسب کودکان و نوجوانان باشد.
 - جواب را نگو.
-
-فقط متن چالش را بنویس.
+- فقط متن خود چالش را بنویس.
 
 `);
 
 
     currentChallenge = result;
 
+    challengeBox.innerText =
+      currentChallenge;
 
-    document.getElementById(
-      "challenge"
-    ).innerText = result;
-
-
-    document.getElementById(
-      "picoMessage"
-    ).innerText =
+    picoMessage.innerText =
       "🤖 پیکو: اینم چالش جدیدت! خوب فکر کن... 🧠";
 
-
-    document.getElementById(
-      "checkButton"
-    ).disabled = false;
+    checkButton.disabled = false;
 
   }
 
@@ -496,11 +499,16 @@ async function newChallenge() {
 
     showError(error);
 
+    challengeBox.innerText =
+      "❌ ساخت چالش انجام نشد.";
+
   }
 
+  finally {
 
-  setLoading(false);
+    setLoading(false);
 
+  }
 }
 
 
@@ -511,9 +519,7 @@ async function newChallenge() {
 async function checkAnswer() {
 
   const answer =
-    document.getElementById(
-      "answer"
-    ).value.trim();
+    answerBox.value.trim();
 
 
   if (!answer) {
@@ -540,40 +546,44 @@ async function checkAnswer() {
 
   setLoading(true);
 
+  checkButton.disabled = true;
+
 
   try {
 
-    const result =
-      await askAI(`
+    const result = await askAI(`
 
-این چالش را بررسی کن:
-
---------------------
+چالش:
 
 ${currentChallenge}
 
---------------------
 
 جواب کاربر:
 
 ${answer}
 
---------------------
 
-اگر جواب درست است:
+جواب کاربر را بررسی کن.
 
-- بگو «آفرین! جواب درست بود 🎉»
-- یک توضیح کوتاه بده.
+اگر کاملاً درست بود:
 
+اول بنویس:
+آفرین! جواب درست بود 🎉
 
-اگر جواب غلط است:
+بعد یک توضیح کوتاه بده.
 
-- بگو جواب درست نیست.
-- جواب صحیح را فعلاً نگو.
-- یک راهنمایی کوچک بده.
+اگر غلط بود:
 
-اگر جواب تقریباً درست است،
-کاربر را راهنمایی کن.
+بگو:
+جوابت درست نیست.
+
+اما جواب صحیح را نگو.
+یک راهنمایی کوچک بده.
+
+اگر تقریباً درست بود:
+
+بگو که به جواب نزدیک است
+و یک راهنمایی بده.
 
 پاسخ فارسی و دوستانه باشد.
 
@@ -585,23 +595,29 @@ ${answer}
     );
 
 
-    const lower =
-      result.toLowerCase();
+    /*
+      تشخیص ساده جواب درست
+    */
+
+    const normalized =
+      result
+        .replace(/ي/g, "ی")
+        .replace(/ك/g, "ک")
+        .toLowerCase();
 
 
-    if (
-      lower.includes("جواب درست بود") ||
-      lower.includes("آفرین") ||
-      lower.includes("درست است") ||
-      lower.includes("صحیح است")
-    ) {
+    const correct =
+      normalized.includes("جواب درست بود") ||
+      normalized.includes("پاسخ درست بود") ||
+      normalized.includes("آفرین") ||
+      normalized.includes("کاملاً درست");
+
+
+    if (correct) {
 
       score += 10;
 
-
-      document.getElementById(
-        "score"
-      ).innerText = score;
+      updateScore();
 
     }
 
@@ -613,9 +629,14 @@ ${answer}
 
   }
 
+  finally {
 
-  setLoading(false);
+    setLoading(false);
 
+    checkButton.disabled =
+      !currentChallenge;
+
+  }
 }
 
 
@@ -642,10 +663,9 @@ async function getHint() {
 
   try {
 
-    const result =
-      await askAI(`
+    const result = await askAI(`
 
-برای این چالش یک راهنمایی کوچک بده:
+برای این چالش یک راهنمایی بده:
 
 ${currentChallenge}
 
@@ -659,16 +679,10 @@ ${currentChallenge}
 `);
 
 
-    const hint =
-      document.getElementById(
-        "hint"
-      );
+    hintBox.style.display =
+      "block";
 
-
-    hint.style.display = "block";
-
-
-    hint.innerText =
+    hintBox.innerText =
       "💡 راهنمای پیکو:\n" +
       result;
 
@@ -680,9 +694,53 @@ ${currentChallenge}
 
   }
 
+  finally {
 
-  setLoading(false);
+    setLoading(false);
 
+  }
+}
+
+
+/* =====================================================
+   ⭐ امتیاز
+===================================================== */
+
+function updateScore() {
+
+  let scoreElement =
+    document.getElementById("score");
+
+
+  if (!scoreElement) {
+
+    scoreElement =
+      document.createElement("div");
+
+    scoreElement.id = "score";
+
+    scoreElement.className =
+      "score";
+
+    scoreElement.innerText =
+      "⭐ امتیاز: 0";
+
+
+    const card =
+      document.querySelector(".card");
+
+    const message =
+      document.getElementById("picoMessage");
+
+    card.insertBefore(
+      scoreElement,
+      message
+    );
+  }
+
+
+  scoreElement.innerText =
+    "⭐ امتیاز: " + score;
 }
 
 
@@ -692,79 +750,63 @@ ${currentChallenge}
 
 function setLoading(value) {
 
-  document.getElementById(
-    "loading"
-  ).style.display =
+  loadingBox.style.display =
     value ? "block" : "none";
-
 }
 
 
 /* =====================================================
-   ❌ خطا
+   ❌ نمایش خطا
 ===================================================== */
 
 function showError(error) {
 
-  const box =
-    document.getElementById(
-      "error"
+  errorBox.style.display =
+    "block";
+
+  errorBox.innerText =
+    "❌ " +
+    (
+      error?.message ||
+      error ||
+      "خطای ناشناخته"
     );
 
-
-  box.style.display = "block";
-
-
-  box.innerText =
-    "❌ " +
-    (error.message || error);
-
-
-  console.error(error);
-
+  console.error(
+    "Pico Error:",
+    error
+  );
 }
 
 
 /* =====================================================
-   🎉 نتیجه
+   🎉 نمایش نتیجه
 ===================================================== */
 
 function showResult(text) {
 
-  const box =
-    document.getElementById(
-      "result"
-    );
+  resultBox.style.display =
+    "block";
 
-
-  box.style.display = "block";
-
-
-  box.innerText = text;
-
+  resultBox.innerText =
+    text;
 }
 
 
 /* =====================================================
-   مخفی کردن پیام‌ها
+   🧹 مخفی کردن پیام‌ها
 ===================================================== */
 
 function hideMessages() {
 
-  document.getElementById(
-    "result"
-  ).style.display = "none";
+  resultBox.style.display =
+    "none";
 
+  hintBox.style.display =
+    "none";
 
-  document.getElementById(
-    "hint"
-  ).style.display = "none";
-
-
-  document.getElementById(
-    "error"
-  ).style.display = "none";
-
+  errorBox.style.display =
+    "none";
 }
 
 
@@ -774,18 +816,42 @@ function hideMessages() {
 
 function showRobotFallback() {
 
-  document.getElementById(
-    "picoImage"
-  ).style.display = "none";
+  const image =
+    document.getElementById(
+      "picoImage"
+    );
+
+  const fallback =
+    document.getElementById(
+      "robotFallback"
+    );
 
 
-  document.getElementById(
-    "robotFallback"
-  ).style.display = "block";
+  image.style.display =
+    "none";
 
+  fallback.style.display =
+    "block";
 }
 
+
+/* =====================================================
+   🚀 آماده‌سازی
+===================================================== */
+
+updateScore();
+
+console.log(
+  "🤖 پیکو آماده است!"
+);
+
 </script>
+
+
+
+
+
+
 
 </body>
 </html>
