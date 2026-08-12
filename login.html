@@ -1,84 +1,138 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ورود | هدف</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ورود | هدف 🏹</title>
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: Tahoma, "Segoe UI", sans-serif;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
         }
+
         .container {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            padding: 35px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-        h1 { color: #fff; font-size: 28px; text-align: center; margin-bottom: 8px; }
-        .subtitle { color: #aaa; text-align: center; margin-bottom: 30px; font-size: 14px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; color: #ddd; font-size: 14px; margin-bottom: 6px; }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            color: #ddd;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
         input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 14px;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: rgba(255,255,255,0.06);
-            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .07);
+            color: white;
             font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        input:focus {
             outline: none;
-            border-color: #6c63ff;
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 0 0 4px rgba(108,99,255,0.15);
         }
-        input::placeholder { color: #666; }
+
+        input:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, .2);
+        }
+
+        input::placeholder {
+            color: #777;
+        }
+
         button {
             width: 100%;
             padding: 14px;
-            border: none;
+            margin-top: 8px;
+            border: 0;
             border-radius: 12px;
             background: linear-gradient(135deg, #6c63ff, #3f3d9e);
-            color: #fff;
+            color: white;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 8px;
         }
+
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(108,99,255,0.3);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, .3);
         }
-        button:active { transform: scale(0.98); }
+
+        button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         #message {
             margin-top: 16px;
             padding: 12px;
             border-radius: 10px;
             text-align: center;
             font-size: 14px;
+            line-height: 1.8;
             display: none;
         }
-        .signup-link { text-align: center; color: #aaa; margin-top: 20px; font-size: 14px; }
-        .signup-link a { color: #6c63ff; text-decoration: none; font-weight: 600; }
-        .signup-link a:hover { text-decoration: underline; }
+
+        .signup-link {
+            text-align: center;
+            color: #aaa;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
         #debug {
             margin-top: 20px;
             padding: 12px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
             color: #0f0;
             font-size: 12px;
@@ -87,134 +141,400 @@
             text-align: left;
             max-height: 150px;
             overflow-y: auto;
-            display: block;
-            border: 1px solid rgba(255,255,255,0.1);
         }
     </style>
 </head>
+
 <body>
 
 <div class="container">
+
     <h1>🔐 ورود</h1>
-    <p class="subtitle">به خانواده‌ی هدف خوش آمدی!</p>
+
+    <p class="subtitle">
+        به خانواده‌ی هدف خوش آمدی!
+    </p>
 
     <div class="form-group">
+
         <label>📧 ایمیل</label>
-        <input type="email" id="email" placeholder="example@gmail.com" />
+
+        <input
+            type="email"
+            id="email"
+            placeholder="example@gmail.com"
+            autocomplete="email"
+        >
+
     </div>
+
 
     <div class="form-group">
+
         <label>🔒 رمز عبور</label>
-        <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" />
+
+        <input
+            type="password"
+            id="password"
+            placeholder="رمز عبور خود را وارد کنید"
+            autocomplete="current-password"
+        >
+
     </div>
 
-    <button id="loginBtn">ورود 🚀</button>
+
+    <button id="loginBtn">
+        ورود 🚀
+    </button>
+
 
     <div id="message"></div>
 
+
     <div class="signup-link">
-        ثبت‌نام نکردی؟ <a href="signup.html">همین الان عضو شو</a>
+
+        ثبت‌نام نکردی؟
+
+        <a href="signup.html">
+            همین الان عضو شو
+        </a>
+
     </div>
 
-    <div id="debug">⏳ منتظر ورود...</div>
+
+    <div id="debug">
+        ⏳ آماده...
+    </div>
+
 </div>
 
+
+<!-- ==============================
+     Supabase
+================================ -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
-    // ===== دیباگ =====
-    const debug = document.getElementById('debug');
 
-    function log(msg) {
-        debug.innerHTML += '🟢 ' + new Date().toLocaleTimeString() + ' - ' + msg + '<br>';
-        debug.scrollTop = debug.scrollHeight;
+/* ==========================================
+   🔐 تنظیمات Supabase
+========================================== */
+
+const SUPABASE_URL =
+    "https://jnmgncodjjilbxynhuyi.supabase.co";
+
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_aWMTLp8GZDjKSwBN9H65-w_5W8g_G-2";
+
+
+/* ==========================================
+   🚀 اتصال به Supabase
+========================================== */
+
+const { createClient } = window.supabase;
+
+
+const supabaseClient = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* ==========================================
+   🎯 عناصر صفحه
+========================================== */
+
+const emailInput =
+    document.getElementById("email");
+
+
+const passwordInput =
+    document.getElementById("password");
+
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+
+const message =
+    document.getElementById("message");
+
+
+const debug =
+    document.getElementById("debug");
+
+
+/* ==========================================
+   📝 دیباگ
+========================================== */
+
+function log(text) {
+
+    debug.innerHTML +=
+        "🟢 " +
+        new Date().toLocaleTimeString() +
+        " - " +
+        text +
+        "<br>";
+
+    debug.scrollTop =
+        debug.scrollHeight;
+}
+
+
+log("🚀 صفحه ورود آماده شد");
+
+
+/* ==========================================
+   💬 نمایش پیام
+========================================== */
+
+function showMessage(text, error = false) {
+
+    message.style.display =
+        "block";
+
+    message.textContent =
+        text;
+
+
+    if (error) {
+
+        message.style.background =
+            "rgba(255,70,70,0.15)";
+
+        message.style.color =
+            "#ff6b6b";
+
+    } else {
+
+        message.style.background =
+            "rgba(70,255,70,0.15)";
+
+        message.style.color =
+            "#6cff6c";
+
     }
 
-    log('🚀 صفحه بارگذاری شد');
+}
 
-    // ===== تنظیمات JSONBin =====
-    const BIN_ID = '674f4e08ad19ca34f8d8d1d0';
-    const API_KEY = '$2b$10$bSF1e6iK1eTp2wpHNkfGYuQ4R1Vj5C5M5q6R7S8T9U0V1W2X3Y4Z';
 
-    // ===== تابع دریافت کاربران =====
-    async function getUsers() {
-        try {
-            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                headers: { 'X-Master-Key': API_KEY }
-            });
-            const data = await res.json();
-            return data.record?.users || [];
-        } catch (e) {
-            log('❌ خطا در دریافت کاربران: ' + e.message);
-            return [];
-        }
-    }
+/* ==========================================
+   🔐 ورود
+========================================== */
 
-    // ===== دکمه ورود =====
-    const btn = document.getElementById('loginBtn');
-    const msg = document.getElementById('message');
+loginBtn.addEventListener(
+    "click",
+    async function () {
 
-    log('🔍 دکمه پیدا شد: ' + (btn ? 'بله' : 'خیر'));
+        const email =
+            emailInput.value.trim();
 
-    function show(text, isError) {
-        msg.style.display = 'block';
-        msg.textContent = text;
-        msg.style.background = isError ? 'rgba(255,70,70,0.15)' : 'rgba(70,255,70,0.15)';
-        msg.style.color = isError ? '#ff6b6b' : '#6cff6c';
-        log('📨 پیام: ' + text);
-    }
 
-    btn.addEventListener('click', async function() {
-        log('✅ دکمه کلیک شد!');
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+        const password =
+            passwordInput.value;
 
-        log('📧 ایمیل: ' + email);
+
+        log("👆 دکمه ورود کلیک شد");
+
+
+        /* ------------------------------
+           بررسی فرم
+        ------------------------------ */
 
         if (!email || !password) {
-            show('❌ همه فیلدها رو پر کن!', true);
+
+            showMessage(
+                "❌ لطفاً ایمیل و رمز عبور را وارد کن.",
+                true
+            );
+
             return;
         }
 
+
+        /* ------------------------------
+           حالت Loading
+        ------------------------------ */
+
+        loginBtn.disabled =
+            true;
+
+        loginBtn.textContent =
+            "⏳ در حال ورود...";
+
+
         try {
-            log('📤 دریافت لیست کاربران از JSONBin...');
-            const users = await getUsers();
 
-            // جستجوی کاربر
-            const user = users.find(u => u.email === email);
+            log("📤 ارسال اطلاعات به Supabase...");
 
-            if (!user) {
-                show('❌ کاربری با این ایمیل پیدا نشد!', true);
-                log('❌ کاربر پیدا نشد');
-                return;
+
+            /* ==============================
+               ورود با Supabase Auth
+            ============================== */
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+            /* ==============================
+               بررسی خطا
+            ============================== */
+
+            if (error) {
+
+                console.error(
+                    "Supabase Login Error:",
+                    error
+                );
+
+                throw error;
+
             }
 
-            // بررسی رمز عبور (توجه: در نسخه‌ی واقعی باید هش بشه)
-            if (user.password !== password) {
-                show('❌ رمز عبور اشتباه است!', true);
-                log('❌ رمز عبور اشتباه');
-                return;
+
+            if (!data.user) {
+
+                throw new Error(
+                    "کاربر پیدا نشد."
+                );
+
             }
 
-            // ===== ورود موفق =====
-            show('✅ ورود موفق! خوش آمدی ' + user.username, false);
-            log('✅ ورود موفق برای: ' + user.username);
 
-            // ذخیره اطلاعات کاربر در localStorage برای استفاده در صفحات دیگر
-            localStorage.setItem('user', JSON.stringify({
-                id: user.id,
-                username: user.username,
-                email: user.email
-            }));
+            /* ==============================
+               ورود موفق
+            ============================== */
 
-            // هدایت به صفحه‌ی اصلی بعد از ۱ ثانیه
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1500);
+            const username =
+                data.user.user_metadata?.username ||
+                data.user.email?.split("@")[0] ||
+                "کاربر";
+
+
+            log(
+                "✅ ورود موفق: " +
+                username
+            );
+
+
+            showMessage(
+                "✅ ورود موفق! خوش آمدی " +
+                username +
+                " 🎉"
+            );
+
+
+            /* ==============================
+               انتقال به صفحه اصلی
+            ============================== */
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "index.html";
+
+                },
+                1000
+            );
+
 
         } catch (error) {
-            show('❌ خطا: ' + error.message, true);
-            log('❌ خطا: ' + error.message);
+
+            console.error(
+                error
+            );
+
+
+            let errorMessage =
+                error.message ||
+                "خطای ناشناخته";
+
+
+            /* پیام‌های دوستانه */
+
+            if (
+                errorMessage
+                    .toLowerCase()
+                    .includes("invalid login credentials")
+            ) {
+
+                errorMessage =
+                    "❌ ایمیل یا رمز عبور اشتباه است.";
+
+            }
+
+
+            if (
+                errorMessage
+                    .toLowerCase()
+                    .includes("email not confirmed")
+            ) {
+
+                errorMessage =
+                    "📧 ابتدا ایمیلت را تأیید کن.";
+
+            }
+
+
+            showMessage(
+                errorMessage,
+                true
+            );
+
+
+            log(
+                "❌ " +
+                errorMessage
+            );
+
         }
-    });
+
+
+        /* ==============================
+           پایان Loading
+        ============================== */
+
+        loginBtn.disabled =
+            false;
+
+        loginBtn.textContent =
+            "ورود 🚀";
+
+    }
+);
+
+
+/* ==========================================
+   ⌨️ ورود با کلید Enter
+========================================== */
+
+passwordInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Enter") {
+
+            loginBtn.click();
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
