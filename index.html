@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>سایت هدف🏹</title>
+    <title>سایت هدف 🏹 | سوپر اپلیکیشن هدف</title>
+
+    <meta name="description"
+        content="سایت هدف 🏹؛ مجموعه‌ای از اخبار تکنولوژی، بازی ماشین، ماشین حساب و چالش‌های هوش پیکو.">
+
     <style>
         * {
             margin: 0;
@@ -76,68 +81,83 @@
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
         }
 
-        /* رنگ‌های خاص دکمه‌ها */
+        /* اخبار */
         .btn-news {
             background: linear-gradient(135deg, #2563eb, #1e40af);
-            color: white
-            text-align: center
         }
+
         .btn-news:hover {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
         }
 
+        /* حمایت */
         .btn-support {
             background: linear-gradient(135deg, #16a34a, #15803d);
         }
+
         .btn-support:hover {
             background: linear-gradient(135deg, #22c55e, #16a34a);
         }
 
+        /* ماشین */
         .btn-car {
             background: linear-gradient(135deg, #dc2626, #b91c1c);
         }
+
         .btn-car:hover {
             background: linear-gradient(135deg, #ef4444, #dc2626);
         }
 
+        /* ماشین حساب */
         .btn-calc {
             background: linear-gradient(135deg, #7c3aed, #6d28d9);
         }
+
         .btn-calc:hover {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
         }
 
-        /* ======== ریسپانسیو ======== */
+        /* چالش هوش */
+        .btn-challenge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
 
-        /* تبلت و لب‌تاپ کوچک */
+        .btn-challenge:hover {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+
+        /* تبلت */
         @media (min-width: 500px) {
             .container {
                 grid-template-columns: 1fr 1fr;
             }
+
             header {
                 font-size: clamp(24px, 4vw, 40px);
             }
         }
 
-        /* لب‌تاپ بزرگ و دسکتاپ */
+        /* دسکتاپ */
         @media (min-width: 900px) {
             .container {
                 grid-template-columns: 1fr 1fr;
                 max-width: 800px;
                 gap: 20px;
             }
+
             .btn {
                 padding: 20px 28px;
                 font-size: 22px;
             }
         }
 
-        /* موبایل خیلی کوچک */
+        /* موبایل کوچک */
         @media (max-width: 380px) {
             .btn {
                 font-size: 14px;
                 padding: 14px 12px;
             }
+
             header {
                 font-size: 16px;
                 padding: 12px 16px;
@@ -145,6 +165,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -152,18 +173,38 @@
     </header>
 
     <div class="container">
-        <a href="news.html" class="btn-news">اخبار تکنولوژی</a>
-        <a href="https://daramet.com/parsa2323" class="btn btn-support">💚 حمایت</a>
-        <a href="car.html" class="btn btn-car">🚗 ماشین بازی</a>
-        <a href="calculator.html" class="btn btn-calc">🧮 ماشین حساب</a>
-        <a href="challenges.html" class="btn-car">چالش های هوش هدف(پیکو)</a>
+
+        <a href="news.html" class="btn btn-news">
+            📰 اخبار تکنولوژی
+        </a>
+
+        <a href="https://daramet.com/parsa2323"
+           class="btn btn-support"
+           target="_blank"
+           rel="noopener noreferrer">
+            💚 حمایت
+        </a>
+
+        <a href="car.html" class="btn btn-car">
+            🚗 ماشین بازی
+        </a>
+
+        <a href="calculator.html" class="btn btn-calc">
+            🧮 ماشین حساب
+        </a>
+
+        <a href="challenges.html" class="btn btn-challenge">
+            🧠 چالش هوش هدف (پیکو)
+        </a>
+
     </div>
 
     <script src="game.js"></script>
+
     <script>
-        // این اسکریپت رو ولش کن فعلاً
-        console.log('سایت هدف بارگذاری شد');
+        console.log("سایت هدف بارگذاری شد 🏹");
     </script>
 
 </body>
+
 </html>
