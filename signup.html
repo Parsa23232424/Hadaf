@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ثبت نام | هدف 🏹</title>
+  <title>ورود | هدف 🏹</title>
 
   <style>
     * {
@@ -121,19 +121,19 @@
       word-break: break-word;
     }
 
-    .login-link {
+    .signup-link {
       text-align: center;
       color: #aaa;
       margin-top: 20px;
     }
 
-    .login-link a {
+    .signup-link a {
       color: #8b83ff;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .login-link a:hover {
+    .signup-link a:hover {
       text-decoration: underline;
     }
   </style>
@@ -143,29 +143,11 @@
 
   <div class="container">
 
-    <h1>🚀 ثبت نام</h1>
+    <h1>🔐 ورود</h1>
 
     <p class="subtitle">
-      به خانواده‌ی هدف خوش آمدی!
+      به حساب هدف خوش آمدی!
     </p>
-
-
-    <!-- نام کاربری -->
-
-    <div class="form-group">
-
-      <label for="username">
-        👤 نام کاربری
-      </label>
-
-      <input
-        id="username"
-        type="text"
-        placeholder="مثلاً: parsabravo"
-        maxlength="30"
-        autocomplete="username">
-
-    </div>
 
 
     <!-- ایمیل -->
@@ -185,7 +167,7 @@
     </div>
 
 
-    <!-- رمز -->
+    <!-- رمز عبور -->
 
     <div class="form-group">
 
@@ -196,16 +178,16 @@
       <input
         id="password"
         type="password"
-        placeholder="حداقل ۶ کاراکتر"
-        autocomplete="new-password">
+        placeholder="رمز عبور"
+        autocomplete="current-password">
 
     </div>
 
 
-    <!-- دکمه -->
+    <!-- دکمه ورود -->
 
-    <button id="signupBtn">
-      ثبت نام ✨
+    <button id="loginBtn">
+      ورود 🚀
     </button>
 
 
@@ -214,14 +196,14 @@
     <div id="message"></div>
 
 
-    <!-- ورود -->
+    <!-- ثبت نام -->
 
-    <div class="login-link">
+    <div class="signup-link">
 
-      قبلاً عضو شدی؟
+      حساب نداری؟
 
-      <a href="login.html">
-        وارد شو
+      <a href="signup.html">
+        ثبت نام کن
       </a>
 
     </div>
@@ -232,7 +214,7 @@
   <script>
 
     /* =====================================
-       🔗 API
+       🔗 API جدید هدف
     ===================================== */
 
     const API_URL =
@@ -240,11 +222,8 @@
 
 
     /* =====================================
-       🎯 عناصر صفحه
+       🎯 عناصر
     ===================================== */
-
-    const username =
-      document.getElementById("username");
 
     const email =
       document.getElementById("email");
@@ -253,7 +232,7 @@
       document.getElementById("password");
 
     const button =
-      document.getElementById("signupBtn");
+      document.getElementById("loginBtn");
 
     const message =
       document.getElementById("message");
@@ -306,13 +285,10 @@
 
 
     /* =====================================
-       🚀 ثبت نام
+       🔐 ورود
     ===================================== */
 
-    async function signup() {
-
-      const user =
-        username.value.trim();
+    async function login() {
 
       const mail =
         email.value.trim();
@@ -321,27 +297,7 @@
         password.value;
 
 
-      /* -------------------------------
-         بررسی نام کاربری
-      -------------------------------- */
-
-      if (user.length < 3) {
-
-        showMessage(
-          "❌ نام کاربری باید حداقل ۳ کاراکتر باشد.",
-          true
-        );
-
-        username.focus();
-
-        return;
-
-      }
-
-
-      /* -------------------------------
-         بررسی ایمیل
-      -------------------------------- */
+      /* بررسی ایمیل */
 
       if (!validEmail(mail)) {
 
@@ -357,9 +313,7 @@
       }
 
 
-      /* -------------------------------
-         بررسی رمز
-      -------------------------------- */
+      /* بررسی رمز */
 
       if (pass.length < 6) {
 
@@ -375,23 +329,19 @@
       }
 
 
-      /* -------------------------------
-         شروع درخواست
-      -------------------------------- */
-
       button.disabled = true;
 
       button.textContent =
-        "⏳ در حال ثبت نام...";
+        "⏳ در حال ورود...";
 
       message.style.display = "none";
 
 
       try {
 
-        /* ==============================
-           ارسال به Google Apps Script
-        ============================== */
+        /* =================================
+           ارسال درخواست
+        ================================= */
 
         const response =
           await fetch(
@@ -402,9 +352,7 @@
 
               body: JSON.stringify({
 
-                action: "signup",
-
-                username: user,
+                action: "login",
 
                 email: mail,
 
@@ -416,23 +364,23 @@
           );
 
 
-        /* ==============================
-           پاسخ خام سرور
-        ============================== */
+        /* =================================
+           دریافت پاسخ به صورت متن
+        ================================= */
 
         const text =
           await response.text();
 
 
         console.log(
-          "Hadaf API Response:",
+          "Hadaf Login Response:",
           text
         );
 
 
-        /* ==============================
-           تبدیل JSON
-        ============================== */
+        /* =================================
+           تبدیل به JSON
+        ================================= */
 
         let result;
 
@@ -441,12 +389,7 @@
           result =
             JSON.parse(text);
 
-        } catch (jsonError) {
-
-          console.error(
-            "Invalid JSON:",
-            text
-          );
+        } catch (error) {
 
           throw new Error(
             "سرور پاسخ JSON معتبر نداد."
@@ -455,63 +398,75 @@
         }
 
 
-        /* ==============================
-           بررسی موفقیت
-        ============================== */
+        /* =================================
+           بررسی نتیجه
+        ================================= */
 
         if (!result.success) {
 
           throw new Error(
             result.message ||
-            "ثبت نام انجام نشد."
+            "ورود انجام نشد."
           );
 
         }
 
 
-        /* ==============================
-           موفقیت
-        ============================== */
+        /* =================================
+           ذخیره حساب کاربر
+        ================================= */
 
-        showMessage(
-          "🎉 ثبت نام با موفقیت انجام شد!\n\n" +
-          "اکنون می‌توانی وارد حساب خودت شوی."
+        const user = {
+
+          username:
+            result.username || "",
+
+          email:
+            result.email || mail
+
+        };
+
+
+        localStorage.setItem(
+          "hadafUser",
+          JSON.stringify(user)
         );
 
 
-        /* پاک کردن فرم */
+        /* =================================
+           پیام موفقیت
+        ================================= */
 
-        username.value = "";
-
-        email.value = "";
-
-        password.value = "";
+        showMessage(
+          "🎉 ورود با موفقیت انجام شد!"
+        );
 
 
-        /* انتقال به ورود */
+        /* =================================
+           انتقال به صفحه اصلی
+        ================================= */
 
         setTimeout(
           function() {
 
             window.location.href =
-              "login.html";
+              "index.html";
 
           },
-          1500
+          700
         );
 
 
       } catch (error) {
 
         console.error(
-          "Hadaf Signup Error:",
+          "Hadaf Login Error:",
           error
         );
 
 
         showMessage(
-          "❌ " +
-          error.message,
+          "❌ " + error.message,
           true
         );
 
@@ -523,7 +478,7 @@
         button.disabled = false;
 
         button.textContent =
-          "ثبت نام ✨";
+          "ورود 🚀";
 
       }
 
@@ -531,17 +486,17 @@
 
 
     /* =====================================
-       🖱️ کلیک دکمه
+       🖱️ کلیک ورود
     ===================================== */
 
     button.addEventListener(
       "click",
-      signup
+      login
     );
 
 
     /* =====================================
-       ⌨️ Enter
+       ⌨️ ورود با Enter
     ===================================== */
 
     password.addEventListener(
@@ -552,7 +507,7 @@
           event.key === "Enter"
         ) {
 
-          signup();
+          login();
 
         }
 
