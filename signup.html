@@ -21,7 +21,12 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background: linear-gradient(
+        135deg,
+        #0f0c29,
+        #302b63,
+        #24243e
+      );
     }
 
     .container {
@@ -29,9 +34,9 @@
       max-width: 420px;
       padding: 35px;
       border-radius: 24px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
       backdrop-filter: blur(12px);
     }
 
@@ -62,8 +67,8 @@
       width: 100%;
       padding: 14px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255, 255, 255, .15);
+      background: rgba(255, 255, 255, .07);
       color: white;
       font-size: 16px;
       outline: none;
@@ -71,7 +76,8 @@
 
     input:focus {
       border-color: #6c63ff;
-      box-shadow: 0 0 0 3px rgba(108,99,255,.2);
+      box-shadow:
+        0 0 0 3px rgba(108, 99, 255, .2);
     }
 
     input::placeholder {
@@ -83,11 +89,20 @@
       padding: 14px;
       border: 0;
       border-radius: 12px;
-      background: linear-gradient(135deg,#6c63ff,#3f3d9e);
+      background:
+        linear-gradient(
+          135deg,
+          #6c63ff,
+          #3f3d9e
+        );
       color: white;
       font-size: 18px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(.98);
     }
 
     button:disabled {
@@ -103,6 +118,7 @@
       text-align: center;
       line-height: 1.8;
       white-space: pre-line;
+      word-break: break-word;
     }
 
     .login-link {
@@ -115,6 +131,10 @@
       color: #8b83ff;
       text-decoration: none;
       font-weight: bold;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -129,8 +149,14 @@
       به خانواده‌ی هدف خوش آمدی!
     </p>
 
+
+    <!-- نام کاربری -->
+
     <div class="form-group">
-      <label>👤 نام کاربری</label>
+
+      <label for="username">
+        👤 نام کاربری
+      </label>
 
       <input
         id="username"
@@ -138,49 +164,84 @@
         placeholder="مثلاً: parsabravo"
         maxlength="30"
         autocomplete="username">
+
     </div>
 
+
+    <!-- ایمیل -->
+
     <div class="form-group">
-      <label>📧 ایمیل</label>
+
+      <label for="email">
+        📧 ایمیل
+      </label>
 
       <input
         id="email"
         type="email"
         placeholder="example@gmail.com"
         autocomplete="email">
+
     </div>
 
+
+    <!-- رمز -->
+
     <div class="form-group">
-      <label>🔒 رمز عبور</label>
+
+      <label for="password">
+        🔒 رمز عبور
+      </label>
 
       <input
         id="password"
         type="password"
         placeholder="حداقل ۶ کاراکتر"
         autocomplete="new-password">
+
     </div>
+
+
+    <!-- دکمه -->
 
     <button id="signupBtn">
       ثبت نام ✨
     </button>
 
+
+    <!-- پیام -->
+
     <div id="message"></div>
 
+
+    <!-- ورود -->
+
     <div class="login-link">
+
       قبلاً عضو شدی؟
-      <a href="login.html">وارد شو</a>
+
+      <a href="login.html">
+        وارد شو
+      </a>
+
     </div>
 
   </div>
 
+
   <script>
 
-    /*
-      آدرس Web App گوگل اسکریپت را اینجا قرار بده
-    */
+    /* =====================================
+       🔗 API
+    ===================================== */
 
-    const API_URL ="https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
 
+
+    /* =====================================
+       🎯 عناصر صفحه
+    ===================================== */
 
     const username =
       document.getElementById("username");
@@ -198,7 +259,14 @@
       document.getElementById("message");
 
 
-    function showMessage(text, error = false) {
+    /* =====================================
+       💬 نمایش پیام
+    ===================================== */
+
+    function showMessage(
+      text,
+      error = false
+    ) {
 
       message.style.display = "block";
 
@@ -207,7 +275,7 @@
       if (error) {
 
         message.style.background =
-          "rgba(255,70,70,.15)";
+          "rgba(255, 70, 70, .15)";
 
         message.style.color =
           "#ff6b6b";
@@ -215,20 +283,31 @@
       } else {
 
         message.style.background =
-          "rgba(70,255,70,.15)";
+          "rgba(70, 255, 70, .15)";
 
         message.style.color =
           "#6cff6c";
+
       }
+
     }
 
+
+    /* =====================================
+       📧 بررسی ایمیل
+    ===================================== */
 
     function validEmail(value) {
 
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(value);
 
     }
 
+
+    /* =====================================
+       🚀 ثبت نام
+    ===================================== */
 
     async function signup() {
 
@@ -242,6 +321,10 @@
         password.value;
 
 
+      /* -------------------------------
+         بررسی نام کاربری
+      -------------------------------- */
+
       if (user.length < 3) {
 
         showMessage(
@@ -249,9 +332,16 @@
           true
         );
 
+        username.focus();
+
         return;
+
       }
 
+
+      /* -------------------------------
+         بررسی ایمیل
+      -------------------------------- */
 
       if (!validEmail(mail)) {
 
@@ -260,9 +350,16 @@
           true
         );
 
+        email.focus();
+
         return;
+
       }
 
+
+      /* -------------------------------
+         بررسی رمز
+      -------------------------------- */
 
       if (pass.length < 6) {
 
@@ -271,45 +368,96 @@
           true
         );
 
+        password.focus();
+
         return;
+
       }
 
+
+      /* -------------------------------
+         شروع درخواست
+      -------------------------------- */
 
       button.disabled = true;
 
       button.textContent =
         "⏳ در حال ثبت نام...";
 
+      message.style.display = "none";
+
 
       try {
 
+        /* ==============================
+           ارسال به Google Apps Script
+        ============================== */
+
         const response =
-          await fetch(API_URL, {
+          await fetch(
+            API_URL,
+            {
 
-            method: "POST",
+              method: "POST",
 
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8"
-            },
+              body: JSON.stringify({
 
-            body: JSON.stringify({
+                action: "signup",
 
-              action: "signup",
+                username: user,
 
-              username: user,
+                email: mail,
 
-              email: mail,
+                password: pass
 
-              password: pass
+              })
 
-            })
-
-          });
+            }
+          );
 
 
-        const result =
-          await response.json();
+        /* ==============================
+           پاسخ خام سرور
+        ============================== */
 
+        const text =
+          await response.text();
+
+
+        console.log(
+          "Hadaf API Response:",
+          text
+        );
+
+
+        /* ==============================
+           تبدیل JSON
+        ============================== */
+
+        let result;
+
+        try {
+
+          result =
+            JSON.parse(text);
+
+        } catch (jsonError) {
+
+          console.error(
+            "Invalid JSON:",
+            text
+          );
+
+          throw new Error(
+            "سرور پاسخ JSON معتبر نداد."
+          );
+
+        }
+
+
+        /* ==============================
+           بررسی موفقیت
+        ============================== */
 
         if (!result.success) {
 
@@ -321,26 +469,45 @@
         }
 
 
+        /* ==============================
+           موفقیت
+        ============================== */
+
         showMessage(
           "🎉 ثبت نام با موفقیت انجام شد!\n\n" +
           "اکنون می‌توانی وارد حساب خودت شوی."
         );
 
 
+        /* پاک کردن فرم */
+
         username.value = "";
+
         email.value = "";
+
         password.value = "";
 
 
-        setTimeout(() => {
+        /* انتقال به ورود */
 
-          location.href =
-            "login.html";
+        setTimeout(
+          function() {
 
-        }, 1500);
+            window.location.href =
+              "login.html";
+
+          },
+          1500
+        );
 
 
       } catch (error) {
+
+        console.error(
+          "Hadaf Signup Error:",
+          error
+        );
+
 
         showMessage(
           "❌ " +
@@ -348,7 +515,10 @@
           true
         );
 
-      } finally {
+      }
+
+
+      finally {
 
         button.disabled = false;
 
@@ -360,18 +530,30 @@
     }
 
 
+    /* =====================================
+       🖱️ کلیک دکمه
+    ===================================== */
+
     button.addEventListener(
       "click",
       signup
     );
 
 
+    /* =====================================
+       ⌨️ Enter
+    ===================================== */
+
     password.addEventListener(
       "keydown",
-      event => {
+      function(event) {
 
-        if (event.key === "Enter") {
+        if (
+          event.key === "Enter"
+        ) {
+
           signup();
+
         }
 
       }
@@ -380,4 +562,5 @@
   </script>
 
 </body>
+
 </html>
