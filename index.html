@@ -2,723 +2,348 @@
 <html lang="fa" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>هدف 🏹</title>
-
-  <meta
-    name="description"
-    content="هدف 🏹؛ دنیای بازی، چالش و سرگرمی"
-  >
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Tahoma, "Segoe UI", sans-serif;
-      min-height: 100vh;
-      background:
-        linear-gradient(
-          135deg,
-          #0f0c29,
-          #302b63,
-          #24243e
-        );
-      color: white;
-    }
-
-    /* ==============================
-       هدر
-    ============================== */
-
-    header {
-      width: 100%;
-      padding: 16px 20px;
-
-      background:
-        rgba(0, 0, 0, .25);
-
-      border-bottom:
-        1px solid rgba(255, 255, 255, .1);
-
-      backdrop-filter: blur(12px);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 15px;
-    }
-
-    .logo {
-      color: white;
-      text-decoration: none;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .user-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #welcome {
-      color: #ddd;
-      font-size: 14px;
-    }
-
-    #loginBtn,
-    #logoutBtn {
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 15px;
-      color: white;
-      font-family: inherit;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #loginBtn {
-      background:
-        linear-gradient(
-          135deg,
-          #6c63ff,
-          #3f3d9e
-        );
-    }
-
-    #logoutBtn {
-      background:
-        rgba(255, 70, 70, .2);
-
-      border:
-        1px solid rgba(255, 100, 100, .3);
-    }
 
-    #loginBtn:hover,
-    #logoutBtn:hover {
-      opacity: .85;
-    }
+<meta charset="UTF-8">
 
-    /* ==============================
-       محتوای اصلی
-    ============================== */
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
-    main {
-      width: 100%;
-      max-width: 1100px;
-      margin: auto;
-      padding: 35px 20px;
-    }
+<title>هدف 🏹</title>
 
-    .hero {
-      text-align: center;
+<style>
 
-      padding: 45px 20px;
+*{
+box-sizing:border-box;
+}
 
-      border-radius: 25px;
+body{
 
-      background:
-        rgba(255, 255, 255, .06);
+margin:0;
 
-      border:
-        1px solid rgba(255, 255, 255, .1);
+font-family:
+Tahoma,
+"Segoe UI",
+sans-serif;
 
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, .3);
+min-height:100vh;
 
-      backdrop-filter: blur(12px);
-    }
+background:
+linear-gradient(
+135deg,
+#0f0c29,
+#302b63,
+#24243e
+);
 
-    .hero h1 {
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
+color:white;
 
-    .hero p {
-      color: #bbb;
-      line-height: 2;
-      font-size: 17px;
-    }
+}
 
-    /* ==============================
-       کارت‌ها
-    ============================== */
+.container{
 
-    .cards {
-      display: grid;
+width:min(700px,94%);
 
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(220px, 1fr)
-        );
+margin:30px auto;
 
-      gap: 20px;
+}
 
-      margin-top: 25px;
-    }
+.card{
 
-    .card {
-      padding: 25px;
+background:
+rgba(255,255,255,.08);
 
-      border-radius: 20px;
+border:
+1px solid rgba(255,255,255,.12);
 
-      background:
-        rgba(255, 255, 255, .06);
+border-radius:25px;
 
-      border:
-        1px solid rgba(255, 255, 255, .1);
+padding:25px;
 
-      transition:
-        transform .2s,
-        background .2s;
-    }
+box-shadow:
+0 20px 60px rgba(0,0,0,.4);
 
-    .card:hover {
-      transform: translateY(-5px);
+backdrop-filter:
+blur(12px);
 
-      background:
-        rgba(255, 255, 255, .09);
-    }
+}
 
-    .card-icon {
-      font-size: 40px;
-      margin-bottom: 12px;
-    }
+.logo{
 
-    .card h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
+text-align:center;
 
-    .card p {
-      color: #aaa;
-      line-height: 1.8;
-      font-size: 14px;
-    }
+font-size:45px;
 
-    .card a {
-      display: inline-block;
+margin-bottom:5px;
 
-      margin-top: 15px;
+}
 
-      padding: 10px 15px;
+h1{
 
-      border-radius: 10px;
+text-align:center;
 
-      background:
-        linear-gradient(
-          135deg,
-          #6c63ff,
-          #3f3d9e
-        );
+margin:5px 0 25px;
 
-      color: white;
+}
 
-      text-decoration: none;
+#account{
 
-      font-weight: bold;
-    }
+background:
+rgba(99,102,241,.2);
 
-    /* ==============================
-       وضعیت ورود
-    ============================== */
+border-radius:18px;
 
-    .account-box {
-      margin-top: 25px;
+padding:18px;
 
-      padding: 20px;
+margin-bottom:20px;
 
-      border-radius: 18px;
+text-align:center;
 
-      background:
-        rgba(108, 99, 255, .12);
+}
 
-      border:
-        1px solid rgba(108, 99, 255, .25);
+.username{
 
-      text-align: center;
-    }
+font-size:21px;
 
-    #accountName {
-      font-size: 20px;
-      font-weight: bold;
-    }
+font-weight:bold;
 
-    #accountEmail {
-      margin-top: 7px;
-      color: #aaa;
-      font-size: 14px;
-    }
+margin-bottom:8px;
 
-    /* ==============================
-       فوتر
-    ============================== */
+}
 
-    footer {
-      text-align: center;
+.score{
 
-      padding: 30px 20px;
+font-size:18px;
 
-      color: #777;
+}
 
-      font-size: 13px;
-    }
+.buttons{
 
-    /* ==============================
-       موبایل
-    ============================== */
+display:grid;
 
-    @media (max-width: 600px) {
+gap:12px;
 
-      .header-inner {
-        flex-direction: column;
-      }
+}
 
-      .hero h1 {
-        font-size: 30px;
-      }
+button{
 
-      .hero p {
-        font-size: 15px;
-      }
+border:0;
 
-      .user-area {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
+border-radius:15px;
 
-    }
+padding:15px;
 
-  </style>
+font-family:inherit;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+color:white;
+
+background:#6366f1;
+
+}
+
+.pico{
+
+background:#10b981;
+
+}
+
+.logout{
+
+background:#ef4444;
+
+}
+
+.guest{
+
+color:#ddd;
+
+line-height:2;
+
+text-align:center;
+
+}
+
+</style>
+
 </head>
-
 
 <body>
 
+<div class="container">
 
-  <!-- =================================
-       هدر
-  ================================== -->
+<div class="card">
 
-  <header>
+<div class="logo">
+🏹
+</div>
 
-    <div class="header-inner">
+<h1>
+هدف
+</h1>
 
-      <a
-        href="index.html"
-        class="logo">
 
-        🏹 هدف
+<div id="account">
 
-      </a>
+<div class="username"
+id="username">
 
+⏳ در حال بررسی حساب...
 
-      <div class="user-area">
+</div>
 
-        <span id="welcome">
-          👤 مهمان
-        </span>
+<div class="score"
+id="score">
 
+⭐ امتیاز: 0
 
-        <button
-          id="loginBtn"
-          onclick="goLogin()">
+</div>
 
-          ورود 🚀
+</div>
 
-        </button>
 
+<div class="buttons">
 
-        <button
-          id="logoutBtn"
-          onclick="logout()"
-          style="display:none;">
+<button
+class="pico"
+onclick="location.href='pico.html'">
 
-          خروج 🚪
+🤖 چالش هوش پیکو
 
-        </button>
+</button>
 
-      </div>
+<button
+onclick="location.href='news.html'">
 
-    </div>
+📰 اخبار هدف
 
-  </header>
+</button>
 
+<button
+class="logout"
+onclick="logout()">
 
-  <!-- =================================
-       محتوای اصلی
-  ================================== -->
+🚪 خروج از حساب
 
-  <main>
+</button>
 
+</div>
 
-    <!-- معرفی -->
+</div>
 
-    <section class="hero">
+</div>
 
-      <h1>
-        🎯 به هدف خوش آمدی!
-      </h1>
 
-      <p>
-        دنیای چالش، بازی و سرگرمی هدف
-        را کشف کن.
-      </p>
+<script>
 
-    </section>
+/* =====================================================
+   👤 حساب کاربری
+===================================================== */
 
+function getUser(){
 
-    <!-- حساب کاربر -->
+try{
 
-    <section
-      id="accountBox"
-      class="account-box"
-      style="display:none;">
+return JSON.parse(
+localStorage.getItem("hadafUser")
+);
 
-      <div id="accountName"></div>
+}catch{
 
-      <div id="accountEmail"></div>
+return null;
 
-    </section>
+}
 
+}
 
-    <!-- کارت‌ها -->
 
-    <section class="cards">
+/* =====================================================
+   نمایش حساب
+===================================================== */
 
+function showAccount(){
 
-      <div class="card">
+const user=
+getUser();
 
-        <div class="card-icon">
-          🧠
-        </div>
+const username=
+document.getElementById("username");
 
-        <h2>
-          چالش هوش
-        </h2>
+const score=
+document.getElementById("score");
 
-        <p>
-          با چالش‌های هوشی هدف
-          مهارت فکری خودت را امتحان کن.
-        </p>
 
-        <a href="game.html">
-          شروع بازی 🎮
-        </a>
+if(!user){
 
-      </div>
+username.innerHTML=
+"👤 مهمان";
 
+score.innerHTML=
+"برای استفاده از حساب وارد شو.";
 
-      <div class="card">
+return;
 
-        <div class="card-icon">
-          📰
-        </div>
+}
 
-        <h2>
-          اخبار هدف
-        </h2>
 
-        <p>
-          جدیدترین مطالب و اخبار
-          سایت هدف را ببین.
-        </p>
+username.innerHTML=
+"👤 "+escapeHTML(
+user.username ||
+"کاربر هدف"
+);
 
-        <a href="news.html">
-          مشاهده اخبار 📰
-        </a>
 
-      </div>
+score.innerHTML=
+"⭐ امتیاز: "+
+Number(user.score || 0);
 
+}
 
-      <div class="card">
 
-        <div class="card-icon">
-          🤖
-        </div>
+/* =====================================================
+   امنیت متن
+===================================================== */
 
-        <h2>
-          پیکو
-        </h2>
+function escapeHTML(text){
 
-        <p>
-          با شخصیت هوش مصنوعی هدف
-          همراه شو و چالش حل کن.
-        </p>
+const div=
+document.createElement("div");
 
-        <a href="pico.html">
-          ورود به پیکو 🤖
-        </a>
+div.textContent=
+text;
 
-      </div>
+return div.innerHTML;
 
+}
 
-      <div class="card">
 
-        <div class="card-icon">
-          👤
-        </div>
+/* =====================================================
+   🚪 خروج
+===================================================== */
 
-        <h2>
-          حساب کاربری
-        </h2>
+function logout(){
 
-        <p id="accountDescription">
-          برای استفاده از امکانات حساب،
-          وارد حساب خودت شو.
-        </p>
+localStorage.removeItem(
+"hadafUser"
+);
 
-        <a
-          id="accountLink"
-          href="login.html">
+location.href=
+"login.html";
 
-          ورود 🔐
+}
 
-        </a>
 
-      </div>
+/* =====================================================
+   شروع
+===================================================== */
 
+showAccount();
 
-    </section>
-
-  </main>
-
-
-  <!-- =================================
-       فوتر
-  ================================== -->
-
-  <footer>
-
-    🏹 هدف — دنیای بازی و سرگرمی
-
-  </footer>
-
-
-  <!-- =================================
-       JavaScript
-  ================================== -->
-
-  <script>
-
-    /* =================================
-       بررسی حساب کاربر
-    ================================== */
-
-    function checkUser() {
-
-      const savedUser =
-        localStorage.getItem(
-          "hadafUser"
-        );
-
-
-      const welcome =
-        document.getElementById(
-          "welcome"
-        );
-
-      const loginBtn =
-        document.getElementById(
-          "loginBtn"
-        );
-
-      const logoutBtn =
-        document.getElementById(
-          "logoutBtn"
-        );
-
-      const accountBox =
-        document.getElementById(
-          "accountBox"
-        );
-
-      const accountName =
-        document.getElementById(
-          "accountName"
-        );
-
-      const accountEmail =
-        document.getElementById(
-          "accountEmail"
-        );
-
-      const accountDescription =
-        document.getElementById(
-          "accountDescription"
-        );
-
-      const accountLink =
-        document.getElementById(
-          "accountLink"
-        );
-
-
-      /* ===============================
-         کاربر وارد شده
-      =============================== */
-
-      if (savedUser) {
-
-        try {
-
-          const user =
-            JSON.parse(
-              savedUser
-            );
-
-
-          const username =
-            user.username ||
-            "کاربر";
-
-
-          const email =
-            user.email ||
-            "";
-
-
-          welcome.textContent =
-            "👋 سلام " +
-            username;
-
-
-          loginBtn.style.display =
-            "none";
-
-
-          logoutBtn.style.display =
-            "block";
-
-
-          accountBox.style.display =
-            "block";
-
-
-          accountName.textContent =
-            "👤 " + username;
-
-
-          accountEmail.textContent =
-            email;
-
-
-          accountDescription.textContent =
-            "حساب کاربری تو فعال است.";
-
-
-          accountLink.textContent =
-            "حساب من 👤";
-
-
-          accountLink.href =
-            "#";
-
-
-        } catch (error) {
-
-          console.error(
-            "خطا در خواندن حساب:",
-            error
-          );
-
-          logout();
-
-        }
-
-      }
-
-
-      /* ===============================
-         کاربر وارد نشده
-      =============================== */
-
-      else {
-
-        welcome.textContent =
-          "👤 مهمان";
-
-
-        loginBtn.style.display =
-          "block";
-
-
-        logoutBtn.style.display =
-          "none";
-
-
-        accountBox.style.display =
-          "none";
-
-
-        accountDescription.textContent =
-          "برای استفاده از امکانات حساب، " +
-          "وارد حساب خودت شو.";
-
-
-        accountLink.textContent =
-          "ورود 🔐";
-
-
-        accountLink.href =
-          "login.html";
-
-      }
-
-    }
-
-
-    /* =================================
-       🚪 خروج
-    ================================== */
-
-    function logout() {
-
-      localStorage.removeItem(
-        "hadafUser"
-      );
-
-
-      window.location.href =
-        "index.html";
-
-    }
-
-
-    /* =================================
-       🔐 رفتن به ورود
-    ================================== */
-
-    function goLogin() {
-
-      window.location.href =
-        "login.html";
-
-    }
-
-
-    /* =================================
-       اجرای اولیه
-    ================================== */
-
-    checkUser();
-
-  </script>
+</script>
 
 </body>
-
 </html>
