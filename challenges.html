@@ -2,872 +2,620 @@
 <html lang="fa" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>چالش هوش هدف 🤖 | پیکو</title>
+    <title>هدف 🏹</title>
 
-  <meta name="description"
-    content="چالش هوش هدف با پیکو؛ معما و چالش‌های هوشمند با کمک هوش مصنوعی.">
+    <style>
+      * {
+    box-sizing: border-box;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
 
-    body {
-      margin: 0;
-      font-family: Tahoma, Arial, sans-serif;
-      background: linear-gradient(135deg, #e0f2fe, #eef2ff);
-      color: #172033;
-    }
+    font-family:
+        Tahoma,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(99,102,241,.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(16,185,129,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #09091a,
+            #15152d,
+            #24243e
+        );
+}
+
+
+/* صفحه اصلی */
+
+.container {
+    width: min(900px, 94%);
+    margin: auto;
+    padding: 35px 0 50px;
+}
+
+
+/* لوگو */
+
+.logo {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 48px;
+
+    border-radius: 28px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.35);
+
+    backdrop-filter: blur(15px);
+}
+
+
+/* عنوان */
+
+h1 {
+    text-align: center;
+    font-size: 42px;
+    margin: 5px 0;
+}
+
+.subtitle {
+    text-align: center;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+}
+
+
+/* حساب */
+
+.account {
+    padding: 20px;
+    margin-bottom: 30px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
+}
+
+.username {
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.score {
+    color: #facc15;
+    font-size: 17px;
+}
+
+
+/* تیتر بخش */
+
+h2 {
+    text-align: center;
+    margin: 30px 0 18px;
+}
+
+
+/* کارت‌های بازی */
+
+.games {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+
+.game-card {
+    padding: 25px;
+
+    min-height: 250px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.3);
+
+    backdrop-filter: blur(15px);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.game-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.45);
+}
+
+
+/* آیکون */
+
+.game-icon {
+    font-size: 55px;
+    margin-bottom: 12px;
+}
+
+
+/* نام بازی */
+
+.game-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+/* توضیح */
+
+.game-description {
+    color: #cbd5e1;
+    line-height: 1.8;
+    min-height: 55px;
+}
+
+
+/* دکمه بازی */
+
+.game-card button,
+.tools button,
+.logout {
+
+    width: 100%;
+
+    border: none;
+    border-radius: 15px;
+
+    padding: 14px;
+    margin-top: 15px;
+
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        filter .2s;
+}
+
+
+.game-card button:hover,
+.tools button:hover,
+.logout:hover {
+
+    transform: scale(1.03);
+
+    filter: brightness(1.15);
+}
+
+
+/* رنگ پیکو */
+
+.pico button {
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        );
+}
+
+
+/* رنگ ماشین */
+
+.car button {
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #2563eb
+        );
+}
+
+
+/* رنگ مار */
+
+.snake button {
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+}
+
+
+/* رنگ حافظه */
+
+.memory button {
+    background:
+        linear-gradient(
+            135deg,
+            #a855f7,
+            #7e22ce
+        );
+}
+
+
+/* ابزارها */
+
+.tools {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+
+.tools button {
+    margin-top: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+}
+
+
+/* خروج */
+
+.logout {
+
+    margin-top: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+}
+
+
+/* پایین صفحه */
+
+footer {
+
+    text-align: center;
+
+    margin-top: 35px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+
+/* موبایل */
+
+@media (max-width: 650px) {
 
     .container {
-      width: min(700px, 94%);
-      margin: 25px auto;
-    }
-
-    .card {
-      background: white;
-      border-radius: 28px;
-      padding: 25px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, .12);
-    }
-
-    .pico-box {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .pico-image {
-      width: 180px;
-      max-width: 60%;
-      height: auto;
-      display: block;
-      margin: 0 auto 10px;
-    }
-
-    .robot-fallback {
-      font-size: 85px;
-      display: none;
+        padding: 20px 0 35px;
     }
 
     h1 {
-      text-align: center;
-      margin: 10px 0 20px;
-      font-size: 28px;
+        font-size: 35px;
     }
 
-    .message {
-      background: #eef2ff;
-      border-radius: 20px;
-      padding: 18px;
-      line-height: 2;
-      margin-bottom: 20px;
-      font-size: 16px;
-      white-space: pre-wrap;
+    .games {
+        grid-template-columns: 1fr;
     }
 
-    .score {
-      text-align: center;
-      background: #fef3c7;
-      border-radius: 15px;
-      padding: 12px;
-      font-size: 19px;
-      font-weight: bold;
-      margin-bottom: 18px;
+    .tools {
+        grid-template-columns: 1fr;
     }
 
-    .challenge {
-      background: #fff7ed;
-      border: 2px solid #fed7aa;
-      border-radius: 20px;
-      padding: 20px;
-      min-height: 120px;
-      line-height: 2;
-      font-size: 18px;
-      white-space: pre-wrap;
+    .game-card {
+        min-height: 220px;
     }
 
-    textarea {
-      width: 100%;
-      min-height: 110px;
-      margin-top: 15px;
-      padding: 15px;
-      border: 2px solid #dbe2ea;
-      border-radius: 16px;
-      font-family: Tahoma, Arial, sans-serif;
-      font-size: 16px;
-      resize: vertical;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: #6366f1;
-    }
-
-    button {
-      width: 100%;
-      border: 0;
-      border-radius: 16px;
-      padding: 15px;
-      margin-top: 12px;
-      font-family: inherit;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      color: white;
-      background: #6366f1;
-    }
-
-    button:hover {
-      opacity: .9;
-    }
-
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .new-button {
-      background: #10b981;
-    }
-
-    .hint-button {
-      background: #f59e0b;
-    }
-
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 18px;
-      font-size: 17px;
-    }
-
-    .result,
-    .hint,
-    .error {
-      display: none;
-      margin-top: 15px;
-      border-radius: 16px;
-      padding: 16px;
-      line-height: 2;
-      white-space: pre-wrap;
-    }
-
-    .result {
-      background: #ecfdf5;
-      border: 2px solid #a7f3d0;
-    }
-
-    .hint {
-      background: #fffbeb;
-      border: 2px solid #fde68a;
-    }
-
-    .error {
-      background: #fef2f2;
-      border: 2px solid #fecaca;
-      color: #991b1b;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      color: #64748b;
-      font-size: 13px;
-    }
-  </style>
+}
+    </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="card">
+<div class="container">
 
-      <div class="pico-box">
+    <!-- لوگو -->
+    <div class="logo">🏹</div>
 
-        <img
-          id="picoImage"
-          class="pico-image"
-          src="pico.png"
-          alt="پیکو - شخصیت هوش مصنوعی هدف"
-          onerror="showRobotFallback()">
+    <h1>هدف</h1>
 
-        <div id="robotFallback" class="robot-fallback">
-          🤖
+    <p class="subtitle">
+        بازی، سرگرمی و چالش‌های جذاب 🎮
+    </p>
+
+
+    <!-- حساب کاربری -->
+    <div class="account">
+
+        <div class="username" id="username">
+            ⏳ در حال بررسی حساب...
         </div>
 
-      </div>
+        <div class="score" id="score">
+            ⭐ امتیاز: 0
+        </div>
 
-      <h1>🧠 چالش هوش هدف</h1>
+    </div>
 
-      <div id="score" class="score">
-        ⭐ امتیاز: 0
-      </div>
 
-      <div id="picoMessage" class="message">
-        🤖 پیکو:
-        سلام! من پیکو هستم!
-        آماده‌ای یک چالش باحال حل کنی؟ 😎
-      </div>
+    <!-- بازی‌ها -->
+    <h2>🎮 بازی‌های هدف</h2>
 
-      <div id="challenge" class="challenge">
-        برای شروع روی
-        «🧩 چالش جدید»
-        بزن!
-      </div>
+    <div class="games">
 
-      <textarea
-        id="answer"
-        placeholder="✍️ جوابت رو اینجا بنویس..."></textarea>
+        <!-- پیکو -->
+        <div class="game-card pico"
+             onclick="location.href='challenges.html'">
 
-      <button
-        id="checkButton"
-        onclick="checkAnswer()"
-        disabled>
-        ✅ بررسی جواب
-      </button>
+            <div class="game-icon">🤖</div>
 
-      <button
-        id="newButton"
-        class="new-button"
-        onclick="newChallenge()">
-        🧩 چالش جدید
-      </button>
+            <div class="game-title">
+                چالش هوش پیکو
+            </div>
 
-      <button
-        id="hintButton"
-        class="hint-button"
-        onclick="getHint()">
-        💡 راهنمایی
-      </button>
+            <div class="game-description">
+                با پیکو معما حل کن و هوشت را محک بزن!
+            </div>
 
-      <div id="loading" class="loading">
-        🤖 پیکو داره فکر می‌کنه...
-        <br>
-        ⏳ یک لحظه صبر کن
-      </div>
+            <button>
+                شروع چالش 🧠
+            </button>
 
-      <div id="result" class="result"></div>
+        </div>
 
-      <div id="hint" class="hint"></div>
 
-      <div id="error" class="error"></div>
+        <!-- ماشین -->
+        <div class="game-card car"
+             onclick="location.href='car.html'">
 
-      <div class="footer">
-        🏹 چالش هوش هدف
-      </div>
+            <div class="game-icon">🚗</div>
 
-    <h3>Hadaf copy; 2026</h3>
+            <div class="game-title">
+                ماشین‌بازی
+            </div>
+
+            <div class="game-description">
+                رانندگی کن، از موانع فرار کن و رکورد بزن!
+            </div>
+
+            <button>
+                بازی 🚗
+            </button>
+
+        </div>
+
+
+        <!-- مار -->
+        <div class="game-card snake"
+             onclick="location.href='snake.html'">
+
+            <div class="game-icon">🐍</div>
+
+            <div class="game-title">
+                مار‌بازی
+            </div>
+
+            <div class="game-description">
+                غذا جمع کن و رکوردت را بیشتر کن!
+            </div>
+
+            <button>
+                بازی 🐍
+            </button>
+
+        </div>
+
+
+        <!-- حافظه -->
+        <div class="game-card memory"
+             onclick="location.href='memory.html'">
+
+            <div class="game-icon">🧠</div>
+
+            <div class="game-title">
+                بازی حافظه
+            </div>
+
+            <div class="game-description">
+                کارت‌های مشابه را پیدا کن!
+            </div>
+
+            <button>
+                شروع بازی 🧠
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- امکانات -->
+    <h2>🛠 ابزارهای هدف</h2>
+
+    <div class="tools">
+
+        <button onclick="location.href='news.html'">
+            📰 اخبار هدف
+        </button>
+
+        <button onclick="location.href='calculator.html'">
+            🧮 ماشین حساب
+        </button>
+
+    </div>
+
+
+    <!-- خروج -->
+    <button class="logout"
+            onclick="logout()">
+
+        🚪 خروج از حساب
+
+    </button>
+
+
+    <footer>
+        🏹 Hadaf © 2026
+    </footer>
+
+</div>
+
 
 <script>
 
-/* =====================================================
-   🤖 تنظیمات پیکو
-===================================================== */
+function getUser() {
 
-const API_KEY = "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";
+    try {
 
-const MODEL = "openrouter/free";
+        return JSON.parse(
+            localStorage.getItem("hadafUser")
+        );
 
-const API_URL =
-  "https://openrouter.ai/api/v1/chat/completions";
+    } catch {
 
-
-/* =====================================================
-   🎯 وضعیت بازی
-===================================================== */
-
-let currentChallenge = "";
-let score = 0;
-
-
-/* =====================================================
-   🔧 عناصر
-===================================================== */
-
-const challengeBox =
-  document.getElementById("challenge");
-
-const answerBox =
-  document.getElementById("answer");
-
-const checkButton =
-  document.getElementById("checkButton");
-
-const newButton =
-  document.getElementById("newButton");
-
-const hintButton =
-  document.getElementById("hintButton");
-
-const loadingBox =
-  document.getElementById("loading");
-
-const resultBox =
-  document.getElementById("result");
-
-const hintBox =
-  document.getElementById("hint");
-
-const errorBox =
-  document.getElementById("error");
-
-const picoMessage =
-  document.getElementById("picoMessage");
-
-const scoreBox =
-  document.getElementById("score");
-
-
-/* =====================================================
-   🤖 درخواست به OpenRouter
-===================================================== */
-
-async function askAI(prompt) {
-
-  if (
-    !API_KEY ||
-    API_KEY === "YOUR_OPENROUTER_KEY"
-  ) {
-
-    throw new Error(
-      "کلید OpenRouter تنظیم نشده است."
-    );
-
-  }
-
-
-  const response =
-    await fetch(API_URL, {
-
-      method: "POST",
-
-      headers: {
-
-        "Content-Type":
-          "application/json",
-
-        "Authorization":
-          "Bearer " + API_KEY,
-
-        "HTTP-Referer":
-          window.location.origin,
-
-        "X-Title":
-          "Hadaf AI Challenge"
-
-      },
-
-      body: JSON.stringify({
-
-        model: MODEL,
-
-        messages: [
-
-          {
-            role: "system",
-
-            content: `
-تو «پیکو» هستی؛
-شخصیت هوش مصنوعی سایت هدف.
-
-همیشه فارسی، دوستانه و بانمک صحبت کن.
-
-چالش‌ها باید:
-- مناسب کودکان و نوجوانان باشند
-- امن باشند
-- جواب مشخص داشته باشند
-- کوتاه و قابل فهم باشند
-
-اگر کاربر جواب نداده است،
-جواب نهایی چالش را لو نده.
-`
-          },
-
-          {
-            role: "user",
-            content: prompt
-          }
-
-        ],
-
-        temperature: 0.8,
-
-        max_tokens: 500
-
-      })
-
-    });
-
-
-  let data;
-
-  try {
-
-    data = await response.json();
-
-  } catch {
-
-    throw new Error(
-      "پاسخ OpenRouter قابل خواندن نبود."
-    );
-
-  }
-
-
-  if (!response.ok) {
-
-    console.error(
-      "OpenRouter:",
-      data
-    );
-
-    throw new Error(
-      data?.error?.message ||
-      "خطای OpenRouter: " +
-      response.status
-    );
-
-  }
-
-
-  const text =
-    data?.choices?.[0]?.message?.content;
-
-
-  if (
-    !text ||
-    typeof text !== "string"
-  ) {
-
-    throw new Error(
-      "OpenRouter پاسخی برنگرداند."
-    );
-
-  }
-
-
-  return text.trim();
-
-}
-
-
-/* =====================================================
-   🧩 چالش جدید
-===================================================== */
-
-async function newChallenge() {
-
-  hideMessages();
-
-  setLoading(true);
-
-  answerBox.value = "";
-
-  checkButton.disabled = true;
-
-  newButton.disabled = true;
-
-  hintButton.disabled = true;
-
-
-  challengeBox.innerText =
-    "🤖 پیکو داره یک چالش جدید می‌سازه...";
-
-
-  picoMessage.innerText =
-    "🤖 پیکو: صبر کن ببینم چه چالشی برات بسازم! 😎";
-
-
-  try {
-
-    const result =
-      await askAI(`
-
-یک چالش هوش جدید بساز.
-
-یکی از این نوع‌ها را انتخاب کن:
-
-ریاضی،
-منطقی،
-کلمه‌ای،
-معمایی،
-دقت و تمرکز.
-
-قوانین:
-
-- کوتاه باشد.
-- جذاب باشد.
-- مناسب کودک و نوجوان باشد.
-- جواب مشخص داشته باشد.
-- جواب را نگو.
-- فقط متن خود چالش را بنویس.
-
-`);
-
-
-    currentChallenge = result;
-
-    challengeBox.innerText =
-      currentChallenge;
-
-    picoMessage.innerText =
-      "🤖 پیکو: اینم چالش جدیدت! خوب فکر کن... 🧠";
-
-    checkButton.disabled = false;
-
-  }
-
-  catch (error) {
-
-    showError(error);
-
-    challengeBox.innerText =
-      "❌ ساخت چالش انجام نشد.";
-
-  }
-
-  finally {
-
-    setLoading(false);
-
-    newButton.disabled = false;
-
-    hintButton.disabled = false;
-
-  }
-
-}
-
-
-/* =====================================================
-   ✅ بررسی جواب
-===================================================== */
-
-async function checkAnswer() {
-
-  const answer =
-    answerBox.value.trim();
-
-
-  if (!answer) {
-
-    showError(
-      "اول جوابت رو بنویس! 😄"
-    );
-
-    return;
-
-  }
-
-
-  if (!currentChallenge) {
-
-    showError(
-      "اول یک چالش جدید بساز!"
-    );
-
-    return;
-
-  }
-
-
-  hideMessages();
-
-  setLoading(true);
-
-  checkButton.disabled = true;
-
-  newButton.disabled = true;
-
-  hintButton.disabled = true;
-
-
-  try {
-
-    const result =
-      await askAI(`
-
-چالش:
-
-${currentChallenge}
-
-
-جواب کاربر:
-
-${answer}
-
-
-جواب کاربر را بررسی کن.
-
-اگر کاملاً درست بود:
-
-اول بنویس:
-آفرین! جواب درست بود 🎉
-
-بعد یک توضیح کوتاه بده.
-
-اگر غلط بود:
-
-بگو:
-جوابت درست نیست.
-
-اما جواب صحیح را نگو.
-یک راهنمایی کوچک بده.
-
-اگر تقریباً درست بود:
-
-بگو که به جواب نزدیک است
-و یک راهنمایی بده.
-
-پاسخ فارسی و دوستانه باشد.
-
-`);
-
-
-    showResult(
-      "🤖 پیکو:\n" + result
-    );
-
-
-    const normalized =
-      result
-        .replace(/ي/g, "ی")
-        .replace(/ك/g, "ک")
-        .toLowerCase();
-
-
-    const correct =
-      normalized.includes("جواب درست بود") ||
-      normalized.includes("پاسخ درست بود") ||
-      normalized.includes("کاملاً درست");
-
-
-    if (correct) {
-
-      score += 10;
-
-      updateScore();
+        return null;
 
     }
 
-  }
+}
 
-  catch (error) {
 
-    showError(error);
+function showAccount() {
 
-  }
+    const user = getUser();
 
-  finally {
+    const username =
+        document.getElementById("username");
 
-    setLoading(false);
+    const score =
+        document.getElementById("score");
 
-    checkButton.disabled =
-      !currentChallenge;
 
-    newButton.disabled = false;
+    if (!user) {
 
-    hintButton.disabled = false;
+        username.innerHTML = "👤 مهمان";
 
-  }
+        score.innerHTML =
+            "برای استفاده از حساب وارد شو.";
+
+        return;
+
+    }
+
+
+    username.innerHTML =
+        "👤 " +
+        escapeHTML(
+            user.username || "کاربر هدف"
+        );
+
+
+    score.innerHTML =
+        "⭐ امتیاز: " +
+        Number(user.score || 0);
 
 }
 
 
-/* =====================================================
-   💡 راهنمایی
-===================================================== */
+function escapeHTML(text) {
 
-async function getHint() {
+    const div =
+        document.createElement("div");
 
-  if (!currentChallenge) {
+    div.textContent = text;
 
-    showError(
-      "اول یک چالش بساز! 😄"
-    );
-
-    return;
-
-  }
-
-
-  hideMessages();
-
-  setLoading(true);
-
-  hintButton.disabled = true;
-
-  newButton.disabled = true;
-
-  checkButton.disabled = true;
-
-
-  try {
-
-    const result =
-      await askAI(`
-
-برای این چالش یک راهنمایی بده:
-
-${currentChallenge}
-
-قوانین:
-
-- جواب نهایی را نگو.
-- راهنمایی کوتاه باشد.
-- واقعاً به حل چالش کمک کند.
-- فارسی و دوستانه باشد.
-
-`);
-
-
-    hintBox.style.display =
-      "block";
-
-    hintBox.innerText =
-      "💡 راهنمای پیکو:\n" +
-      result;
-
-  }
-
-  catch (error) {
-
-    showError(error);
-
-  }
-
-  finally {
-
-    setLoading(false);
-
-    hintButton.disabled = false;
-
-    newButton.disabled = false;
-
-    checkButton.disabled =
-      !currentChallenge;
-
-  }
+    return div.innerHTML;
 
 }
 
 
-/* =====================================================
-   ⭐ امتیاز
-===================================================== */
+function logout() {
 
-function updateScore() {
+    localStorage.removeItem("hadafUser");
 
-  scoreBox.innerText =
-    "⭐ امتیاز: " + score;
+    location.href = "login.html";
 
 }
 
 
-/* =====================================================
-   ⏳ Loading
-===================================================== */
-
-function setLoading(value) {
-
-  loadingBox.style.display =
-    value ? "block" : "none";
-
-}
-
-
-/* =====================================================
-   ❌ خطا
-===================================================== */
-
-function showError(error) {
-
-  errorBox.style.display =
-    "block";
-
-  errorBox.innerText =
-    "❌ " +
-    (
-      error?.message ||
-      error ||
-      "خطای ناشناخته"
-    );
-
-  console.error(
-    "Pico Error:",
-    error
-  );
-
-}
-
-
-/* =====================================================
-   🎉 نتیجه
-===================================================== */
-
-function showResult(text) {
-
-  resultBox.style.display =
-    "block";
-
-  resultBox.innerText =
-    text;
-
-}
-
-
-/* =====================================================
-   🧹 مخفی کردن پیام‌ها
-===================================================== */
-
-function hideMessages() {
-
-  resultBox.style.display =
-    "none";
-
-  hintBox.style.display =
-    "none";
-
-  errorBox.style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   🤖 عکس پیکو
-===================================================== */
-
-function showRobotFallback() {
-
-  const image =
-    document.getElementById("picoImage");
-
-  const fallback =
-    document.getElementById("robotFallback");
-
-
-  image.style.display =
-    "none";
-
-  fallback.style.display =
-    "block";
-
-}
-
-
-/* =====================================================
-   🚀 شروع
-===================================================== */
-
-updateScore();
-
-console.log(
-  "🤖 پیکو آماده است!"
-);
+showAccount();
 
 </script>
 
