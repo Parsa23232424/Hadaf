@@ -7,7 +7,523 @@
 
     <title>هدف 🏹</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Tahoma,
+        "Segoe UI",
+        sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #6366f1 0%,
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            #10b981 0%,
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #09091a,
+            #15152d,
+            #24243e
+        );
+}
+
+
+/* ===============================
+   Container
+================================ */
+
+.container {
+
+    width: min(900px, 94%);
+
+    margin: auto;
+
+    padding:
+        35px
+        0
+        50px;
+
+}
+
+
+/* ===============================
+   Logo
+================================ */
+
+.logo {
+
+    width: 90px;
+    height: 90px;
+
+    margin:
+        10px
+        auto
+        5px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 48px;
+
+    border-radius: 28px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.3);
+
+    backdrop-filter:
+        blur(15px);
+
+}
+
+
+/* ===============================
+   Title
+================================ */
+
+h1 {
+
+    text-align: center;
+
+    font-size: 42px;
+
+    margin:
+        5px 0;
+
+}
+
+
+.subtitle {
+
+    text-align: center;
+
+    color: #cbd5e1;
+
+    margin-bottom: 30px;
+
+}
+
+
+/* ===============================
+   Account
+================================ */
+
+.account {
+
+    padding: 20px;
+
+    margin-bottom: 30px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
+
+    backdrop-filter:
+        blur(15px);
+
+}
+
+
+.username {
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+.score {
+
+    color: #facc15;
+
+    font-size: 17px;
+
+}
+
+
+/* ===============================
+   Section title
+================================ */
+
+h2 {
+
+    text-align: center;
+
+    margin:
+        30px
+        0
+        18px;
+
+}
+
+
+/* ===============================
+   Games
+================================ */
+
+.games {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap: 18px;
+
+}
+
+
+/* ===============================
+   Game Card
+================================ */
+
+.game-card {
+
+    position: relative;
+
+    padding: 25px;
+
+    min-height: 250px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.3);
+
+    backdrop-filter:
+        blur(15px);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+
+}
+
+
+.game-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.45);
+
+}
+
+
+/* ===============================
+   Game Icons
+================================ */
+
+.game-icon {
+
+    font-size: 55px;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* ===============================
+   Game Title
+================================ */
+
+.game-title {
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* ===============================
+   Description
+================================ */
+
+.game-description {
+
+    color: #cbd5e1;
+
+    line-height: 1.8;
+
+    min-height: 55px;
+
+}
+
+
+/* ===============================
+   Buttons
+================================ */
+
+.game-card button,
+.buttons button,
+.logout {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius: 15px;
+
+    padding: 14px;
+
+    margin-top: 15px;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        filter .2s;
+
+}
+
+
+.game-card button:hover,
+.buttons button:hover,
+.logout:hover {
+
+    transform:
+        scale(1.03);
+
+    filter:
+        brightness(1.15);
+
+}
+
+
+/* ===============================
+   Game Colors
+================================ */
+
+.pico button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        );
+
+}
+
+
+.car button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #2563eb
+        );
+
+}
+
+
+.snake button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+
+}
+
+
+.memory button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #a855f7,
+            #7e22ce
+        );
+
+}
+
+
+/* ===============================
+   Other buttons
+================================ */
+
+.buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap: 15px;
+
+}
+
+
+.buttons button {
+
+    margin-top: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+
+}
+
+
+/* ===============================
+   Logout
+================================ */
+
+.logout {
+
+    margin-top: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+
+}
+
+
+/* ===============================
+   Footer
+================================ */
+
+footer {
+
+    text-align: center;
+
+    margin-top: 35px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+}
+
+
+/* ===============================
+   Mobile
+================================ */
+
+@media (max-width: 650px) {
+
+    .container {
+
+        padding:
+            20px
+            0
+            35px;
+
+    }
+
+
+    h1 {
+
+        font-size: 35px;
+
+    }
+
+
+    .games {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .buttons {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .game-card {
+
+        min-height: 220px;
+
+    }
+
+}
+    </style>
 </head>
 
 <body>
