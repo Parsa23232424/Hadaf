@@ -2,370 +2,271 @@
 <html lang="fa" dir="rtl">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>هدف 🏹</title>
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
-
-<title>هدف 🏹</title>
-
-<style>
-
-*{
-box-sizing:border-box;
-}
-
-body{
-
-margin:0;
-
-font-family:
-Tahoma,
-"Segoe UI",
-sans-serif;
-
-min-height:100vh;
-
-background:
-linear-gradient(
-135deg,
-#0f0c29,
-#302b63,
-#24243e
-);
-
-color:white;
-
-}
-
-.container{
-
-width:min(700px,94%);
-
-margin:30px auto;
-
-}
-
-.card{
-
-background:
-rgba(255,255,255,.08);
-
-border:
-1px solid rgba(255,255,255,.12);
-
-border-radius:25px;
-
-padding:25px;
-
-box-shadow:
-0 20px 60px rgba(0,0,0,.4);
-
-backdrop-filter:
-blur(12px);
-  width:30px
-
-}
-
-.logo{
-
-text-align:center;
-
-font-size:45px;
-
-margin-bottom:5px;
-
-}
-
-h1{
-
-text-align:center;
-
-margin:5px 0 25px;
-
-}
-
-#account{
-
-background:
-rgba(99,102,241,.2);
-
-border-radius:18px;
-
-padding:18px;
-
-margin-bottom:20px;
-
-text-align:center;
-
-}
-
-.username{
-
-font-size:21px;
-
-font-weight:bold;
-
-margin-bottom:8px;
-
-}
-
-.score{
-
-font-size:18px;
-
-}
-
-.buttons{
-
-display:grid;
-
-gap:12px;
-  width:30px
-
-}
-
-button{
-
-border:0;
-
-border-radius:15px;
-
-padding:15px;
-
-font-family:inherit;
-
-font-size:17px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-color:white;
-
-background:#6366f1;
-  width:30px
-
-}
-
-.pico{
-
-background:#10b981;
-  width:30px
-  
-
-}
-
-.logout{
-
-background:#ef4444;
-width:30px
-}
-
-.guest{
-
-color:#ddd;
-
-line-height:2;
-
-text-align:center;
-
-}
-
-</style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<div class="card">
+        <!-- لوگو -->
+        <div class="logo">
+            🏹
+        </div>
 
-<div class="logo">
-🏹
-</div>
+        <h1>هدف</h1>
 
-<h1>
-هدف
-</h1>
-
-
-<div id="account">
-
-<div class="username"
-id="username">
-
-⏳ در حال بررسی حساب...
-
-</div>
-
-<div class="score"
-id="score">
-
-⭐ امتیاز: 0
-
-</div>
-
-</div>
+        <p class="subtitle">
+            دنیای بازی‌ها و سرگرمی 🎮
+        </p>
 
 
-<div class="buttons">
+        <!-- حساب کاربری -->
+        <div class="account" id="account">
 
-<button
-class="pico"
-onclick="location.href='challenges.html'">
+            <div class="username" id="username">
+                ⏳ در حال بررسی حساب...
+            </div>
 
-🤖 چالش هوش پیکو
+            <div class="score" id="score">
+                ⭐ امتیاز: 0
+            </div>
 
-</button>
+        </div>
 
-<button
-onclick="location.href='news.html'">
 
-📰 اخبار هدف
+        <!-- بازی‌ها -->
+        <h2>🎮 بازی‌های هدف</h2>
 
-</button>
-<button
-  onclick="location.href='calculator.html'"
-  style="
-    display:block;
-    width:100%;
-    padding:15px;
-    margin-top:12px;
-    border-radius:16px;
-    background:#6366f1;
-    color:white;
-    text-align:center;
-    text-decoration:none;
-    font-family:Tahoma,Arial,sans-serif;
-    font-size:17px;
-    font-weight:bold;
-    border:0;
-    cursor:pointer;
-  ">
-  🧮 ماشین حساب
-</button>
-   
+        <div class="games">
 
-<button
-class="logout"
-onclick="logout()">
+            <!-- پیکو -->
+            <div class="game-card pico"
+                 onclick="location.href='challenges.html'">
 
-🚪 خروج از حساب
+                <div class="game-icon">
+                    🤖
+                </div>
 
-</button>
+                <div class="game-title">
+                    چالش هوش پیکو
+                </div>
 
-</div>
+                <div class="game-description">
+                    معماها را حل کن و هوشت را محک بزن!
+                </div>
 
-</div>
+                <button>
+                    شروع بازی 🚀
+                </button>
 
-</div>
+            </div>
+
+
+            <!-- ماشین -->
+            <div class="game-card car"
+                 onclick="location.href='car.html'">
+
+                <div class="game-icon">
+                    🚗
+                </div>
+
+                <div class="game-title">
+                    ماشین‌بازی
+                </div>
+
+                <div class="game-description">
+                    رانندگی کن، از موانع فرار کن و رکورد بزن!
+                </div>
+
+                <button>
+                    رانندگی 🚗
+                </button>
+
+            </div>
+
+
+            <!-- مار -->
+            <div class="game-card snake"
+                 onclick="location.href='snake.html'">
+
+                <div class="game-icon">
+                    🐍
+                </div>
+
+                <div class="game-title">
+                    مار‌بازی
+                </div>
+
+                <div class="game-description">
+                    غذا جمع کن و رکوردت را افزایش بده!
+                </div>
+
+                <button>
+                    بازی کن 🐍
+                </button>
+
+            </div>
+
+
+            <!-- حافظه -->
+            <div class="game-card memory"
+                 onclick="location.href='memory.html'">
+
+                <div class="game-icon">
+                    🧠
+                </div>
+
+                <div class="game-title">
+                    بازی حافظه
+                </div>
+
+                <div class="game-description">
+                    کارت‌های مشابه را پیدا کن!
+                </div>
+
+                <button>
+                    شروع 🧠
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- امکانات -->
+        <h2>🛠 امکانات</h2>
+
+        <div class="buttons">
+
+            <button onclick="location.href='news.html'">
+                📰 اخبار هدف
+            </button>
+
+            <button onclick="location.href='calculator.html'">
+                🧮 ماشین حساب
+            </button>
+
+        </div>
+
+
+        <!-- خروج -->
+        <button class="logout" onclick="logout()">
+            🚪 خروج از حساب
+        </button>
+
+        <footer>
+            ساخته شده با ❤️ برای هدف
+        </footer>
+
+    </div>
 
 
 <script>
 
-/* =====================================================
+/* ===============================
    👤 حساب کاربری
-===================================================== */
+================================ */
 
-function getUser(){
+function getUser() {
 
-try{
+    try {
 
-return JSON.parse(
-localStorage.getItem("hadafUser")
-);
+        return JSON.parse(
+            localStorage.getItem("hadafUser")
+        );
 
-}catch{
+    } catch {
 
-return null;
+        return null;
+
+    }
 
 }
 
-}
 
-
-/* =====================================================
+/* ===============================
    نمایش حساب
-===================================================== */
+================================ */
 
-function showAccount(){
+function showAccount() {
 
-const user=
-getUser();
+    const user = getUser();
 
-const username=
-document.getElementById("username");
+    const username =
+        document.getElementById("username");
 
-const score=
-document.getElementById("score");
+    const score =
+        document.getElementById("score");
 
 
-if(!user){
+    if (!user) {
 
-username.innerHTML=
-"👤 مهمان";
+        username.innerHTML =
+            "👤 مهمان";
 
-score.innerHTML=
-"برای استفاده از حساب وارد شو.";
+        score.innerHTML =
+            "برای استفاده از حساب وارد شو.";
 
-return;
+        return;
+
+    }
+
+
+    username.innerHTML =
+        "👤 " +
+        escapeHTML(
+            user.username || "کاربر هدف"
+        );
+
+
+    score.innerHTML =
+        "⭐ امتیاز: " +
+        Number(user.score || 0);
 
 }
 
 
-username.innerHTML=
-"👤 "+escapeHTML(
-user.username ||
-"کاربر هدف"
-);
-
-
-score.innerHTML=
-"⭐ امتیاز: "+
-Number(user.score || 0);
-
-}
-
-
-/* =====================================================
+/* ===============================
    امنیت متن
-===================================================== */
+================================ */
 
-function escapeHTML(text){
+function escapeHTML(text) {
 
-const div=
-document.createElement("div");
+    const div =
+        document.createElement("div");
 
-div.textContent=
-text;
+    div.textContent = text;
 
-return div.innerHTML;
+    return div.innerHTML;
 
 }
 
 
-/* =====================================================
+/* ===============================
    🚪 خروج
-===================================================== */
+================================ */
 
-function logout(){
+function logout() {
 
-localStorage.removeItem(
-"hadafUser"
-);
+    localStorage.removeItem(
+        "hadafUser"
+    );
 
-location.href=
-"login.html";
+    location.href =
+        "login.html";
 
 }
 
 
-/* =====================================================
+/* ===============================
    شروع
-===================================================== */
+================================ */
 
 showAccount();
 
