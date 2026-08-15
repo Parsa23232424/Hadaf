@@ -1,391 +1,1151 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>چالش هوش هدف 🤖 | پیکو</title>
-<meta name="description" content="چالش هوش هدف با پیکو؛ معما و چالش‌های هوشمند.">
+
+<meta name="description"
+      content="چالش هوش هدف با پیکو؛ معما و چالش‌های هوشمند.">
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   font-family:Tahoma,Arial,sans-serif;
+
   background:
-    radial-gradient(circle at 10% 10%,rgba(99,102,241,.35),transparent 30%),
-    radial-gradient(circle at 90% 90%,rgba(16,185,129,.25),transparent 30%),
-    linear-gradient(135deg,#09091a,#15152d,#24243e);
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(99,102,241,.35),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 90% 90%,
+      rgba(16,185,129,.25),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      135deg,
+      #09091a,
+      #15152d,
+      #24243e
+    );
+
   color:white;
   min-height:100vh;
 }
-.container{width:min(700px,94%);margin:25px auto;padding-bottom:40px}
+
+.container{
+  width:min(700px,94%);
+  margin:25px auto;
+  padding-bottom:40px;
+}
+
 .card{
   background:rgba(255,255,255,.08);
+
   border:1px solid rgba(255,255,255,.12);
+
   border-radius:28px;
+
   padding:25px;
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.4);
+
   backdrop-filter:blur(15px);
 }
-.pico-box{text-align:center;margin-bottom:10px}
-.pico-image{width:180px;max-width:60%;height:auto;display:block;margin:0 auto 10px}
-.robot-fallback{font-size:85px;display:none}
-h1{text-align:center;margin:10px 0 20px;font-size:28px}
+
+.pico-box{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.pico-image{
+  width:180px;
+  max-width:60%;
+  height:auto;
+
+  display:block;
+
+  margin:0 auto 10px;
+}
+
+.robot-fallback{
+  font-size:85px;
+  display:none;
+}
+
+h1{
+  text-align:center;
+  margin:10px 0 20px;
+  font-size:28px;
+}
+
 .message{
   background:rgba(99,102,241,.18);
-  border-radius:20px;padding:18px;line-height:2;
-  margin-bottom:20px;font-size:16px;white-space:pre-wrap
+
+  border-radius:20px;
+
+  padding:18px;
+
+  line-height:2;
+
+  margin-bottom:20px;
+
+  font-size:16px;
+
+  white-space:pre-wrap;
 }
+
 .score{
-  text-align:center;background:rgba(250,204,21,.14);
+  text-align:center;
+
+  background:rgba(250,204,21,.14);
+
   border:1px solid rgba(250,204,21,.2);
-  border-radius:15px;padding:12px;font-size:19px;
-  font-weight:bold;margin-bottom:18px;color:#fde68a
+
+  border-radius:15px;
+
+  padding:12px;
+
+  font-size:19px;
+
+  font-weight:bold;
+
+  margin-bottom:18px;
+
+  color:#fde68a;
 }
+
 .challenge{
   background:rgba(249,115,22,.12);
+
   border:2px solid rgba(251,146,60,.35);
-  border-radius:20px;padding:20px;min-height:120px;
-  line-height:2;font-size:18px;white-space:pre-wrap
+
+  border-radius:20px;
+
+  padding:20px;
+
+  min-height:120px;
+
+  line-height:2;
+
+  font-size:18px;
+
+  white-space:pre-wrap;
 }
+
 textarea{
-  width:100%;min-height:110px;margin-top:15px;padding:15px;
-  border:2px solid rgba(255,255,255,.15);border-radius:16px;
-  font-family:Tahoma,Arial,sans-serif;font-size:16px;
-  resize:vertical;outline:none;background:rgba(255,255,255,.08);
-  color:white
+  width:100%;
+
+  min-height:110px;
+
+  margin-top:15px;
+
+  padding:15px;
+
+  border:2px solid rgba(255,255,255,.15);
+
+  border-radius:16px;
+
+  font-family:Tahoma,Arial,sans-serif;
+
+  font-size:16px;
+
+  resize:vertical;
+
+  outline:none;
+
+  background:rgba(255,255,255,.08);
+
+  color:white;
 }
-textarea::placeholder{color:#cbd5e1}
-textarea:focus{border-color:#818cf8}
+
+textarea::placeholder{
+  color:#cbd5e1;
+}
+
+textarea:focus{
+  border-color:#818cf8;
+}
+
 button{
-  width:100%;border:0;border-radius:16px;padding:15px;
-  margin-top:12px;font-family:inherit;font-size:17px;
-  font-weight:bold;cursor:pointer;color:white;
-  background:#6366f1;transition:.2s
+  width:100%;
+
+  border:0;
+
+  border-radius:16px;
+
+  padding:15px;
+
+  margin-top:12px;
+
+  font-family:inherit;
+
+  font-size:17px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  color:white;
+
+  background:#6366f1;
+
+  transition:.2s;
 }
-button:hover{filter:brightness(1.1);transform:translateY(-1px)}
-button:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.new-button{background:#10b981}
-.hint-button{background:#f59e0b}
-.loading{display:none;text-align:center;padding:18px;font-size:17px}
-.result,.hint,.error{
-  display:none;margin-top:15px;border-radius:16px;padding:16px;
-  line-height:2;white-space:pre-wrap
+
+button:hover{
+  filter:brightness(1.1);
+  transform:translateY(-1px);
 }
-.result{background:rgba(16,185,129,.12);border:2px solid rgba(52,211,153,.35)}
-.hint{background:rgba(245,158,11,.12);border:2px solid rgba(251,191,36,.35)}
-.error{background:rgba(239,68,68,.12);border:2px solid rgba(248,113,113,.35);color:#fecaca}
+
+button:disabled{
+  opacity:.5;
+
+  cursor:not-allowed;
+
+  transform:none;
+}
+
+.new-button{
+  background:#10b981;
+}
+
+.hint-button{
+  background:#f59e0b;
+}
+
+.loading{
+  display:none;
+
+  text-align:center;
+
+  padding:18px;
+
+  font-size:17px;
+}
+
+.result,
+.hint,
+.error{
+  display:none;
+
+  margin-top:15px;
+
+  border-radius:16px;
+
+  padding:16px;
+
+  line-height:2;
+
+  white-space:pre-wrap;
+}
+
+.result{
+  background:rgba(16,185,129,.12);
+
+  border:2px solid rgba(52,211,153,.35);
+}
+
+.hint{
+  background:rgba(245,158,11,.12);
+
+  border:2px solid rgba(251,191,36,.35);
+}
+
+.error{
+  background:rgba(239,68,68,.12);
+
+  border:2px solid rgba(248,113,113,.35);
+
+  color:#fecaca;
+}
+
 .back{
   background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.12)
+
+  border:1px solid rgba(255,255,255,.12);
 }
-.footer{text-align:center;margin-top:20px;color:#94a3b8;font-size:13px}
+
+.footer{
+  text-align:center;
+
+  margin-top:20px;
+
+  color:#94a3b8;
+
+  font-size:13px;
+}
+
 @media(max-width:500px){
-  .card{padding:18px}
-  h1{font-size:24px}
+
+  .card{
+    padding:18px;
+  }
+
+  h1{
+    font-size:24px;
+  }
+
 }
+
 </style>
 </head>
 
+
 <body>
+
 <div class="container">
+
 <div class="card">
 
+
+<!-- ========================= -->
+<!-- پیکو -->
+<!-- ========================= -->
+
 <div class="pico-box">
-<img id="picoImage" class="pico-image"
-     src="pico.png"
-     alt="پیکو - شخصیت هوش مصنوعی هدف"
-     onerror="showRobotFallback()">
-<div id="robotFallback" class="robot-fallback">🤖</div>
+
+<img
+  id="picoImage"
+  class="pico-image"
+  src="pico.png"
+  alt="پیکو - شخصیت هوش مصنوعی هدف"
+  onerror="showRobotFallback()"
+>
+
+<div id="robotFallback" class="robot-fallback">
+🤖
 </div>
 
-<h1>🧠 چالش هوش هدف</h1>
+</div>
 
-<div id="score" class="score">⭐ امتیاز: 0</div>
+
+<h1>
+🧠 چالش هوش هدف
+</h1>
+
+
+<!-- امتیاز -->
+
+<div id="score" class="score">
+⭐ امتیاز: 0
+</div>
+
+
+<!-- پیام پیکو -->
 
 <div id="picoMessage" class="message">
+
 🤖 پیکو:
+
 سلام! من پیکو هستم!
+
 آماده‌ای یک چالش باحال حل کنی؟ 😎
+
 </div>
+
+
+<!-- چالش -->
 
 <div id="challenge" class="challenge">
+
 برای شروع روی «🧩 چالش جدید» بزن!
+
 </div>
 
-<textarea id="answer" placeholder="✍️ جوابت رو اینجا بنویس..."></textarea>
 
-<button id="checkButton" onclick="checkAnswer()" disabled>
+<!-- جواب -->
+
+<textarea
+  id="answer"
+  placeholder="✍️ جوابت رو اینجا بنویس..."
+></textarea>
+
+
+<!-- بررسی -->
+
+<button
+  id="checkButton"
+  onclick="checkAnswer()"
+  disabled
+>
+
 ✅ بررسی جواب
+
 </button>
 
-<button id="newButton" class="new-button" onclick="newChallenge()">
+
+<!-- چالش جدید -->
+
+<button
+  id="newButton"
+  class="new-button"
+  onclick="newChallenge()"
+>
+
 🧩 چالش جدید
+
 </button>
 
-<button id="hintButton" class="hint-button" onclick="getHint()">
+
+<!-- راهنمایی -->
+
+<button
+  id="hintButton"
+  class="hint-button"
+  onclick="getHint()"
+>
+
 💡 راهنمایی
+
 </button>
 
-<button class="back" onclick="location.href='index.html'">
+
+<!-- بازگشت -->
+
+<button
+  class="back"
+  onclick="location.href='index.html'"
+>
+
 🏹 بازگشت به هدف
+
 </button>
+
+
+<!-- لودینگ -->
 
 <div id="loading" class="loading">
+
 🤖 پیکو داره فکر می‌کنه...
-<br>⏳ یک لحظه صبر کن
+
+<br>
+
+⏳ یک لحظه صبر کن
+
 </div>
+
+
+<!-- نتیجه -->
 
 <div id="result" class="result"></div>
+
+
+<!-- راهنمایی -->
+
 <div id="hint" class="hint"></div>
+
+
+<!-- خطا -->
+
 <div id="error" class="error"></div>
 
-<div class="footer">🏹 Hadaf © 2026</div>
+
+<div class="footer">
+
+🏹 Hadaf © 2026
+
+</div>
+
 
 </div>
 </div>
+
 
 <script>
-/*
-  مهم:
-  کلید OpenRouter را اینجا قرار نده.
-  برای امنیت، کلید باید روی سرور/Backend نگهداری شود.
-  ENDPOINT باید یک آدرس Backend متعلق به سایت خودت باشد.
-*/
-const API_URL = "/api/pico";
+
+
+// =====================================================
+// 🔑 تنظیمات OpenRouter
+// =====================================================
+
+// ⚠️ کلید OpenRouter خودت را اینجا قرار بده
+
+const OPENROUTER_API_KEY =
+  "sk-or-v1-کلید-خودت-اینجا";
+
+
+// مدل مورد استفاده
+
+const MODEL =
+  "openrouter/free";
+
+
+// آدرس OpenRouter
+
+const API_URL =
+  "https://openrouter.ai/api/v1/chat/completions";
+
+
+// =====================================================
+// متغیرها
+// =====================================================
 
 let currentChallenge = "";
+
 let score = 0;
 
-const challengeBox = document.getElementById("challenge");
-const answerBox = document.getElementById("answer");
-const checkButton = document.getElementById("checkButton");
-const newButton = document.getElementById("newButton");
-const hintButton = document.getElementById("hintButton");
-const loadingBox = document.getElementById("loading");
-const resultBox = document.getElementById("result");
-const hintBox = document.getElementById("hint");
-const errorBox = document.getElementById("error");
-const picoMessage = document.getElementById("picoMessage");
-const scoreBox = document.getElementById("score");
 
-async function askAI(prompt, mode) {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({prompt, mode})
-  });
+// =====================================================
+// عناصر صفحه
+// =====================================================
+
+const challengeBox =
+  document.getElementById("challenge");
+
+const answerBox =
+  document.getElementById("answer");
+
+const checkButton =
+  document.getElementById("checkButton");
+
+const newButton =
+  document.getElementById("newButton");
+
+const hintButton =
+  document.getElementById("hintButton");
+
+const loadingBox =
+  document.getElementById("loading");
+
+const resultBox =
+  document.getElementById("result");
+
+const hintBox =
+  document.getElementById("hint");
+
+const errorBox =
+  document.getElementById("error");
+
+const picoMessage =
+  document.getElementById("picoMessage");
+
+const scoreBox =
+  document.getElementById("score");
+
+
+// =====================================================
+// 🤖 ارتباط با OpenRouter
+// =====================================================
+
+async function askAI(prompt, mode){
+
+  const response = await fetch(
+    API_URL,
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":
+          "application/json",
+
+        "Authorization":
+          "Bearer " + OPENROUTER_API_KEY,
+
+        "HTTP-Referer":
+          window.location.origin,
+
+        "X-Title":
+          "Hadaf - Pico AI"
+      },
+
+      body:JSON.stringify({
+
+        model:MODEL,
+
+        messages:[
+
+          {
+            role:"system",
+
+            content:
+              "تو پیکو، شخصیت هوش مصنوعی بازی هدف هستی. " +
+              "فارسی، دوستانه و مناسب کودک و نوجوان صحبت کن."
+          },
+
+          {
+            role:"user",
+
+            content:prompt
+          }
+
+        ],
+
+        temperature:0.7,
+
+        max_tokens:500
+
+      })
+    }
+  );
+
+
+  // =================================================
+  // دریافت JSON
+  // =================================================
 
   let data;
-  try {
-    data = await response.json();
-  } catch {
-    throw new Error("پاسخ سرور قابل خواندن نبود.");
+
+
+  try{
+
+    data =
+      await response.json();
+
+  }catch{
+
+    throw new Error(
+      "پاسخ OpenRouter قابل خواندن نبود."
+    );
+
   }
 
-  if (!response.ok) {
-    throw new Error(data?.error || "خطا در ارتباط با سرور.");
+
+  // =================================================
+  // بررسی خطا
+  // =================================================
+
+  if(!response.ok){
+
+    console.error(
+      "OpenRouter Error:",
+      data
+    );
+
+    throw new Error(
+
+      data?.error?.message ||
+
+      data?.error ||
+
+      "خطا در ارتباط با OpenRouter."
+
+    );
+
   }
 
-  const text = data?.text;
-  if (!text || typeof text !== "string") {
-    throw new Error("سرور پاسخ مناسبی برنگرداند.");
+
+  // =================================================
+  // دریافت متن
+  // =================================================
+
+  const text =
+    data?.choices?.[0]?.message?.content;
+
+
+  if(
+    !text ||
+    typeof text !== "string"
+  ){
+
+    console.error(
+      "OpenRouter Response:",
+      data
+    );
+
+    throw new Error(
+      "OpenRouter پاسخ متنی مناسبی برنگرداند."
+    );
+
   }
+
 
   return text.trim();
+
 }
 
-async function newChallenge() {
+
+// =====================================================
+// 🧩 ساخت چالش جدید
+// =====================================================
+
+async function newChallenge(){
+
   hideMessages();
+
   setLoading(true);
+
   answerBox.value = "";
+
   checkButton.disabled = true;
+
   newButton.disabled = true;
+
   hintButton.disabled = true;
 
-  challengeBox.innerText = "🤖 پیکو داره یک چالش جدید می‌سازه...";
-  picoMessage.innerText = "🤖 پیکو: صبر کن ببینم چه چالشی برات بسازم! 😎";
 
-  try {
-    const result = await askAI(`
+  challengeBox.innerText =
+    "🤖 پیکو داره یک چالش جدید می‌سازه...";
+
+
+  picoMessage.innerText =
+    "🤖 پیکو: صبر کن ببینم چه چالشی برات بسازم! 😎";
+
+
+  try{
+
+    const result =
+      await askAI(`
+
 یک چالش هوش جدید بساز.
+
 یکی از این نوع‌ها را انتخاب کن:
-ریاضی، منطقی، کلمه‌ای، معمایی، دقت و تمرکز.
+
+ریاضی،
+منطقی،
+کلمه‌ای،
+معمایی،
+دقت و تمرکز.
 
 قوانین:
+
 - کوتاه باشد.
 - جذاب باشد.
 - مناسب کودک و نوجوان باشد.
 - جواب مشخص داشته باشد.
 - جواب را نگو.
 - فقط متن خود چالش را بنویس.
-`, "new");
 
-    currentChallenge = result;
-    challengeBox.innerText = currentChallenge;
-    picoMessage.innerText = "🤖 پیکو: اینم چالش جدیدت! خوب فکر کن... 🧠";
-    checkButton.disabled = false;
-  } catch (error) {
+`,"new");
+
+
+    currentChallenge =
+      result;
+
+
+    challengeBox.innerText =
+      currentChallenge;
+
+
+    picoMessage.innerText =
+      "🤖 پیکو: اینم چالش جدیدت! خوب فکر کن... 🧠";
+
+
+    checkButton.disabled =
+      false;
+
+
+  }catch(error){
+
     showError(error);
-    challengeBox.innerText = "❌ ساخت چالش انجام نشد.";
-  } finally {
+
+
+    challengeBox.innerText =
+      "❌ ساخت چالش انجام نشد.";
+
+  }finally{
+
     setLoading(false);
-    newButton.disabled = false;
-    hintButton.disabled = false;
+
+    newButton.disabled =
+      false;
+
+    hintButton.disabled =
+      false;
+
   }
+
 }
 
-async function checkAnswer() {
-  const answer = answerBox.value.trim();
 
-  if (!answer) {
-    showError("اول جوابت رو بنویس! 😄");
+// =====================================================
+// ✅ بررسی جواب
+// =====================================================
+
+async function checkAnswer(){
+
+  const answer =
+    answerBox.value.trim();
+
+
+  if(!answer){
+
+    showError(
+      "اول جوابت رو بنویس! 😄"
+    );
+
     return;
   }
 
-  if (!currentChallenge) {
-    showError("اول یک چالش جدید بساز!");
+
+  if(!currentChallenge){
+
+    showError(
+      "اول یک چالش جدید بساز!"
+    );
+
     return;
   }
+
 
   hideMessages();
+
   setLoading(true);
+
+
   checkButton.disabled = true;
+
   newButton.disabled = true;
+
   hintButton.disabled = true;
 
-  try {
-    const result = await askAI(`
+
+  try{
+
+    const result =
+      await askAI(`
+
 چالش:
+
 ${currentChallenge}
 
+
 جواب کاربر:
+
 ${answer}
+
 
 جواب کاربر را بررسی کن.
 
 اگر کاملاً درست بود:
+
 اول بنویس:
+
 آفرین! جواب درست بود 🎉
+
 بعد یک توضیح کوتاه بده.
 
+
 اگر غلط بود:
+
 بگو:
+
 جوابت درست نیست.
+
 اما جواب صحیح را نگو و یک راهنمایی کوچک بده.
 
+
 اگر تقریباً درست بود:
+
 بگو که به جواب نزدیک است و یک راهنمایی بده.
 
+
 پاسخ فارسی و دوستانه باشد.
-`, "check");
 
-    showResult("🤖 پیکو:\n" + result);
+`,"check");
 
-    const normalized = result
-      .replace(/ي/g,"ی")
-      .replace(/ك/g,"ک")
-      .toLowerCase();
+
+    showResult(
+      "🤖 پیکو:\n" + result
+    );
+
+
+    // تبدیل حروف عربی به فارسی
+
+    const normalized =
+      result
+        .replace(/ي/g,"ی")
+        .replace(/ك/g,"ک")
+        .toLowerCase();
+
+
+    // بررسی درست بودن
 
     const correct =
-      normalized.includes("جواب درست بود") ||
-      normalized.includes("پاسخ درست بود") ||
-      normalized.includes("کاملاً درست");
 
-    if (correct) {
+      normalized.includes(
+        "جواب درست بود"
+      )
+
+      ||
+
+      normalized.includes(
+        "پاسخ درست بود"
+      )
+
+      ||
+
+      normalized.includes(
+        "کاملاً درست"
+      );
+
+
+    if(correct){
+
       score += 10;
+
       updateScore();
+
       saveScore();
+
     }
-  } catch (error) {
+
+
+  }catch(error){
+
     showError(error);
-  } finally {
+
+  }finally{
+
     setLoading(false);
-    checkButton.disabled = !currentChallenge;
-    newButton.disabled = false;
-    hintButton.disabled = false;
+
+    checkButton.disabled =
+      !currentChallenge;
+
+    newButton.disabled =
+      false;
+
+    hintButton.disabled =
+      false;
+
   }
+
 }
 
-async function getHint() {
-  if (!currentChallenge) {
-    showError("اول یک چالش بساز! 😄");
+
+// =====================================================
+// 💡 راهنمایی
+// =====================================================
+
+async function getHint(){
+
+  if(!currentChallenge){
+
+    showError(
+      "اول یک چالش بساز! 😄"
+    );
+
     return;
   }
 
+
   hideMessages();
+
   setLoading(true);
+
+
   hintButton.disabled = true;
+
   newButton.disabled = true;
+
   checkButton.disabled = true;
 
-  try {
-    const result = await askAI(`
+
+  try{
+
+    const result =
+      await askAI(`
+
 برای این چالش یک راهنمایی بده:
 
 ${currentChallenge}
 
+
 قوانین:
+
 - جواب نهایی را نگو.
 - راهنمایی کوتاه باشد.
 - واقعاً به حل چالش کمک کند.
 - فارسی و دوستانه باشد.
-`, "hint");
 
-    hintBox.style.display = "block";
-    hintBox.innerText = "💡 راهنمای پیکو:\n" + result;
-  } catch (error) {
+`,"hint");
+
+
+    hintBox.style.display =
+      "block";
+
+
+    hintBox.innerText =
+      "💡 راهنمای پیکو:\n" +
+      result;
+
+
+  }catch(error){
+
     showError(error);
-  } finally {
+
+  }finally{
+
     setLoading(false);
-    hintButton.disabled = false;
-    newButton.disabled = false;
-    checkButton.disabled = !currentChallenge;
+
+    hintButton.disabled =
+      false;
+
+    newButton.disabled =
+      false;
+
+    checkButton.disabled =
+      !currentChallenge;
+
   }
+
 }
 
-function updateScore() {
-  scoreBox.innerText = "⭐ امتیاز: " + score;
+
+// =====================================================
+// ⭐ امتیاز
+// =====================================================
+
+function updateScore(){
+
+  scoreBox.innerText =
+    "⭐ امتیاز: " + score;
+
 }
 
-function saveScore() {
-  try {
-    const user = JSON.parse(localStorage.getItem("hadafUser"));
-    if (user) {
-      user.score = Number(user.score || 0) + 10;
-      localStorage.setItem("hadafUser", JSON.stringify(user));
+
+// =====================================================
+// 💾 ذخیره امتیاز
+// =====================================================
+
+function saveScore(){
+
+  try{
+
+    const user =
+      JSON.parse(
+        localStorage.getItem(
+          "hadafUser"
+        )
+      );
+
+
+    if(user){
+
+      user.score =
+        Number(user.score || 0) + 10;
+
+
+      localStorage.setItem(
+        "hadafUser",
+
+        JSON.stringify(user)
+      );
+
     }
-  } catch {}
+
+  }catch{}
+
 }
 
-function setLoading(value) {
-  loadingBox.style.display = value ? "block" : "none";
+
+// =====================================================
+// ⏳ لودینگ
+// =====================================================
+
+function setLoading(value){
+
+  loadingBox.style.display =
+    value ? "block" : "none";
+
 }
 
-function showError(error) {
-  errorBox.style.display = "block";
-  errorBox.innerText = "❌ " +
-    (error?.message || error || "خطای ناشناخته");
-  console.error("Pico Error:", error);
+
+// =====================================================
+// ❌ نمایش خطا
+// =====================================================
+
+function showError(error){
+
+  errorBox.style.display =
+    "block";
+
+
+  errorBox.innerText =
+    "❌ " +
+
+    (
+      error?.message ||
+
+      error ||
+
+      "خطای ناشناخته"
+    );
+
+
+  console.error(
+    "Pico Error:",
+    error
+  );
+
 }
 
-function showResult(text) {
-  resultBox.style.display = "block";
-  resultBox.innerText = text;
+
+// =====================================================
+// نمایش نتیجه
+// =====================================================
+
+function showResult(text){
+
+  resultBox.style.display =
+    "block";
+
+
+  resultBox.innerText =
+    text;
+
 }
 
-function hideMessages() {
-  resultBox.style.display = "none";
-  hintBox.style.display = "none";
-  errorBox.style.display = "none";
+
+// =====================================================
+// مخفی کردن پیام‌ها
+// =====================================================
+
+function hideMessages(){
+
+  resultBox.style.display =
+    "none";
+
+
+  hintBox.style.display =
+    "none";
+
+
+  errorBox.style.display =
+    "none";
+
 }
 
-function showRobotFallback() {
-  document.getElementById("picoImage").style.display = "none";
-  document.getElementById("robotFallback").style.display = "block";
+
+// =====================================================
+// 🤖 تصویر جایگزین پیکو
+// =====================================================
+
+function showRobotFallback(){
+
+  document.getElementById(
+    "picoImage"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "robotFallback"
+  ).style.display =
+    "block";
+
 }
+
+
+// =====================================================
+// شروع
+// =====================================================
 
 updateScore();
+
 </script>
+
 </body>
-</html>
+  </html>
