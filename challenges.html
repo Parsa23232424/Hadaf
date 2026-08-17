@@ -52,11 +52,8 @@ body{
 
 .card{
   background:rgba(255,255,255,.08);
-
   border:1px solid rgba(255,255,255,.12);
-
   border-radius:28px;
-
   padding:25px;
 
   box-shadow:
@@ -74,9 +71,7 @@ body{
   width:180px;
   max-width:60%;
   height:auto;
-
   display:block;
-
   margin:0 auto 10px;
 }
 
@@ -93,17 +88,11 @@ h1{
 
 .message{
   background:rgba(99,102,241,.18);
-
   border-radius:20px;
-
   padding:18px;
-
   line-height:2;
-
   margin-bottom:20px;
-
   font-size:16px;
-
   white-space:pre-wrap;
 }
 
@@ -111,15 +100,12 @@ h1{
   text-align:center;
 
   background:rgba(250,204,21,.14);
-
   border:1px solid rgba(250,204,21,.2);
 
   border-radius:15px;
-
   padding:12px;
 
   font-size:19px;
-
   font-weight:bold;
 
   margin-bottom:18px;
@@ -212,9 +198,7 @@ button:hover{
 
 button:disabled{
   opacity:.5;
-
   cursor:not-allowed;
-
   transform:none;
 }
 
@@ -310,10 +294,7 @@ button:disabled{
 
 <div class="card">
 
-
-<!-- ========================= -->
 <!-- پیکو -->
-<!-- ========================= -->
 
 <div class="pico-box">
 
@@ -459,45 +440,51 @@ button:disabled{
 
 </div>
 
-
 </div>
 </div>
 
 
 <script>
 
+/*
+=====================================================
+🔑 تنظیمات
+=====================================================
 
-// =====================================================
-// 🔑 تنظیمات OpenRouter
-// =====================================================
+⚠️ توصیه مهم:
 
-// ⚠️ کلید OpenRouter خودت را اینجا قرار بده
+کلید API را مستقیماً داخل HTML سایت قرار نده.
 
-const OPENROUTER_API_KEY = "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";
+برای تست موقت می‌توانی کلید جدید خودت را اینجا قرار دهی،
+ولی برای سایت اصلی Hadaf بهتر است درخواست از طریق
+Vercel Serverless Function ارسال شود.
+*/
 
+const OPENROUTER_API_KEY = "YOUR_NEW_OPENROUTER_KEY";
 
-// مدل مورد استفاده
 
 const MODEL = "openrouter/free";
 
-
-// آدرس OpenRouter
-
-const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+const API_URL =
+  "https://openrouter.ai/api/v1/chat/completions";
 
 
-// =====================================================
-// متغیرها
-// =====================================================
+/*
+=====================================================
+متغیرها
+=====================================================
+*/
 
 let currentChallenge = "";
 
 let score = 0;
 
 
-// =====================================================
-// عناصر صفحه
-// =====================================================
+/*
+=====================================================
+عناصر صفحه
+=====================================================
+*/
 
 const challengeBox =
   document.getElementById("challenge");
@@ -533,65 +520,77 @@ const scoreBox =
   document.getElementById("score");
 
 
-// =====================================================
-// 🤖 ارتباط با OpenRouter
-// =====================================================
+/*
+=====================================================
+🤖 ارتباط با OpenRouter
+=====================================================
+*/
 
-async function askAI(prompt, mode){
+async function askAI(prompt){
 
-  const response = await fetch(
-    API_URL,
-    {
-      method:"POST",
+  if(
+    !OPENROUTER_API_KEY ||
+    OPENROUTER_API_KEY === "YOUR_NEW_OPENROUTER_KEY"
+  ){
 
-      headers:{
-        "Content-Type":
-          "application/json",
+    throw new Error(
+      "کلید OpenRouter تنظیم نشده است."
+    );
 
-        "Authorization":
-          "Bearer " + OPENROUTER_API_KEY,
-
-        "HTTP-Referer":
-          window.location.origin,
-
-        "X-Title":
-          "Hadaf - Pico AI"
-      },
-
-      body:JSON.stringify({
-
-        model:MODEL,
-
-        messages:[
-
-          {
-            role:"system",
-
-            content:
-              "تو پیکو، شخصیت هوش مصنوعی بازی هدف هستی. " +
-              "فارسی، دوستانه و مناسب کودک و نوجوان صحبت کن."
-          },
-
-          {
-            role:"user",
-
-            content:prompt
-          }
-
-        ],
-
-        temperature:0.7,
-
-        max_tokens:500
-
-      })
-    }
-  );
+  }
 
 
-  // =================================================
-  // دریافت JSON
-  // =================================================
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json",
+
+          "Authorization":
+            "Bearer " +
+            OPENROUTER_API_KEY,
+
+          "HTTP-Referer":
+            window.location.origin,
+
+          "X-Title":
+            "Hadaf - Pico AI"
+        },
+
+        body:JSON.stringify({
+
+          model:MODEL,
+
+          messages:[
+
+            {
+              role:"system",
+
+              content:
+                "تو پیکو، شخصیت هوش مصنوعی بازی هدف هستی. " +
+                "فارسی، دوستانه و مناسب کودک و نوجوان صحبت کن."
+            },
+
+            {
+              role:"user",
+
+              content:prompt
+            }
+
+          ],
+
+          temperature:0.7,
+
+          max_tokens:500
+
+        })
+
+      }
+    );
+
 
   let data;
 
@@ -610,10 +609,6 @@ async function askAI(prompt, mode){
   }
 
 
-  // =================================================
-  // بررسی خطا
-  // =================================================
-
   if(!response.ok){
 
     console.error(
@@ -625,18 +620,12 @@ async function askAI(prompt, mode){
 
       data?.error?.message ||
 
-      data?.error ||
-
       "خطا در ارتباط با OpenRouter."
 
     );
 
   }
 
-
-  // =================================================
-  // دریافت متن
-  // =================================================
 
   const text =
     data?.choices?.[0]?.message?.content;
@@ -664,9 +653,11 @@ async function askAI(prompt, mode){
 }
 
 
-// =====================================================
-// 🧩 ساخت چالش جدید
-// =====================================================
+/*
+=====================================================
+🧩 ساخت چالش جدید
+=====================================================
+*/
 
 async function newChallenge(){
 
@@ -715,7 +706,7 @@ async function newChallenge(){
 - جواب را نگو.
 - فقط متن خود چالش را بنویس.
 
-`,"new");
+`);
 
 
     currentChallenge =
@@ -757,9 +748,11 @@ async function newChallenge(){
 }
 
 
-// =====================================================
-// ✅ بررسی جواب
-// =====================================================
+/*
+=====================================================
+✅ بررسی جواب
+=====================================================
+*/
 
 async function checkAnswer(){
 
@@ -774,6 +767,7 @@ async function checkAnswer(){
     );
 
     return;
+
   }
 
 
@@ -784,13 +778,13 @@ async function checkAnswer(){
     );
 
     return;
+
   }
 
 
   hideMessages();
 
   setLoading(true);
-
 
   checkButton.disabled = true;
 
@@ -816,32 +810,47 @@ ${answer}
 
 جواب کاربر را بررسی کن.
 
-اگر کاملاً درست بود:
+فقط یکی از این سه وضعیت را مشخص کن:
 
-اول بنویس:
+CORRECT
+WRONG
+CLOSE
 
+بعد از آن در خط بعد توضیح فارسی بده.
+
+اگر CORRECT بود:
 آفرین! جواب درست بود 🎉
+یک توضیح کوتاه بده.
 
-بعد یک توضیح کوتاه بده.
+اگر WRONG بود:
+بگو جواب درست نیست.
+جواب صحیح را نگو.
+یک راهنمایی کوچک بده.
 
+اگر CLOSE بود:
+بگو جواب به جواب درست نزدیک است.
+یک راهنمایی بده.
 
-اگر غلط بود:
-
-بگو:
-
-جوابت درست نیست.
-
-اما جواب صحیح را نگو و یک راهنمایی کوچک بده.
-
-
-اگر تقریباً درست بود:
-
-بگو که به جواب نزدیک است و یک راهنمایی بده.
+`);
 
 
-پاسخ فارسی و دوستانه باشد.
+    const normalized =
+      result
+        .replace(/ي/g,"ی")
+        .replace(/ك/g,"ک")
+        .toUpperCase();
 
-`,"check");
+
+    let isCorrect = false;
+
+
+    if(
+      normalized.includes("CORRECT")
+    ){
+
+      isCorrect = true;
+
+    }
 
 
     showResult(
@@ -849,43 +858,27 @@ ${answer}
     );
 
 
-    // تبدیل حروف عربی به فارسی
+    /*
+    ================================================
+    ⭐ افزایش امتیاز
+    ================================================
+    */
 
-    const normalized =
-      result
-        .replace(/ي/g,"ی")
-        .replace(/ك/g,"ک")
-        .toLowerCase();
-
-
-    // بررسی درست بودن
-
-    const correct =
-
-      normalized.includes(
-        "جواب درست بود"
-      )
-
-      ||
-
-      normalized.includes(
-        "پاسخ درست بود"
-      )
-
-      ||
-
-      normalized.includes(
-        "کاملاً درست"
-      );
-
-
-    if(correct){
+    if(isCorrect){
 
       score += 10;
 
       updateScore();
 
       saveScore();
+
+      picoMessage.innerText =
+        "🤖 پیکو: عالی بود! ۱۰ امتیاز گرفتی! 🎉";
+
+    }else{
+
+      picoMessage.innerText =
+        "🤖 پیکو: دوباره فکر کن! 🧠";
 
     }
 
@@ -912,9 +905,11 @@ ${answer}
 }
 
 
-// =====================================================
-// 💡 راهنمایی
-// =====================================================
+/*
+=====================================================
+💡 راهنمایی
+=====================================================
+*/
 
 async function getHint(){
 
@@ -925,13 +920,13 @@ async function getHint(){
     );
 
     return;
+
   }
 
 
   hideMessages();
 
   setLoading(true);
-
 
   hintButton.disabled = true;
 
@@ -957,7 +952,7 @@ ${currentChallenge}
 - واقعاً به حل چالش کمک کند.
 - فارسی و دوستانه باشد.
 
-`,"hint");
+`);
 
 
     hintBox.style.display =
@@ -991,9 +986,11 @@ ${currentChallenge}
 }
 
 
-// =====================================================
-// ⭐ امتیاز
-// =====================================================
+/*
+=====================================================
+⭐ امتیاز
+=====================================================
+*/
 
 function updateScore(){
 
@@ -1003,9 +1000,11 @@ function updateScore(){
 }
 
 
-// =====================================================
-// 💾 ذخیره امتیاز
-// =====================================================
+/*
+=====================================================
+💾 ذخیره امتیاز
+=====================================================
+*/
 
 function saveScore(){
 
@@ -1013,16 +1012,22 @@ function saveScore(){
 
     const user =
       JSON.parse(
-        localStorage.getItem(
-          "hadafUser"
-        )
+        localStorage.getItem("hadafUser")
       );
 
 
     if(user){
 
+      /*
+      امتیاز فعلی بازی
+      */
+
+      const oldScore =
+        Number(user.score || 0);
+
+
       user.score =
-        Number(user.score || 0) + 10;
+        oldScore + 10;
 
 
       localStorage.setItem(
@@ -1033,14 +1038,23 @@ function saveScore(){
 
     }
 
-  }catch{}
+  }catch(error){
+
+    console.error(
+      "خطا در ذخیره امتیاز:",
+      error
+    );
+
+  }
 
 }
 
 
-// =====================================================
-// ⏳ لودینگ
-// =====================================================
+/*
+=====================================================
+⏳ لودینگ
+=====================================================
+*/
 
 function setLoading(value){
 
@@ -1050,9 +1064,11 @@ function setLoading(value){
 }
 
 
-// =====================================================
-// ❌ نمایش خطا
-// =====================================================
+/*
+=====================================================
+❌ نمایش خطا
+=====================================================
+*/
 
 function showError(error){
 
@@ -1060,16 +1076,42 @@ function showError(error){
     "block";
 
 
+  let message =
+    error?.message ||
+    error ||
+    "خطای ناشناخته";
+
+
+  /*
+  پیام‌های فنی طولانی را کمی بهتر نمایش می‌دهیم
+  */
+
+  if(
+    String(message)
+      .toLowerCase()
+      .includes("401")
+  ){
+
+    message =
+      "کلید OpenRouter معتبر نیست یا منقضی شده است.";
+
+  }
+
+
+  if(
+    String(message)
+      .toLowerCase()
+      .includes("429")
+  ){
+
+    message =
+      "تعداد درخواست‌ها زیاد شده. کمی صبر کن و دوباره امتحان کن.";
+
+  }
+
+
   errorBox.innerText =
-    "❌ " +
-
-    (
-      error?.message ||
-
-      error ||
-
-      "خطای ناشناخته"
-    );
+    "❌ " + message;
 
 
   console.error(
@@ -1080,9 +1122,11 @@ function showError(error){
 }
 
 
-// =====================================================
-// نمایش نتیجه
-// =====================================================
+/*
+=====================================================
+نمایش نتیجه
+=====================================================
+*/
 
 function showResult(text){
 
@@ -1096,9 +1140,11 @@ function showResult(text){
 }
 
 
-// =====================================================
-// مخفی کردن پیام‌ها
-// =====================================================
+/*
+=====================================================
+مخفی کردن پیام‌ها
+=====================================================
+*/
 
 function hideMessages(){
 
@@ -1116,9 +1162,11 @@ function hideMessages(){
 }
 
 
-// =====================================================
-// 🤖 تصویر جایگزین پیکو
-// =====================================================
+/*
+=====================================================
+🤖 تصویر جایگزین پیکو
+=====================================================
+*/
 
 function showRobotFallback(){
 
@@ -1136,13 +1184,33 @@ function showRobotFallback(){
 }
 
 
-// =====================================================
-// شروع
-// =====================================================
+/*
+=====================================================
+⌨️ فعال شدن دکمه بررسی
+=====================================================
+*/
+
+answerBox.addEventListener(
+  "input",
+  function(){
+
+    checkButton.disabled =
+      !answerBox.value.trim() ||
+      !currentChallenge;
+
+  }
+);
+
+
+/*
+=====================================================
+🚀 شروع
+=====================================================
+*/
 
 updateScore();
 
 </script>
 
 </body>
-  </html>
+</html>
