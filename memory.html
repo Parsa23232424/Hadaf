@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🧠 بازی حافظه</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #171717, #292929);
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin: 20px 0 5px;
+}
+
+.info {
+    font-size: 18px;
+}
+
+#moves {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+#game {
+    width: min(92vw, 420px);
+    margin: 20px auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.card {
+    aspect-ratio: 1 / 1;
+
+    background: #444;
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: clamp(25px, 8vw, 42px);
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition: transform 0.2s, background 0.2s;
+
+    box-shadow: 0 4px 8px #0005;
+
+    touch-action: manipulation;
+}
+
+.card:active {
+    transform: scale(0.92);
+}
+
+.card.open {
+    background: #222;
+}
+
+.card.matched {
+    background: #087f5b;
+    cursor: default;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+
+    padding: 12px 25px;
+
+    font-size: 18px;
+
+    background: #00ff88;
+    color: #111;
+
+    cursor: pointer;
+}
+
+#message {
+    min-height: 30px;
+    font-size: 18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🧠 بازی حافظه</h1>
+
+<div class="info">
+    حرکت‌ها:
+    <span id="moves">0</span>
+</div>
+
+<p id="message"></p>
+
+<div id="game"></div>
+
+<button onclick="startGame()">
+    🔄 بازی جدید
+</button>
+
+<script>
+
+const emojis = [
+    "🍎", "🍎",
+    "🍕", "🍕",
+    "🚗", "🚗",
+    "🐱", "🐱",
+    "⚽", "⚽",
+    "🚀", "🚀",
+    "🎮", "🎮",
+    "⭐", "⭐"
+];
+
+let firstCard = null;
+let secondCard = null;
+
+let lockBoard = false;
+
+let moves = 0;
+
+let matchedPairs = 0;
+
+
+// مخلوط کردن کارت‌ها
+function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] = [array[j], array[i]];
+
+    }
+
+    return array;
+}
+
+
+// شروع بازی
+function startGame() {
+
+    const game = document.getElementById("game");
+
+    game.innerHTML = "";
+
+    firstCard = null;
+    secondCard = null;
+
+    lockBoard = false;
+
+    moves = 0;
+    matchedPairs = 0;
+
+    document.getElementById("moves").textContent = moves;
+
+    document.getElementById("message").textContent = "";
+
+    const shuffledCards = shuffle([...emojis]);
+
+    shuffledCards.forEach((emoji) => {
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.dataset.emoji = emoji;
+
+        card.textContent = "❓";
+
+        card.addEventListener("click", function() {
+
+            flipCard(card);
+
+        });
+
+        game.appendChild(card);
+
+    });
+
+}
+
+
+// باز کردن کارت
+function flipCard(card) {
+
+    // اگر صفحه قفل است
+    if (lockBoard) return;
+
+    // اگر همان کارت دوباره زده شد
+    if (card === firstCard) return;
+
+    // اگر کارت قبلاً پیدا شده
+    if (card.classList.contains("matched")) return;
+
+    card.classList.add("open");
+
+    card.textContent = card.dataset.emoji;
+
+
+    // کارت اول
+    if (firstCard === null) {
+
+        firstCard = card;
+
+        return;
+    }
+
+
+    // کارت دوم
+    secondCard = card;
+
+    moves++;
+
+    document.getElementById("moves").textContent = moves;
+
+    checkCards();
+}
+
+
+// بررسی دو کارت
+function checkCards() {
+
+    const same =
+        firstCard.dataset.emoji ===
+        secondCard.dataset.emoji;
+
+
+    if (same) {
+
+        firstCard.classList.add("matched");
+
+        secondCard.classList.add("matched");
+
+        matchedPairs++;
+
+        resetCards();
+
+        checkWin();
+
+    } else {
+
+        lockBoard = true;
+
+        setTimeout(() => {
+
+            firstCard.textContent = "❓";
+
+            secondCard.textContent = "❓";
+
+            firstCard.classList.remove("open");
+
+            secondCard.classList.remove("open");
+
+            resetCards();
+
+        }, 800);
+
+    }
+
+}
+
+
+// آماده شدن برای انتخاب بعدی
+function resetCards() {
+
+    firstCard = null;
+
+    secondCard = null;
+
+    lockBoard = false;
+
+}
+
+
+// بررسی برنده شدن
+function checkWin() {
+
+    if (matchedPairs === emojis.length / 2) {
+
+        document.getElementById("message").textContent =
+            "🎉 آفرین! همه کارت‌ها را پیدا کردی!";
+
+        setTimeout(() => {
+
+            alert(
+                "🏆 برنده شدی!\n\n" +
+                "تعداد حرکت‌ها: " + moves
+            );
+
+        }, 300);
+
+    }
+
+}
+
+
+// اجرای بازی
+startGame();
+
+</script>
+
+</body>
+</html>
