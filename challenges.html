@@ -462,4 +462,991 @@ button:disabled{
 
 🤖 پیکو:
 
-سلام
+سلام! من پیکو هستم!
+
+آماده‌ای یک چالش باحال حل کنی؟ 😎
+
+</div>
+
+
+<!-- =========================
+     🧩 چالش
+========================= -->
+
+<div
+    id="challenge"
+    class="challenge">
+
+برای شروع روی
+«🧩 چالش جدید»
+بزن!
+
+</div>
+
+
+<!-- =========================
+     ✍️ جواب
+========================= -->
+
+<textarea
+    id="answer"
+    placeholder="✍️ جوابت رو اینجا بنویس..."
+></textarea>
+
+
+<!-- =========================
+     ✅ بررسی
+========================= -->
+
+<button
+    id="checkButton"
+    disabled>
+
+✅ بررسی جواب
+
+</button>
+
+
+<!-- =========================
+     🧩 چالش جدید
+========================= -->
+
+<button
+    id="newButton"
+    class="new-button">
+
+🧩 چالش جدید
+
+</button>
+
+
+<!-- =========================
+     💡 راهنمایی
+========================= -->
+
+<button
+    id="hintButton"
+    class="hint-button">
+
+💡 راهنمایی
+
+</button>
+
+
+<!-- =========================
+     🏠 بازگشت
+========================= -->
+
+<button
+    class="back"
+    onclick="location.href='index.html'">
+
+🏹 بازگشت به هدف
+
+</button>
+
+
+<!-- =========================
+     ⏳ لودینگ
+========================= -->
+
+<div
+    id="loading"
+    class="loading">
+
+🤖 پیکو داره فکر می‌کنه...
+
+<br>
+
+⏳ یک لحظه صبر کن...
+
+</div>
+
+
+<!-- =========================
+     نتیجه
+========================= -->
+
+<div
+    id="result"
+    class="result">
+</div>
+
+
+<!-- =========================
+     راهنمایی
+========================= -->
+
+<div
+    id="hint"
+    class="hint">
+</div>
+
+
+<!-- =========================
+     خطا
+========================= -->
+
+<div
+    id="error"
+    class="error">
+</div>
+
+
+<div class="footer">
+
+🏹 Hadaf © 2026
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/*
+========================================================
+🤖 تنظیمات پیکو
+========================================================
+
+اینجا آدرس Web App گوگل Apps Script را قرار بده.
+
+مثال:
+
+https://script.google.com/macros/s/XXXXXXXXXXXX/exec
+
+حتماً آخرش /exec باشد.
+========================================================
+*/
+
+
+const API_URL =
+"https://script.google.com/macros/s/XXXXXXXXXXXX/exec";
+
+
+/*
+========================================================
+متغیرهای بازی
+========================================================
+*/
+
+let currentChallenge = "";
+
+let score = 0;
+
+let busy = false;
+
+
+/*
+========================================================
+عناصر صفحه
+========================================================
+*/
+
+const challengeBox =
+document.getElementById("challenge");
+
+const answerBox =
+document.getElementById("answer");
+
+const checkButton =
+document.getElementById("checkButton");
+
+const newButton =
+document.getElementById("newButton");
+
+const hintButton =
+document.getElementById("hintButton");
+
+const loadingBox =
+document.getElementById("loading");
+
+const resultBox =
+document.getElementById("result");
+
+const hintBox =
+document.getElementById("hint");
+
+const errorBox =
+document.getElementById("error");
+
+const picoMessage =
+document.getElementById("picoMessage");
+
+const scoreBox =
+document.getElementById("score");
+
+
+/*
+========================================================
+🤖 ارتباط با Google Apps Script
+========================================================
+*/
+
+async function askAI(prompt){
+
+    if(
+        !API_URL ||
+        API_URL.includes("XXXXXXXXXXXX")
+    ){
+
+        throw new Error(
+            "آدرس Google Apps Script را در API_URL قرار بده."
+        );
+
+    }
+
+
+    const response =
+    await fetch(
+        API_URL,
+        {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "text/plain;charset=utf-8"
+            },
+
+            body:
+            JSON.stringify({
+
+                prompt:prompt
+
+            })
+
+        }
+    );
+
+
+    let data;
+
+
+    try{
+
+        data =
+        await response.json();
+
+    }
+
+    catch(error){
+
+        throw new Error(
+            "پاسخ Google Apps Script قابل خواندن نیست."
+        );
+
+    }
+
+
+    if(
+        !response.ok
+    ){
+
+        throw new Error(
+            data?.error ||
+            "خطا در ارتباط با سرور پیکو."
+        );
+
+    }
+
+
+    if(
+        data?.error
+    ){
+
+        throw new Error(
+            data.error
+        );
+
+    }
+
+
+    if(
+        !data?.text
+    ){
+
+        throw new Error(
+            "پیکو پاسخ متنی نداد."
+        );
+
+    }
+
+
+    return data.text.trim();
+
+}
+
+
+/*
+========================================================
+🧩 ساخت چالش جدید
+========================================================
+*/
+
+async function newChallenge(){
+
+    if(busy){
+
+        return;
+
+    }
+
+
+    busy = true;
+
+
+    hideMessages();
+
+
+    setLoading(true);
+
+
+    answerBox.value = "";
+
+
+    checkButton.disabled = true;
+
+    newButton.disabled = true;
+
+    hintButton.disabled = true;
+
+
+    challengeBox.innerText =
+    "🤖 پیکو داره یک چالش خفن می‌سازه...";
+
+
+    picoMessage.innerText =
+    "🤖 پیکو: صبر کن ببینم چه چالشی برات بسازم! 😎";
+
+
+    try{
+
+
+        const result =
+        await askAI(`
+
+یک چالش هوش جدید برای بازی «هدف» بساز.
+
+نوع چالش را یکی از این‌ها انتخاب کن:
+
+ریاضی
+منطقی
+معمایی
+کلمه‌ای
+دقت و تمرکز
+
+قوانین:
+
+- مناسب کودک و نوجوان باشد.
+- جذاب و سرگرم‌کننده باشد.
+- کوتاه باشد.
+- جواب مشخص داشته باشد.
+- جواب را ننویس.
+- فقط متن خود چالش را بنویس.
+- فارسی بنویس.
+
+`);
+
+
+        currentChallenge =
+        result;
+
+
+        challengeBox.innerText =
+        currentChallenge;
+
+
+        picoMessage.innerText =
+        "🤖 پیکو: اینم چالش جدیدت! 🧠🔥";
+
+
+        checkButton.disabled =
+        false;
+
+
+    }
+
+    catch(error){
+
+        showError(error);
+
+
+        challengeBox.innerText =
+        "❌ ساخت چالش انجام نشد.";
+
+    }
+
+
+    setLoading(false);
+
+
+    newButton.disabled =
+    false;
+
+
+    hintButton.disabled =
+    false;
+
+
+    busy = false;
+
+
+    updateCheckButton();
+
+}
+
+
+/*
+========================================================
+✅ بررسی جواب
+========================================================
+*/
+
+async function checkAnswer(){
+
+    if(busy){
+
+        return;
+
+    }
+
+
+    const answer =
+    answerBox.value.trim();
+
+
+    if(!answer){
+
+        showError(
+            "✍️ اول جوابت رو بنویس!"
+        );
+
+        return;
+
+    }
+
+
+    if(!currentChallenge){
+
+        showError(
+            "🧩 اول یک چالش جدید بساز!"
+        );
+
+        return;
+
+    }
+
+
+    busy = true;
+
+
+    hideMessages();
+
+
+    setLoading(true);
+
+
+    checkButton.disabled =
+    true;
+
+    newButton.disabled =
+    true;
+
+    hintButton.disabled =
+    true;
+
+
+    try{
+
+
+        const result =
+        await askAI(`
+
+تو داور بازی هوش «هدف» هستی.
+
+چالش:
+
+${currentChallenge}
+
+
+جواب کاربر:
+
+${answer}
+
+
+جواب کاربر را بررسی کن.
+
+خیلی مهم:
+
+در اولین خط دقیقاً یکی از این سه عبارت را بنویس:
+
+STATUS: CORRECT
+
+یا
+
+STATUS: WRONG
+
+یا
+
+STATUS: CLOSE
+
+
+در خط بعد توضیح کوتاه فارسی بده.
+
+
+اگر CORRECT بود:
+
+آفرین بگو.
+بگو جواب درست است.
+یک توضیح کوتاه بده.
+
+
+اگر WRONG بود:
+
+بگو جواب اشتباه است.
+جواب صحیح را نگو.
+یک راهنمایی کوچک بده.
+
+
+اگر CLOSE بود:
+
+بگو جواب خیلی نزدیک است.
+یک راهنمایی بده.
+
+
+`);
+
+
+        const match =
+        result.match(
+            /STATUS\s*:\s*(CORRECT|WRONG|CLOSE)/i
+        );
+
+
+        const status =
+        match
+        ? match[1].toUpperCase()
+        : "WRONG";
+
+
+        showResult(
+            "🤖 پیکو:\n\n" +
+            result
+        );
+
+
+        if(
+            status === "CORRECT"
+        ){
+
+            score += 10;
+
+
+            updateScore();
+
+
+            saveScore();
+
+
+            picoMessage.innerText =
+            "🤖 پیکو: عااالی! 🎉 +۱۰ امتیاز گرفتی!";
+
+
+        }
+
+        else if(
+            status === "CLOSE"
+        ){
+
+            picoMessage.innerText =
+            "🤖 پیکو: خیلی نزدیک بودی! 👀🧠";
+
+        }
+
+        else{
+
+            picoMessage.innerText =
+            "🤖 پیکو: دوباره فکر کن! 🧠";
+
+        }
+
+
+    }
+
+    catch(error){
+
+        showError(error);
+
+    }
+
+
+    setLoading(false);
+
+
+    newButton.disabled =
+    false;
+
+
+    hintButton.disabled =
+    false;
+
+
+    busy = false;
+
+
+    updateCheckButton();
+
+}
+
+
+/*
+========================================================
+💡 راهنمایی
+========================================================
+*/
+
+async function getHint(){
+
+    if(busy){
+
+        return;
+
+    }
+
+
+    if(!currentChallenge){
+
+        showError(
+            "🧩 اول یک چالش بساز!"
+        );
+
+        return;
+
+    }
+
+
+    busy = true;
+
+
+    hideMessages();
+
+
+    setLoading(true);
+
+
+    checkButton.disabled =
+    true;
+
+
+    newButton.disabled =
+    true;
+
+
+    hintButton.disabled =
+    true;
+
+
+    try{
+
+
+        const result =
+        await askAI(`
+
+برای این چالش یک راهنمایی بده:
+
+${currentChallenge}
+
+
+قوانین:
+
+- جواب نهایی را نگو.
+- راهنمایی کوتاه باشد.
+- واقعاً به حل چالش کمک کند.
+- فارسی و دوستانه باشد.
+
+`);
+
+
+        hintBox.style.display =
+        "block";
+
+
+        hintBox.innerText =
+        "💡 راهنمای پیکو:\n\n" +
+        result;
+
+
+    }
+
+    catch(error){
+
+        showError(error);
+
+    }
+
+
+    setLoading(false);
+
+
+    newButton.disabled =
+    false;
+
+
+    hintButton.disabled =
+    false;
+
+
+    busy = false;
+
+
+    updateCheckButton();
+
+}
+
+
+/*
+========================================================
+⭐ امتیاز
+========================================================
+*/
+
+function updateScore(){
+
+    scoreBox.innerText =
+    "⭐ امتیاز: " +
+    score;
+
+}
+
+
+/*
+========================================================
+💾 ذخیره امتیاز
+========================================================
+*/
+
+function saveScore(){
+
+    try{
+
+        localStorage.setItem(
+            "picoScore",
+            String(score)
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "خطا در ذخیره امتیاز:",
+            error
+        );
+
+    }
+
+}
+
+
+/*
+========================================================
+📥 خواندن امتیاز
+========================================================
+*/
+
+function loadScore(){
+
+    try{
+
+        const saved =
+        Number(
+            localStorage.getItem(
+                "picoScore"
+            )
+        );
+
+
+        if(
+            Number.isFinite(saved) &&
+            saved >= 0
+        ){
+
+            score =
+            saved;
+
+        }
+
+    }
+
+    catch(error){
+
+        score = 0;
+
+    }
+
+
+    updateScore();
+
+}
+
+
+/*
+========================================================
+⏳ لودینگ
+========================================================
+*/
+
+function setLoading(value){
+
+    loadingBox.style.display =
+    value
+    ? "block"
+    : "none";
+
+}
+
+
+/*
+========================================================
+❌ نمایش خطا
+========================================================
+*/
+
+function showError(error){
+
+    errorBox.style.display =
+    "block";
+
+
+    let message =
+    error?.message ||
+    String(error) ||
+    "خطای ناشناخته";
+
+
+    errorBox.innerText =
+    "❌ " +
+    message;
+
+
+    console.error(
+        "Pico Error:",
+        error
+    );
+
+}
+
+
+/*
+========================================================
+📢 نمایش نتیجه
+========================================================
+*/
+
+function showResult(text){
+
+    resultBox.style.display =
+    "block";
+
+
+    resultBox.innerText =
+    text;
+
+}
+
+
+/*
+========================================================
+🧹 مخفی کردن پیام‌ها
+========================================================
+*/
+
+function hideMessages(){
+
+    resultBox.style.display =
+    "none";
+
+
+    hintBox.style.display =
+    "none";
+
+
+    errorBox.style.display =
+    "none";
+
+}
+
+
+/*
+========================================================
+🤖 تصویر جایگزین پیکو
+========================================================
+*/
+
+function showRobotFallback(){
+
+    document.getElementById(
+        "picoImage"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "robotFallback"
+    ).style.display =
+    "block";
+
+}
+
+
+/*
+========================================================
+⌨️ وضعیت دکمه بررسی
+========================================================
+*/
+
+function updateCheckButton(){
+
+    checkButton.disabled =
+    busy ||
+    !currentChallenge ||
+    !answerBox.value.trim();
+
+}
+
+
+/*
+========================================================
+⌨️ وقتی کاربر جواب می‌نویسد
+========================================================
+*/
+
+answerBox.addEventListener(
+    "input",
+    function(){
+
+        updateCheckButton();
+
+    }
+);
+
+
+/*
+========================================================
+🚀 شروع
+========================================================
+*/
+
+loadScore();
+
+</script>
+
+
+</body>
+
+</html>
