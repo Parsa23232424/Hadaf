@@ -1,504 +1,973 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ماشین‌بازی</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, user-scalable=no">
+
+<title>ماشین‌بازی 🚗</title>
 
 <style>
+
 * {
-    -webkit-touch-callout: none;
+    box-sizing: border-box;
     -webkit-user-select: none;
     user-select: none;
-    box-sizing: border-box;
+    -webkit-touch-callout: none;
 }
 
-body{
-    background:#222;
-    color:white;
-    text-align:center;
-    font-family:tahoma;
-    margin:0;
-    padding:10px;
-    touch-action: none;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
-h1 {
-    margin:5px 0;
-    font-size:28px;
-}
-
-canvas{
-    background:#2a2a2a;
-    border:3px solid white;
-    max-width:100%;
-    height:auto;
-    touch-action: none;
-    display:block;
-    margin:0 auto;
-    border-radius:10px;
-}
-
-button{
-    font-size:24px;
-    padding:10px 20px;
-    margin:5px;
-    cursor:pointer;
-    touch-action: manipulation;
-    border-radius:10px;
-    border:2px solid white;
-    background:#444;
-    color:white;
-    font-weight:bold;
-}
-
-button:active {
-    transform: scale(0.92);
-    background:#666;
-}
-
-#gameOver{
-    display:none;
-    font-size:40px;
-    color:red;
-    margin:10px 0;
-    text-shadow:0 0 20px rgba(255,0,0,0.7);
-    font-weight:bold;
-}
-
-#restartBtn{
-    display:none;
-    background:#ff4444;
-    border-color:#ff4444;
-    font-size:22px;
-    padding:12px 30px;
-}
-
-#restartBtn:active {
-    background:#cc0000;
-}
-
-#hiddenCar {
-    display: none;
-}
-
-.back-btn {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 25px;
-    background: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 18px;
-    border:2px solid #4CAF50;
-    font-weight:bold;
-}
-
-.back-btn:active {
-    background: #45a049;
-    transform: scale(0.95);
-}
-
-.controls {
-    margin-top: 15px;
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    touch-action: none;
-    width:100%;
-    max-width:400px;
-}
-
-.control-btn {
-    font-size: 50px;
-    padding: 15px 40px;
+html,
+body {
+    width: 100%;
+    height: 100%;
     margin: 0;
-    background: #3a3a3a;
+    overflow: hidden;
+}
+
+body {
+    background: #222;
     color: white;
-    border: 3px solid #ffffff;
-    border-radius: 15px;
-    min-width: 120px;
-    touch-action: manipulation;
-    transition: all 0.1s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    flex:1;
-    font-weight:bold;
-    letter-spacing:5px;
-}
+    font-family: Tahoma, sans-serif;
 
-.control-btn:active {
-    background: #5a5a5a;
-    transform: scale(0.90);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    border-color:#ffcc00;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-#leftBtn:active {
-    border-color:#ff6b6b;
-}
+    padding: 8px;
 
-#rightBtn:active {
-    border-color:#6bcfff;
+    touch-action: none;
 }
 
 .score-display {
-    font-size:22px;
-    margin:8px 0;
-    background:rgba(255,255,255,0.08);
-    padding:8px 25px;
-    border-radius:12px;
-    display:inline-block;
-    border:1px solid rgba(255,255,255,0.1);
+    font-size: 21px;
+    margin: 5px 0 8px;
+
+    padding: 7px 22px;
+
+    background: rgba(255,255,255,.08);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    border-radius: 12px;
 }
 
-/* جلوگیری از اسکرول */
-html, body {
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    position: fixed;
+#score {
+    color: #00ff88;
+    font-weight: bold;
 }
 
-/* ریسپانسیو برای موبایل */
-@media (max-width: 480px) {
-    .control-btn {
-        font-size: 40px;
-        padding: 12px 20px;
-        min-width: 80px;
-    }
-    h1 {
-        font-size: 22px;
-    }
+canvas {
+    width: min(400px, 92vw);
+    height: auto;
+
+    display: block;
+
+    background: #444;
+
+    border: 3px solid white;
+    border-radius: 10px;
+
+    touch-action: none;
+}
+
+#gameOver {
+    display: none;
+
+    font-size: 32px;
+    color: #ff3333;
+
+    font-weight: bold;
+
+    margin: 5px;
+}
+
+button {
+    border: 2px solid white;
+    border-radius: 12px;
+
+    background: #444;
+    color: white;
+
+    cursor: pointer;
+}
+
+#restartBtn {
+    display: none;
+
+    background: #e53935;
+
+    padding: 10px 25px;
+
+    font-size: 20px;
+
+    margin: 5px;
+}
+
+.controls {
+    width: min(400px, 92vw);
+
+    display: flex;
+
+    gap: 15px;
+
+    margin-top: 10px;
+}
+
+.control-btn {
+    flex: 1;
+
+    height: 65px;
+
+    font-size: 42px;
+
+    background: #333;
+
+    border: 3px solid white;
+
+    box-shadow: 0 4px 8px #0008;
+
+    touch-action: none;
+}
+
+.control-btn:active {
+    transform: scale(.93);
+    background: #555;
+}
+
+#leftBtn:active {
+    border-color: #ff6666;
+}
+
+#rightBtn:active {
+    border-color: #66ccff;
+}
+
+.back-btn {
+    margin-top: 8px;
+
+    padding: 8px 22px;
+
+    background: #4caf50;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 17px;
+}
+
+@media (max-height: 700px) {
+
     .score-display {
-        font-size: 18px;
-        padding: 5px 15px;
+        font-size: 17px;
+        margin: 2px;
     }
-    #gameOver {
-        font-size: 30px;
+
+    .controls {
+        margin-top: 5px;
+    }
+
+    .control-btn {
+        height: 52px;
+        font-size: 34px;
+    }
+
+    .back-btn {
+        margin-top: 4px;
+        padding: 5px 18px;
     }
 }
+
 </style>
 </head>
 
 <body>
+
 <div class="score-display">
-🏆 امتیاز: <span id="score">0</span>
+🏆 امتیاز:
+<span id="score">0</span>
 </div>
 
 <div id="gameOver">
 💥 GAME OVER 💥
 </div>
 
-<button id="restartBtn" onclick="restartGame()">
+<button id="restartBtn">
 🔄 بازی دوباره
 </button>
 
-<br>
-
-<canvas id="game" width="400" height="600"></canvas>
-
-<br>
+<canvas
+id="game"
+width="400"
+height="600">
+</canvas>
 
 <div class="controls">
-    <button class="control-btn" id="rightBtn">▶</button>
-    <button class="control-btn" id="leftBtn">◀</button>
+
+<button
+class="control-btn"
+id="leftBtn">
+◀
+</button>
+
+<button
+class="control-btn"
+id="rightBtn">
+▶
+</button>
+
 </div>
 
-<br>
+<a
+href="/"
+class="back-btn">
+🏠 بازگشت
+</a>
 
-<a href="/" class="back-btn">🏠 بازگشت</a>
-
-<!-- تصویر ماشین -->
-<img id="hiddenCar" src="Car.png" alt="ماشین" crossorigin="anonymous">
+<img
+id="hiddenCar"
+src="Car.png"
+style="display:none"
+alt="ماشین">
 
 <script>
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-// بارگذاری تصویر ماشین
-const carImage = document.getElementById("hiddenCar");
+const scoreElement =
+document.getElementById("score");
+
+const gameOverElement =
+document.getElementById("gameOver");
+
+const restartBtn =
+document.getElementById("restartBtn");
+
+const leftBtn =
+document.getElementById("leftBtn");
+
+const rightBtn =
+document.getElementById("rightBtn");
+
+const carImage =
+document.getElementById("hiddenCar");
+
+
+/* =========================
+   تنظیمات
+========================= */
+
+const ROAD_LEFT = 100;
+const ROAD_RIGHT = 300;
+
+const CAR_WIDTH = 60;
+const CAR_HEIGHT = 100;
+
+const ENEMY_WIDTH = 60;
+const ENEMY_HEIGHT = 80;
+
+const MAX_SPEED = 14;
+
+
+/* =========================
+   وضعیت بازی
+========================= */
+
+let score = 0;
+
+let gameRunning = false;
+
+let enemySpeed = 3;
+
+let roadOffset = 0;
+
+let animationId = null;
+
+let lastTime = 0;
+
 let imageLoaded = false;
 
-carImage.onload = function() {
-    imageLoaded = true;
-};
 
-if (carImage.complete && carImage.naturalWidth !== 0) {
-    imageLoaded = true;
-}
+/* =========================
+   ماشین بازیکن
+========================= */
 
-// متغیرهای بازی
-let score = 0;
-let gameRunning = true;
-let roadOffset = 0;
-let frameId = null;
-let enemySpeed = 2.5; // سرعت اولیه
-const MAX_SPEED = 16; // حداکثر سرعت
-let gameOverDisplayed = false;
-
-// ماشین بازیکن
 const car = {
-    x: 100,
-    y: 500,
-    width: 60,
-    height: 100,
-    minX: 100,
-    maxX: 240,
-    step: 20
+
+    x: 170,
+
+    y: 480,
+
+    width: CAR_WIDTH,
+
+    height: CAR_HEIGHT,
+
+    step: 25
+
 };
 
-// ماشین دشمن
+
+/* =========================
+   ماشین دشمن
+========================= */
+
 const enemy = {
-    x: 100 + Math.random() * 140,
-    y: -90,
-    width: 60,
-    height: 70
+
+    x: 170,
+
+    y: -100,
+
+    width: ENEMY_WIDTH,
+
+    height: ENEMY_HEIGHT
+
 };
 
-// ====== توابع حرکت ======
-function moveLeft() {
-    if (!gameRunning) return;
-    car.x = Math.max(car.minX, car.x - car.step);
+
+/* =========================
+   تصویر ماشین
+========================= */
+
+carImage.onload = function() {
+
+    imageLoaded = true;
+
+};
+
+carImage.onerror = function() {
+
+    imageLoaded = false;
+
+};
+
+
+/* =========================
+   عدد تصادفی
+========================= */
+
+function randomLane() {
+
+    const lanes = [120, 170, 220];
+
+    return lanes[
+        Math.floor(
+            Math.random() * lanes.length
+        )
+    ];
+
 }
+
+
+/* =========================
+   حرکت چپ
+========================= */
+
+function moveLeft() {
+
+    if (!gameRunning) return;
+
+    car.x -= car.step;
+
+    if (car.x < ROAD_LEFT + 5) {
+
+        car.x = ROAD_LEFT + 5;
+
+    }
+
+}
+
+
+/* =========================
+   حرکت راست
+========================= */
 
 function moveRight() {
+
     if (!gameRunning) return;
-    car.x = Math.min(car.maxX, car.x + car.step);
+
+    car.x += car.step;
+
+    if (
+        car.x + car.width >
+        ROAD_RIGHT - 5
+    ) {
+
+        car.x =
+        ROAD_RIGHT -
+        car.width -
+        5;
+
+    }
+
 }
 
-// ====== کنترل با کیبورد ======
-document.addEventListener("keydown", (e) => {
+
+/* =========================
+   کیبورد
+========================= */
+
+document.addEventListener(
+"keydown",
+function(e) {
+
     if (!gameRunning) return;
-    if (e.key === "ArrowLeft" || e.key === "Left") {
+
+    if (
+        e.key === "ArrowLeft" ||
+        e.key === "Left"
+    ) {
+
         e.preventDefault();
+
         moveLeft();
+
     }
-    if (e.key === "ArrowRight" || e.key === "Right") {
+
+    if (
+        e.key === "ArrowRight" ||
+        e.key === "Right"
+    ) {
+
         e.preventDefault();
+
         moveRight();
+
     }
+
 });
 
-// ====== کنترل با دکمه‌های لمسی ======
-const leftBtn = document.getElementById("leftBtn");
-const rightBtn = document.getElementById("rightBtn");
 
-function setupButton(btn, action) {
-    btn.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        action();
-    });
-    
-    btn.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        action();
-    }, { passive: false });
-    
-    btn.addEventListener("mouseup", (e) => e.preventDefault());
-    btn.addEventListener("touchend", (e) => e.preventDefault());
-    btn.addEventListener("touchcancel", (e) => e.preventDefault());
-}
+/* =========================
+   کنترل لمسی
+========================= */
 
-setupButton(leftBtn, moveLeft);
-setupButton(rightBtn, moveRight);
+function buttonControl(button, action) {
 
-// ====== تشخیص برخورد ======
-function collision(a, b) {
-    const shrink = 8;
-    return (
-        a.x + shrink < b.x + b.width - shrink &&
-        a.x + a.width - shrink > b.x + shrink &&
-        a.y + shrink < b.y + b.height - shrink &&
-        a.y + a.height - shrink > b.y + shrink
-    );
-}
+    button.addEventListener(
+        "pointerdown",
+        function(e) {
 
-// ====== افزایش امتیاز و سرعت ======
-let scoreInterval = setInterval(() => {
-    if (gameRunning) {
-        score++;
-        document.getElementById("score").textContent = score;
-        
-        // افزایش سرعت هر ۵ امتیاز
-        if (score % 5 === 0 && enemySpeed < MAX_SPEED) {
-            enemySpeed += 1.2; // افزایش تدریجی
+            e.preventDefault();
+
+            action();
+
         }
-    }
-}, 1000);
+    );
 
-// ====== ریستارت بازی ======
+}
+
+
+buttonControl(leftBtn, moveLeft);
+
+buttonControl(rightBtn, moveRight);
+
+
+/* =========================
+   برخورد
+========================= */
+
+function collision(a, b) {
+
+    const padding = 10;
+
+    return (
+
+        a.x + padding <
+        b.x + b.width - padding
+
+        &&
+
+        a.x + a.width - padding >
+        b.x + padding
+
+        &&
+
+        a.y + padding <
+        b.y + b.height - padding
+
+        &&
+
+        a.y + a.height - padding >
+        b.y + padding
+
+    );
+
+}
+
+
+/* =========================
+   شروع بازی
+========================= */
+
 function restartGame() {
+
     score = 0;
-    gameRunning = true;
-    gameOverDisplayed = false;
-    enemySpeed = 2.5;
-    document.getElementById("score").textContent = "0";
-    document.getElementById("gameOver").style.display = "none";
-    document.getElementById("restartBtn").style.display = "none";
-    
+
+    enemySpeed = 3;
+
+    roadOffset = 0;
+
     car.x = 170;
-    car.y = 500;
-    enemy.y = -100;
-    enemy.x = 100 + Math.random() * 140;
-    
-    if (frameId) {
-        cancelAnimationFrame(frameId);
-        frameId = null;
+
+    car.y = 480;
+
+    enemy.x = randomLane();
+
+    enemy.y = -120;
+
+    gameRunning = true;
+
+    lastTime = performance.now();
+
+    scoreElement.textContent = "0";
+
+    gameOverElement.style.display =
+        "none";
+
+    restartBtn.style.display =
+        "none";
+
+
+    if (animationId !== null) {
+
+        cancelAnimationFrame(
+            animationId
+        );
+
     }
-    draw();
+
+    animationId =
+        requestAnimationFrame(gameLoop);
+
 }
 
-// ====== نمایش Game Over ======
-function showGameOver() {
+
+/* =========================
+   Game Over
+========================= */
+
+function gameOver() {
+
     gameRunning = false;
-    gameOverDisplayed = true;
-    document.getElementById("gameOver").style.display = "block";
-    document.getElementById("restartBtn").style.display = "inline-block";
-    if (frameId) {
-        cancelAnimationFrame(frameId);
-        frameId = null;
-    }
+
+    gameOverElement.style.display =
+        "block";
+
+    restartBtn.style.display =
+        "block";
+
 }
 
-// ====== حلقه اصلی بازی ======
-function draw() {
-    if (!gameRunning) {
-        return;
-    }
 
-    ctx.clearRect(0, 0, 400, 600);
+/* =========================
+   کشیدن جاده
+========================= */
 
-    // ====== کشیدن جاده ======
+function drawRoad() {
+
+    /* چمن */
+
     ctx.fillStyle = "#228B22";
-    ctx.fillRect(0, 0, 100, 600);
-    ctx.fillRect(300, 0, 100, 600);
-    
-    ctx.fillStyle = "#4a4a4a";
-    ctx.fillRect(100, 0, 200, 600);
-    
-    ctx.fillStyle = "#ffffff";
-    for (let y = -40; y < 600; y += 80) {
-        ctx.fillRect(195, y + roadOffset, 10, 40);
-    }
-    
-    roadOffset += 6;
-    if (roadOffset >= 80) roadOffset = 0;
 
-    // ====== کشیدن ماشین بازیکن ======
-    if (imageLoaded) {
-        ctx.drawImage(carImage, car.x, car.y, car.width, car.height);
-    } else {
-        ctx.fillStyle = "#e74c3c";
-        ctx.shadowColor = "rgba(255,0,0,0.3)";
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.roundRect(car.x, car.y, car.width, car.height, 8);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        
-        ctx.fillStyle = "#3498db";
-        ctx.beginPath();
-        ctx.roundRect(car.x + 10, car.y + 15, 40, 25, 5);
-        ctx.fill();
-        
-        ctx.fillStyle = "#f1c40f";
-        ctx.beginPath();
-        ctx.arc(car.x + 15, car.y + 10, 7, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(car.x + 45, car.y + 10, 7, 0, Math.PI * 2);
-        ctx.fill();
-        
-        ctx.fillStyle = "#2c3e50";
-        ctx.fillRect(car.x - 5, car.y + 20, 8, 30);
-        ctx.fillRect(car.x + 57, car.y + 20, 8, 30);
-        ctx.fillRect(car.x - 5, car.y + 60, 8, 25);
-        ctx.fillRect(car.x + 57, car.y + 60, 8, 25);
-    }
+    ctx.fillRect(
+        0,
+        0,
+        400,
+        600
+    );
 
-    // ====== کشیدن ماشین دشمن ======
-    ctx.shadowColor = "rgba(0,100,255,0.3)";
-    ctx.shadowBlur = 10;
-    ctx.fillStyle = "#2c3e7a";
-    ctx.beginPath();
-    ctx.roundRect(enemy.x, enemy.y, enemy.width, enemy.height, 8);
-    ctx.fill();
-    ctx.shadowBlur = 0;
-    
-    ctx.fillStyle = "#85c1e9";
-    ctx.beginPath();
-    ctx.roundRect(enemy.x + 8, enemy.y + 12, 18, 15, 4);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.roundRect(enemy.x + 34, enemy.y + 12, 18, 15, 4);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.roundRect(enemy.x + 8, enemy.y + 40, 18, 15, 4);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.roundRect(enemy.x + 34, enemy.y + 40, 18, 15, 4);
-    ctx.fill();
-    
-    ctx.fillStyle = "#f39c12";
-    ctx.fillRect(enemy.x + 5, enemy.y + 3, 12, 6);
-    ctx.fillRect(enemy.x + 43, enemy.y + 3, 12, 6);
-    ctx.fillStyle = "#e74c3c";
-    ctx.fillRect(enemy.x + 5, enemy.y + 61, 12, 6);
-    ctx.fillRect(enemy.x + 43, enemy.y + 61, 12, 6);
 
-    // ====== حرکت دشمن ======
-    enemy.y += enemySpeed;
-    
-    if (enemy.y > 650) {
-        enemy.y = -100;
-        enemy.x = 100 + Math.random() * 140;
+    /* جاده */
+
+    ctx.fillStyle = "#444";
+
+    ctx.fillRect(
+        ROAD_LEFT,
+        0,
+        200,
+        600
+    );
+
+
+    /* خط کنار جاده */
+
+    ctx.fillStyle = "#fff";
+
+    ctx.fillRect(
+        ROAD_LEFT,
+        0,
+        5,
+        600
+    );
+
+    ctx.fillRect(
+        ROAD_RIGHT - 5,
+        0,
+        5,
+        600
+    );
+
+
+    /* خط وسط */
+
+    ctx.fillStyle = "#fff";
+
+    for (
+        let y = -60;
+        y < 650;
+        y += 80
+    ) {
+
+        ctx.fillRect(
+            195,
+            y + roadOffset,
+            10,
+            40
+        );
+
     }
 
-    // ====== بررسی برخورد ======
-    if (collision(car, enemy)) {
-        showGameOver();
-        return;
-    }
-
-    // ====== ادامه حلقه ======
-    frameId = requestAnimationFrame(draw);
 }
 
-// اضافه کردن متد roundRect
-CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-    if (r > w/2) r = w/2;
-    if (r > h/2) r = h/2;
-    this.moveTo(x + r, y);
-    this.lineTo(x + w - r, y);
-    this.quadraticCurveTo(x + w, y, x + w, y + r);
-    this.lineTo(x + w, y + h - r);
-    this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    this.lineTo(x + r, y + h);
-    this.quadraticCurveTo(x, y + h, x, y + h - r);
-    this.lineTo(x, y + r);
-    this.quadraticCurveTo(x, y, x + r, y);
-    return this;
-};
 
-// ====== شروع بازی ======
-draw();
+/* =========================
+   کشیدن ماشین بازیکن
+========================= */
 
-// ====== جلوگیری از اسکرول در موبایل ======
-document.addEventListener('touchmove', function(e) {
-    if (e.target.closest('.controls') || e.target === canvas) {
-        e.preventDefault();
+function drawPlayer() {
+
+    if (imageLoaded) {
+
+        ctx.drawImage(
+            carImage,
+            car.x,
+            car.y,
+            car.width,
+            car.height
+        );
+
+        return;
+
     }
-}, { passive: false });
 
-// ====== جلوگیری از کلیک راست ======
-canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    /* ماشین جایگزین */
+
+    ctx.fillStyle = "#e53935";
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        car.x,
+        car.y,
+        car.width,
+        car.height,
+        10
+    );
+
+    ctx.fill();
+
+
+    /* شیشه */
+
+    ctx.fillStyle = "#55bbee";
+
+    ctx.fillRect(
+        car.x + 10,
+        car.y + 18,
+        40,
+        25
+    );
+
+
+    /* چراغ‌ها */
+
+    ctx.fillStyle = "#ffff00";
+
+    ctx.fillRect(
+        car.x + 7,
+        car.y + 5,
+        12,
+        7
+    );
+
+    ctx.fillRect(
+        car.x + 41,
+        car.y + 5,
+        12,
+        7
+    );
+
+
+    /* چرخ‌ها */
+
+    ctx.fillStyle = "#111";
+
+    ctx.fillRect(
+        car.x - 5,
+        car.y + 20,
+        8,
+        25
+    );
+
+    ctx.fillRect(
+        car.x + 57,
+        car.y + 20,
+        8,
+        25
+    );
+
+    ctx.fillRect(
+        car.x - 5,
+        car.y + 65,
+        8,
+        25
+    );
+
+    ctx.fillRect(
+        car.x + 57,
+        car.y + 65,
+        8,
+        25
+    );
+
+}
+
+
+/* =========================
+   ماشین دشمن
+========================= */
+
+function drawEnemy() {
+
+    ctx.fillStyle = "#263d91";
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        enemy.x,
+        enemy.y,
+        enemy.width,
+        enemy.height,
+        10
+    );
+
+    ctx.fill();
+
+
+    /* شیشه */
+
+    ctx.fillStyle = "#8fd3ff";
+
+    ctx.fillRect(
+        enemy.x + 8,
+        enemy.y + 12,
+        44,
+        20
+    );
+
+
+    /* چراغ */
+
+    ctx.fillStyle = "#ffff00";
+
+    ctx.fillRect(
+        enemy.x + 7,
+        enemy.y + 3,
+        12,
+        7
+    );
+
+    ctx.fillRect(
+        enemy.x + 41,
+        enemy.y + 3,
+        12,
+        7
+    );
+
+
+    /* چراغ عقب */
+
+    ctx.fillStyle = "#ff2222";
+
+    ctx.fillRect(
+        enemy.x + 7,
+        enemy.y + 65,
+        12,
+        7
+    );
+
+    ctx.fillRect(
+        enemy.x + 41,
+        enemy.y + 65,
+        12,
+        7
+    );
+
+}
+
+
+/* =========================
+   حلقه بازی
+========================= */
+
+function gameLoop(time) {
+
+    if (!gameRunning) return;
+
+
+    const delta =
+        Math.min(
+            (time - lastTime) / 16.67,
+            2
+        );
+
+    lastTime = time;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        400,
+        600
+    );
+
+
+    /* جاده */
+
+    drawRoad();
+
+
+    /* حرکت جاده */
+
+    roadOffset +=
+        enemySpeed * 1.5 * delta;
+
+    if (roadOffset >= 80) {
+
+        roadOffset -= 80;
+
+    }
+
+
+    /* حرکت دشمن */
+
+    enemy.y +=
+        enemySpeed * delta;
+
+
+    /* دشمن از پایین خارج شد */
+
+    if (enemy.y > 620) {
+
+        enemy.y = -100;
+
+        enemy.x = randomLane();
+
+    }
+
+
+    /* ماشین دشمن */
+
+    drawEnemy();
+
+
+    /* ماشین بازیکن */
+
+    drawPlayer();
+
+
+    /* برخورد */
+
+    if (
+        collision(car, enemy)
+    ) {
+
+        gameOver();
+
+        return;
+
+    }
+
+
+    animationId =
+        requestAnimationFrame(
+            gameLoop
+        );
+
+}
+
+
+/* =========================
+   امتیاز
+========================= */
+
+setInterval(
+function() {
+
+    if (!gameRunning) return;
+
+    score++;
+
+    scoreElement.textContent =
+        score;
+
+
+    /* هر ۵ امتیاز سریع‌تر */
+
+    if (
+        score % 5 === 0 &&
+        enemySpeed < MAX_SPEED
+    ) {
+
+        enemySpeed += 0.7;
+
+    }
+
+},
+1000
+);
+
+
+/* =========================
+   دکمه شروع دوباره
+========================= */
+
+restartBtn.addEventListener(
+"click",
+restartGame
+);
+
+
+/* =========================
+   جلوگیری از لمس اضافی
+========================= */
+
+document.addEventListener(
+"touchmove",
+function(e) {
+
+    e.preventDefault();
+
+},
+{
+    passive: false
+}
+);
+
+
+/* =========================
+   شروع
+========================= */
+
+restartGame();
 
 </script>
 
