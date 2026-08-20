@@ -617,99 +617,51 @@ async function askAI(prompt){
 ========================================================
 */
 
-async function newChallenge(){
+async function askAI(prompt) {
 
-    if(busy){
-        return;
+    if (!API_URL || API_URL.includes("XXXXXXXXXXXX")) {
+        throw new Error(
+            "آدرس Google Apps Script را در API_URL قرار بده."
+        );
     }
 
+    const response = await fetch(API_URL, {
+        method: "POST",
 
-    busy = true;
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
 
-    hideMessages();
+        body: JSON.stringify({
+            prompt: prompt
+        })
+    });
 
-    setLoading(true);
+    let data;
 
-
-    answerBox.value = "";
-
-    checkButton.disabled = true;
-    newButton.disabled = true;
-    hintButton.disabled = true;
-
-
-    challengeBox.innerText =
-    "🤖 پیکو داره یک چالش خفن می‌سازه...";
-
-
-    picoMessage.innerText =
-    "🤖 پیکو: صبر کن ببینم چه چالشی برات بسازم! 😎";
-
-
-    try{
-
-        const result =
-        await askAI(`
-
-یک چالش هوش جدید برای بازی «هدف» بساز.
-
-نوع چالش را یکی از این‌ها انتخاب کن:
-
-ریاضی
-منطقی
-معمایی
-کلمه‌ای
-دقت و تمرکز
-
-قوانین:
-
-- مناسب کودک و نوجوان باشد.
-- جذاب و سرگرم‌کننده باشد.
-- کوتاه باشد.
-- جواب مشخص داشته باشد.
-- جواب را ننویس.
-- فقط متن خود چالش را بنویس.
-- فارسی بنویس.
-
-`);
-
-
-        currentChallenge =
-        result;
-
-
-        challengeBox.innerText =
-        currentChallenge;
-
-
-        picoMessage.innerText =
-        "🤖 پیکو: اینم چالش جدیدت! 🧠🔥";
-
+    try {
+        data = await response.json();
+    } catch (error) {
+        throw new Error(
+            "پاسخ Google Apps Script قابل خواندن نیست."
+        );
     }
 
-    catch(error){
+    console.log("پاسخ API:", data);
 
-        showError(error);
-
-
-        challengeBox.innerText =
-        "❌ ساخت چالش انجام نشد.";
-
+    if (!data.success) {
+        throw new Error(
+            data.error || "خطا از API پیکو"
+        );
     }
 
+    if (!data.challenge) {
+        throw new Error(
+            "پیکو پاسخی دریافت نکرد."
+        );
+    }
 
-    setLoading(false);
-
-
-    newButton.disabled = false;
-    hintButton.disabled = false;
-
-
-    busy = false;
-
-
-    updateCheckButton();
-
+    return data.challenge.trim();
 }
 
 
