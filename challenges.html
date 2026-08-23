@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -738,7 +739,8 @@ class="error">
    اینجا آدرس Web App جدیدت را بگذار
 */
 
-const API_URL "https://script.google.com/macros/s/AKfycbzbDEZhVcw3nkFThh8TITR7dF0CyIt7sEChAttG6IRSXEx29fWyuZL9-bdwjd_YIfI-/exec";
+const API_URL =
+"https://script.google.com/macros/s/آدرس-API-جدید/exec";
 
 
 /* =================================
@@ -1104,4 +1106,713 @@ async function checkAnswer(){
 
     hideMessages();
 
-    set
+    setLoading(true);
+
+
+    checkButton.disabled = true;
+
+    newButton.disabled = true;
+
+    hintButton.disabled = true;
+
+    voiceButton.disabled = true;
+
+
+    try{
+
+        const result =
+        await askAI(`
+
+تو داور بازی هوش «هدف» هستی.
+
+چالش:
+
+${currentChallenge}
+
+جواب کاربر:
+
+${answer}
+
+جواب را بررسی کن.
+
+در اولین خط دقیقاً یکی از این‌ها را بنویس:
+
+STATUS: CORRECT
+
+یا
+
+STATUS: WRONG
+
+یا
+
+STATUS: CLOSE
+
+بعد از آن یک توضیح کوتاه فارسی بده.
+
+اگر CORRECT بود:
+آفرین بگو و توضیح کوتاه بده.
+
+اگر WRONG بود:
+بگو اشتباه است و جواب صحیح را نگو.
+
+اگر CLOSE بود:
+بگو خیلی نزدیک است و یک راهنمایی بده.
+
+`);
+
+
+        const match =
+        result.match(
+            /STATUS\s*:\s*(CORRECT|WRONG|CLOSE)/i
+        );
+
+
+        const status =
+        match
+        ? match[1].toUpperCase()
+        : "WRONG";
+
+
+        showResult(
+            "🤖 پیکو:\n\n" +
+            result
+        );
+
+
+        picoSpeak(result);
+
+
+        if(status === "CORRECT"){
+
+            score += 10;
+
+            updateScore();
+
+            saveScore();
+
+
+            picoMessage.innerText =
+            "🤖 پیکو: عااالی! 🎉 +۱۰ امتیاز!";
+
+        }
+
+        else if(status === "CLOSE"){
+
+            picoMessage.innerText =
+            "🤖 پیکو: خیلی نزدیک بودی! 👀";
+
+        }
+
+        else{
+
+            picoMessage.innerText =
+            "🤖 پیکو: دوباره فکر کن! 🧠";
+
+        }
+
+    }
+
+    catch(error){
+
+        showError(error);
+
+    }
+
+
+    setLoading(false);
+
+    newButton.disabled = false;
+
+    hintButton.disabled = false;
+
+    voiceButton.disabled = false;
+
+    busy = false;
+
+    updateCheckButton();
+
+}
+
+
+/* =================================
+   💡 راهنمایی
+================================= */
+
+async function getHint(){
+
+    if(busy){
+        return;
+    }
+
+
+    if(!currentChallenge){
+
+        showError(
+            "🧩 اول یک چالش بساز!"
+        );
+
+        return;
+
+    }
+
+
+    busy = true;
+
+    hideMessages();
+
+    setLoading(true);
+
+
+    checkButton.disabled = true;
+
+    newButton.disabled = true;
+
+    hintButton.disabled = true;
+
+    voiceButton.disabled = true;
+
+
+    try{
+
+        const result =
+        await askAI(`
+
+برای این چالش یک راهنمایی کوتاه بده:
+
+${currentChallenge}
+
+قوانین:
+
+- جواب نهایی را نگو.
+- فارسی باشد.
+- دوستانه باشد.
+- واقعاً کمک کند.
+
+`);
+
+
+        hintBox.style.display =
+        "block";
+
+
+        hintBox.innerText =
+        "💡 راهنمای پیکو:\n\n" +
+        result;
+
+
+        picoSpeak(result);
+
+    }
+
+    catch(error){
+
+        showError(error);
+
+    }
+
+
+    setLoading(false);
+
+    newButton.disabled = false;
+
+    hintButton.disabled = false;
+
+    voiceButton.disabled = false;
+
+    busy = false;
+
+    updateCheckButton();
+
+}
+
+
+/* =================================
+   ⭐ امتیاز
+================================= */
+
+function updateScore(){
+
+    scoreBox.innerText =
+    "⭐ امتیاز: " +
+    score;
+
+}
+
+
+function saveScore(){
+
+    try{
+
+        localStorage.setItem(
+            "picoScore",
+            String(score)
+        );
+
+    }
+
+    catch(e){
+
+        console.error(e);
+
+    }
+
+}
+
+
+function loadScore(){
+
+    try{
+
+        const saved =
+        Number(
+            localStorage.getItem(
+                "picoScore"
+            )
+        );
+
+
+        if(
+            Number.isFinite(saved) &&
+            saved >= 0
+        ){
+
+            score = saved;
+
+        }
+
+    }
+
+    catch(e){
+
+        score = 0;
+
+    }
+
+
+    updateScore();
+
+}
+
+
+/* =================================
+   ⏳ Loading
+================================= */
+
+function setLoading(value){
+
+    loadingBox.style.display =
+    value
+    ? "block"
+    : "none";
+
+}
+
+
+/* =================================
+   ❌ Error
+================================= */
+
+function showError(error){
+
+    errorBox.style.display =
+    "block";
+
+
+    const message =
+    error?.message ||
+    String(error) ||
+    "خطای ناشناخته";
+
+
+    errorBox.innerText =
+    "❌ " +
+    message;
+
+
+    console.error(
+        "Pico Error:",
+        error
+    );
+
+}
+
+
+/* =================================
+   نتیجه
+================================= */
+
+function showResult(text){
+
+    resultBox.style.display =
+    "block";
+
+    resultBox.innerText =
+    text;
+
+}
+
+
+/* =================================
+   مخفی کردن
+================================= */
+
+function hideMessages(){
+
+    resultBox.style.display =
+    "none";
+
+    hintBox.style.display =
+    "none";
+
+    errorBox.style.display =
+    "none";
+
+}
+
+
+/* =================================
+   تصویر
+================================= */
+
+function showRobotFallback(){
+
+    document.getElementById(
+        "picoImage"
+    ).style.display =
+    "none";
+
+
+    document.getElementById(
+        "robotFallback"
+    ).style.display =
+    "block";
+
+}
+
+
+/* =================================
+   دکمه بررسی
+================================= */
+
+function updateCheckButton(){
+
+    checkButton.disabled =
+    busy ||
+    !currentChallenge ||
+    !answerBox.value.trim();
+
+}
+
+
+/* =================================
+   Textarea
+================================= */
+
+answerBox.addEventListener(
+    "input",
+    updateCheckButton
+);
+
+
+/* =================================
+   🎙️ Speech Recognition
+================================= */
+
+const SpeechRecognition =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+
+let recognition = null;
+
+let isListening = false;
+
+
+if(SpeechRecognition){
+
+    recognition =
+    new SpeechRecognition();
+
+
+    recognition.lang =
+    "fa-IR";
+
+
+    recognition.continuous =
+    false;
+
+
+    recognition.interimResults =
+    false;
+
+
+    recognition.onstart =
+    function(){
+
+        isListening = true;
+
+
+        voiceButton.classList.add(
+            "listening"
+        );
+
+
+        voiceButton.innerText =
+        "🔴 دارم گوش می‌دم...";
+
+
+        picoMessage.innerText =
+        "🤖 پیکو: بگو! 👂";
+
+    };
+
+
+    recognition.onresult =
+    async function(event){
+
+        const text =
+        event
+        .results[0][0]
+        .transcript
+        .trim();
+
+
+        answerBox.value =
+        text;
+
+
+        updateCheckButton();
+
+
+        picoMessage.innerText =
+        "🤖 پیکو: شنیدم! 🧠";
+
+
+        /*
+         اگر چالش وجود دارد،
+         جواب را بررسی کن.
+        */
+
+        if(
+            currentChallenge &&
+            text
+        ){
+
+            await checkAnswer();
+
+        }
+
+    };
+
+
+    recognition.onerror =
+    function(event){
+
+        console.error(
+            "Speech error:",
+            event.error
+        );
+
+
+        if(
+            event.error !==
+            "aborted"
+        ){
+
+            showError(
+                "🎙️ خطای تشخیص صدا: " +
+                event.error
+            );
+
+        }
+
+    };
+
+
+    recognition.onend =
+    function(){
+
+        isListening = false;
+
+
+        voiceButton.classList.remove(
+            "listening"
+        );
+
+
+        voiceButton.innerText =
+        "🎙️ صحبت با پیکو";
+
+    };
+
+}
+
+
+/* =================================
+   🎙️ شروع صحبت
+================================= */
+
+voiceButton.addEventListener(
+    "click",
+    function(){
+
+        if(!recognition){
+
+            showError(
+                "❌ این مرورگر تشخیص صدا را پشتیبانی نمی‌کند."
+            );
+
+            return;
+
+        }
+
+
+        if(isListening){
+
+            recognition.stop();
+
+            return;
+
+        }
+
+
+        try{
+
+            recognition.start();
+
+        }
+
+        catch(error){
+
+            console.error(error);
+
+        }
+
+    }
+);
+
+
+/* =================================
+   🔊 صدای Pico
+================================= */
+
+function picoSpeak(text){
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+
+        return;
+
+    }
+
+
+    speechSynthesis.cancel();
+
+
+    const cleanText =
+    String(text)
+    .replace(
+        /STATUS\s*:\s*(CORRECT|WRONG|CLOSE)/gi,
+        ""
+    )
+    .trim();
+
+
+    if(!cleanText){
+        return;
+    }
+
+
+    const speech =
+    new SpeechSynthesisUtterance(
+        cleanText
+    );
+
+
+    speech.lang =
+    "fa-IR";
+
+
+    speech.rate =
+    0.95;
+
+
+    speech.pitch =
+    1.05;
+
+
+    speech.volume =
+    1;
+
+
+    speechSynthesis.speak(
+        speech
+    );
+
+}
+
+
+/* =================================
+   🔇 توقف صدا
+================================= */
+
+stopVoiceButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            "speechSynthesis" in window
+        ){
+
+            speechSynthesis.cancel();
+
+        }
+
+
+        if(
+            recognition &&
+            isListening
+        ){
+
+            recognition.stop();
+
+        }
+
+    }
+);
+
+
+/* =================================
+   دکمه‌ها
+================================= */
+
+newButton.addEventListener(
+    "click",
+    newChallenge
+);
+
+
+checkButton.addEventListener(
+    "click",
+    checkAnswer
+);
+
+
+hintButton.addEventListener(
+    "click",
+    getHint
+);
+
+
+/* =================================
+   شروع
+================================= */
+
+loadScore();
+
+</script>
+
+</body>
+
+</html>
