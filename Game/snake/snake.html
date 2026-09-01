@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🐍 بازی مار</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin: 15px 0 5px;
+}
+
+#score {
+    color: #00ff88;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+canvas {
+    background: #222;
+    border: 3px solid #00ff88;
+    width: min(90vw, 400px);
+    height: min(90vw, 400px);
+    display: block;
+    margin: 15px auto;
+}
+
+.controls {
+    width: 210px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 70px);
+    gap: 5px;
+    direction: ltr;
+}
+
+.controls button {
+    width: 70px;
+    height: 60px;
+    font-size: 28px;
+    border: none;
+    border-radius: 12px;
+    background: #333;
+    color: white;
+    touch-action: manipulation;
+}
+
+.controls button:active {
+    background: #00aa66;
+}
+
+.restart {
+    margin: 15px;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #00ff88;
+    color: #111;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🐍 بازی مار</h1>
+
+<p>
+    امتیاز:
+    <span id="score">0</span>
+</p>
+
+<canvas id="game" width="400" height="400"></canvas>
+
+<div class="controls">
+
+    <div></div>
+
+    <button onclick="changeDirection('up')">⬆️</button>
+
+    <div></div>
+
+    <button onclick="changeDirection('left')">⬅️</button>
+
+    <button onclick="changeDirection('down')">⬇️</button>
+
+    <button onclick="changeDirection('right')">➡️</button>
+
+</div>
+
+<button class="restart" onclick="restart()">
+    🔄 شروع دوباره
+</button>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const size = 20;
+const cells = canvas.width / size;
+
+let snake;
+let food;
+
+let dx;
+let dy;
+
+let score;
+let gameRunning;
+
+function restart() {
+
+    snake = [
+        { x: 200, y: 200 },
+        { x: 180, y: 200 },
+        { x: 160, y: 200 }
+    ];
+
+    dx = size;
+    dy = 0;
+
+    score = 0;
+    gameRunning = true;
+
+    document.getElementById("score").textContent = score;
+
+    createFood();
+
+    draw();
+}
+
+function createFood() {
+
+    do {
+
+        food = {
+            x: Math.floor(Math.random() * cells) * size,
+            y: Math.floor(Math.random() * cells) * size
+        };
+
+    } while (
+        snake.some(part =>
+            part.x === food.x &&
+            part.y === food.y
+        )
+    );
+}
+
+function changeDirection(direction) {
+
+    if (!gameRunning) return;
+
+    if (direction === "up" && dy === 0) {
+        dx = 0;
+        dy = -size;
+    }
+
+    if (direction === "down" && dy === 0) {
+        dx = 0;
+        dy = size;
+    }
+
+    if (direction === "left" && dx === 0) {
+        dx = -size;
+        dy = 0;
+    }
+
+    if (direction === "right" && dx === 0) {
+        dx = size;
+        dy = 0;
+    }
+}
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "ArrowUp") {
+        event.preventDefault();
+        changeDirection("up");
+    }
+
+    if (event.key === "ArrowDown") {
+        event.preventDefault();
+        changeDirection("down");
+    }
+
+    if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        changeDirection("left");
+    }
+
+    if (event.key === "ArrowRight") {
+        event.preventDefault();
+        changeDirection("right");
+    }
+
+});
+
+function draw() {
+
+    if (!gameRunning) return;
+
+    const head = {
+        x: snake[0].x + dx,
+        y: snake[0].y + dy
+    };
+
+    // برخورد با دیوار
+    if (
+        head.x < 0 ||
+        head.x >= canvas.width ||
+        head.y < 0 ||
+        head.y >= canvas.height
+    ) {
+        gameOver();
+        return;
+    }
+
+    // برخورد با بدن
+    for (let i = 0; i < snake.length; i++) {
+
+        if (
+            head.x === snake[i].x &&
+            head.y === snake[i].y
+        ) {
+            gameOver();
+            return;
+        }
+    }
+
+    snake.unshift(head);
+
+    // خوردن غذا
+    if (
+        head.x === food.x &&
+        head.y === food.y
+    ) {
+
+        score++;
+
+        document.getElementById("score").textContent = score;
+
+        createFood();
+
+    } else {
+
+        snake.pop();
+
+    }
+
+    // پاک کردن صفحه
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    // غذا
+    ctx.fillStyle = "red";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        food.x + size / 2,
+        food.y + size / 2,
+        size / 2 - 2,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+    // مار
+    snake.forEach((part, index) => {
+
+        ctx.fillStyle =
+            index === 0
+            ? "#00ff88"
+            : "#00cc66";
+
+        ctx.fillRect(
+            part.x + 1,
+            part.y + 1,
+            size - 2,
+            size - 2
+        );
+
+    });
+}
+
+function gameOver() {
+
+    gameRunning = false;
+
+    setTimeout(() => {
+
+        alert(
+            "💥 بازی تمام شد!\n\nامتیاز شما: " + score
+        );
+
+    }, 100);
+}
+
+// شروع بازی
+restart();
+
+// اجرای بازی
+setInterval(draw, 120);
+
+</script>
+
+</body>
+</html>
