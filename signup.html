@@ -2,520 +2,594 @@
 <html lang="fa" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ورود | هدف 🏹</title>
+<title>ثبت نام | هدف 🏹</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
 
-    body {
-      font-family: Tahoma, "Segoe UI", sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: linear-gradient(
-        135deg,
-        #0f0c29,
-        #302b63,
-        #24243e
-      );
-    }
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-    .container {
-      width: 100%;
-      max-width: 420px;
-      padding: 35px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, .06);
-      border: 1px solid rgba(255, 255, 255, .1);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
-      backdrop-filter: blur(12px);
-    }
+body{
+font-family:Tahoma,"Segoe UI",sans-serif;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+}
 
-    h1 {
-      color: white;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+.container{
+width:100%;
+max-width:420px;
+padding:35px;
+border-radius:24px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);
+box-shadow:0 20px 60px rgba(0,0,0,.5);
+backdrop-filter:blur(12px);
+}
 
-    .subtitle {
-      color: #aaa;
-      text-align: center;
-      margin-bottom: 30px;
-    }
+h1{
+color:white;
+text-align:center;
+margin-bottom:10px;
+}
 
-    .form-group {
-      margin-bottom: 18px;
-    }
+.subtitle{
+color:#aaa;
+text-align:center;
+margin-bottom:30px;
+}
 
-    label {
-      display: block;
-      color: #ddd;
-      margin-bottom: 7px;
-      font-size: 14px;
-    }
+.form-group{
+margin-bottom:18px;
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, .15);
-      background: rgba(255, 255, 255, .07);
-      color: white;
-      font-size: 16px;
-      outline: none;
-    }
+label{
+display:block;
+color:#ddd;
+margin-bottom:7px;
+font-size:14px;
+}
 
-    input:focus {
-      border-color: #6c63ff;
-      box-shadow:
-        0 0 0 3px rgba(108, 99, 255, .2);
-    }
+input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,.15);
+background:rgba(255,255,255,.07);
+color:white;
+font-size:16px;
+outline:none;
+}
 
-    input::placeholder {
-      color: #777;
-    }
+input:focus{
+border-color:#6c63ff;
+box-shadow:0 0 0 3px rgba(108,99,255,.2);
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: 0;
-      border-radius: 12px;
-      background:
-        linear-gradient(
-          135deg,
-          #6c63ff,
-          #3f3d9e
-        );
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+button{
+width:100%;
+padding:14px;
+border:0;
+border-radius:12px;
+background:linear-gradient(135deg,#6c63ff,#3f3d9e);
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
 
-    button:active {
-      transform: scale(.98);
-    }
+button:disabled{
+opacity:.5;
+cursor:not-allowed;
+}
 
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
+#message{
+display:none;
+margin-top:16px;
+padding:13px;
+border-radius:10px;
+text-align:center;
+line-height:1.8;
+white-space:pre-line;
+}
 
-    #message {
-      display: none;
-      margin-top: 16px;
-      padding: 13px;
-      border-radius: 10px;
-      text-align: center;
-      line-height: 1.8;
-      white-space: pre-line;
-      word-break: break-word;
-    }
+.login-link{
+text-align:center;
+color:#aaa;
+margin-top:20px;
+}
 
-    .signup-link {
-      text-align: center;
-      color: #aaa;
-      margin-top: 20px;
-    }
+.login-link a{
+color:#8b83ff;
+text-decoration:none;
+font-weight:bold;
+}
 
-    .signup-link a {
-      color: #8b83ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .signup-link a:hover {
-      text-decoration: underline;
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <h1>🔐 ورود</h1>
+<h1>🏹 ثبت نام</h1>
 
-    <p class="subtitle">
-      به حساب هدف خوش آمدی!
-    </p>
+<p class="subtitle">
+حساب هدف خودت را بساز!
+</p>
 
 
-    <!-- ایمیل -->
+<div class="form-group">
 
-    <div class="form-group">
+<label>👤 نام کاربری</label>
 
-      <label for="email">
-        📧 ایمیل
-      </label>
+<input
+id="username"
+type="text"
+placeholder="مثلاً Parsa"
+autocomplete="username"
+maxlength="30">
 
-      <input
-        id="email"
-        type="email"
-        placeholder="example@gmail.com"
-        autocomplete="email">
+</div>
 
-    </div>
 
+<div class="form-group">
 
-    <!-- رمز عبور -->
+<label>📧 ایمیل</label>
 
-    <div class="form-group">
+<input
+id="email"
+type="email"
+placeholder="example@gmail.com"
+autocomplete="email">
 
-      <label for="password">
-        🔒 رمز عبور
-      </label>
+</div>
 
-      <input
-        id="password"
-        type="password"
-        placeholder="رمز عبور"
-        autocomplete="current-password">
 
-    </div>
+<div class="form-group">
 
+<label>🔒 رمز عبور</label>
 
-    <!-- دکمه ورود -->
+<input
+id="password"
+type="password"
+placeholder="رمز عبور"
+autocomplete="new-password">
 
-    <button id="loginBtn">
-      ورود 🚀
-    </button>
+</div>
 
 
-    <!-- پیام -->
+<div class="form-group">
 
-    <div id="message"></div>
+<label>🔒 تکرار رمز عبور</label>
 
+<input
+id="confirmPassword"
+type="password"
+placeholder="رمز عبور را دوباره وارد کن"
+autocomplete="new-password">
 
-    <!-- ثبت نام -->
+</div>
 
-    <div class="signup-link">
 
-      حساب نداری؟
+<button id="signupBtn">
+ثبت نام 🚀
+</button>
 
-      <a href="signup.html">
-        ثبت نام کن
-      </a>
 
-    </div>
+<div id="message"></div>
 
-  </div>
 
+<div class="login-link">
 
-  <script>
+قبلاً حساب ساختی؟
 
-    /* =====================================
-       🔗 API جدید هدف
-    ===================================== */
+<a href="login.html">
+وارد شو
+</a>
 
-    const API_URL =
-      "https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
+</div>
 
+</div>
 
-    /* =====================================
-       🎯 عناصر
-    ===================================== */
 
-    const email =
-      document.getElementById("email");
+<script>
 
-    const password =
-      document.getElementById("password");
+/* =====================================================
+   🌐 API
+===================================================== */
 
-    const button =
-      document.getElementById("loginBtn");
+const API_URL =
+"https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
 
-    const message =
-      document.getElementById("message");
 
+/* =====================================================
+   🎯 عناصر
+===================================================== */
 
-    /* =====================================
-       💬 نمایش پیام
-    ===================================== */
+const username =
+document.getElementById("username");
 
-    function showMessage(
-      text,
-      error = false
-    ) {
+const email =
+document.getElementById("email");
 
-      message.style.display = "block";
+const password =
+document.getElementById("password");
 
-      message.textContent = text;
+const confirmPassword =
+document.getElementById("confirmPassword");
 
-      if (error) {
+const signupBtn =
+document.getElementById("signupBtn");
 
-        message.style.background =
-          "rgba(255, 70, 70, .15)";
+const message =
+document.getElementById("message");
 
-        message.style.color =
-          "#ff6b6b";
 
-      } else {
+/* =====================================================
+   💬 پیام
+===================================================== */
 
-        message.style.background =
-          "rgba(70, 255, 70, .15)";
+function showMessage(text,error=false){
 
-        message.style.color =
-          "#6cff6c";
+message.style.display="block";
 
-      }
+message.textContent=text;
 
-    }
+if(error){
 
+message.style.background=
+"rgba(255,70,70,.15)";
 
-    /* =====================================
-       📧 بررسی ایمیل
-    ===================================== */
+message.style.color=
+"#ff6b6b";
 
-    function validEmail(value) {
+}else{
 
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(value);
+message.style.background=
+"rgba(70,255,70,.15)";
 
-    }
+message.style.color=
+"#6cff6c";
 
+}
 
-    /* =====================================
-       🔐 ورود
-    ===================================== */
+}
 
-    async function login() {
 
-      const mail =
-        email.value.trim();
+/* =====================================================
+   🏹 ثبت نام
+===================================================== */
 
-      const pass =
-        password.value;
+async function signup(){
 
+const name =
+username.value.trim();
 
-      /* بررسی ایمیل */
+const mail =
+email.value.trim().toLowerCase();
 
-      if (!validEmail(mail)) {
+const pass =
+password.value;
 
-        showMessage(
-          "❌ ایمیل معتبر وارد کن.",
-          true
-        );
+const confirm =
+confirmPassword.value;
 
-        email.focus();
 
-        return;
+/* =====================================
+   بررسی نام کاربری
+===================================== */
 
-      }
+if(!name){
 
+showMessage(
+"❌ نام کاربری را وارد کن.",
+true
+);
 
-      /* بررسی رمز */
+username.focus();
 
-      if (pass.length < 6) {
+return;
 
-        showMessage(
-          "❌ رمز عبور باید حداقل ۶ کاراکتر باشد.",
-          true
-        );
+}
 
-        password.focus();
 
-        return;
+if(name.length < 3){
 
-      }
+showMessage(
+"❌ نام کاربری باید حداقل ۳ حرف باشد.",
+true
+);
 
+username.focus();
 
-      button.disabled = true;
+return;
 
-      button.textContent =
-        "⏳ در حال ورود...";
+}
 
-      message.style.display = "none";
 
+/* =====================================
+   بررسی ایمیل
+===================================== */
 
-      try {
+if(!mail){
 
-        /* =================================
-           ارسال درخواست
-        ================================= */
+showMessage(
+"❌ ایمیل را وارد کن.",
+true
+);
 
-        const response =
-          await fetch(
-            API_URL,
-            {
+email.focus();
 
-              method: "POST",
+return;
 
-              body: JSON.stringify({
+}
 
-                action: "login",
 
-                email: mail,
+if(
+!mail.includes("@") ||
+!mail.includes(".")
+){
 
-                password: pass
+showMessage(
+"❌ ایمیل معتبر نیست.",
+true
+);
 
-              })
+email.focus();
 
-            }
-          );
+return;
 
+}
 
-        /* =================================
-           دریافت پاسخ به صورت متن
-        ================================= */
 
-        const text =
-          await response.text();
+/* =====================================
+   بررسی رمز
+===================================== */
 
+if(!pass){
 
-        console.log(
-          "Hadaf Login Response:",
-          text
-        );
+showMessage(
+"❌ رمز عبور را وارد کن.",
+true
+);
 
+password.focus();
 
-        /* =================================
-           تبدیل به JSON
-        ================================= */
+return;
 
-        let result;
+}
 
-        try {
 
-          result =
-            JSON.parse(text);
+if(pass.length < 6){
 
-        } catch (error) {
+showMessage(
+"❌ رمز عبور باید حداقل ۶ کاراکتر باشد.",
+true
+);
 
-          throw new Error(
-            "سرور پاسخ JSON معتبر نداد."
-          );
+password.focus();
 
-        }
+return;
 
+}
 
-        /* =================================
-           بررسی نتیجه
-        ================================= */
 
-        if (!result.success) {
+if(pass !== confirm){
 
-          throw new Error(
-            result.message ||
-            "ورود انجام نشد."
-          );
+showMessage(
+"❌ رمزهای عبور یکسان نیستند.",
+true
+);
 
-        }
+confirmPassword.focus();
 
+return;
 
-        /* =================================
-           ذخیره حساب کاربر
-        ================================= */
+}
 
-        const user = {
 
-          username:
-            result.username || "",
+/* =====================================
+   شروع درخواست
+===================================== */
 
-          email:
-            result.email || mail
+signupBtn.disabled=true;
 
-        };
+signupBtn.textContent=
+"⏳ در حال ساخت حساب...";
 
 
-        localStorage.setItem(
-          "hadafUser",
-          JSON.stringify(user)
-        );
+try{
 
+const response =
+await fetch(API_URL,{
 
-        /* =================================
-           پیام موفقیت
-        ================================= */
+method:"POST",
 
-        showMessage(
-          "🎉 ورود با موفقیت انجام شد!"
-        );
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
 
+body:JSON.stringify({
 
-        /* =================================
-           انتقال به صفحه اصلی
-        ================================= */
+action:"signup",
 
-        setTimeout(
-          function() {
+username:name,
 
-            window.location.href =
-              "index.html";
+email:mail,
 
-          },
-          700
-        );
+password:pass
 
+})
 
-      } catch (error) {
+});
 
-        console.error(
-          "Hadaf Login Error:",
-          error
-        );
 
+const text =
+await response.text();
 
-        showMessage(
-          "❌ " + error.message,
-          true
-        );
+console.log(
+"Signup API:",
+text
+);
 
-      }
 
+/* =====================================
+   تبدیل پاسخ API
+===================================== */
 
-      finally {
+let result;
 
-        button.disabled = false;
+try{
 
-        button.textContent =
-          "ورود 🚀";
+result =
+JSON.parse(text);
 
-      }
+}catch{
 
-    }
+throw new Error(
+"پاسخ API معتبر نیست."
+);
 
+}
 
-    /* =====================================
-       🖱️ کلیک ورود
-    ===================================== */
 
-    button.addEventListener(
-      "click",
-      login
-    );
+/* =====================================
+   خطای API
+===================================== */
 
+if(!result.success){
 
-    /* =====================================
-       ⌨️ ورود با Enter
-    ===================================== */
+throw new Error(
 
-    password.addEventListener(
-      "keydown",
-      function(event) {
+result.message ||
+result.error ||
+"ثبت نام انجام نشد."
 
-        if (
-          event.key === "Enter"
-        ) {
+);
 
-          login();
+}
 
-        }
 
-      }
-    );
+/* =====================================
+   اطلاعات کاربر
+===================================== */
 
-  </script>
+const user={
+
+username:
+result.username ||
+result.user?.username ||
+name,
+
+email:
+result.email ||
+result.user?.email ||
+mail,
+
+score:
+Number(
+result.score ??
+result.user?.score ??
+0
+)
+
+};
+
+
+/* =====================================
+   ذخیره ورود
+===================================== */
+
+localStorage.setItem(
+"hadafUser",
+JSON.stringify(user)
+);
+
+
+/* =====================================
+   موفقیت
+===================================== */
+
+showMessage(
+
+"🎉 حساب با موفقیت ساخته شد!\n\n"+
+"👤 "+user.username+
+"\n⭐ امتیاز: "+user.score
+
+);
+
+
+/* =====================================
+   ورود به هدف
+===================================== */
+
+setTimeout(()=>{
+
+location.href=
+"index.html";
+
+},1200);
+
+
+}catch(error){
+
+console.error(error);
+
+showMessage(
+"❌ "+error.message,
+true
+);
+
+}finally{
+
+signupBtn.disabled=false;
+
+signupBtn.textContent=
+"ثبت نام 🚀";
+
+}
+
+}
+
+
+/* =====================================================
+   🚀 کلیک
+===================================================== */
+
+signupBtn.addEventListener(
+"click",
+signup
+);
+
+
+/* =====================================================
+   ⌨️ Enter
+===================================================== */
+
+confirmPassword.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Enter"){
+
+signup();
+
+}
+
+});
+
+</script>
 
 </body>
-
 </html>
