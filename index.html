@@ -2,13 +2,14 @@
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>هدف 🏹</title>
+<title>هدف 🏹</title>
 
-    <style>
-      * {
+<style>
+
+* {
     box-sizing: border-box;
 }
 
@@ -44,7 +45,9 @@ body {
 }
 
 
-/* صفحه اصلی */
+/* =========================
+   صفحه
+========================= */
 
 .container {
     width: min(900px, 94%);
@@ -53,7 +56,9 @@ body {
 }
 
 
-/* لوگو */
+/* =========================
+   لوگو
+========================= */
 
 .logo {
     width: 90px;
@@ -73,24 +78,21 @@ body {
         rgba(255,255,255,.1);
 
     border:
-        1px solid
-        rgba(255,255,255,.15);
+        1px solid rgba(255,255,255,.15);
 
     box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.35);
+        0 20px 50px rgba(0,0,0,.35);
 
     backdrop-filter: blur(15px);
 }
 
-
-/* عنوان */
 
 h1 {
     text-align: center;
     font-size: 42px;
     margin: 5px 0;
 }
+
 
 .subtitle {
     text-align: center;
@@ -99,11 +101,13 @@ h1 {
 }
 
 
-/* حساب */
+/* =========================
+   حساب کاربری
+========================= */
 
 .account {
     padding: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     text-align: center;
 
@@ -113,15 +117,14 @@ h1 {
         rgba(255,255,255,.08);
 
     border:
-        1px solid
-        rgba(255,255,255,.12);
+        1px solid rgba(255,255,255,.12);
 
     backdrop-filter: blur(15px);
 
     box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.25);
+        0 15px 40px rgba(0,0,0,.25);
 }
+
 
 .username {
     font-size: 21px;
@@ -129,13 +132,46 @@ h1 {
     margin-bottom: 8px;
 }
 
+
 .score {
     color: #facc15;
     font-size: 17px;
 }
 
 
-/* تیتر بخش */
+/* =========================
+   اعلامیه
+========================= */
+
+.notice {
+    padding: 18px;
+    margin-bottom: 30px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(59,130,246,.12);
+
+    border:
+        1px solid rgba(59,130,246,.25);
+
+    box-shadow:
+        0 0 10px rgba(0,123,255,.25),
+        0 0 30px rgba(0,123,255,.12);
+}
+
+
+.notice h2 {
+    margin-top: 0;
+}
+
+
+.notice p {
+    margin-bottom: 0;
+    line-height: 1.9;
+    color: #dbeafe;
+}
+
 
 h2 {
     text-align: center;
@@ -143,7 +179,9 @@ h2 {
 }
 
 
-/* کارت‌های بازی */
+/* =========================
+   کارت‌ها
+========================= */
 
 .games {
     display: grid;
@@ -170,18 +208,17 @@ h2 {
         rgba(255,255,255,.08);
 
     border:
-        1px solid
-        rgba(255,255,255,.12);
+        1px solid rgba(255,255,255,.12);
 
     box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.3);
+        0 15px 45px rgba(0,0,0,.3);
 
     backdrop-filter: blur(15px);
 
     transition:
         transform .25s ease,
-        box-shadow .25s ease;
+        box-shadow .25s ease,
+        border .25s ease;
 }
 
 
@@ -189,20 +226,15 @@ h2 {
     transform: translateY(-8px);
 
     box-shadow:
-        0 25px 60px
-        rgba(0,0,0,.45);
+        0 25px 60px rgba(0,0,0,.45);
 }
 
-
-/* آیکون */
 
 .game-icon {
     font-size: 55px;
     margin-bottom: 12px;
 }
 
-
-/* نام بازی */
 
 .game-title {
     font-size: 22px;
@@ -211,8 +243,6 @@ h2 {
 }
 
 
-/* توضیح */
-
 .game-description {
     color: #cbd5e1;
     line-height: 1.8;
@@ -220,12 +250,13 @@ h2 {
 }
 
 
-/* دکمه بازی */
+/* =========================
+   دکمه‌ها
+========================= */
 
 .game-card button,
 .tools button,
 .logout {
-
     width: 100%;
 
     border: none;
@@ -251,26 +282,171 @@ h2 {
 .game-card button:hover,
 .tools button:hover,
 .logout:hover {
-
     transform: scale(1.03);
-
     filter: brightness(1.15);
 }
 
 
-/* رنگ پیکو */
+/* =========================
+   هدف من
+========================= */
 
-.pico button {
+.goal-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(249,115,22,.15),
+            rgba(255,255,255,.07)
+        );
+
+    border:
+        1px solid rgba(249,115,22,.30);
+}
+
+
+.goal-card button {
     background:
         linear-gradient(
             135deg,
-            #10b981,
-            #059669
+            #f97316,
+            #ef4444
         );
 }
 
 
-/* رنگ ماشین */
+/* هدف فعلی */
+
+.current-goal {
+    margin-top: 12px;
+
+    padding: 11px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: #fed7aa;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Streak */
+
+.streak-box {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-top: 14px;
+}
+
+
+.streak-item {
+    padding: 11px 5px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,0,0,.18);
+
+    color: #cbd5e1;
+
+    font-size: 12px;
+}
+
+
+.streak-item strong {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 23px;
+
+    color: white;
+}
+
+
+.fire {
+    display: inline-block;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(249,115,22,.7)
+        );
+}
+
+
+/* =========================
+   🔥 7 روز
+========================= */
+
+.goal-card.streak-7 {
+    border-color:
+        rgba(249,115,22,.85);
+
+    box-shadow:
+        0 0 22px rgba(249,115,22,.25),
+        0 20px 50px rgba(0,0,0,.35);
+}
+
+
+/* =========================
+   ⚡ 30 روز
+========================= */
+
+.goal-card.streak-30 {
+    border-color:
+        rgba(168,85,247,.9);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(168,85,247,.22),
+            rgba(249,115,22,.12),
+            rgba(255,255,255,.06)
+        );
+
+    box-shadow:
+        0 0 30px rgba(168,85,247,.28),
+        0 20px 55px rgba(0,0,0,.4);
+}
+
+
+/* =========================
+   👑 100 روز
+========================= */
+
+.goal-card.streak-100 {
+    border-color:
+        rgba(250,204,21,.95);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(250,204,21,.20),
+            rgba(249,115,22,.15),
+            rgba(255,255,255,.06)
+        );
+
+    box-shadow:
+        0 0 38px rgba(250,204,21,.30),
+        0 25px 60px rgba(0,0,0,.45);
+}
+
+
+/* =========================
+   بقیه بازی‌ها
+========================= */
 
 .car button {
     background:
@@ -282,8 +458,6 @@ h2 {
 }
 
 
-/* رنگ مار */
-
 .snake button {
     background:
         linear-gradient(
@@ -293,8 +467,6 @@ h2 {
         );
 }
 
-
-/* رنگ حافظه */
 
 .memory button {
     background:
@@ -306,7 +478,9 @@ h2 {
 }
 
 
-/* ابزارها */
+/* =========================
+   ابزارها
+========================= */
 
 .tools {
     display: grid;
@@ -333,7 +507,6 @@ h2 {
 /* خروج */
 
 .logout {
-
     margin-top: 25px;
 
     background:
@@ -345,10 +518,9 @@ h2 {
 }
 
 
-/* پایین صفحه */
+/* Footer */
 
 footer {
-
     text-align: center;
 
     margin-top: 35px;
@@ -359,7 +531,9 @@ footer {
 }
 
 
-/* موبایل */
+/* =========================
+   موبایل
+========================= */
 
 @media (max-width: 650px) {
 
@@ -384,74 +558,190 @@ footer {
     }
 
 }
-        .notice {
 
-                   box-shadow: 0 0 10px rgba(0, 123, 255, 0.4), 0 0 30px rgba(0, 123, 255, 0.2); 
-                  padding: 10px
-
-
-
-            
-        }
-    </style>
+</style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-    <!-- لوگو -->
-    <div class="logo">🎯</div>
 
-    <h1>هدف</h1>
+    <!-- لوگو -->
+
+    <div class="logo">
+        🎯
+    </div>
+
+
+    <h1>
+        هدف
+    </h1>
+
 
     <p class="subtitle">
-        بازی، سرگرمی و چالش‌های جذاب 🎮
+        هر روز یک قدم به هدفت نزدیک‌تر شو 🏹
     </p>
 
 
-    <!-- حساب کاربری -->
+    <!-- حساب -->
+
     <div class="account">
 
-        <div class="username" id="username">
+        <div
+            class="username"
+            id="username"
+        >
             ⏳ در حال بررسی حساب...
         </div>
 
-        <div class="score" id="score">
+
+        <div
+            class="score"
+            id="score"
+        >
             ⭐ امتیاز: 0
         </div>
 
     </div>
-    
-   <div class="notice">
-    <h1>اعلامیه مهم</h1>
-    <p>پارسا تهامی سازنده هدف سایت:
-    عضو های هدف ، از دست من سازنده این سایت عصبانی نشوید و نگویید که  خرابه کار نمی‌کنه
-    ما داریم کار می‌کنیم این سایت تازه راه اندازی شده و هنوز کامل نیست من از شما عذر می‌خوام امیدوارم براتون مفید بوده باشه خدانگهدار</p>
-       
-       
-   </div>
-    <!-- بازی‌ها -->
-    <h2>🎮 بازی‌های هدف</h2>
+
+
+    <!-- اعلامیه -->
+
+    <div class="notice">
+
+        <h2>
+            📢 اعلامیه مهم
+        </h2>
+
+        <p>
+            پارسا تهامی، سازنده سایت هدف:
+            هدف تازه راه‌اندازی شده و هنوز در حال توسعه است.
+            اگر جایی درست کار نکرد، نگران نباشید؛
+            داریم روی بهتر شدن سایت کار می‌کنیم.
+            امیدوارم هدف براتون مفید و سرگرم‌کننده باشه ❤️
+        </p>
+
+    </div>
+
+
+    <h2>
+        🎯 امکانات هدف
+    </h2>
+
 
     <div class="games">
+
+
+        <!-- =====================
+             هدف من
+        ====================== -->
+
+        <div
+            class="game-card goal-card"
+            id="goalCard"
+            onclick="location.href='goals.html'"
+        >
+
+            <div class="game-icon">
+                🎯
+            </div>
+
+
+            <div class="game-title">
+                هدف من
+            </div>
+
+
+            <div
+                class="game-description"
+                id="goalDescription"
+            >
+                ⏳ در حال دریافت هدف...
+            </div>
+
+
+            <div
+                class="current-goal"
+                id="currentGoal"
+            >
+                در حال بارگذاری...
+            </div>
+
+
+            <div class="streak-box">
+
+
+                <div class="streak-item">
+
+                    <span class="fire">
+                        🔥
+                    </span>
+
+                    Streak
+
+                    <strong id="homeStreak">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="streak-item">
+
+                    🏆 رکورد
+
+                    <strong id="homeBest">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="streak-item">
+
+                    ✅ کل روزها
+
+                    <strong id="homeTotal">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button>
+                برو به هدف من 🔥
+            </button>
 
         </div>
 
 
-        <!-- ماشین -->
-        <div class="game-card car"
-             onclick="location.href='Game/Car/car.html'">
+        <!-- =====================
+             ماشین
+        ====================== -->
 
-            <div class="game-icon">🚗</div>
+        <div
+            class="game-card car"
+            onclick="location.href='Game/Car/car.html'"
+        >
+
+            <div class="game-icon">
+                🚗
+            </div>
+
 
             <div class="game-title">
                 ماشین‌بازی
             </div>
 
+
             <div class="game-description">
                 رانندگی کن، از موانع فرار کن و رکورد بزن!
             </div>
+
 
             <button>
                 بازی 🚗
@@ -460,19 +750,29 @@ footer {
         </div>
 
 
-        <!-- مار -->
-        <div class="game-card snake"
-             onclick="location.href='Game/snake/snake.html'">
+        <!-- =====================
+             مار
+        ====================== -->
 
-            <div class="game-icon">🐍</div>
+        <div
+            class="game-card snake"
+            onclick="location.href='Game/snake/snake.html'"
+        >
+
+            <div class="game-icon">
+                🐍
+            </div>
+
 
             <div class="game-title">
-                مار‌بازی
+                ماربازی
             </div>
+
 
             <div class="game-description">
                 غذا جمع کن و رکوردت را بیشتر کن!
             </div>
+
 
             <button>
                 بازی 🐍
@@ -481,18 +781,29 @@ footer {
         </div>
 
 
-        <!-- حافظه -->
-        <div class="game-card memory"onclick="location.href='Game/memory/memory.html'">
+        <!-- =====================
+             حافظه
+        ====================== -->
 
-            <div class="game-icon">🧠</div>
+        <div
+            class="game-card memory"
+            onclick="location.href='Game/memory/memory.html'"
+        >
+
+            <div class="game-icon">
+                🧠
+            </div>
+
 
             <div class="game-title">
                 بازی حافظه
             </div>
 
+
             <div class="game-description">
                 کارت‌های مشابه را پیدا کن!
             </div>
+
 
             <button>
                 شروع بازی 🧠
@@ -503,46 +814,31 @@ footer {
     </div>
 
 
-    <!-- امکانات -->
-    <h2>🛠 ابزارهای هدف</h2>
+    <!-- ابزارها -->
+
+    <h2>
+        🛠 ابزارهای هدف
+    </h2>
+
 
     <div class="tools">
 
-        <button onclick="location.href='calculator.html'">
+        <button
+            onclick="location.href='calculator.html'"
+        >
             🧮 ماشین حساب
         </button>
-        <!-- هدف من -->
-
-<div class="game-card pico"
-     onclick="location.href='goals.html'">
-
-    <div class="game-icon">
-        🎯
-    </div>
-
-    <div class="game-title">
-        هدف من
-    </div>
-
-    <div class="game-description">
-        هدفت را دنبال کن و شعله‌ات را هر روز روشن نگه دار! 🔥
-    </div>
-
-    <button>
-        هدف‌های من 🎯
-    </button>
-
-</div>
 
     </div>
 
 
     <!-- خروج -->
-    <button class="logout"
-            onclick="logout()">
 
+    <button
+        class="logout"
+        onclick="logout()"
+    >
         🚪 خروج از حساب
-
     </button>
 
 
@@ -555,12 +851,26 @@ footer {
 
 <script>
 
+/* =========================
+   API
+========================= */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
+
+
+/* =========================
+   کاربر
+========================= */
+
 function getUser() {
 
     try {
 
         return JSON.parse(
-            localStorage.getItem("hadafUser")
+            localStorage.getItem(
+                "hadafUser"
+            )
         );
 
     } catch {
@@ -572,23 +882,56 @@ function getUser() {
 }
 
 
+/* =========================
+   جلوگیری از HTML
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        String(text || "");
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   نمایش حساب
+========================= */
+
 function showAccount() {
 
-    const user = getUser();
+    const user =
+        getUser();
+
 
     const username =
-        document.getElementById("username");
+        document.getElementById(
+            "username"
+        );
+
 
     const score =
-        document.getElementById("score");
+        document.getElementById(
+            "score"
+        );
 
 
     if (!user) {
 
-        username.innerHTML = "👤 مهمان";
+        username.textContent =
+            "👤 مهمان";
 
-        score.innerHTML =
+
+        score.textContent =
             "برای استفاده از حساب وارد شو.";
+
 
         return;
 
@@ -598,39 +941,328 @@ function showAccount() {
     username.innerHTML =
         "👤 " +
         escapeHTML(
-            user.username || "کاربر هدف"
+            user.username ||
+            "کاربر هدف"
         );
 
 
-    score.innerHTML =
+    score.textContent =
         "⭐ امتیاز: " +
-        Number(user.score || 0);
+        Number(
+            user.score || 0
+        );
 
 }
 
 
-function escapeHTML(text) {
+/* =========================
+   دریافت هدف از سرور
+========================= */
 
-    const div =
-        document.createElement("div");
+async function loadHomeGoal() {
 
-    div.textContent = text;
+    const user =
+        getUser();
 
-    return div.innerHTML;
+
+    const description =
+        document.getElementById(
+            "goalDescription"
+        );
+
+
+    const current =
+        document.getElementById(
+            "currentGoal"
+        );
+
+
+    const streakElement =
+        document.getElementById(
+            "homeStreak"
+        );
+
+
+    const best =
+        document.getElementById(
+            "homeBest"
+        );
+
+
+    const total =
+        document.getElementById(
+            "homeTotal"
+        );
+
+
+    const goalCard =
+        document.getElementById(
+            "goalCard"
+        );
+
+
+    /* کاربر وارد نشده */
+
+    if (
+        !user ||
+        !user.email
+    ) {
+
+        description.textContent =
+            "برای ساخت هدف و نگه داشتن Streak وارد حساب شو 🔥";
+
+
+        current.textContent =
+            "🔐 ابتدا وارد حساب شو";
+
+
+        streakElement.textContent =
+            "0";
+
+
+        best.textContent =
+            "0";
+
+
+        total.textContent =
+            "0";
+
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "getGoal",
+
+                            email:
+                                user.email
+
+                        })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Server error"
+            );
+
+        }
+
+
+        /* هنوز هدف ندارد */
+
+        if (!data.goal) {
+
+            description.textContent =
+                "هنوز هدفی نساختی؛ بیا اولین هدفت رو شروع کنیم! 🎯";
+
+
+            current.textContent =
+                "➕ ساخت اولین هدف";
+
+
+            streakElement.textContent =
+                "0";
+
+
+            best.textContent =
+                "0";
+
+
+            total.textContent =
+                "0";
+
+
+            return;
+
+        }
+
+
+        /* =====================
+           اطلاعات هدف
+        ====================== */
+
+        const currentStreak =
+            Number(
+                data.goal.streak || 0
+            );
+
+
+        const bestStreak =
+            Number(
+                data.goal.bestStreak || 0
+            );
+
+
+        const totalDays =
+            Number(
+                data.goal.totalDays || 0
+            );
+
+
+        current.innerHTML =
+            "🎯 " +
+            escapeHTML(
+                data.goal.goal
+            );
+
+
+        streakElement.textContent =
+            currentStreak;
+
+
+        best.textContent =
+            bestStreak;
+
+
+        total.textContent =
+            totalDays;
+
+
+        /* پاک کردن حالت‌های قبلی */
+
+        goalCard.classList.remove(
+            "streak-7",
+            "streak-30",
+            "streak-100"
+        );
+
+
+        /* =====================
+           👑 100 روز
+        ====================== */
+
+        if (
+            currentStreak >= 100
+        ) {
+
+            goalCard.classList.add(
+                "streak-100"
+            );
+
+
+            description.textContent =
+                "👑 LEGEND! صد روز پشت سر هم!";
+
+
+        /* =====================
+           ⚡ 30 روز
+        ====================== */
+
+        } else if (
+            currentStreak >= 30
+        ) {
+
+            goalCard.classList.add(
+                "streak-30"
+            );
+
+
+            description.textContent =
+                "⚡ Master Streak! سی روز پشت سر هم!";
+
+
+        /* =====================
+           🔥 7 روز
+        ====================== */
+
+        } else if (
+            currentStreak >= 7
+        ) {
+
+            goalCard.classList.add(
+                "streak-7"
+            );
+
+
+            description.textContent =
+                "🔥 Streak هفت‌روزه! زنجیره رو نشکن!";
+
+
+        /* معمولی */
+
+        } else {
+
+            description.textContent =
+                "شعله‌ات رو روشن نگه دار و زنجیره رو نشکن! 🔥";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Goal error:",
+            error
+        );
+
+
+        description.textContent =
+            "😵 نتونستم اطلاعات هدف رو دریافت کنم.";
+
+
+        current.textContent =
+            "لطفاً دوباره صفحه رو تازه کن";
+
+    }
 
 }
 
+
+/* =========================
+   خروج
+========================= */
 
 function logout() {
 
-    localStorage.removeItem("hadafUser");
+    localStorage.removeItem(
+        "hadafUser"
+    );
 
-    location.href = "login.html";
+
+    location.href =
+        "login.html";
 
 }
 
 
+/* =========================
+   اجرا
+========================= */
+
 showAccount();
+
+loadHomeGoal();
 
 </script>
 
