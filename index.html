@@ -32,7 +32,9 @@
           href="https://hadaf.site/">
 
 
-    <!-- Open Graph -->
+    <!-- =========================
+         OPEN GRAPH
+    ========================== -->
 
     <meta property="og:type"
           content="website">
@@ -52,8 +54,13 @@
     <meta property="og:url"
           content="https://hadaf.site/">
 
+    <meta property="og:image"
+          content="https://hadaf.site/logo.png">
 
-    <!-- Structured Data -->
+
+    <!-- =========================
+         STRUCTURED DATA
+    ========================== -->
 
     <script type="application/ld+json">
     {
@@ -132,8 +139,7 @@ button {
 
     margin: auto;
 
-    padding:
-        35px 0 55px;
+    padding: 35px 0 55px;
 }
 
 
@@ -145,25 +151,23 @@ button {
 
     text-align: center;
 
-    padding:
-        15px 0 25px;
+    padding: 15px 0 25px;
 }
 
 
 .logo {
 
-    width: 95px;
-    height: 95px;
+    width: 105px;
+    height: 105px;
 
-    margin:
-        0 auto 14px;
+    margin: 0 auto 14px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    font-size: 50px;
+    overflow: hidden;
 
     border-radius: 30px;
 
@@ -183,10 +187,20 @@ button {
 }
 
 
+.logo img {
+
+    width: 82px;
+    height: 82px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
 h1 {
 
-    margin:
-        5px 0 10px;
+    margin: 5px 0 10px;
 
     font-size:
         clamp(36px, 6vw, 54px);
@@ -197,17 +211,13 @@ h1 {
 
     max-width: 650px;
 
-    margin:
-        auto;
+    margin: auto;
 
-    color:
-        #cbd5e1;
+    color: #cbd5e1;
 
-    line-height:
-        1.9;
+    line-height: 1.9;
 
-    font-size:
-        16px;
+    font-size: 16px;
 }
 
 
@@ -263,47 +273,6 @@ h1 {
 
 
 /* =====================================
-   NOTICE
-===================================== */
-
-.notice {
-
-    margin-bottom: 35px;
-
-    padding: 20px;
-
-    border-radius: 22px;
-
-    background:
-        rgba(59,130,246,.10);
-
-    border:
-        1px solid
-        rgba(96,165,250,.22);
-}
-
-
-.notice-title {
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    margin-bottom: 8px;
-}
-
-
-.notice p {
-
-    margin: 0;
-
-    line-height: 1.9;
-
-    color: #dbeafe;
-}
-
-
-/* =====================================
    SECTION
 ===================================== */
 
@@ -311,8 +280,7 @@ h1 {
 
     text-align: center;
 
-    margin:
-        38px 0 20px;
+    margin: 38px 0 20px;
 
     font-size: 25px;
 }
@@ -490,21 +458,19 @@ h1 {
     background:
         rgba(0,0,0,.17);
 
-    color:
-        #fed7aa;
+    color: #fed7aa;
 
-    white-space:
-        nowrap;
+    white-space: nowrap;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    text-overflow:
-        ellipsis;
+    text-overflow: ellipsis;
 }
 
 
-/* STREAK STATS */
+/* =====================================
+   STREAK STATS
+===================================== */
 
 .streak-stats {
 
@@ -521,19 +487,16 @@ h1 {
 
 .stat {
 
-    padding:
-        10px 5px;
+    padding: 10px 5px;
 
     border-radius: 14px;
 
     background:
         rgba(0,0,0,.17);
 
-    color:
-        #cbd5e1;
+    color: #cbd5e1;
 
-    font-size:
-        12px;
+    font-size: 12px;
 }
 
 
@@ -674,8 +637,7 @@ h1 {
 
 .about p {
 
-    color:
-        #cbd5e1;
+    color: #cbd5e1;
 }
 
 
@@ -687,14 +649,15 @@ h1 {
 
     display: grid;
 
-    grid-template-columns:
-        repeat(2,1fr);
+    grid-template-columns: 1fr;
 
     gap: 15px;
 }
 
 
 .tool-button {
+
+    width: 100%;
 
     border: 0;
 
@@ -762,11 +725,9 @@ footer {
 
     text-align: center;
 
-    color:
-        #94a3b8;
+    color: #94a3b8;
 
-    font-size:
-        13px;
+    font-size: 13px;
 }
 
 
@@ -800,13 +761,6 @@ footer {
     }
 
 
-    .tools {
-
-        grid-template-columns:
-            1fr;
-    }
-
-
     .card {
 
         min-height:
@@ -832,7 +786,12 @@ footer {
 <header class="hero">
 
     <div class="logo">
-        <img src="logo.png" width="200">
+
+        <img
+            src="logo.png"
+            alt="لوگوی سایت هدف"
+        >
+
     </div>
 
     <h1>
@@ -870,10 +829,7 @@ footer {
         ⭐ امتیاز: 0
     </div>
 
-
-
-
-
+</section>
 
 
 
@@ -923,35 +879,18 @@ footer {
     <div class="streak-stats">
 
         <div class="stat">
-
             🔥 Streak
-
-            <strong id="homeStreak">
-                0
-            </strong>
-
+            <strong id="homeStreak">0</strong>
         </div>
 
-
         <div class="stat">
-
             🏆 رکورد
-
-            <strong id="homeBest">
-                0
-            </strong>
-
+            <strong id="homeBest">0</strong>
         </div>
 
-
         <div class="stat">
-
             ✅ کل روزها
-
-            <strong id="homeTotal">
-                0
-            </strong>
-
+            <strong id="homeTotal">0</strong>
         </div>
 
     </div>
