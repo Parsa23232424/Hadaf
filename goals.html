@@ -1569,4 +1569,717 @@ async function loadGoal() {
 
         document
             .getElementById(
-                "loading
+                "loading"
+            )
+            .innerHTML =
+            "❌ " +
+            escapeHTML(
+                error.message ||
+                "خطا در ارتباط با سرور"
+            );
+
+
+        document
+            .getElementById(
+                "loading"
+            )
+            .classList
+            .add(
+                "error"
+            );
+
+    }
+
+}
+
+
+
+/* ================================
+   CREATE GOAL
+================================ */
+
+
+async function createGoal() {
+
+    const email =
+        getEmail();
+
+
+    const input =
+        document.getElementById(
+            "goalInput"
+        );
+
+
+    const button =
+        document.getElementById(
+            "createButton"
+        );
+
+
+    const message =
+        document.getElementById(
+            "createMessage"
+        );
+
+
+    const goal =
+        input.value.trim();
+
+
+    if (!email) {
+
+        location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    if (!goal) {
+
+        message.textContent =
+            "اول هدفت رو بنویس 🎯";
+
+
+        message.classList.add(
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+
+    button.textContent =
+        "⏳ در حال ساخت...";
+
+
+    message.textContent = "";
+
+
+    message.classList.remove(
+        "error"
+    );
+
+
+    try {
+
+        const data =
+            await callAPI({
+
+                action:
+                    "createGoal",
+
+                email:
+                    email,
+
+                goal:
+                    goal
+
+            });
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "ساخت هدف ناموفق بود."
+            );
+
+        }
+
+
+        currentGoal =
+            data.goal;
+
+
+        input.value =
+            "";
+
+
+        render();
+
+
+        document
+            .getElementById(
+                "message"
+            )
+            .textContent =
+            "🎯 هدفت ساخته شد؛ از امروز شروع کن.";
+
+    }
+
+    catch(error) {
+
+        message.textContent =
+            "❌ " +
+            (
+                error.message ||
+                "خطایی رخ داد."
+            );
+
+
+        message.classList.add(
+            "error"
+        );
+
+    }
+
+    finally {
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "ساخت هدف 🎯";
+
+    }
+
+}
+
+
+
+/* ================================
+   COMPLETE GOAL
+================================ */
+
+
+async function completeGoal() {
+
+    const email =
+        getEmail();
+
+
+    if (
+        !email ||
+        !currentGoal
+    ) {
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "doneButton"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳ در حال ثبت...";
+
+
+    message.textContent =
+        "";
+
+
+    message.classList.remove(
+        "error"
+    );
+
+
+    try {
+
+        const data =
+            await callAPI({
+
+                action:
+                    "completeGoal",
+
+                email:
+                    email
+
+            });
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "ثبت انجام هدف ناموفق بود."
+            );
+
+        }
+
+
+        currentGoal = {
+
+            ...currentGoal,
+
+            ...data.goal
+
+        };
+
+
+        render();
+
+
+        message.textContent =
+            data.message ||
+            "🔥 امروز هم ثبت شد.";
+
+
+        celebrate();
+
+    }
+
+    catch(error) {
+
+        message.textContent =
+            "❌ " +
+            (
+                error.message ||
+                "خطایی رخ داد."
+            );
+
+
+        message.classList.add(
+            "error"
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "امروز انجامش دادم 🔥";
+
+    }
+
+}
+
+
+
+/* ================================
+   DELETE
+================================ */
+
+
+async function deleteGoal() {
+
+    const email =
+        getEmail();
+
+
+    if (
+        !email ||
+        !currentGoal
+    ) {
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "مطمئنی می‌خواهی این هدف و Streak آن را حذف کنی؟"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await callAPI({
+
+                action:
+                    "deleteGoal",
+
+                email:
+                    email
+
+            });
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "حذف هدف ناموفق بود."
+            );
+
+        }
+
+
+        currentGoal =
+            null;
+
+
+        render();
+
+    }
+
+    catch(error) {
+
+        alert(
+            "❌ " +
+            (
+                error.message ||
+                "خطا در حذف هدف"
+            )
+        );
+
+    }
+
+}
+
+
+
+/* ================================
+   RENDER
+================================ */
+
+
+function render() {
+
+    const createBox =
+        document.getElementById(
+            "createBox"
+        );
+
+
+    const goalBox =
+        document.getElementById(
+            "goalBox"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.classList.remove(
+        "error"
+    );
+
+
+    if (!currentGoal) {
+
+        createBox.classList.remove(
+            "hidden"
+        );
+
+
+        goalBox.classList.add(
+            "hidden"
+        );
+
+
+        document
+            .getElementById(
+                "streak"
+            )
+            .textContent =
+            "0";
+
+
+        document
+            .getElementById(
+                "bestStreak"
+            )
+            .textContent =
+            "0";
+
+
+        return;
+
+    }
+
+
+    createBox.classList.add(
+        "hidden"
+    );
+
+
+    goalBox.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById(
+            "goalName"
+        )
+        .textContent =
+        currentGoal.goal ||
+        "";
+
+
+    document
+        .getElementById(
+            "streak"
+        )
+        .textContent =
+        Number(
+            currentGoal.streak ||
+            0
+        );
+
+
+    document
+        .getElementById(
+            "bestStreak"
+        )
+        .textContent =
+        Number(
+            currentGoal.bestStreak ||
+            0
+        );
+
+
+    document
+        .getElementById(
+            "record"
+        )
+        .textContent =
+        Number(
+            currentGoal.bestStreak ||
+            0
+        );
+
+
+    document
+        .getElementById(
+            "totalDays"
+        )
+        .textContent =
+        Number(
+            currentGoal.totalDays ||
+            0
+        );
+
+
+    const button =
+        document.getElementById(
+            "doneButton"
+        );
+
+
+    if (
+        currentGoal.lastCompleted &&
+        currentGoal.lastCompleted ===
+        getTodayString()
+    ) {
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "امروز انجام شد ✓";
+
+
+        message.textContent =
+            "🔥 امروز ثبت شده.";
+
+    }
+
+    else {
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "امروز انجامش دادم 🔥";
+
+
+        message.textContent =
+            "";
+
+    }
+
+}
+
+
+
+/* ================================
+   TODAY
+================================ */
+
+
+function getTodayString() {
+
+    const now =
+        new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+
+/* ================================
+   CELEBRATE
+================================ */
+
+
+function celebrate() {
+
+    const fire =
+        document.querySelector(
+            ".fire"
+        );
+
+
+    fire.animate(
+        [
+
+            {
+                transform:
+                    "scale(1)"
+            },
+
+            {
+                transform:
+                    "scale(1.28) rotate(-7deg)"
+            },
+
+            {
+                transform:
+                    "scale(1.12) rotate(6deg)"
+            },
+
+            {
+                transform:
+                    "scale(1)"
+            }
+
+        ],
+
+        {
+
+            duration:
+                620,
+
+            easing:
+                "ease"
+
+        }
+    );
+
+}
+
+
+
+/* ================================
+   SAFE TEXT
+================================ */
+
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        String(
+            text
+        );
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* ================================
+   ENTER
+================================ */
+
+
+document
+    .getElementById(
+        "goalInput"
+    )
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key ===
+                "Enter"
+            ) {
+
+                createGoal();
+
+            }
+
+        }
+    );
+
+
+
+/* ================================
+   START
+================================ */
+
+
+loadGoal();
+
+
+</script>
+
+</body>
+</html>
