@@ -37,13 +37,14 @@
 
     <meta
         name="theme-color"
-        content="#090b12"
+        content="#07090f"
     >
 
     <link
         rel="canonical"
         href="https://hadaf.site/"
     >
+
 
     <!-- =========================
          OPEN GRAPH
@@ -84,6 +85,7 @@
         content="https://hadaf.site/logo.png"
     >
 
+
     <!-- =========================
          STRUCTURED DATA
     ========================== -->
@@ -111,46 +113,36 @@
 
     --bg: #07090f;
 
-    --bg-soft: #0d1018;
+    --card: rgba(18,22,34,.95);
 
-    --card: rgba(18, 22, 34, 0.88);
+    --card-soft: rgba(255,255,255,.035);
 
-    --card-soft: rgba(255, 255, 255, 0.045);
-
-    --border: rgba(255, 255, 255, 0.08);
-
-    --border-strong: rgba(124, 92, 255, 0.35);
+    --border: rgba(255,255,255,.075);
 
     --text: #f8fafc;
 
     --muted: #8f98a9;
 
-    --muted-2: #667085;
-
     --primary: #6758ff;
 
-    --primary-2: #4f46e5;
-
-    --blue: #3b82f6;
-
-    --purple: #8b5cf6;
+    --primary-2: #5146da;
 
     --orange: #ff7a32;
+
+    --yellow: #facc15;
 
     --green: #22c55e;
 
     --red: #ef4444;
 
-    --yellow: #facc15;
-
     --radius-xl: 28px;
 
     --radius-lg: 22px;
 
-    --radius-md: 17px;
+    --radius-md: 16px;
 
     --shadow:
-        0 24px 70px rgba(0, 0, 0, 0.34);
+        0 22px 70px rgba(0,0,0,.34);
 }
 
 
@@ -159,19 +151,13 @@
 ===================================== */
 
 * {
-
     box-sizing: border-box;
-
-    -webkit-tap-highlight-color:
-        transparent;
+    -webkit-tap-highlight-color: transparent;
 }
-
 
 html {
-
     scroll-behavior: smooth;
 }
-
 
 body {
 
@@ -192,29 +178,27 @@ body {
     background:
 
         radial-gradient(
-            circle at 80% -5%,
-            rgba(99, 91, 255, 0.15),
+            circle at 85% -5%,
+            rgba(103,88,255,.15),
             transparent 28%
         ),
 
         radial-gradient(
             circle at 0% 35%,
-            rgba(37, 99, 235, 0.08),
+            rgba(37,99,235,.07),
             transparent 30%
         ),
 
         #07090f;
 }
 
-
 button {
-
     font-family: inherit;
 }
 
 
 /* =====================================
-   APP CONTAINER
+   APP
 ===================================== */
 
 .app {
@@ -224,7 +208,7 @@ button {
     margin: auto;
 
     padding:
-        24px 0
+        18px 0
         50px;
 }
 
@@ -273,18 +257,13 @@ button {
     overflow: hidden;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(108, 92, 255, .16),
-            rgba(255, 255, 255, .04)
-        );
+        rgba(103,88,255,.09);
 
     border:
         1px solid var(--border);
 
     box-shadow:
-        0 10px 30px
-        rgba(0, 0, 0, .25);
+        0 10px 30px rgba(0,0,0,.24);
 }
 
 
@@ -332,14 +311,12 @@ button {
     justify-content: center;
 
     background:
-        rgba(255, 255, 255, .045);
+        rgba(255,255,255,.04);
 
     border:
         1px solid var(--border);
 
     color: #c7cbd4;
-
-    font-size: 14px;
 }
 
 
@@ -350,7 +327,7 @@ button {
 .hero {
 
     padding:
-        20px 2px
+        12px 2px
         28px;
 }
 
@@ -371,11 +348,11 @@ button {
     margin-bottom: 16px;
 
     background:
-        rgba(103, 88, 255, .11);
+        rgba(103,88,255,.11);
 
     border:
         1px solid
-        rgba(103, 88, 255, .22);
+        rgba(103,88,255,.22);
 
     color: #c9c3ff;
 
@@ -391,8 +368,6 @@ button {
         clamp(30px, 6vw, 48px);
 
     line-height: 1.45;
-
-    letter-spacing: -.5px;
 }
 
 
@@ -437,21 +412,21 @@ button {
 
     margin-bottom: 20px;
 
-    border-radius: var(--radius-lg);
+    border-radius:
+        var(--radius-lg);
 
     background:
         linear-gradient(
             145deg,
-            rgba(18, 22, 34, .96),
-            rgba(13, 16, 24, .96)
+            rgba(18,22,34,.96),
+            rgba(13,16,24,.96)
         );
 
     border:
         1px solid var(--border);
 
     box-shadow:
-        0 14px 45px
-        rgba(0, 0, 0, .24);
+        0 14px 45px rgba(0,0,0,.24);
 }
 
 
@@ -482,11 +457,11 @@ button {
     font-size: 19px;
 
     background:
-        rgba(103, 88, 255, .12);
+        rgba(103,88,255,.12);
 
     border:
         1px solid
-        rgba(103, 88, 255, .18);
+        rgba(103,88,255,.18);
 }
 
 
@@ -521,7 +496,7 @@ button {
 
 
 /* =====================================
-   SECTION HEADING
+   SECTION HEAD
 ===================================== */
 
 .section-head {
@@ -558,7 +533,7 @@ button {
 
 
 /* =====================================
-   GOAL CARD
+   GOAL
 ===================================== */
 
 .goal-card {
@@ -576,19 +551,19 @@ button {
 
         radial-gradient(
             circle at 90% 0%,
-            rgba(103, 88, 255, .17),
+            rgba(103,88,255,.17),
             transparent 30%
         ),
 
         linear-gradient(
             150deg,
-            rgba(20, 24, 36, .98),
-            rgba(11, 14, 23, .98)
+            rgba(20,24,36,.98),
+            rgba(11,14,23,.98)
         );
 
     border:
         1px solid
-        rgba(103, 88, 255, .20);
+        rgba(103,88,255,.20);
 
     box-shadow:
         var(--shadow);
@@ -607,7 +582,7 @@ button {
         translateY(-4px);
 
     border-color:
-        rgba(103, 88, 255, .40);
+        rgba(103,88,255,.40);
 }
 
 
@@ -661,7 +636,7 @@ button {
 
     box-shadow:
         0 10px 30px
-        rgba(103, 88, 255, .24);
+        rgba(103,88,255,.24);
 }
 
 
@@ -696,7 +671,7 @@ button {
     justify-content: center;
 
     background:
-        rgba(255, 255, 255, .045);
+        rgba(255,255,255,.045);
 
     color: #9aa3b4;
 }
@@ -725,11 +700,11 @@ button {
         var(--radius-md);
 
     background:
-        rgba(255, 255, 255, .035);
+        rgba(255,255,255,.035);
 
     border:
         1px solid
-        rgba(255, 255, 255, .055);
+        rgba(255,255,255,.055);
 
     color: #f3f4f6;
 
@@ -752,7 +727,7 @@ button {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap: 9px;
 
@@ -770,11 +745,11 @@ button {
     border-radius: 16px;
 
     background:
-        rgba(255, 255, 255, .035);
+        rgba(255,255,255,.035);
 
     border:
         1px solid
-        rgba(255, 255, 255, .045);
+        rgba(255,255,255,.045);
 
     color: var(--muted);
 
@@ -795,13 +770,10 @@ button {
 
 
 .stat.fire strong {
-
     color: #ff8a45;
 }
 
-
 .stat.best strong {
-
     color: #f5cc55;
 }
 
@@ -835,7 +807,7 @@ button {
 
     box-shadow:
         0 10px 30px
-        rgba(103, 88, 255, .22);
+        rgba(103,88,255,.22);
 }
 
 
@@ -846,29 +818,190 @@ button {
 .goal-card.streak-7 {
 
     border-color:
-        rgba(255, 122, 50, .48);
+        rgba(255,122,50,.48);
 }
-
 
 .goal-card.streak-30 {
 
     border-color:
-        rgba(139, 92, 246, .60);
+        rgba(139,92,246,.60);
 
     box-shadow:
         0 24px 70px
-        rgba(139, 92, 246, .12);
+        rgba(139,92,246,.12);
 }
-
 
 .goal-card.streak-100 {
 
     border-color:
-        rgba(250, 204, 21, .65);
+        rgba(250,204,21,.65);
 
     box-shadow:
         0 24px 75px
-        rgba(250, 204, 21, .10);
+        rgba(250,204,21,.10);
+}
+
+
+/* =====================================
+   RESALAT CARD
+===================================== */
+
+.resalat-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 20px;
+
+    border-radius: 24px;
+
+    cursor: pointer;
+
+    background:
+
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(34,197,94,.14),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            145deg,
+            rgba(17,26,26,.98),
+            rgba(10,17,18,.98)
+        );
+
+    border:
+        1px solid
+        rgba(34,197,94,.18);
+
+    box-shadow:
+        0 18px 55px
+        rgba(0,0,0,.28);
+
+    transition:
+        transform .22s ease,
+        border-color .22s ease;
+}
+
+
+.resalat-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(34,197,94,.36);
+}
+
+
+.resalat-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+}
+
+
+.resalat-logo {
+
+    width: 62px;
+    height: 62px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.25);
+}
+
+
+.resalat-logo img {
+
+    width: 86%;
+    height: 86%;
+
+    object-fit: contain;
+}
+
+
+.resalat-title {
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+
+.resalat-sub {
+
+    margin-top: 6px;
+
+    color: #9ca9a0;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+.resalat-button {
+
+    flex-shrink: 0;
+
+    border: 0;
+
+    padding:
+        12px 17px;
+
+    border-radius: 14px;
+
+    color: #07130d;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4ade80,
+            #22c55e
+        );
+
+    box-shadow:
+        0 10px 28px
+        rgba(34,197,94,.20);
 }
 
 
@@ -881,7 +1014,7 @@ button {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
     gap: 12px;
 }
@@ -904,8 +1037,8 @@ button {
     background:
         linear-gradient(
             145deg,
-            rgba(19, 23, 35, .96),
-            rgba(12, 15, 23, .96)
+            rgba(19,23,35,.96),
+            rgba(12,15,23,.96)
         );
 
     border:
@@ -923,7 +1056,7 @@ button {
         translateY(-4px);
 
     border-color:
-        rgba(255, 255, 255, .16);
+        rgba(255,255,255,.16);
 }
 
 
@@ -944,7 +1077,7 @@ button {
     font-size: 24px;
 
     background:
-        rgba(255, 255, 255, .045);
+        rgba(255,255,255,.045);
 }
 
 
@@ -1008,8 +1141,8 @@ button {
     background:
         linear-gradient(
             145deg,
-            rgba(19, 23, 35, .96),
-            rgba(12, 15, 23, .96)
+            rgba(19,23,35,.96),
+            rgba(12,15,23,.96)
         );
 
     border:
@@ -1042,11 +1175,11 @@ button {
     font-size: 22px;
 
     background:
-        rgba(59, 130, 246, .10);
+        rgba(59,130,246,.10);
 
     border:
         1px solid
-        rgba(59, 130, 246, .13);
+        rgba(59,130,246,.13);
 }
 
 
@@ -1081,11 +1214,11 @@ button {
     border-radius: 24px;
 
     background:
-        rgba(255, 255, 255, .025);
+        rgba(255,255,255,.025);
 
     border:
         1px solid
-        rgba(255, 255, 255, .055);
+        rgba(255,255,255,.055);
 }
 
 
@@ -1123,8 +1256,9 @@ button {
 
     padding: 14px;
 
-    border: 1px solid
-        rgba(239, 68, 68, .16);
+    border:
+        1px solid
+        rgba(239,68,68,.16);
 
     border-radius: 16px;
 
@@ -1137,7 +1271,7 @@ button {
     cursor: pointer;
 
     background:
-        rgba(239, 68, 68, .055);
+        rgba(239,68,68,.055);
 }
 
 
@@ -1181,7 +1315,7 @@ footer {
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4,1fr);
 
     padding:
         8px 7px;
@@ -1189,15 +1323,15 @@ footer {
     border-radius: 22px;
 
     background:
-        rgba(13, 16, 24, .92);
+        rgba(13,16,24,.92);
 
     border:
         1px solid
-        rgba(255, 255, 255, .08);
+        rgba(255,255,255,.08);
 
     box-shadow:
         0 16px 50px
-        rgba(0, 0, 0, .45);
+        rgba(0,0,0,.45);
 
     backdrop-filter:
         blur(22px);
@@ -1220,10 +1354,6 @@ footer {
     cursor: pointer;
 
     font-size: 10px;
-
-    transition:
-        background .2s,
-        color .2s;
 }
 
 
@@ -1242,7 +1372,7 @@ footer {
     color: #8a7fff;
 
     background:
-        rgba(103, 88, 255, .10);
+        rgba(103,88,255,.10);
 }
 
 
@@ -1250,7 +1380,7 @@ footer {
    MOBILE
 ===================================== */
 
-@media (max-width: 720px) {
+@media(max-width:720px) {
 
     .app {
 
@@ -1292,15 +1422,25 @@ footer {
     }
 
 
-    .game-icon {
+    .resalat-card {
 
-        margin-bottom: 11px;
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .resalat-button {
+
+        width: 100%;
+
+        padding: 14px;
     }
 
 }
 
 
-@media (max-width: 430px) {
+@media(max-width:430px) {
 
     .goal-card {
 
@@ -1341,6 +1481,13 @@ footer {
         font-size: 11px;
     }
 
+
+    .resalat-logo {
+
+        width: 56px;
+        height: 56px;
+    }
+
 }
 
 </style>
@@ -1349,7 +1496,6 @@ footer {
 
 
 <body>
-
 
 <main class="app">
 
@@ -1461,7 +1607,7 @@ footer {
 
 
 <!-- =========================
-     GOAL SECTION
+     GOAL
 ========================== -->
 
 <div class="section-head">
@@ -1578,10 +1724,53 @@ footer {
 
 
 <!-- =========================
-     GAMES
+     RESALAT
 ========================== -->
 
 <div class="section-head">
+
+    <h2>
+        خدمات بانکی
+    </h2>
+
+    <span>
+        دسترسی سریع
+    </span>
+
+</div>
+
+
+<section
+    class="resalat-card"
+    onclick="openResalat()"
+>
+
+    <div class="resalat-info">
+
+        <div class="resalat-logo">
+
+            <img
+                src="resalat.png"
+                alt="لوگوی ام رسالت"
+            >
+
+        </div>
+
+
+        
+
+</section>
+
+
+
+<!-- =========================
+     GAMES
+========================== -->
+
+<div
+    class="section-head"
+    id="games"
+>
 
     <h2>
         بازی‌ها
@@ -1596,8 +1785,6 @@ footer {
 
 <section class="game-grid">
 
-
-    <!-- CAR -->
 
     <article
         class="game-card"
@@ -1625,8 +1812,6 @@ footer {
 
 
 
-    <!-- SNAKE -->
-
     <article
         class="game-card"
         onclick="goTo('Game/snake/snake.html')"
@@ -1652,8 +1837,6 @@ footer {
     </article>
 
 
-
-    <!-- MEMORY -->
 
     <article
         class="game-card"
@@ -1722,6 +1905,28 @@ footer {
             </div>
 
         </div>
+        <div>
+
+            <div class="resalat-title">
+                ورود به ام‌رسالت
+            </div>
+
+            <div class="resalat-sub">
+                دسترسی سریع به سامانه ام‌رسالت
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="resalat-button"
+        type="button"
+        onclick="event.stopPropagation(); openResalat();"
+    >
+        ورود به ام‌رسالت
+    </button>
 
     </div>
 
@@ -1735,7 +1940,7 @@ footer {
 
 
 <!-- =========================
-     ABOUT / SEO
+     ABOUT
 ========================== -->
 
 <section class="about">
@@ -1783,9 +1988,7 @@ footer {
 
 
 <footer>
-
     Hadaf © 2026
-
 </footer>
 
 
@@ -1829,7 +2032,7 @@ footer {
 
     <button
         class="nav-item"
-        onclick="document.querySelector('.game-grid').scrollIntoView()"
+        onclick="document.getElementById('games').scrollIntoView()"
     >
 
         <span class="nav-icon">
@@ -1843,7 +2046,7 @@ footer {
 
     <button
         class="nav-item"
-        onclick="document.querySelector('.tool-card').scrollIntoView()"
+        onclick="goTo('calculator.html')"
     >
 
         <span class="nav-icon">
@@ -1876,6 +2079,22 @@ const API_URL =
 function goTo(url) {
 
     location.href = url;
+
+}
+
+
+
+/* =====================================
+   RESALAT
+===================================== */
+
+function openResalat() {
+
+    window.open(
+        "https://pwa.rqbank.ir/",
+        "_blank",
+        "noopener,noreferrer"
+    );
 
 }
 
@@ -2002,8 +2221,6 @@ async function loadHomeGoal() {
 
 
 
-    /* GUEST */
-
     if (
         !user ||
         !user.email
@@ -2078,8 +2295,6 @@ async function loadHomeGoal() {
         }
 
 
-
-        /* NO GOAL */
 
         if (!data.goal) {
 
@@ -2190,7 +2405,7 @@ async function loadHomeGoal() {
 
     }
 
-    catch (error) {
+    catch(error) {
 
         console.error(
             "Hadaf Goal Error:",
@@ -2241,5 +2456,4 @@ loadHomeGoal();
 
 
 </body>
-
 </html>
