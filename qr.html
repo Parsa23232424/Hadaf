@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ساخت کیو آر کد | سایت هدف</title>
+
+    <meta
+        name="description"
+        content="ساخت رایگان کیو آر کد از متن و لینک با ابزار آنلاین سایت هدف."
+    >
+
+    <meta
+        name="theme-color"
+        content="#07090f"
+    >
+
+    <style>
+
+        :root {
+            --bg: #07090f;
+            --card: rgba(18,22,34,.95);
+            --border: rgba(255,255,255,.075);
+            --text: #f8fafc;
+            --muted: #8f98a9;
+            --primary: #6758ff;
+            --primary-2: #5146da;
+            --green: #22c55e;
+        }
+
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Tahoma,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 85% -5%,
+                    rgba(103,88,255,.16),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 0% 45%,
+                    rgba(37,99,235,.07),
+                    transparent 30%
+                ),
+
+                var(--bg);
+        }
+
+
+        button,
+        textarea {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           APP
+        ========================= */
+
+        .app {
+            width: min(680px, 92%);
+            margin: auto;
+            padding: 18px 0 60px;
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            margin-bottom: 32px;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+
+        .logo {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: 15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                rgba(103,88,255,.08);
+        }
+
+
+        .logo img {
+            width: 38px;
+            height: 38px;
+
+            object-fit: contain;
+        }
+
+
+        .brand strong {
+            display: block;
+
+            font-size: 17px;
+        }
+
+
+        .brand small {
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        .back {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 14px;
+
+            color: white;
+
+            background:
+                rgba(255,255,255,.035);
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            transition: .2s;
+        }
+
+
+        .back:active {
+            transform: scale(.94);
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            margin-bottom: 22px;
+        }
+
+
+        .badge {
+            display: inline-flex;
+
+            padding: 7px 11px;
+
+            margin-bottom: 12px;
+
+            border-radius: 999px;
+
+            color: #c9c3ff;
+
+            background:
+                rgba(103,88,255,.10);
+
+            border:
+                1px solid
+                rgba(103,88,255,.20);
+
+            font-size: 11px;
+        }
+
+
+        .hero h1 {
+            margin: 0;
+
+            font-size:
+                clamp(30px, 7vw, 44px);
+
+            line-height: 1.4;
+        }
+
+
+        .hero h1 span {
+            color: #8b80ff;
+        }
+
+
+        .hero p {
+            margin: 9px 0 0;
+
+            color: var(--muted);
+
+            line-height: 1.9;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            padding: 20px;
+
+            border-radius: 24px;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(103,88,255,.09),
+                    transparent 35%
+                ),
+
+                linear-gradient(
+                    145deg,
+                    rgba(18,22,34,.98),
+                    rgba(11,14,22,.98)
+                );
+
+            border:
+                1px solid
+                var(--border);
+
+            box-shadow:
+                0 18px 50px
+                rgba(0,0,0,.25);
+        }
+
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .input-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 11px;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+
+        .input-title span {
+            font-size: 17px;
+        }
+
+
+        textarea {
+            width: 100%;
+            min-height: 135px;
+
+            display: block;
+
+            resize: vertical;
+
+            padding: 15px;
+
+            outline: none;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 16px;
+
+            color: white;
+
+            background:
+                rgba(255,255,255,.035);
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+            transition: .2s;
+        }
+
+
+        textarea:focus {
+            border-color:
+                rgba(103,88,255,.55);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(103,88,255,.08);
+        }
+
+
+        textarea::placeholder {
+            color: #626b7b;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .create-button {
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 12px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    var(--primary),
+                    #7c6dff
+                );
+
+            box-shadow:
+                0 12px 30px
+                rgba(103,88,255,.20);
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            transition: .2s;
+        }
+
+
+        .create-button:active {
+            transform: scale(.98);
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            min-height: 20px;
+
+            margin-top: 10px;
+
+            text-align: center;
+
+            color: #fca5a5;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           QR RESULT
+        ========================= */
+
+        .qr-result {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,.055);
+        }
+
+
+        .qr-result.show {
+            display: block;
+
+            animation:
+                showQR .35s ease;
+        }
+
+
+        @keyframes showQR {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(8px)
+                    scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        .result-title {
+            margin-bottom: 16px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+
+        #qrcode {
+            display: inline-flex;
+
+            padding: 14px;
+
+            max-width: 100%;
+
+            border-radius: 18px;
+
+            background: white;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,.30);
+        }
+
+
+        #qrcode img,
+        #qrcode canvas {
+            display: block;
+
+            width: 240px;
+            height: 240px;
+
+            max-width: 100%;
+        }
+
+
+        /* =========================
+           DOWNLOAD
+        ========================= */
+
+        .download-button {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 16px;
+
+            border:
+                1px solid
+                rgba(34,197,94,.18);
+
+            border-radius: 15px;
+
+            color: #86efac;
+
+            background:
+                rgba(34,197,94,.07);
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            transition: .2s;
+        }
+
+
+        .download-button:active {
+            transform: scale(.98);
+        }
+
+
+        /* =========================
+           INFO
+        ========================= */
+
+        .info {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-top: 16px;
+        }
+
+
+        .info-item {
+            padding: 12px 6px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+            color: var(--muted);
+
+            background:
+                rgba(255,255,255,.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,.045);
+
+            font-size: 10px;
+        }
+
+
+        .info-item span {
+            display: block;
+
+            margin-bottom: 5px;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 0 5px;
+
+            text-align: center;
+
+            color: #596171;
+
+            font-size: 10px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 420px) {
+
+            .app {
+                width: 92%;
+            }
+
+
+            .card {
+                padding: 17px;
+            }
+
+
+            .hero h1 {
+                font-size: 31px;
+            }
+
+
+            #qrcode img,
+            #qrcode canvas {
+                width: 210px;
+                height: 210px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="app">
+
+
+    <!-- TOP -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="logo">
+
+                <img
+                    src="logo.png"
+                    alt="لوگوی سایت هدف"
+                >
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    هدف
+                </strong>
+
+                <small>
+                    ابزارهای کاربردی
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="back"
+            onclick="location.href='index.html'"
+            aria-label="بازگشت"
+        >
+            ←
+        </button>
+
+    </header>
+
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            ابزار آنلاین
+        </div>
+
+
+        <h1>
+            ساخت
+            <span>
+                کیو آر کد
+            </span>
+        </h1>
+
+
+        <p>
+            متن یا لینک دلخواهت رو وارد کن
+            و در چند ثانیه کیو آر کد بساز.
+        </p>
+
+    </section>
+
+
+
+    <!-- MAIN CARD -->
+
+    <section class="card">
+
+
+        <label
+            class="input-title"
+            for="qrText"
+        >
+
+            <span>
+                🔗
+            </span>
+
+            متن یا لینک
+
+        </label>
+
+
+        <textarea
+            id="qrText"
+            maxlength="1000"
+            placeholder="مثلاً https://hadaf.site/"
+        ></textarea>
+
+
+
+        <button
+            class="create-button"
+            onclick="generateQR()"
+        >
+            ساخت کیو آر کد
+        </button>
+
+
+
+        <div
+            class="message"
+            id="message"
+        ></div>
+
+
+
+        <!-- QR RESULT -->
+
+        <div
+            class="qr-result"
+            id="qrResult"
+        >
+
+            <div class="result-title">
+                کیو آر کد آماده شد ✨
+            </div>
+
+
+            <div id="qrcode"></div>
+
+
+            <button
+                class="download-button"
+                onclick="downloadQR()"
+            >
+                ↓ ذخیره تصویر
+            </button>
+
+        </div>
+
+
+
+        <!-- INFO -->
+
+        <div class="info">
+
+            <div class="info-item">
+
+                <span>
+                    🔗
+                </span>
+
+                لینک
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    📝
+                </span>
+
+                متن
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    ⚡
+                </span>
+
+                سریع
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <footer>
+        سایت هدف • هر روز یک قدم جلوتر
+    </footer>
+
+
+</main>
+
+
+
+<!-- QR CODE LIBRARY -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
+
+
+
+<script>
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const qrText =
+        document.getElementById(
+            "qrText"
+        );
+
+
+    const qrResult =
+        document.getElementById(
+            "qrResult"
+        );
+
+
+    const qrContainer =
+        document.getElementById(
+            "qrcode"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+
+    /* =========================
+       GENERATE QR
+    ========================= */
+
+    function generateQR() {
+
+        const text =
+            qrText.value.trim();
+
+
+        message.textContent = "";
+
+
+        if (!text) {
+
+            message.textContent =
+                "اول یک متن یا لینک وارد کن.";
+
+            qrResult.classList.remove(
+                "show"
+            );
+
+            return;
+
+        }
+
+
+        qrContainer.innerHTML = "";
+
+
+        try {
+
+            new QRCode(
+                qrContainer,
+                {
+
+                    text: text,
+
+                    width: 240,
+
+                    height: 240,
+
+                    colorDark:
+                        "#000000",
+
+                    colorLight:
+                        "#ffffff",
+
+                    correctLevel:
+                        QRCode.CorrectLevel.H
+
+                }
+            );
+
+
+            qrResult.classList.add(
+                "show"
+            );
+
+
+            setTimeout(
+                function() {
+
+                    qrResult.scrollIntoView({
+                        behavior:
+                            "smooth",
+
+                        block:
+                            "nearest"
+                    });
+
+                },
+                100
+            );
+
+        }
+
+        catch (error) {
+
+            message.textContent =
+                "ساخت کیو آر کد انجام نشد. دوباره امتحان کن.";
+
+        }
+
+    }
+
+
+
+    /* =========================
+       DOWNLOAD
+    ========================= */
+
+    function downloadQR() {
+
+        const canvas =
+            qrContainer.querySelector(
+                "canvas"
+            );
+
+
+        const image =
+            qrContainer.querySelector(
+                "img"
+            );
+
+
+        let dataURL = "";
+
+
+        if (canvas) {
+
+            dataURL =
+                canvas.toDataURL(
+                    "image/png"
+                );
+
+        }
+
+        else if (image) {
+
+            dataURL =
+                image.src;
+
+        }
+
+
+        if (!dataURL) {
+
+            message.textContent =
+                "اول کیو آر کد بساز.";
+
+            return;
+
+        }
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            dataURL;
+
+
+        link.download =
+            "hadaf-qr-code.png";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+    }
+
+
+
+    /* =========================
+       SHORTCUT
+    ========================= */
+
+    qrText.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.ctrlKey &&
+                event.key === "Enter"
+            ) {
+
+                generateQR();
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>
