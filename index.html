@@ -773,6 +773,7 @@ button {
     color: #ff8a45;
 }
 
+
 .stat.best strong {
     color: #f5cc55;
 }
@@ -839,169 +840,6 @@ button {
     box-shadow:
         0 24px 75px
         rgba(250,204,21,.10);
-}
-
-
-/* =====================================
-   RESALAT CARD
-===================================== */
-
-.resalat-card {
-
-    position: relative;
-
-    overflow: hidden;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 18px;
-
-    padding: 20px;
-
-    border-radius: 24px;
-
-    cursor: pointer;
-
-    background:
-
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(34,197,94,.14),
-            transparent 28%
-        ),
-
-        linear-gradient(
-            145deg,
-            rgba(17,26,26,.98),
-            rgba(10,17,18,.98)
-        );
-
-    border:
-        1px solid
-        rgba(34,197,94,.18);
-
-    box-shadow:
-        0 18px 55px
-        rgba(0,0,0,.28);
-
-    transition:
-        transform .22s ease,
-        border-color .22s ease;
-}
-
-
-.resalat-card:hover {
-
-    transform:
-        translateY(-4px);
-
-    border-color:
-        rgba(34,197,94,.36);
-}
-
-
-.resalat-info {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    min-width: 0;
-}
-
-
-.resalat-logo {
-
-    width: 62px;
-    height: 62px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 18px;
-
-    overflow: hidden;
-
-    background: white;
-
-    border:
-        1px solid
-        rgba(255,255,255,.14);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.25);
-}
-
-
-.resalat-logo img {
-
-    width: 86%;
-    height: 86%;
-
-    object-fit: contain;
-}
-
-
-.resalat-title {
-
-    font-size: 18px;
-
-    font-weight: 800;
-}
-
-
-.resalat-sub {
-
-    margin-top: 6px;
-
-    color: #9ca9a0;
-
-    font-size: 12px;
-
-    line-height: 1.8;
-}
-
-
-.resalat-button {
-
-    flex-shrink: 0;
-
-    border: 0;
-
-    padding:
-        12px 17px;
-
-    border-radius: 14px;
-
-    color: #07130d;
-
-    font-size: 13px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4ade80,
-            #22c55e
-        );
-
-    box-shadow:
-        0 10px 28px
-        rgba(34,197,94,.20);
 }
 
 
@@ -1117,8 +955,18 @@ button {
 
 
 /* =====================================
-   TOOL
+   TOOLS
 ===================================== */
+
+.tools-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+}
+
 
 .tool-card {
 
@@ -1147,6 +995,20 @@ button {
 
     border:
         1px solid var(--border);
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease;
+}
+
+
+.tool-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(255,255,255,.15);
 }
 
 
@@ -1164,6 +1026,8 @@ button {
 
     width: 46px;
     height: 46px;
+
+    flex-shrink: 0;
 
     border-radius: 14px;
 
@@ -1185,9 +1049,9 @@ button {
 
 .tool-title {
 
-    font-weight: 700;
-
     font-size: 14px;
+
+    font-weight: 700;
 }
 
 
@@ -1198,6 +1062,63 @@ button {
     color: var(--muted);
 
     font-size: 11px;
+}
+
+
+/* =====================================
+   M RESALAT TOOL
+===================================== */
+
+.resalat-tool {
+
+    background:
+
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(34,197,94,.10),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            145deg,
+            rgba(19,25,30,.98),
+            rgba(12,17,21,.98)
+        );
+
+    border-color:
+        rgba(34,197,94,.13);
+}
+
+
+.resalat-tool:hover {
+
+    border-color:
+        rgba(34,197,94,.30);
+}
+
+
+.resalat-tool-icon {
+
+    padding: 6px;
+
+    overflow: hidden;
+
+    background: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+}
+
+
+.resalat-tool-icon img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
 }
 
 
@@ -1421,22 +1342,6 @@ footer {
         min-height: 128px;
     }
 
-
-    .resalat-card {
-
-        align-items: stretch;
-
-        flex-direction: column;
-    }
-
-
-    .resalat-button {
-
-        width: 100%;
-
-        padding: 14px;
-    }
-
 }
 
 
@@ -1479,13 +1384,6 @@ footer {
     .score {
 
         font-size: 11px;
-    }
-
-
-    .resalat-logo {
-
-        width: 56px;
-        height: 56px;
     }
 
 }
@@ -1724,16 +1622,6 @@ footer {
 
 
 <!-- =========================
-     RESALAT
-========================== -->
-
-
-
-
-
-
-
-<!-- =========================
      GAMES
 ========================== -->
 
@@ -1840,7 +1728,10 @@ footer {
      TOOLS
 ========================== -->
 
-<div class="section-head">
+<div
+    class="section-head"
+    id="tools"
+>
 
     <h2>
         ابزارها
@@ -1853,78 +1744,85 @@ footer {
 </div>
 
 
-<section
-    class="tool-card"
-    onclick="goTo('calculator.html')"
->
+<section class="tools-grid">
 
-    <div class="tool-info">
 
-        <div class="tool-icon">
-            🧮
-        </div>
+    <!-- CALCULATOR -->
 
-        <div>
-
-            <div class="tool-title">
-                ماشین حساب
-            </div>
-
-            <div class="tool-sub">
-                محاسبات سریع و ساده
-            </div>
-
-        </div>
-        <div>
-
-            <div class="resalat-title">
-                ورود به ام‌رسالت
-            </div>
-
-            <div class="resalat-sub">
-                دسترسی سریع به سامانه ام‌رسالت
-            </div>
-
-        </div>
-
-    </div>
-    <div>
-
-    <button
-        class="resalat-button"
-        type="button"
-        onclick="event.stopPropagation(); openResalat();"
+    <div
+        class="tool-card"
+        onclick="goTo('calculator.html')"
     >
-        ورود به ام‌رسالت
-    </button>
-        <section
-    class="resalat-card"
-    onclick="openResalat()"
->
 
-    <div class="resalat-info">
+        <div class="tool-info">
 
-        <div class="resalat-logo">
+            <div class="tool-icon">
+                🧮
+            </div>
 
-            <img
-                src="resalat.png"
-                alt="لوگوی ام رسالت"
-            >
+            <div>
+
+                <div class="tool-title">
+                    ماشین حساب
+                </div>
+
+                <div class="tool-sub">
+                    محاسبات سریع و ساده
+                </div>
+
+            </div>
 
         </div>
 
 
-        
-
-</section>
-
+        <div class="goal-arrow">
+            ‹
+        </div>
 
     </div>
 
 
-    <div class="goal-arrow">
-        ‹
+
+    <!-- M RESALAT -->
+
+    <div
+        class="tool-card resalat-tool"
+        onclick="openResalat()"
+    >
+
+        <div class="tool-info">
+
+            <div class="tool-icon resalat-tool-icon">
+
+                <img
+                    src="resalat.png"
+                    alt="لوگوی ام رسالت"
+                >
+
+            </div>
+
+
+            <div>
+
+                <div class="tool-title">
+                    ام‌رسالت
+                </div>
+
+                <div class="tool-sub">
+                    ورود سریع به سامانه ام‌رسالت
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="goal-arrow">
+            ‹
+        </div>
+
     </div>
+
 
 </section>
 
@@ -2037,7 +1935,7 @@ footer {
 
     <button
         class="nav-item"
-        onclick="goTo('calculator.html')"
+        onclick="document.getElementById('tools').scrollIntoView()"
     >
 
         <span class="nav-icon">
@@ -2076,13 +1974,13 @@ function goTo(url) {
 
 
 /* =====================================
-   RESALAT
+   M RESALAT
 ===================================== */
 
 function openResalat() {
 
     window.open(
-        "https://pwa.rqbank.ir/",
+        "https://mresalat.ir/fa",
         "_blank",
         "noopener,noreferrer"
     );
