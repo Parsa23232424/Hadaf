@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
     <!-- =========================
          SEO
@@ -13,50 +15,74 @@
 
     <title>سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی</title>
 
-    <meta name="description"
-          content="سایت هدف؛ جایی برای ساخت هدف‌های روزانه، حفظ Streak، بازی‌های آنلاین و ابزارهای کاربردی. در هدف هر روز یک قدم به هدفت نزدیک‌تر شو.">
+    <meta
+        name="description"
+        content="سایت هدف؛ جایی برای ساخت هدف‌های روزانه، حفظ Streak، بازی‌های آنلاین و ابزارهای کاربردی. در هدف هر روز یک قدم به هدفت نزدیک‌تر شو."
+    >
 
-    <meta name="keywords"
-          content="سایت هدف, هدف, Hadaf, هدف من, هدف روزانه, استریک, بازی آنلاین, بازی فارسی">
+    <meta
+        name="keywords"
+        content="سایت هدف, هدف, Hadaf, هدف من, هدف روزانه, استریک, بازی آنلاین, بازی فارسی"
+    >
 
-    <meta name="robots"
-          content="index, follow, max-image-preview:large">
+    <meta
+        name="robots"
+        content="index, follow, max-image-preview:large"
+    >
 
-    <meta name="author"
-          content="Hadaf">
+    <meta
+        name="author"
+        content="Hadaf"
+    >
 
-    <meta name="theme-color"
-          content="#111126">
+    <meta
+        name="theme-color"
+        content="#090b12"
+    >
 
-    <link rel="canonical"
-          href="https://hadaf.site/">
-
+    <link
+        rel="canonical"
+        href="https://hadaf.site/"
+    >
 
     <!-- =========================
          OPEN GRAPH
     ========================== -->
 
-    <meta property="og:type"
-          content="website">
+    <meta
+        property="og:type"
+        content="website"
+    >
 
-    <meta property="og:locale"
-          content="fa_IR">
+    <meta
+        property="og:locale"
+        content="fa_IR"
+    >
 
-    <meta property="og:site_name"
-          content="سایت هدف">
+    <meta
+        property="og:site_name"
+        content="سایت هدف"
+    >
 
-    <meta property="og:title"
-          content="سایت هدف">
+    <meta
+        property="og:title"
+        content="سایت هدف"
+    >
 
-    <meta property="og:description"
-          content="هدف بساز، Streak بگیر، بازی کن و هر روز پیشرفت کن.">
+    <meta
+        property="og:description"
+        content="هدف بساز، Streak بگیر، بازی کن و هر روز پیشرفت کن."
+    >
 
-    <meta property="og:url"
-          content="https://hadaf.site/">
+    <meta
+        property="og:url"
+        content="https://hadaf.site/"
+    >
 
-    <meta property="og:image"
-          content="https://hadaf.site/logo.png">
-
+    <meta
+        property="og:image"
+        content="https://hadaf.site/logo.png"
+    >
 
     <!-- =========================
          STRUCTURED DATA
@@ -78,21 +104,82 @@
 <style>
 
 /* =====================================
-   BASE
+   VARIABLES
+===================================== */
+
+:root {
+
+    --bg: #07090f;
+
+    --bg-soft: #0d1018;
+
+    --card: rgba(18, 22, 34, 0.88);
+
+    --card-soft: rgba(255, 255, 255, 0.045);
+
+    --border: rgba(255, 255, 255, 0.08);
+
+    --border-strong: rgba(124, 92, 255, 0.35);
+
+    --text: #f8fafc;
+
+    --muted: #8f98a9;
+
+    --muted-2: #667085;
+
+    --primary: #6758ff;
+
+    --primary-2: #4f46e5;
+
+    --blue: #3b82f6;
+
+    --purple: #8b5cf6;
+
+    --orange: #ff7a32;
+
+    --green: #22c55e;
+
+    --red: #ef4444;
+
+    --yellow: #facc15;
+
+    --radius-xl: 28px;
+
+    --radius-lg: 22px;
+
+    --radius-md: 17px;
+
+    --shadow:
+        0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+
+/* =====================================
+   RESET
 ===================================== */
 
 * {
+
     box-sizing: border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
+
 html {
+
     scroll-behavior: smooth;
 }
+
 
 body {
 
     margin: 0;
+
     min-height: 100vh;
+
+    padding-bottom: 105px;
 
     font-family:
         Tahoma,
@@ -100,46 +187,159 @@ body {
         Arial,
         sans-serif;
 
-    color: #fff;
+    color: var(--text);
 
     background:
 
         radial-gradient(
-            circle at 10% 5%,
-            rgba(99,102,241,.35),
-            transparent 30%
+            circle at 80% -5%,
+            rgba(99, 91, 255, 0.15),
+            transparent 28%
         ),
 
         radial-gradient(
-            circle at 90% 80%,
-            rgba(16,185,129,.20),
+            circle at 0% 35%,
+            rgba(37, 99, 235, 0.08),
             transparent 30%
         ),
 
-        linear-gradient(
-            135deg,
-            #080817,
-            #15152d,
-            #24243e
-        );
+        #07090f;
 }
 
+
 button {
+
     font-family: inherit;
 }
 
 
 /* =====================================
-   CONTAINER
+   APP CONTAINER
 ===================================== */
 
-.container {
+.app {
 
-    width: min(1000px, 94%);
+    width: min(980px, 94%);
 
     margin: auto;
 
-    padding: 35px 0 55px;
+    padding:
+        24px 0
+        50px;
+}
+
+
+/* =====================================
+   TOPBAR
+===================================== */
+
+.topbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 14px;
+
+    margin-bottom: 28px;
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.brand-logo {
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(108, 92, 255, .16),
+            rgba(255, 255, 255, .04)
+        );
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, .25);
+}
+
+
+.brand-logo img {
+
+    width: 40px;
+    height: 40px;
+
+    object-fit: contain;
+}
+
+
+.brand-text strong {
+
+    display: block;
+
+    font-size: 18px;
+}
+
+
+.brand-text span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+
+.top-status {
+
+    min-width: 43px;
+    height: 43px;
+
+    padding: 0 13px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(255, 255, 255, .045);
+
+    border:
+        1px solid var(--border);
+
+    color: #c7cbd4;
+
+    font-size: 14px;
 }
 
 
@@ -149,316 +349,391 @@ button {
 
 .hero {
 
-    text-align: center;
-
-    padding: 15px 0 25px;
+    padding:
+        20px 2px
+        28px;
 }
 
 
-.logo {
+.hero-badge {
 
-    width: 105px;
-    height: 105px;
+    display: inline-flex;
 
-    margin: 0 auto 14px;
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        8px 12px;
+
+    border-radius: 999px;
+
+    margin-bottom: 16px;
+
+    background:
+        rgba(103, 88, 255, .11);
+
+    border:
+        1px solid
+        rgba(103, 88, 255, .22);
+
+    color: #c9c3ff;
+
+    font-size: 12px;
+}
+
+
+.hero h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(30px, 6vw, 48px);
+
+    line-height: 1.45;
+
+    letter-spacing: -.5px;
+}
+
+
+.hero h1 span {
+
+    color: #8d82ff;
+}
+
+
+.hero p {
+
+    max-width: 630px;
+
+    margin:
+        14px 0 0;
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 2;
+}
+
+
+/* =====================================
+   ACCOUNT CARD
+===================================== */
+
+.account-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 15px;
+
+    padding:
+        17px 19px;
+
+    margin-bottom: 20px;
+
+    border-radius: var(--radius-lg);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18, 22, 34, .96),
+            rgba(13, 16, 24, .96)
+        );
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 14px 45px
+        rgba(0, 0, 0, .24);
+}
+
+
+.account-user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.avatar {
+
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    overflow: hidden;
-
-    border-radius: 30px;
+    font-size: 19px;
 
     background:
-        rgba(255,255,255,.09);
+        rgba(103, 88, 255, .12);
 
     border:
         1px solid
-        rgba(255,255,255,.14);
-
-    box-shadow:
-        0 20px 55px
-        rgba(0,0,0,.35);
-
-    backdrop-filter:
-        blur(18px);
-}
-
-
-.logo img {
-
-    width: 82px;
-    height: 82px;
-
-    object-fit: contain;
-
-    display: block;
-}
-
-
-h1 {
-
-    margin: 5px 0 10px;
-
-    font-size:
-        clamp(36px, 6vw, 54px);
-}
-
-
-.hero-text {
-
-    max-width: 650px;
-
-    margin: auto;
-
-    color: #cbd5e1;
-
-    line-height: 1.9;
-
-    font-size: 16px;
-}
-
-
-/* =====================================
-   ACCOUNT
-===================================== */
-
-.account {
-
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 18px 22px;
-
-    margin-bottom: 25px;
-
-    border-radius: 22px;
-
-    background:
-        rgba(255,255,255,.075);
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    backdrop-filter:
-        blur(15px);
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.25);
+        rgba(103, 88, 255, .18);
 }
 
 
 .username {
 
-    font-size: 18px;
+    font-size: 15px;
 
-    font-weight: bold;
+    font-weight: 700;
+}
+
+
+.account-sub {
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 11px;
 }
 
 
 .score {
 
-    color: #facc15;
+    flex-shrink: 0;
 
-    font-weight: bold;
+    color: #f4c84a;
+
+    font-size: 13px;
+
+    font-weight: 700;
 }
 
 
 /* =====================================
-   SECTION
+   SECTION HEADING
 ===================================== */
 
-.section-title {
+.section-head {
 
-    text-align: center;
+    display: flex;
 
-    margin: 38px 0 20px;
+    align-items: center;
 
-    font-size: 25px;
+    justify-content:
+        space-between;
+
+    gap: 15px;
+
+    margin:
+        28px 2px
+        14px;
+}
+
+
+.section-head h2 {
+
+    margin: 0;
+
+    font-size: 19px;
+}
+
+
+.section-head span {
+
+    color: var(--muted);
+
+    font-size: 12px;
 }
 
 
 /* =====================================
-   CARDS
+   GOAL CARD
 ===================================== */
 
-.games {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0,1fr));
-
-    gap: 18px;
-}
-
-
-.card {
+.goal-card {
 
     position: relative;
 
     overflow: hidden;
 
-    padding: 26px;
+    padding: 22px;
 
-    min-height: 280px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    text-align: center;
-
-    border-radius: 27px;
-
-    cursor: pointer;
+    border-radius:
+        var(--radius-xl);
 
     background:
-        rgba(255,255,255,.075);
+
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(103, 88, 255, .17),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            150deg,
+            rgba(20, 24, 36, .98),
+            rgba(11, 14, 23, .98)
+        );
 
     border:
         1px solid
-        rgba(255,255,255,.12);
+        rgba(103, 88, 255, .20);
 
     box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.28);
+        var(--shadow);
 
-    backdrop-filter:
-        blur(15px);
+    cursor: pointer;
 
     transition:
         transform .25s ease,
-        box-shadow .25s ease,
         border-color .25s ease;
 }
 
 
-.card:hover {
+.goal-card:hover {
 
     transform:
-        translateY(-7px);
-
-    box-shadow:
-        0 25px 60px
-        rgba(0,0,0,.42);
-}
-
-
-.card-icon {
-
-    font-size: 55px;
-
-    margin-bottom: 12px;
-}
-
-
-.card-title {
-
-    font-size: 22px;
-
-    font-weight: bold;
-
-    margin-bottom: 10px;
-}
-
-
-.card-description {
-
-    color: #cbd5e1;
-
-    line-height: 1.8;
-
-    flex: 1;
-}
-
-
-.card-button {
-
-    width: 100%;
-
-    border: 0;
-
-    border-radius: 15px;
-
-    padding: 14px;
-
-    margin-top: 18px;
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition:
-        transform .2s,
-        filter .2s;
-}
-
-
-.card-button:hover {
-
-    transform:
-        scale(1.025);
-
-    filter:
-        brightness(1.12);
-}
-
-
-/* =====================================
-   GOAL
-===================================== */
-
-.goal-card {
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(249,115,22,.15),
-            rgba(255,255,255,.065)
-        );
+        translateY(-4px);
 
     border-color:
-        rgba(249,115,22,.30);
+        rgba(103, 88, 255, .40);
 }
 
 
-.goal-card .card-button {
+.goal-top {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content:
+        space-between;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+}
+
+
+.goal-title-wrap {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.goal-icon {
+
+    width: 53px;
+    height: 53px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    font-size: 25px;
 
     background:
         linear-gradient(
-            135deg,
-            #f97316,
-            #ef4444
+            145deg,
+            #7668ff,
+            #5145d7
         );
+
+    box-shadow:
+        0 10px 30px
+        rgba(103, 88, 255, .24);
+}
+
+
+.goal-title {
+
+    font-size: 21px;
+
+    font-weight: 800;
+}
+
+
+.goal-mini {
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+.goal-arrow {
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(255, 255, 255, .045);
+
+    color: #9aa3b4;
+}
+
+
+.goal-description {
+
+    margin:
+        7px 0
+        14px;
+
+    color: #adb5c3;
+
+    font-size: 13px;
+
+    line-height: 1.9;
 }
 
 
 .current-goal {
 
-    padding: 11px;
+    padding:
+        14px 15px;
 
-    margin-top: 12px;
-
-    border-radius: 14px;
+    border-radius:
+        var(--radius-md);
 
     background:
-        rgba(0,0,0,.17);
+        rgba(255, 255, 255, .035);
 
-    color: #fed7aa;
+    border:
+        1px solid
+        rgba(255, 255, 255, .055);
+
+    color: #f3f4f6;
+
+    font-size: 14px;
 
     white-space: nowrap;
 
@@ -469,34 +744,41 @@ h1 {
 
 
 /* =====================================
-   STREAK STATS
+   STATS
 ===================================== */
 
-.streak-stats {
+.stats {
 
     display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
-    gap: 8px;
+    gap: 9px;
 
-    margin-top: 13px;
+    margin-top: 12px;
 }
 
 
 .stat {
 
-    padding: 10px 5px;
+    padding:
+        12px 7px;
 
-    border-radius: 14px;
+    text-align: center;
+
+    border-radius: 16px;
 
     background:
-        rgba(0,0,0,.17);
+        rgba(255, 255, 255, .035);
 
-    color: #cbd5e1;
+    border:
+        1px solid
+        rgba(255, 255, 255, .045);
 
-    font-size: 12px;
+    color: var(--muted);
+
+    font-size: 10px;
 }
 
 
@@ -504,11 +786,56 @@ h1 {
 
     display: block;
 
-    margin-top: 5px;
+    margin-top: 6px;
 
-    font-size: 23px;
+    color: #fff;
+
+    font-size: 22px;
+}
+
+
+.stat.fire strong {
+
+    color: #ff8a45;
+}
+
+
+.stat.best strong {
+
+    color: #f5cc55;
+}
+
+
+.goal-button {
+
+    width: 100%;
+
+    margin-top: 14px;
+
+    padding: 15px;
+
+    border: 0;
+
+    border-radius: 16px;
 
     color: white;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            100deg,
+            #6657ff,
+            #7668ff
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(103, 88, 255, .22);
 }
 
 
@@ -519,166 +846,268 @@ h1 {
 .goal-card.streak-7 {
 
     border-color:
-        rgba(249,115,22,.9);
-
-    box-shadow:
-        0 0 25px
-        rgba(249,115,22,.20);
+        rgba(255, 122, 50, .48);
 }
 
 
 .goal-card.streak-30 {
 
     border-color:
-        rgba(168,85,247,.9);
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(168,85,247,.22),
-            rgba(249,115,22,.10),
-            rgba(255,255,255,.06)
-        );
+        rgba(139, 92, 246, .60);
 
     box-shadow:
-        0 0 30px
-        rgba(168,85,247,.25);
+        0 24px 70px
+        rgba(139, 92, 246, .12);
 }
 
 
 .goal-card.streak-100 {
 
     border-color:
-        rgba(250,204,21,.95);
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(250,204,21,.20),
-            rgba(249,115,22,.13),
-            rgba(255,255,255,.06)
-        );
+        rgba(250, 204, 21, .65);
 
     box-shadow:
-        0 0 38px
-        rgba(250,204,21,.28);
+        0 24px 75px
+        rgba(250, 204, 21, .10);
 }
 
 
 /* =====================================
-   GAME BUTTON COLORS
+   GAMES
 ===================================== */
 
-.car .card-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #3b82f6,
-            #2563eb
-        );
-}
-
-
-.snake .card-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #22c55e,
-            #16a34a
-        );
-}
-
-
-.memory .card-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #a855f7,
-            #7e22ce
-        );
-}
-
-
-/* =====================================
-   SEO CONTENT
-===================================== */
-
-.about {
-
-    margin-top: 40px;
-
-    padding: 25px;
-
-    border-radius: 25px;
-
-    background:
-        rgba(255,255,255,.055);
-
-    border:
-        1px solid
-        rgba(255,255,255,.09);
-
-    line-height: 2;
-}
-
-
-.about h2 {
-
-    margin-top: 0;
-
-    font-size: 23px;
-}
-
-
-.about p {
-
-    color: #cbd5e1;
-}
-
-
-/* =====================================
-   TOOLS
-===================================== */
-
-.tools {
+.game-grid {
 
     display: grid;
 
-    grid-template-columns: 1fr;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    gap: 15px;
+    gap: 12px;
 }
 
 
-.tool-button {
+.game-card {
 
-    width: 100%;
+    position: relative;
 
-    border: 0;
+    overflow: hidden;
 
-    border-radius: 16px;
+    min-height: 175px;
 
-    padding: 15px;
+    padding: 18px;
 
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
+    border-radius: 22px;
 
     cursor: pointer;
 
     background:
         linear-gradient(
-            135deg,
-            #6366f1,
-            #4f46e5
+            145deg,
+            rgba(19, 23, 35, .96),
+            rgba(12, 15, 23, .96)
         );
+
+    border:
+        1px solid var(--border);
+
+    transition:
+        transform .22s ease,
+        border-color .22s ease;
+}
+
+
+.game-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(255, 255, 255, .16);
+}
+
+
+.game-icon {
+
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 16px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    background:
+        rgba(255, 255, 255, .045);
+}
+
+
+.game-card h3 {
+
+    margin:
+        0 0 8px;
+
+    font-size: 16px;
+}
+
+
+.game-card p {
+
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.8;
+}
+
+
+.game-open {
+
+    position: absolute;
+
+    bottom: 15px;
+
+    left: 16px;
+
+    color: #6f63ff;
+
+    font-size: 18px;
+}
+
+
+/* =====================================
+   TOOL
+===================================== */
+
+.tool-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 13px;
+
+    padding:
+        16px 18px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(19, 23, 35, .96),
+            rgba(12, 15, 23, .96)
+        );
+
+    border:
+        1px solid var(--border);
+}
+
+
+.tool-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.tool-icon {
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    background:
+        rgba(59, 130, 246, .10);
+
+    border:
+        1px solid
+        rgba(59, 130, 246, .13);
+}
+
+
+.tool-title {
+
+    font-weight: 700;
+
+    font-size: 14px;
+}
+
+
+.tool-sub {
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =====================================
+   ABOUT
+===================================== */
+
+.about {
+
+    margin-top: 30px;
+
+    padding: 23px;
+
+    border-radius: 24px;
+
+    background:
+        rgba(255, 255, 255, .025);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .055);
+}
+
+
+.about h2 {
+
+    margin:
+        0 0 14px;
+
+    font-size: 18px;
+}
+
+
+.about p {
+
+    margin:
+        0 0 10px;
+
+    color: var(--muted);
+
+    line-height: 2;
+
+    font-size: 12px;
 }
 
 
@@ -690,28 +1119,25 @@ h1 {
 
     width: 100%;
 
-    border: 0;
+    margin-top: 25px;
+
+    padding: 14px;
+
+    border: 1px solid
+        rgba(239, 68, 68, .16);
 
     border-radius: 16px;
 
-    padding: 15px;
+    color: #f87171;
 
-    margin-top: 28px;
+    font-size: 13px;
 
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
+    font-weight: 700;
 
     cursor: pointer;
 
     background:
-        linear-gradient(
-            135deg,
-            #ef4444,
-            #dc2626
-        );
+        rgba(239, 68, 68, .055);
 }
 
 
@@ -721,13 +1147,102 @@ h1 {
 
 footer {
 
-    margin-top: 35px;
+    padding:
+        30px 0
+        10px;
 
     text-align: center;
 
-    color: #94a3b8;
+    color: #555e6d;
 
-    font-size: 13px;
+    font-size: 11px;
+}
+
+
+/* =====================================
+   BOTTOM NAV
+===================================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    bottom: 14px;
+    left: 50%;
+
+    z-index: 50;
+
+    width:
+        min(520px, calc(100% - 28px));
+
+    transform:
+        translateX(-50%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    padding:
+        8px 7px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(13, 16, 24, .92);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .08);
+
+    box-shadow:
+        0 16px 50px
+        rgba(0, 0, 0, .45);
+
+    backdrop-filter:
+        blur(22px);
+}
+
+
+.nav-item {
+
+    border: 0;
+
+    padding:
+        7px 4px;
+
+    border-radius: 15px;
+
+    color: #727b8c;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    transition:
+        background .2s,
+        color .2s;
+}
+
+
+.nav-item .nav-icon {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 19px;
+}
+
+
+.nav-item.active {
+
+    color: #8a7fff;
+
+    background:
+        rgba(103, 88, 255, .10);
 }
 
 
@@ -735,36 +1250,95 @@ footer {
    MOBILE
 ===================================== */
 
-@media (max-width: 650px) {
+@media (max-width: 720px) {
 
-    .container {
+    .app {
+
+        width: 92%;
+
+        padding-top: 16px;
+    }
+
+
+    .hero {
 
         padding:
-            20px 0 35px;
+            8px 0
+            23px;
     }
 
 
-    .account {
+    .hero h1 {
 
-        flex-direction:
-            column;
-
-        text-align:
-            center;
+        font-size: 31px;
     }
 
 
-    .games {
+    .hero p {
 
-        grid-template-columns:
-            1fr;
+        font-size: 13px;
     }
 
 
-    .card {
+    .game-grid {
 
-        min-height:
-            250px;
+        grid-template-columns: 1fr;
+    }
+
+
+    .game-card {
+
+        min-height: 128px;
+    }
+
+
+    .game-icon {
+
+        margin-bottom: 11px;
+    }
+
+}
+
+
+@media (max-width: 430px) {
+
+    .goal-card {
+
+        padding: 18px;
+    }
+
+
+    .stats {
+
+        gap: 6px;
+    }
+
+
+    .stat {
+
+        padding:
+            10px 4px;
+
+        font-size: 9px;
+    }
+
+
+    .stat strong {
+
+        font-size: 20px;
+    }
+
+
+    .account-card {
+
+        padding:
+            14px 15px;
+    }
+
+
+    .score {
+
+        font-size: 11px;
     }
 
 }
@@ -776,36 +1350,72 @@ footer {
 
 <body>
 
-<main class="container">
+
+<main class="app">
+
+
+<!-- =========================
+     TOP BAR
+========================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+
+            <img
+                src="logo.png"
+                alt="لوگوی سایت هدف"
+            >
+
+        </div>
+
+        <div class="brand-text">
+
+            <strong>
+                هدف
+            </strong>
+
+            <span>
+                هر روز یک قدم جلوتر
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-status">
+        🎯
+    </div>
+
+</header>
+
 
 
 <!-- =========================
      HERO
 ========================== -->
 
-<header class="hero">
+<section class="hero">
 
-    <div class="logo">
-
-        <img
-            src="logo.png"
-            alt="لوگوی سایت هدف"
-        >
-
+    <div class="hero-badge">
+        ✦ مسیرت رو بساز
     </div>
 
     <h1>
-        سایت هدف
+        روی <span>هدفت</span>
+        تمرکز کن.
     </h1>
 
-    <p class="hero-text">
-        در سایت هدف، هدف روزانه بساز،
-        Streak خودت را حفظ کن، بازی کن
-        و هر روز یک قدم به چیزی که می‌خواهی
-        نزدیک‌تر شو.
+    <p>
+        هدف روزانه بساز، هر روز انجامش بده،
+        رکوردت رو حفظ کن و در کنارش
+        از بازی‌ها و ابزارهای سایت استفاده کن.
     </p>
 
-</header>
+</section>
 
 
 
@@ -813,20 +1423,37 @@ footer {
      ACCOUNT
 ========================== -->
 
-<section class="account">
+<section class="account-card">
 
-    <div
-        class="username"
-        id="username"
-    >
-        ⏳ در حال بررسی حساب...
+    <div class="account-user">
+
+        <div class="avatar">
+            👤
+        </div>
+
+        <div>
+
+            <div
+                class="username"
+                id="username"
+            >
+                ⏳ در حال بررسی حساب...
+            </div>
+
+            <div class="account-sub">
+                حساب کاربری هدف
+            </div>
+
+        </div>
+
     </div>
+
 
     <div
         class="score"
         id="score"
     >
-        ⭐ امتیاز: 0
+        ⭐ 0
     </div>
 
 </section>
@@ -834,39 +1461,65 @@ footer {
 
 
 <!-- =========================
-     FEATURES
+     GOAL SECTION
 ========================== -->
 
-<h2 class="section-title">
-    🎮 امکانات سایت هدف
-</h2>
+<div class="section-head">
+
+    <h2>
+        هدف من
+    </h2>
+
+    <span>
+        امروز
+    </span>
+
+</div>
 
 
-<section class="games">
-
-
-<!-- GOAL -->
-
-<article
-    class="card goal-card"
+<section
+    class="goal-card"
     id="goalCard"
     onclick="goTo('goals.html')"
 >
 
-    <div class="card-icon">
-        🎯
+    <div class="goal-top">
+
+        <div class="goal-title-wrap">
+
+            <div class="goal-icon">
+                🎯
+            </div>
+
+            <div>
+
+                <div class="goal-title">
+                    هدف من
+                </div>
+
+                <div class="goal-mini">
+                    مسیر پیشرفت روزانه
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="goal-arrow">
+            ‹
+        </div>
+
     </div>
 
-    <div class="card-title">
-        هدف من
-    </div>
 
     <div
-        class="card-description"
+        class="goal-description"
         id="goalDescription"
     >
-        ⏳ در حال دریافت هدف...
+        ⏳ در حال دریافت اطلاعات هدف...
     </div>
+
 
     <div
         class="current-goal"
@@ -876,157 +1529,155 @@ footer {
     </div>
 
 
-    <div class="streak-stats">
+    <div class="stats">
 
-        <div class="stat">
-            🔥 Streak
-            <strong id="homeStreak">0</strong>
+        <div class="stat fire">
+
+            🔥 استریک
+
+            <strong id="homeStreak">
+                0
+            </strong>
+
         </div>
 
-        <div class="stat">
+
+        <div class="stat best">
+
             🏆 رکورد
-            <strong id="homeBest">0</strong>
+
+            <strong id="homeBest">
+                0
+            </strong>
+
         </div>
+
 
         <div class="stat">
-            ✅ کل روزها
-            <strong id="homeTotal">0</strong>
+
+            ✓ کل روزها
+
+            <strong id="homeTotal">
+                0
+            </strong>
+
         </div>
 
     </div>
 
 
     <button
-        class="card-button"
+        class="goal-button"
         type="button"
     >
-        برو به هدف من 🔥
+        مشاهده هدف من
     </button>
-
-</article>
-
-
-
-<!-- CAR -->
-
-<article
-    class="card car"
-    onclick="goTo('Game/Car/car.html')"
->
-
-    <div class="card-icon">
-        🚗
-    </div>
-
-    <div class="card-title">
-        ماشین‌بازی
-    </div>
-
-    <div class="card-description">
-        رانندگی کن، از موانع فرار کن
-        و رکورد جدید ثبت کن.
-    </div>
-
-    <button
-        class="card-button"
-        type="button"
-    >
-        شروع بازی 🚗
-    </button>
-
-</article>
-
-
-
-<!-- SNAKE -->
-
-<article
-    class="card snake"
-    onclick="goTo('Game/snake/snake.html')"
->
-
-    <div class="card-icon">
-        🐍
-    </div>
-
-    <div class="card-title">
-        ماربازی
-    </div>
-
-    <div class="card-description">
-        غذا جمع کن، بزرگ‌تر شو
-        و رکوردت را افزایش بده.
-    </div>
-
-    <button
-        class="card-button"
-        type="button"
-    >
-        شروع بازی 🐍
-    </button>
-
-</article>
-
-
-
-<!-- MEMORY -->
-
-<article
-    class="card memory"
-    onclick="goTo('Game/memory/memory.html')"
->
-
-    <div class="card-icon">
-        🧠
-    </div>
-
-    <div class="card-title">
-        بازی حافظه
-    </div>
-
-    <div class="card-description">
-        کارت‌های مشابه را پیدا کن
-        و حافظه‌ات را به چالش بکش.
-    </div>
-
-    <button
-        class="card-button"
-        type="button"
-    >
-        شروع بازی 🧠
-    </button>
-
-</article>
-
 
 </section>
 
 
 
 <!-- =========================
-     SEO CONTENT
+     GAMES
 ========================== -->
 
-<section class="about">
+<div class="section-head">
 
     <h2>
-        🎯 سایت هدف چیست؟
+        بازی‌ها
     </h2>
 
-    <p>
-        سایت هدف یک وب‌سایت فارسی برای
-        هدف‌گذاری روزانه، سرگرمی و بازی‌های آنلاین است.
-        در بخش «هدف من» می‌توانی یک هدف برای خودت بسازی،
-        انجام آن را هر روز ثبت کنی و Streak خودت را
-        تا جای ممکن ادامه بدهی.
-    </p>
+    <span>
+        وقت سرگرمی
+    </span>
 
-    <p>
-        علاوه بر هدف‌گذاری، بازی‌هایی مانند
-        ماشین‌بازی، ماربازی و بازی حافظه
-        و ابزارهای کاربردی نیز در سایت هدف
-        در دسترس هستند.
-    </p>
+</div>
+
+
+<section class="game-grid">
+
+
+    <!-- CAR -->
+
+    <article
+        class="game-card"
+        onclick="goTo('Game/Car/car.html')"
+    >
+
+        <div class="game-icon">
+            🚗
+        </div>
+
+        <h3>
+            ماشین‌بازی
+        </h3>
+
+        <p>
+            رانندگی کن، از موانع رد شو
+            و رکورد جدید ثبت کن.
+        </p>
+
+        <div class="game-open">
+            ‹
+        </div>
+
+    </article>
+
+
+
+    <!-- SNAKE -->
+
+    <article
+        class="game-card"
+        onclick="goTo('Game/snake/snake.html')"
+    >
+
+        <div class="game-icon">
+            🐍
+        </div>
+
+        <h3>
+            ماربازی
+        </h3>
+
+        <p>
+            غذا جمع کن، بزرگ‌تر شو
+            و رکوردت رو افزایش بده.
+        </p>
+
+        <div class="game-open">
+            ‹
+        </div>
+
+    </article>
+
+
+
+    <!-- MEMORY -->
+
+    <article
+        class="game-card"
+        onclick="goTo('Game/memory/memory.html')"
+    >
+
+        <div class="game-icon">
+            🧠
+        </div>
+
+        <h3>
+            بازی حافظه
+        </h3>
+
+        <p>
+            کارت‌های مشابه رو پیدا کن
+            و حافظه‌ات رو محک بزن.
+        </p>
+
+        <div class="game-open">
+            ‹
+        </div>
+
+    </article>
 
 </section>
 
@@ -1036,20 +1687,82 @@ footer {
      TOOLS
 ========================== -->
 
-<h2 class="section-title">
-    🛠 ابزارهای هدف
-</h2>
+<div class="section-head">
+
+    <h2>
+        ابزارها
+    </h2>
+
+    <span>
+        کاربردی
+    </span>
+
+</div>
 
 
-<section class="tools">
+<section
+    class="tool-card"
+    onclick="goTo('calculator.html')"
+>
 
-    <button
-        class="tool-button"
-        type="button"
-        onclick="goTo('calculator.html')"
-    >
-        🧮 ماشین حساب
-    </button>
+    <div class="tool-info">
+
+        <div class="tool-icon">
+            🧮
+        </div>
+
+        <div>
+
+            <div class="tool-title">
+                ماشین حساب
+            </div>
+
+            <div class="tool-sub">
+                محاسبات سریع و ساده
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="goal-arrow">
+        ‹
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ABOUT / SEO
+========================== -->
+
+<section class="about">
+
+    <h2>
+        سایت هدف چیست؟
+    </h2>
+
+    <p>
+        سایت هدف یک وب‌سایت فارسی برای
+        هدف‌گذاری روزانه، ثبت پیشرفت،
+        سرگرمی و بازی‌های آنلاین است.
+    </p>
+
+    <p>
+        در بخش «هدف من» می‌توانی
+        یک هدف برای خودت بسازی،
+        انجام آن را هر روز ثبت کنی
+        و Streak خودت را ادامه بدهی.
+    </p>
+
+    <p>
+        بازی‌هایی مثل ماشین‌بازی،
+        ماربازی و بازی حافظه
+        و ابزارهای کاربردی هم
+        در سایت هدف در دسترس هستند.
+    </p>
 
 </section>
 
@@ -1064,19 +1777,84 @@ footer {
     type="button"
     onclick="logout()"
 >
-    🚪 خروج از حساب
+    خروج از حساب
 </button>
 
 
 
 <footer>
 
-    🏹 سایت هدف — Hadaf © 2026
+    Hadaf © 2026
 
 </footer>
 
 
 </main>
+
+
+
+<!-- =========================
+     BOTTOM NAV
+========================== -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-item active"
+        onclick="goTo('index.html')"
+    >
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        خانه
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="goTo('goals.html')"
+    >
+
+        <span class="nav-icon">
+            🎯
+        </span>
+
+        هدف من
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="document.querySelector('.game-grid').scrollIntoView()"
+    >
+
+        <span class="nav-icon">
+            🎮
+        </span>
+
+        بازی‌ها
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="document.querySelector('.tool-card').scrollIntoView()"
+    >
+
+        <span class="nav-icon">
+            ◫
+        </span>
+
+        ابزارها
+
+    </button>
+
+</nav>
 
 
 
@@ -1152,10 +1930,10 @@ function showAccount() {
     if (!user) {
 
         username.textContent =
-            "👤 مهمان";
+            "مهمان";
 
         score.textContent =
-            "برای استفاده از حساب وارد شو";
+            "ورود";
 
         return;
 
@@ -1163,15 +1941,12 @@ function showAccount() {
 
 
     username.textContent =
-        "👤 " +
-        (
-            user.username ||
-            "کاربر هدف"
-        );
+        user.username ||
+        "کاربر هدف";
 
 
     score.textContent =
-        "⭐ امتیاز: " +
+        "⭐ " +
         Number(
             user.score || 0
         );
@@ -1227,7 +2002,7 @@ async function loadHomeGoal() {
 
 
 
-    /* مهمان */
+    /* GUEST */
 
     if (
         !user ||
@@ -1235,7 +2010,7 @@ async function loadHomeGoal() {
     ) {
 
         description.textContent =
-            "برای ساخت هدف و گرفتن Streak وارد حساب شو 🔥";
+            "برای ساخت هدف و ثبت پیشرفت وارد حساب شو.";
 
         current.textContent =
             "🔐 ابتدا وارد حساب شو";
@@ -1304,15 +2079,15 @@ async function loadHomeGoal() {
 
 
 
-        /* هدف ندارد */
+        /* NO GOAL */
 
         if (!data.goal) {
 
             description.textContent =
-                "هنوز هدفی نساختی؛ اولین هدفت رو شروع کن 🎯";
+                "هنوز هدفی نساختی؛ اولین هدفت رو شروع کن.";
 
             current.textContent =
-                "➕ ساخت اولین هدف";
+                "＋ ساخت اولین هدف";
 
             return;
 
@@ -1368,8 +2143,6 @@ async function loadHomeGoal() {
 
 
 
-        /* 100+ */
-
         if (currentStreak >= 100) {
 
             goalCard.classList.add(
@@ -1377,12 +2150,11 @@ async function loadHomeGoal() {
             );
 
             description.textContent =
-                "👑 LEGEND — صد روز پشت سر هم!";
+                "👑 صد روز پشت سر هم؛ فوق‌العاده!";
 
+        }
 
-        /* 30+ */
-
-        } else if (
+        else if (
             currentStreak >= 30
         ) {
 
@@ -1391,12 +2163,11 @@ async function loadHomeGoal() {
             );
 
             description.textContent =
-                "⚡ Master Streak — سی روز پشت سر هم!";
+                "⚡ سی روز پشت سر هم؛ ادامه بده!";
 
+        }
 
-        /* 7+ */
-
-        } else if (
+        else if (
             currentStreak >= 7
         ) {
 
@@ -1405,20 +2176,21 @@ async function loadHomeGoal() {
             );
 
             description.textContent =
-                "🔥 هفت روز پشت سر هم! زنجیره رو نشکن";
+                "🔥 هفت روز پشت سر هم؛ رکوردت رو حفظ کن.";
 
+        }
 
-        /* 0-6 */
-
-        } else {
+        else {
 
             description.textContent =
-                "شعله‌ات رو روشن نگه دار و زنجیره رو نشکن 🔥";
+                "هر روز انجامش بده و رکوردت رو بالاتر ببر.";
 
         }
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(
             "Hadaf Goal Error:",
@@ -1427,7 +2199,7 @@ async function loadHomeGoal() {
 
 
         description.textContent =
-            "⚠️ دریافت اطلاعات هدف ممکن نشد";
+            "دریافت اطلاعات هدف ممکن نشد.";
 
 
         current.textContent =
@@ -1469,4 +2241,5 @@ loadHomeGoal();
 
 
 </body>
+
 </html>
