@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -26,13 +27,13 @@
     >
 
     <meta name="robots" content="index, follow">
-
     <meta name="theme-color" content="#07090f">
 
     <link
         rel="canonical"
         href="https://hadaf.site/"
     >
+
 
     <!-- Open Graph -->
 
@@ -84,8 +85,7 @@
 
         :root {
 
-            --bg:
-                #07090f;
+            --bg: #07090f;
 
             --card:
                 rgba(18,22,34,.95);
@@ -121,35 +121,25 @@
         ========================== */
 
         * {
-
-            box-sizing:
-                border-box;
-
-            -webkit-tap-highlight-color:
-                transparent;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
 
         html {
-
-            scroll-behavior:
-                smooth;
+            scroll-behavior: smooth;
         }
 
 
         body {
 
-            margin:
-                0;
+            margin: 0;
 
-            min-height:
-                100vh;
+            min-height: 100vh;
 
-            padding-bottom:
-                100px;
+            padding-bottom: 100px;
 
-            color:
-                var(--text);
+            color: var(--text);
 
             font-family:
                 Tahoma,
@@ -176,9 +166,7 @@
 
 
         button {
-
-            font-family:
-                inherit;
+            font-family: inherit;
         }
 
 
@@ -189,7 +177,7 @@
         .app {
 
             width:
-                min(760px, 94%);
+                min(760px,94%);
 
             margin:
                 auto;
@@ -219,8 +207,103 @@
 
             margin-bottom:
                 32px;
+
+            direction:
+                ltr;
         }
 
+
+        /* ACCOUNT RIGHT */
+
+        .top-account {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+
+            direction:
+                rtl;
+
+            min-width:
+                0;
+
+            cursor:
+                pointer;
+        }
+
+
+        .account-button {
+
+            width:
+                44px;
+
+            height:
+                44px;
+
+            flex-shrink:
+                0;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                14px;
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,.035);
+
+            cursor:
+                pointer;
+
+            font-size:
+                18px;
+        }
+
+
+        .top-account-name {
+
+            max-width:
+                145px;
+
+            color:
+                var(--text);
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            white-space:
+                nowrap;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+        }
+
+
+        /* BRAND LEFT */
 
         .brand {
 
@@ -232,6 +315,9 @@
 
             gap:
                 11px;
+
+            direction:
+                rtl;
         }
 
 
@@ -306,52 +392,12 @@
         }
 
 
-        .account-button {
-
-            width:
-                44px;
-
-            height:
-                44px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border:
-                1px solid
-                var(--border);
-
-            border-radius:
-                14px;
-
-            color:
-                white;
-
-            background:
-                rgba(255,255,255,.035);
-
-            cursor:
-                pointer;
-
-            font-size:
-                18px;
-        }
-
-
         /* =========================
            HERO
         ========================== */
 
         .hero {
-
-            margin-bottom:
-                23px;
+            margin-bottom: 23px;
         }
 
 
@@ -401,9 +447,7 @@
 
 
         .hero h1 span {
-
-            color:
-                #8b80ff;
+            color: #8b80ff;
         }
 
 
@@ -460,120 +504,6 @@
 
 
         /* =========================
-           ACCOUNT CARD
-        ========================== */
-
-        .account-card {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                15px;
-        }
-
-
-        .account-info {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                12px;
-        }
-
-
-        .avatar {
-
-            width:
-                49px;
-
-            height:
-                49px;
-
-            flex-shrink:
-                0;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border-radius:
-                16px;
-
-            background:
-                rgba(103,88,255,.12);
-
-            border:
-                1px solid
-                rgba(103,88,255,.17);
-
-            font-size:
-                21px;
-        }
-
-
-        .account-name {
-
-            font-size:
-                14px;
-
-            font-weight:
-                600;
-        }
-
-
-        .account-sub {
-
-            margin-top:
-                5px;
-
-            color:
-                var(--muted);
-
-            font-size:
-                10px;
-        }
-
-
-        .score {
-
-            padding:
-                8px 11px;
-
-            border-radius:
-                999px;
-
-            color:
-                #d8d4ff;
-
-            background:
-                rgba(103,88,255,.09);
-
-            border:
-                1px solid
-                rgba(103,88,255,.16);
-
-            font-size:
-                10px;
-        }
-
-
-        /* =========================
            GOAL
         ========================== */
 
@@ -584,6 +514,9 @@
 
             overflow:
                 hidden;
+
+            cursor:
+                pointer;
 
             background:
 
@@ -736,16 +669,12 @@
 
 
         .goal-stat.fire strong {
-
-            color:
-                #ff8a45;
+            color: #ff8a45;
         }
 
 
         .goal-stat.best strong {
-
-            color:
-                #facc15;
+            color: #facc15;
         }
 
 
@@ -897,9 +826,7 @@
 
 
         .game-card:active {
-
-            transform:
-                scale(.97);
+            transform: scale(.97);
         }
 
 
@@ -1016,9 +943,7 @@
 
 
         .tool-card:active {
-
-            transform:
-                scale(.98);
+            transform: scale(.98);
         }
 
 
@@ -1150,9 +1075,7 @@
         /* QR */
 
         .qr-icon {
-
-            font-size:
-                23px;
+            font-size: 23px;
         }
 
 
@@ -1271,7 +1194,10 @@
                 50%;
 
             bottom:
-                max(12px, env(safe-area-inset-bottom));
+                max(
+                    12px,
+                    env(safe-area-inset-bottom)
+                );
 
             transform:
                 translateX(50%);
@@ -1305,6 +1231,9 @@
                 rgba(13,16,25,.93);
 
             backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
                 blur(18px);
 
             box-shadow:
@@ -1365,9 +1294,7 @@
         @media(max-width:600px) {
 
             .games {
-
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
 
 
@@ -1391,16 +1318,12 @@
 
 
             .game-title {
-
-                margin-top:
-                    0;
+                margin-top: 0;
             }
 
 
             .tools {
-
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
 
         }
@@ -1409,30 +1332,32 @@
         @media(max-width:420px) {
 
             .app {
-
-                width:
-                    92%;
+                width: 92%;
             }
 
 
             .hero h1 {
-
-                font-size:
-                    34px;
+                font-size: 34px;
             }
 
 
             .card {
-
-                padding:
-                    17px;
+                padding: 17px;
             }
 
 
             .goal-name {
+                font-size: 16px;
+            }
 
-                font-size:
-                    16px;
+
+            .top-account-name {
+                max-width: 95px;
+            }
+
+
+            .brand small {
+                display: none;
             }
 
         }
@@ -1455,7 +1380,35 @@
     <header class="topbar">
 
 
+        <!-- ACCOUNT -->
+
+        <div
+            class="top-account"
+            onclick="goAccount()"
+        >
+
+            <button
+                class="account-button"
+                aria-label="حساب کاربری"
+            >
+                👤
+            </button>
+
+
+            <div
+                class="top-account-name"
+                id="accountName"
+            >
+                مهمان
+            </div>
+
+        </div>
+
+
+        <!-- BRAND -->
+
         <div class="brand">
+
 
             <div class="logo">
 
@@ -1479,46 +1432,8 @@
 
             </div>
 
-        </div>
-
-
-        <button
-            class="account-button"
-            onclick="goAccount()"
-            aria-label="حساب کاربری"
-        >
-            👤
-        </button>
-        <div
-                    class="account-name"
-                    id="accountName"
-                >
-                    مهمان
-                </div>
-
-
-                <div
-                    class="account-sub"
-                    id="accountSub"
-                >
-                    برای استفاده کامل وارد حساب شو
-                </div>
-
-            </div>
-
 
         </div>
-
-
-        <div
-            class="score"
-            id="score"
-        >
-            0 امتیاز
-        </div>
-
-
-    </section>
 
 
     </header>
@@ -1540,6 +1455,7 @@
         <h1>
 
             روی هدفت
+
             <span>
                 تمرکز کن.
             </span>
@@ -1548,34 +1464,17 @@
 
 
         <p>
-            هدفت رو مشخص کن، هر روز ادامه بده،
-            Streak بساز و در کنارش از بازی‌ها
-            و ابزارهای سایت هدف استفاده کن.
+
+            هدفت رو مشخص کن،
+            هر روز ادامه بده،
+            Streak بساز و در کنارش
+            از بازی‌ها و ابزارهای سایت هدف
+            استفاده کن.
+
         </p>
 
 
     </section>
-
-
-
-    <!-- =========================
-         ACCOUNT
-    ========================== -->
-
-    <section class="card account-card">
-
-
-        <div class="account-info">
-
-
-            <div class="avatar">
-                👤
-            </div>
-
-
-            <div>
-
-                
 
 
 
@@ -1623,9 +1522,7 @@
 
             <div class="goal-stat fire">
 
-                <strong
-                    id="streak"
-                >
+                <strong id="streak">
                     0
                 </strong>
 
@@ -1636,9 +1533,7 @@
 
             <div class="goal-stat best">
 
-                <strong
-                    id="bestStreak"
-                >
+                <strong id="bestStreak">
                     0
                 </strong>
 
@@ -1649,9 +1544,7 @@
 
             <div class="goal-stat">
 
-                <strong
-                    id="totalDays"
-                >
+                <strong id="totalDays">
                     0
                 </strong>
 
@@ -1863,7 +1756,7 @@
 
 
 
-            <!-- QR CODE -->
+            <!-- QR -->
 
             <div
                 class="tool-card"
@@ -1971,9 +1864,11 @@
 
 
         <p>
+
             هدف یک فضای ساده برای ساخت عادت‌های بهتر،
-            پیگیری هدف‌های روزانه، بازی و استفاده از
-            ابزارهای کاربردی آنلاینه.
+            پیگیری هدف‌های روزانه،
+            بازی و استفاده از ابزارهای کاربردی آنلاینه.
+
         </p>
 
 
@@ -2114,8 +2009,33 @@
 
 
 
+    function getEmail() {
 
-            /*=========================
+        const user =
+            getUser();
+
+
+        if (
+            !user ||
+            !user.email
+        ) {
+
+            return "";
+
+        }
+
+
+        return String(
+            user.email
+        )
+        .trim()
+        .toLowerCase();
+
+    }
+
+
+
+    /* =========================
        ACCOUNT
     ========================== */
 
@@ -2131,18 +2051,6 @@
             );
 
 
-        const sub =
-            document.getElementById(
-                "accountSub"
-            );
-
-
-        const score =
-            document.getElementById(
-                "score"
-            );
-
-
         const logoutButton =
             document.getElementById(
                 "logoutButton"
@@ -2153,14 +2061,6 @@
 
             name.textContent =
                 "مهمان";
-
-
-            sub.textContent =
-                "برای استفاده کامل وارد حساب شو";
-
-
-            score.textContent =
-                "0 امتیاز";
 
 
             logoutButton.style.display =
@@ -2176,20 +2076,6 @@
             user.username ||
             user.name ||
             "کاربر هدف";
-
-
-        sub.textContent =
-            user.email ||
-            "عضو سایت هدف";
-
-
-        score.textContent =
-            (
-                Number(
-                    user.score || 0
-                )
-            ) +
-            " امتیاز";
 
 
         logoutButton.style.display =
@@ -2471,25 +2357,23 @@
 
 
         section.scrollIntoView({
+
             behavior:
                 "smooth",
 
             block:
                 "start"
+
         });
 
 
         if (id === "games") {
-
             setActiveNav(2);
-
         }
 
 
         if (id === "tools") {
-
             setActiveNav(3);
-
         }
 
     }
