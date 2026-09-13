@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -14,7 +14,9 @@
          SEO
     ========================== -->
 
-    <title>سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی</title>
+    <title>
+        سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی
+    </title>
 
     <meta
         name="description"
@@ -27,6 +29,7 @@
     >
 
     <meta name="robots" content="index, follow">
+
     <meta name="theme-color" content="#07090f">
 
     <link
@@ -86,33 +89,15 @@
         :root {
 
             --bg: #07090f;
-
-            --card:
-                rgba(18,22,34,.95);
-
-            --border:
-                rgba(255,255,255,.075);
-
-            --text:
-                #f8fafc;
-
-            --muted:
-                #8f98a9;
-
-            --primary:
-                #6758ff;
-
-            --primary-2:
-                #5146da;
-
-            --orange:
-                #ff7a32;
-
-            --green:
-                #22c55e;
-
-            --red:
-                #ef4444;
+            --card: rgba(18,22,34,.95);
+            --border: rgba(255,255,255,.075);
+            --text: #f8fafc;
+            --muted: #8f98a9;
+            --primary: #6758ff;
+            --primary-2: #5146da;
+            --orange: #ff7a32;
+            --green: #22c55e;
+            --red: #ef4444;
         }
 
 
@@ -134,9 +119,7 @@
         body {
 
             margin: 0;
-
             min-height: 100vh;
-
             padding-bottom: 100px;
 
             color: var(--text);
@@ -176,14 +159,9 @@
 
         .app {
 
-            width:
-                min(760px,94%);
-
-            margin:
-                auto;
-
-            padding:
-                18px 0 50px;
+            width: min(760px, 94%);
+            margin: auto;
+            padding: 18px 0 50px;
         }
 
 
@@ -193,202 +171,133 @@
 
         .topbar {
 
-            display:
-                flex;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            align-items:
-                center;
+            gap: 15px;
+            margin-bottom: 32px;
 
-            justify-content:
-                space-between;
-
-            gap:
-                15px;
-
-            margin-bottom:
-                32px;
-
-            direction:
-                ltr;
+            direction: ltr;
         }
 
-
-        /* ACCOUNT RIGHT */
-
-        .top-account {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                9px;
-
-            direction:
-                rtl;
-
-            min-width:
-                0;
-
-            cursor:
-                pointer;
-        }
-
-
-        .account-button {
-
-            width:
-                44px;
-
-            height:
-                44px;
-
-            flex-shrink:
-                0;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border:
-                1px solid
-                var(--border);
-
-            border-radius:
-                14px;
-
-            color:
-                white;
-
-            background:
-                rgba(255,255,255,.035);
-
-            cursor:
-                pointer;
-
-            font-size:
-                18px;
-        }
-
-
-        .top-account-name {
-
-            max-width:
-                145px;
-
-            color:
-                var(--text);
-
-            font-size:
-                13px;
-
-            font-weight:
-                700;
-
-            white-space:
-                nowrap;
-
-            overflow:
-                hidden;
-
-            text-overflow:
-                ellipsis;
-        }
-
-
-        /* BRAND LEFT */
 
         .brand {
 
-            display:
-                flex;
+            display: flex;
+            align-items: center;
 
-            align-items:
-                center;
+            gap: 11px;
 
-            gap:
-                11px;
-
-            direction:
-                rtl;
+            direction: rtl;
         }
 
 
         .logo {
 
-            width:
-                48px;
+            width: 48px;
+            height: 48px;
 
-            height:
-                48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            display:
-                flex;
+            overflow: hidden;
 
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            overflow:
-                hidden;
-
-            border-radius:
-                16px;
+            border-radius: 16px;
 
             background:
                 rgba(103,88,255,.08);
 
             border:
-                1px solid
-                var(--border);
+                1px solid var(--border);
         }
 
 
         .logo img {
 
-            width:
-                40px;
+            width: 40px;
+            height: 40px;
 
-            height:
-                40px;
-
-            object-fit:
-                contain;
+            object-fit: contain;
         }
 
 
         .brand strong {
 
-            display:
-                block;
-
-            font-size:
-                18px;
+            display: block;
+            font-size: 18px;
         }
 
 
         .brand small {
 
-            display:
-                block;
+            display: block;
 
-            margin-top:
-                3px;
+            margin-top: 3px;
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            font-size:
-                10px;
+            font-size: 10px;
+        }
+
+
+        /* =========================
+           TOP ACCOUNT
+        ========================== */
+
+        .top-account {
+
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            direction: rtl;
+
+            cursor: pointer;
+        }
+
+
+        .account-button {
+
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            color: white;
+
+            background:
+                rgba(255,255,255,.035);
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+
+        .top-account-name {
+
+            max-width: 135px;
+
+            color: var(--text);
+
+            font-size: 13px;
+            font-weight: 700;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
 
@@ -397,76 +306,101 @@
         ========================== */
 
         .hero {
+
             margin-bottom: 23px;
         }
 
 
         .hero-badge {
 
-            display:
-                inline-flex;
+            display: inline-flex;
 
-            padding:
-                7px 11px;
+            padding: 7px 11px;
 
-            margin-bottom:
-                12px;
+            margin-bottom: 12px;
 
-            border-radius:
-                999px;
+            border-radius: 999px;
 
-            color:
-                #c9c3ff;
+            color: #c9c3ff;
 
             background:
                 rgba(103,88,255,.10);
 
             border:
-                1px solid
-                rgba(103,88,255,.20);
+                1px solid rgba(103,88,255,.20);
 
-            font-size:
-                11px;
+            font-size: 11px;
         }
 
 
         .hero h1 {
 
-            margin:
-                0;
+            margin: 0;
 
-            max-width:
-                600px;
+            max-width: 600px;
 
             font-size:
                 clamp(32px,7vw,49px);
 
-            line-height:
-                1.35;
+            line-height: 1.35;
         }
 
 
         .hero h1 span {
+
             color: #8b80ff;
         }
 
 
         .hero p {
 
+            margin: 10px 0 0;
+
+            max-width: 570px;
+
+            color: var(--muted);
+
+            line-height: 1.9;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           BANNER
+        ========================== */
+
+        .banner {
+
+            width: 100%;
+
             margin:
-                10px 0 0;
+                0 0 16px;
 
-            max-width:
-                570px;
+            overflow: hidden;
 
-            color:
-                var(--muted);
+            border-radius: 22px;
 
-            line-height:
-                1.9;
+            border:
+                1px solid var(--border);
 
-            font-size:
-                13px;
+            background:
+                var(--card);
+
+            box-shadow:
+                0 16px 45px
+                rgba(0,0,0,.25);
+        }
+
+
+        .banner img {
+
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            object-fit: cover;
         }
 
 
@@ -476,14 +410,11 @@
 
         .card {
 
-            padding:
-                20px;
+            padding: 20px;
 
-            margin-bottom:
-                14px;
+            margin-bottom: 14px;
 
-            border-radius:
-                24px;
+            border-radius: 24px;
 
             background:
 
@@ -494,8 +425,7 @@
                 );
 
             border:
-                1px solid
-                var(--border);
+                1px solid var(--border);
 
             box-shadow:
                 0 16px 50px
@@ -509,14 +439,9 @@
 
         .goal-card {
 
-            position:
-                relative;
+            position: relative;
 
-            overflow:
-                hidden;
-
-            cursor:
-                pointer;
+            overflow: hidden;
 
             background:
 
@@ -536,167 +461,125 @@
 
         .goal-top {
 
-            display:
-                flex;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                15px;
+            gap: 15px;
         }
 
 
         .goal-label {
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            font-size:
-                10px;
+            font-size: 10px;
         }
 
 
         .goal-name {
 
-            margin-top:
-                7px;
+            margin-top: 7px;
 
-            font-size:
-                18px;
+            font-size: 18px;
+            font-weight: 800;
 
-            font-weight:
-                800;
-
-            line-height:
-                1.7;
+            line-height: 1.7;
         }
 
 
         .goal-arrow {
 
-            width:
-                38px;
+            width: 38px;
+            height: 38px;
 
-            height:
-                38px;
+            flex-shrink: 0;
 
-            flex-shrink:
-                0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            display:
-                flex;
+            border-radius: 13px;
 
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border-radius:
-                13px;
-
-            color:
-                #b7b0ff;
+            color: #b7b0ff;
 
             background:
                 rgba(103,88,255,.10);
 
-            font-size:
-                22px;
+            font-size: 22px;
         }
 
 
         .goal-stats {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(3,1fr);
 
-            gap:
-                8px;
+            gap: 8px;
 
-            margin-top:
-                17px;
+            margin-top: 17px;
         }
 
 
         .goal-stat {
 
-            padding:
-                11px 5px;
+            padding: 11px 5px;
 
-            text-align:
-                center;
+            text-align: center;
 
-            border-radius:
-                14px;
+            border-radius: 14px;
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
             background:
                 rgba(255,255,255,.025);
 
             border:
-                1px solid
-                rgba(255,255,255,.045);
+                1px solid rgba(255,255,255,.045);
 
-            font-size:
-                9px;
+            font-size: 9px;
         }
 
 
         .goal-stat strong {
 
-            display:
-                block;
+            display: block;
 
-            margin-bottom:
-                5px;
+            margin-bottom: 5px;
 
-            color:
-                white;
+            color: white;
 
-            font-size:
-                19px;
+            font-size: 19px;
         }
 
 
         .goal-stat.fire strong {
+
             color: #ff8a45;
         }
 
 
         .goal-stat.best strong {
+
             color: #facc15;
         }
 
 
         .goal-button {
 
-            width:
-                100%;
+            width: 100%;
 
-            padding:
-                14px;
+            padding: 14px;
 
-            margin-top:
-                13px;
+            margin-top: 13px;
 
-            border:
-                none;
+            border: none;
 
-            border-radius:
-                15px;
+            border-radius: 15px;
 
-            color:
-                white;
+            color: white;
 
             background:
                 linear-gradient(
@@ -705,14 +588,10 @@
                     var(--primary-2)
                 );
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
-            font-size:
-                13px;
-
-            font-weight:
-                800;
+            font-size: 13px;
+            font-weight: 800;
         }
 
 
@@ -722,47 +601,35 @@
 
         .section {
 
-            padding-top:
-                16px;
+            padding-top: 16px;
 
-            scroll-margin-top:
-                20px;
+            scroll-margin-top: 20px;
         }
 
 
         .section-head {
 
-            display:
-                flex;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            margin:
-                0 2px 13px;
+            margin: 0 2px 13px;
         }
 
 
         .section-head h2 {
 
-            margin:
-                0;
+            margin: 0;
 
-            font-size:
-                20px;
+            font-size: 20px;
         }
 
 
         .section-head span {
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            font-size:
-                10px;
+            font-size: 10px;
         }
 
 
@@ -772,40 +639,29 @@
 
         .games {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(3,1fr);
 
-            gap:
-                10px;
+            gap: 10px;
         }
 
 
         .game-card {
 
-            min-height:
-                150px;
+            min-height: 150px;
 
-            padding:
-                16px;
+            padding: 16px;
 
-            display:
-                flex;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-            flex-direction:
-                column;
-
-            justify-content:
-                space-between;
-
-            border-radius:
-                21px;
+            border-radius: 21px;
 
             border:
-                1px solid
-                var(--border);
+                1px solid var(--border);
 
             background:
 
@@ -817,73 +673,54 @@
 
                 var(--card);
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
-            transition:
-                .2s;
+            transition: .2s;
         }
 
 
         .game-card:active {
+
             transform: scale(.97);
         }
 
 
         .game-icon {
 
-            width:
-                47px;
+            width: 47px;
+            height: 47px;
 
-            height:
-                47px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border-radius:
-                15px;
+            border-radius: 15px;
 
             background:
                 rgba(103,88,255,.10);
 
-            font-size:
-                22px;
+            font-size: 22px;
         }
 
 
         .game-title {
 
-            margin-top:
-                18px;
+            margin-top: 18px;
 
-            font-size:
-                14px;
-
-            font-weight:
-                800;
+            font-size: 14px;
+            font-weight: 800;
         }
 
 
         .game-sub {
 
-            margin-top:
-                5px;
+            margin-top: 5px;
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            font-size:
-                9px;
+            font-size: 9px;
 
-            line-height:
-                1.7;
+            line-height: 1.7;
         }
 
 
@@ -893,144 +730,107 @@
 
         .tools {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(2,1fr);
 
-            gap:
-                10px;
+            gap: 10px;
         }
 
 
         .tool-card {
 
-            min-height:
-                102px;
+            min-height: 102px;
 
-            padding:
-                15px;
+            padding: 15px;
 
-            display:
-                flex;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            align-items:
-                center;
+            gap: 10px;
 
-            justify-content:
-                space-between;
-
-            gap:
-                10px;
-
-            border-radius:
-                20px;
+            border-radius: 20px;
 
             border:
-                1px solid
-                var(--border);
+                1px solid var(--border);
 
             background:
                 var(--card);
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
-            transition:
-                .2s;
+            transition: .2s;
         }
 
 
         .tool-card:active {
+
             transform: scale(.98);
         }
 
 
         .tool-info {
 
-            display:
-                flex;
+            display: flex;
+            align-items: center;
 
-            align-items:
-                center;
+            gap: 11px;
 
-            gap:
-                11px;
-
-            min-width:
-                0;
+            min-width: 0;
         }
 
 
         .tool-icon {
 
-            width:
-                45px;
+            width: 45px;
+            height: 45px;
 
-            height:
-                45px;
+            flex-shrink: 0;
 
-            flex-shrink:
-                0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            display:
-                flex;
+            border-radius: 14px;
 
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border-radius:
-                14px;
-
-            color:
-                #c8c2ff;
+            color: #c8c2ff;
 
             background:
                 rgba(103,88,255,.10);
 
             border:
-                1px solid
-                rgba(103,88,255,.12);
+                1px solid rgba(103,88,255,.12);
 
-            font-size:
-                20px;
+            font-size: 20px;
         }
 
 
         .tool-title {
 
-            font-size:
-                13px;
+            font-size: 13px;
+            font-weight: 800;
 
-            font-weight:
-                800;
-
-            line-height:
-                1.5;
+            line-height: 1.5;
         }
 
 
         .tool-sub {
 
-            margin-top:
-                5px;
+            margin-top: 5px;
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            font-size:
-                9px;
+            font-size: 9px;
 
-            line-height:
-                1.6;
+            line-height: 1.6;
         }
 
 
-        /* RESALAT */
+        /* =========================
+           RESALAT
+        ========================== */
 
         .resalat-card {
 
@@ -1048,8 +848,7 @@
 
         .resalat-icon {
 
-            overflow:
-                hidden;
+            overflow: hidden;
 
             background:
                 rgba(34,197,94,.08);
@@ -1061,20 +860,15 @@
 
         .resalat-icon img {
 
-            width:
-                35px;
+            width: 35px;
+            height: 35px;
 
-            height:
-                35px;
-
-            object-fit:
-                contain;
+            object-fit: contain;
         }
 
 
-        /* QR */
-
         .qr-icon {
+
             font-size: 23px;
         }
 
@@ -1085,40 +879,31 @@
 
         .about {
 
-            margin-top:
-                26px;
+            margin-top: 26px;
 
-            text-align:
-                center;
+            text-align: center;
         }
 
 
         .about h2 {
 
-            margin:
-                0 0 8px;
+            margin: 0 0 8px;
 
-            font-size:
-                17px;
+            font-size: 17px;
         }
 
 
         .about p {
 
-            max-width:
-                570px;
+            max-width: 570px;
 
-            margin:
-                auto;
+            margin: auto;
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            font-size:
-                11px;
+            font-size: 11px;
 
-            line-height:
-                2;
+            line-height: 2;
         }
 
 
@@ -1128,33 +913,25 @@
 
         .logout {
 
-            width:
-                100%;
+            width: 100%;
 
-            margin-top:
-                17px;
+            margin-top: 17px;
 
-            padding:
-                13px;
+            padding: 13px;
 
             border:
-                1px solid
-                rgba(239,68,68,.12);
+                1px solid rgba(239,68,68,.12);
 
-            border-radius:
-                15px;
+            border-radius: 15px;
 
-            color:
-                #fca5a5;
+            color: #fca5a5;
 
             background:
                 rgba(239,68,68,.045);
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
-            font-size:
-                11px;
+            font-size: 11px;
         }
 
 
@@ -1164,17 +941,13 @@
 
         footer {
 
-            padding:
-                30px 0 8px;
+            padding: 30px 0 8px;
 
-            text-align:
-                center;
+            text-align: center;
 
-            color:
-                #596171;
+            color: #596171;
 
-            font-size:
-                10px;
+            font-size: 10px;
         }
 
 
@@ -1184,20 +957,14 @@
 
         .bottom-nav {
 
-            position:
-                fixed;
+            position: fixed;
 
-            z-index:
-                100;
+            z-index: 100;
 
-            right:
-                50%;
+            right: 50%;
 
             bottom:
-                max(
-                    12px,
-                    env(safe-area-inset-bottom)
-                );
+                max(12px, env(safe-area-inset-bottom));
 
             transform:
                 translateX(50%);
@@ -1205,35 +972,26 @@
             width:
                 min(520px,92%);
 
-            height:
-                68px;
+            height: 68px;
 
-            padding:
-                7px 8px;
+            padding: 7px 8px;
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(4,1fr);
 
-            gap:
-                5px;
+            gap: 5px;
 
             border:
-                1px solid
-                rgba(255,255,255,.08);
+                1px solid rgba(255,255,255,.08);
 
-            border-radius:
-                22px;
+            border-radius: 22px;
 
             background:
                 rgba(13,16,25,.93);
 
             backdrop-filter:
-                blur(18px);
-
-            -webkit-backdrop-filter:
                 blur(18px);
 
             box-shadow:
@@ -1244,43 +1002,33 @@
 
         .nav-item {
 
-            border:
-                none;
+            border: none;
 
-            border-radius:
-                16px;
+            border-radius: 16px;
 
-            color:
-                var(--muted);
+            color: var(--muted);
 
-            background:
-                transparent;
+            background: transparent;
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
-            font-size:
-                9px;
+            font-size: 9px;
         }
 
 
         .nav-item span {
 
-            display:
-                block;
+            display: block;
 
-            margin-bottom:
-                4px;
+            margin-bottom: 4px;
 
-            font-size:
-                18px;
+            font-size: 18px;
         }
 
 
         .nav-item.active {
 
-            color:
-                white;
+            color: white;
 
             background:
                 rgba(103,88,255,.13);
@@ -1294,36 +1042,37 @@
         @media(max-width:600px) {
 
             .games {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
 
 
             .game-card {
 
-                min-height:
-                    105px;
+                min-height: 105px;
 
-                flex-direction:
-                    row;
+                flex-direction: row;
 
-                align-items:
-                    center;
+                align-items: center;
 
                 justify-content:
                     flex-start;
 
-                gap:
-                    13px;
+                gap: 13px;
             }
 
 
             .game-title {
+
                 margin-top: 0;
             }
 
 
             .tools {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
 
         }
@@ -1332,31 +1081,39 @@
         @media(max-width:420px) {
 
             .app {
+
                 width: 92%;
             }
 
 
             .hero h1 {
+
                 font-size: 34px;
             }
 
 
             .card {
+
                 padding: 17px;
             }
 
 
             .goal-name {
+
                 font-size: 16px;
             }
 
 
             .top-account-name {
+
                 max-width: 95px;
+
+                font-size: 12px;
             }
 
 
             .brand small {
+
                 display: none;
             }
 
@@ -1380,7 +1137,7 @@
     <header class="topbar">
 
 
-        <!-- ACCOUNT -->
+        <!-- ACCOUNT - RIGHT -->
 
         <div
             class="top-account"
@@ -1405,10 +1162,9 @@
         </div>
 
 
-        <!-- BRAND -->
+        <!-- BRAND - LEFT -->
 
         <div class="brand">
-
 
             <div class="logo">
 
@@ -1431,7 +1187,6 @@
                 </small>
 
             </div>
-
 
         </div>
 
@@ -1464,15 +1219,26 @@
 
 
         <p>
-
-            هدفت رو مشخص کن،
-            هر روز ادامه بده،
-            Streak بساز و در کنارش
-            از بازی‌ها و ابزارهای سایت هدف
-            استفاده کن.
-
+            هدفت رو مشخص کن، هر روز ادامه بده،
+            Streak بساز و در کنارش از بازی‌ها
+            و ابزارهای سایت هدف استفاده کن.
         </p>
 
+
+    </section>
+
+
+
+    <!-- =========================
+         BANNER
+    ========================== -->
+
+    <section class="banner">
+
+        <img
+            src="banner.png"
+            alt="بنر سایت هدف"
+        >
 
     </section>
 
@@ -1598,8 +1364,6 @@
         <div class="games">
 
 
-            <!-- CAR -->
-
             <div
                 class="game-card"
                 onclick="goTo('Game/Car/car.html')"
@@ -1626,8 +1390,6 @@
 
 
 
-            <!-- SNAKE -->
-
             <div
                 class="game-card"
                 onclick="goTo('Game/snake/snake.html')"
@@ -1653,8 +1415,6 @@
             </div>
 
 
-
-            <!-- MEMORY -->
 
             <div
                 class="game-card"
@@ -1722,14 +1482,11 @@
                 onclick="goTo('calculator.html')"
             >
 
-
                 <div class="tool-info">
-
 
                     <div class="tool-icon">
                         🧮
                     </div>
-
 
                     <div>
 
@@ -1743,14 +1500,12 @@
 
                     </div>
 
-
                 </div>
 
 
                 <div class="goal-arrow">
                     ‹
                 </div>
-
 
             </div>
 
@@ -1763,14 +1518,11 @@
                 onclick="goTo('qr.html')"
             >
 
-
                 <div class="tool-info">
-
 
                     <div class="tool-icon qr-icon">
                         ▦
                     </div>
-
 
                     <div>
 
@@ -1784,14 +1536,12 @@
 
                     </div>
 
-
                 </div>
 
 
                 <div class="goal-arrow">
                     ‹
                 </div>
-
 
             </div>
 
@@ -1804,9 +1554,7 @@
                 onclick="openResalat()"
             >
 
-
                 <div class="tool-info">
-
 
                     <div
                         class="tool-icon resalat-icon"
@@ -1832,14 +1580,12 @@
 
                     </div>
 
-
                 </div>
 
 
                 <div class="goal-arrow">
                     ‹
                 </div>
-
 
             </div>
 
@@ -1864,11 +1610,9 @@
 
 
         <p>
-
             هدف یک فضای ساده برای ساخت عادت‌های بهتر،
-            پیگیری هدف‌های روزانه،
-            بازی و استفاده از ابزارهای کاربردی آنلاینه.
-
+            پیگیری هدف‌های روزانه، بازی و استفاده از
+            ابزارهای کاربردی آنلاینه.
         </p>
 
 
@@ -1991,7 +1735,9 @@
 
 
             if (!saved) {
+
                 return null;
+
             }
 
 
@@ -2334,8 +2080,12 @@
     function goHome() {
 
         window.scrollTo({
+
             top: 0,
-            behavior: "smooth"
+
+            behavior:
+                "smooth"
+
         });
 
 
@@ -2352,7 +2102,9 @@
 
 
         if (!section) {
+
             return;
+
         }
 
 
@@ -2368,12 +2120,16 @@
 
 
         if (id === "games") {
+
             setActiveNav(2);
+
         }
 
 
         if (id === "tools") {
+
             setActiveNav(3);
+
         }
 
     }
@@ -2432,4 +2188,5 @@
 
 
 </body>
+
 </html>
