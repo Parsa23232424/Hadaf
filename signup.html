@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -418,6 +419,20 @@ console.log("API:",text);
 
 
 /* =====================================
+   بررسی HTTP
+===================================== */
+
+if(!response.ok){
+
+throw new Error(
+"سرور خطا داد. کد: " +
+response.status
+);
+
+}
+
+
+/* =====================================
    تبدیل پاسخ API
 ===================================== */
 
@@ -425,9 +440,15 @@ let result;
 
 try{
 
-result=JSON.parse(text);
+result =
+JSON.parse(text);
 
-}catch{
+}catch(error){
+
+console.error(
+"پاسخ خام API:",
+text
+);
 
 throw new Error(
 "پاسخ API معتبر نیست."
@@ -437,7 +458,7 @@ throw new Error(
 
 
 /* =====================================
-   خطای API
+   بررسی موفقیت
 ===================================== */
 
 if(!result.success){
@@ -456,6 +477,11 @@ result.error ||
 ===================================== */
 
 const user={
+
+id:
+result.id ||
+result.user?.id ||
+"",
 
 username:
 result.username ||
@@ -478,7 +504,7 @@ result.user?.score ??
 
 
 /* =====================================
-   ذخیره حساب
+   ذخیره کاربر
 ===================================== */
 
 localStorage.setItem(
@@ -488,7 +514,7 @@ JSON.stringify(user)
 
 
 /* =====================================
-   موفقیت
+   پیام موفقیت
 ===================================== */
 
 showMessage(
@@ -499,7 +525,7 @@ showMessage(
 
 
 /* =====================================
-   رفتن به سایت
+   رفتن به صفحه اصلی
 ===================================== */
 
 setTimeout(()=>{
@@ -511,10 +537,16 @@ location.href="index.html";
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Signup Error:",
+error
+);
 
 showMessage(
-"❌ "+error.message,
+"❌ "+(
+error.message ||
+"ارتباط با سرور برقرار نشد."
+),
 true
 );
 
@@ -531,7 +563,7 @@ signupBtn.textContent=
 
 
 /* =====================================================
-   🚀 کلیک
+   🚀 کلیک روی ثبت نام
 ===================================================== */
 
 signupBtn.addEventListener(
@@ -541,7 +573,7 @@ signup
 
 
 /* =====================================================
-   ⌨️ Enter
+   ⌨️ کلید Enter
 ===================================================== */
 
 confirmPassword.addEventListener(
