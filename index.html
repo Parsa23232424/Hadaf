@@ -2209,7 +2209,19 @@
 
 </script>
 
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => {
+        console.log("✅ Hadaf PWA فعال شد");
+      })
+      .catch(error => {
+        console.error("❌ خطای PWA:", error);
+      });
+  });
+}
+</script>
 </body>
 
     </html>
