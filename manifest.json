@@ -1,0 +1,26 @@
+
+{
+  "name": "هدف 🏹",
+  "short_name": "هدف",
+  "description": "هدف؛ اهداف شخصی، بازی و چالش‌های هوشمند",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0c29",
+  "theme_color": "#6c63ff",
+  "dir": "rtl",
+  "lang": "fa",
+  "icons": [
+    {
+      "src": "./logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
