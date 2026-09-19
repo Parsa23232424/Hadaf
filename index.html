@@ -37,7 +37,6 @@
         href="https://hadaf.site/"
     >
 
-
     <!-- Open Graph -->
 
     <meta
@@ -65,7 +64,6 @@
         content="website"
     >
 
-
     <!-- Structured Data -->
 
     <script type="application/ld+json">
@@ -79,6 +77,7 @@
     }
     </script>
 
+    <link rel="manifest" href="./manifest.json">
 
     <style>
 
@@ -87,7 +86,6 @@
         ========================== */
 
         :root {
-
             --bg: #07090f;
             --card: rgba(18,22,34,.95);
             --border: rgba(255,255,255,.075);
@@ -100,7 +98,6 @@
             --red: #ef4444;
         }
 
-
         /* =========================
            RESET
         ========================== */
@@ -110,14 +107,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
 
-
         body {
-
             margin: 0;
             min-height: 100vh;
             padding-bottom: 100px;
@@ -131,46 +125,38 @@
                 sans-serif;
 
             background:
-
                 radial-gradient(
                     circle at 85% -5%,
                     rgba(103,88,255,.16),
                     transparent 28%
                 ),
-
                 radial-gradient(
                     circle at 0% 35%,
                     rgba(37,99,235,.07),
                     transparent 30%
                 ),
-
                 var(--bg);
         }
-
 
         button {
             font-family: inherit;
         }
-
 
         /* =========================
            APP
         ========================== */
 
         .app {
-
             width: min(760px, 94%);
             margin: auto;
             padding: 18px 0 50px;
         }
-
 
         /* =========================
            TOP BAR
         ========================== */
 
         .topbar {
-
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -181,20 +167,14 @@
             direction: ltr;
         }
 
-
         .brand {
-
             display: flex;
             align-items: center;
-
             gap: 11px;
-
             direction: rtl;
         }
 
-
         .logo {
-
             width: 48px;
             height: 48px;
 
@@ -206,61 +186,44 @@
 
             border-radius: 16px;
 
-            background:
-                rgba(103,88,255,.08);
+            background: rgba(103,88,255,.08);
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
         }
 
-
         .logo img {
-
             width: 40px;
             height: 40px;
-
             object-fit: contain;
         }
 
-
         .brand strong {
-
             display: block;
             font-size: 18px;
         }
 
-
         .brand small {
-
             display: block;
-
             margin-top: 3px;
-
             color: var(--muted);
-
             font-size: 10px;
         }
-
 
         /* =========================
            TOP ACCOUNT
         ========================== */
 
         .top-account {
-
             display: flex;
             align-items: center;
 
             gap: 9px;
-
             direction: rtl;
 
             cursor: pointer;
         }
 
-
         .account-button {
-
             width: 44px;
             height: 44px;
 
@@ -270,24 +233,17 @@
 
             flex-shrink: 0;
 
-            border:
-                1px solid var(--border);
-
+            border: 1px solid var(--border);
             border-radius: 14px;
 
             color: white;
-
-            background:
-                rgba(255,255,255,.035);
+            background: rgba(255,255,255,.035);
 
             cursor: pointer;
-
             font-size: 18px;
         }
 
-
         .top-account-name {
-
             max-width: 135px;
 
             color: var(--text);
@@ -300,60 +256,44 @@
             text-overflow: ellipsis;
         }
 
-
         /* =========================
            HERO
         ========================== */
 
         .hero {
-
             margin-bottom: 23px;
         }
 
-
         .hero-badge {
-
             display: inline-flex;
 
             padding: 7px 11px;
-
             margin-bottom: 12px;
 
             border-radius: 999px;
 
             color: #c9c3ff;
 
-            background:
-                rgba(103,88,255,.10);
+            background: rgba(103,88,255,.10);
 
-            border:
-                1px solid rgba(103,88,255,.20);
+            border: 1px solid rgba(103,88,255,.20);
 
             font-size: 11px;
         }
 
-
         .hero h1 {
-
             margin: 0;
-
             max-width: 600px;
 
-            font-size:
-                clamp(32px,7vw,49px);
-
+            font-size: clamp(32px,7vw,49px);
             line-height: 1.35;
         }
 
-
         .hero h1 span {
-
             color: #8b80ff;
         }
 
-
         .hero p {
-
             margin: 10px 0 0;
 
             max-width: 570px;
@@ -361,135 +301,105 @@
             color: var(--muted);
 
             line-height: 1.9;
-
             font-size: 13px;
         }
-
 
         /* =========================
            BANNER
         ========================== */
 
         .banner {
-
             width: 100%;
-
-            margin:
-                0 0 16px;
+            margin: 0 0 16px;
 
             overflow: hidden;
 
             border-radius: 22px;
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
 
-            background:
-                var(--card);
+            background: var(--card);
 
             box-shadow:
                 0 16px 45px
                 rgba(0,0,0,.25);
         }
 
-
         .banner img {
-
             display: block;
-
             width: 100%;
             height: auto;
-
             object-fit: cover;
         }
-
 
         /* =========================
            GENERIC CARD
         ========================== */
 
         .card {
-
             padding: 20px;
-
             margin-bottom: 14px;
 
             border-radius: 24px;
 
             background:
-
                 linear-gradient(
                     145deg,
                     rgba(18,22,34,.98),
                     rgba(11,14,22,.98)
                 );
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
 
             box-shadow:
                 0 16px 50px
                 rgba(0,0,0,.22);
         }
 
-
         /* =========================
            GOAL
         ========================== */
 
         .goal-card {
-
             position: relative;
-
             overflow: hidden;
 
             background:
-
                 radial-gradient(
                     circle at 95% 0%,
                     rgba(103,88,255,.16),
                     transparent 35%
                 ),
-
                 linear-gradient(
                     145deg,
                     rgba(18,22,34,.98),
                     rgba(11,14,22,.98)
                 );
+
+            cursor: pointer;
         }
 
-
         .goal-top {
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             gap: 15px;
         }
 
-
         .goal-label {
-
             color: var(--muted);
-
             font-size: 10px;
         }
 
-
         .goal-name {
-
             margin-top: 7px;
 
             font-size: 18px;
             font-weight: 800;
-
             line-height: 1.7;
         }
 
-
         .goal-arrow {
-
             width: 38px;
             height: 38px;
 
@@ -502,29 +412,21 @@
             border-radius: 13px;
 
             color: #b7b0ff;
-
-            background:
-                rgba(103,88,255,.10);
+            background: rgba(103,88,255,.10);
 
             font-size: 22px;
         }
 
-
         .goal-stats {
-
             display: grid;
 
-            grid-template-columns:
-                repeat(3,1fr);
+            grid-template-columns: repeat(3,1fr);
 
             gap: 8px;
-
             margin-top: 17px;
         }
 
-
         .goal-stat {
-
             padding: 11px 5px;
 
             text-align: center;
@@ -533,50 +435,37 @@
 
             color: var(--muted);
 
-            background:
-                rgba(255,255,255,.025);
+            background: rgba(255,255,255,.025);
 
-            border:
-                1px solid rgba(255,255,255,.045);
+            border: 1px solid rgba(255,255,255,.045);
 
             font-size: 9px;
         }
 
-
         .goal-stat strong {
-
             display: block;
 
             margin-bottom: 5px;
 
             color: white;
-
             font-size: 19px;
         }
 
-
         .goal-stat.fire strong {
-
             color: #ff8a45;
         }
 
-
         .goal-stat.best strong {
-
             color: #facc15;
         }
 
-
         .goal-button {
-
             width: 100%;
 
             padding: 14px;
-
             margin-top: 13px;
 
             border: none;
-
             border-radius: 15px;
 
             color: white;
@@ -594,21 +483,16 @@
             font-weight: 800;
         }
 
-
         /* =========================
            SECTION
         ========================== */
 
         .section {
-
             padding-top: 16px;
-
             scroll-margin-top: 20px;
         }
 
-
         .section-head {
-
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -616,40 +500,27 @@
             margin: 0 2px 13px;
         }
 
-
         .section-head h2 {
-
             margin: 0;
-
             font-size: 20px;
         }
 
-
         .section-head span {
-
             color: var(--muted);
-
             font-size: 10px;
         }
-
 
         /* =========================
            GAMES
         ========================== */
 
         .games {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(3,1fr);
-
+            grid-template-columns: repeat(3,1fr);
             gap: 10px;
         }
 
-
         .game-card {
-
             min-height: 150px;
 
             padding: 16px;
@@ -660,17 +531,14 @@
 
             border-radius: 21px;
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
 
             background:
-
                 radial-gradient(
                     circle at 100% 0%,
                     rgba(103,88,255,.10),
                     transparent 45%
                 ),
-
                 var(--card);
 
             cursor: pointer;
@@ -678,15 +546,11 @@
             transition: .2s;
         }
 
-
         .game-card:active {
-
             transform: scale(.97);
         }
 
-
         .game-icon {
-
             width: 47px;
             height: 47px;
 
@@ -696,51 +560,37 @@
 
             border-radius: 15px;
 
-            background:
-                rgba(103,88,255,.10);
+            background: rgba(103,88,255,.10);
 
             font-size: 22px;
         }
 
-
         .game-title {
-
             margin-top: 18px;
-
             font-size: 14px;
             font-weight: 800;
         }
 
-
         .game-sub {
-
             margin-top: 5px;
 
             color: var(--muted);
 
             font-size: 9px;
-
             line-height: 1.7;
         }
-
 
         /* =========================
            TOOLS
         ========================== */
 
         .tools {
-
             display: grid;
-
-            grid-template-columns:
-                repeat(2,1fr);
-
+            grid-template-columns: repeat(2,1fr);
             gap: 10px;
         }
 
-
         .tool-card {
-
             min-height: 102px;
 
             padding: 15px;
@@ -753,26 +603,20 @@
 
             border-radius: 20px;
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
 
-            background:
-                var(--card);
+            background: var(--card);
 
             cursor: pointer;
 
             transition: .2s;
         }
 
-
         .tool-card:active {
-
             transform: scale(.98);
         }
 
-
         .tool-info {
-
             display: flex;
             align-items: center;
 
@@ -781,9 +625,7 @@
             min-width: 0;
         }
 
-
         .tool-icon {
-
             width: 45px;
             height: 45px;
 
@@ -797,150 +639,111 @@
 
             color: #c8c2ff;
 
-            background:
-                rgba(103,88,255,.10);
+            background: rgba(103,88,255,.10);
 
-            border:
-                1px solid rgba(103,88,255,.12);
+            border: 1px solid rgba(103,88,255,.12);
 
             font-size: 20px;
         }
 
-
         .tool-title {
-
             font-size: 13px;
             font-weight: 800;
-
             line-height: 1.5;
         }
 
-
         .tool-sub {
-
             margin-top: 5px;
 
             color: var(--muted);
 
             font-size: 9px;
-
             line-height: 1.6;
         }
-
 
         /* =========================
            RESALAT
         ========================== */
 
         .resalat-card {
-
             background:
-
                 radial-gradient(
                     circle at 0% 100%,
                     rgba(34,197,94,.09),
                     transparent 55%
                 ),
-
                 var(--card);
         }
 
-
         .resalat-icon {
-
             overflow: hidden;
 
-            background:
-                rgba(34,197,94,.08);
+            background: rgba(34,197,94,.08);
 
-            border-color:
-                rgba(34,197,94,.12);
+            border-color: rgba(34,197,94,.12);
         }
 
-
         .resalat-icon img {
-
             width: 35px;
             height: 35px;
-
             object-fit: contain;
         }
 
-
         .qr-icon {
-
             font-size: 23px;
         }
-
 
         /* =========================
            ABOUT
         ========================== */
 
         .about {
-
             margin-top: 26px;
-
             text-align: center;
         }
 
-
         .about h2 {
-
             margin: 0 0 8px;
-
             font-size: 17px;
         }
 
-
         .about p {
-
             max-width: 570px;
-
             margin: auto;
 
             color: var(--muted);
 
             font-size: 11px;
-
             line-height: 2;
         }
-
 
         /* =========================
            LOGOUT
         ========================== */
 
         .logout {
-
             width: 100%;
 
             margin-top: 17px;
-
             padding: 13px;
 
-            border:
-                1px solid rgba(239,68,68,.12);
-
+            border: 1px solid rgba(239,68,68,.12);
             border-radius: 15px;
 
             color: #fca5a5;
 
-            background:
-                rgba(239,68,68,.045);
+            background: rgba(239,68,68,.045);
 
             cursor: pointer;
 
             font-size: 11px;
         }
 
-
         /* =========================
            FOOTER
         ========================== */
 
         footer {
-
             padding: 30px 0 8px;
 
             text-align: center;
@@ -950,65 +753,51 @@
             font-size: 10px;
         }
 
-
         /* =========================
            BOTTOM NAV
         ========================== */
 
         .bottom-nav {
-
             position: fixed;
 
             z-index: 100;
 
             right: 50%;
 
-            bottom:
-                max(12px, env(safe-area-inset-bottom));
+            bottom: max(12px, env(safe-area-inset-bottom));
 
-            transform:
-                translateX(50%);
+            transform: translateX(50%);
 
-            width:
-                min(520px,92%);
-
+            width: min(520px,92%);
             height: 68px;
 
             padding: 7px 8px;
 
             display: grid;
 
-            /* فقط از 4 به 5 تغییر کرده */
-            grid-template-columns:
-                repeat(5,1fr);
+            grid-template-columns: repeat(5,1fr);
 
             gap: 5px;
 
-            border:
-                1px solid rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.08);
 
             border-radius: 22px;
 
-            background:
-                rgba(13,16,25,.93);
+            background: rgba(13,16,25,.93);
 
-            backdrop-filter:
-                blur(18px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
 
             box-shadow:
                 0 15px 45px
                 rgba(0,0,0,.45);
         }
 
-
         .nav-item {
-
             border: none;
-
             border-radius: 16px;
 
             color: var(--muted);
-
             background: transparent;
 
             cursor: pointer;
@@ -1016,9 +805,7 @@
             font-size: 9px;
         }
 
-
         .nav-item span {
-
             display: block;
 
             margin-bottom: 4px;
@@ -1026,15 +813,10 @@
             font-size: 18px;
         }
 
-
         .nav-item.active {
-
             color: white;
-
-            background:
-                rgba(103,88,255,.13);
+            background: rgba(103,88,255,.13);
         }
-
 
         /* =========================
            RESPONSIVE
@@ -1043,86 +825,59 @@
         @media(max-width:600px) {
 
             .games {
-
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
 
-
             .game-card {
-
                 min-height: 105px;
 
                 flex-direction: row;
 
                 align-items: center;
 
-                justify-content:
-                    flex-start;
+                justify-content: flex-start;
 
                 gap: 13px;
             }
 
-
             .game-title {
-
                 margin-top: 0;
             }
 
-
             .tools {
-
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
-
         }
-
 
         @media(max-width:420px) {
 
             .app {
-
                 width: 92%;
             }
 
-
             .hero h1 {
-
                 font-size: 34px;
             }
 
-
             .card {
-
                 padding: 17px;
             }
 
-
             .goal-name {
-
                 font-size: 16px;
             }
 
-
             .top-account-name {
-
                 max-width: 95px;
-
                 font-size: 12px;
             }
 
-
             .brand small {
-
                 display: none;
             }
-
         }
 
     </style>
-    <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#6c63ff">
 
 </head>
 
@@ -1139,8 +894,6 @@
 
     <header class="topbar">
 
-
-        <!-- ACCOUNT - RIGHT -->
 
         <div
             class="top-account"
@@ -1164,8 +917,6 @@
 
         </div>
 
-
-        <!-- BRAND - LEFT -->
 
         <div class="brand">
 
@@ -1477,16 +1228,17 @@
 
         <div class="tools">
 
-               <div
+
+            <!-- RESALAT -->
+
+            <div
                 class="tool-card resalat-card"
                 onclick="openResalat()"
             >
 
                 <div class="tool-info">
 
-                    <div
-                        class="tool-icon resalat-icon"
-                    >
+                    <div class="tool-icon resalat-icon">
 
                         <img
                             src="resalat.png"
@@ -1532,6 +1284,7 @@
                         🧮
                     </div>
 
+
                     <div>
 
                         <div class="tool-title">
@@ -1568,6 +1321,7 @@
                         ▦
                     </div>
 
+
                     <div>
 
                         <div class="tool-title">
@@ -1589,11 +1343,6 @@
 
             </div>
 
-
-
-        
-
-         
 
         </div>
 
@@ -1629,18 +1378,9 @@
         >
             خروج از حساب
         </button>
-         </section>
 
 
-   
-    
-            <button
-            class="logout"
-            id="logoutButton"
-            href="hadaf.apk"
-            style="display:none">
-                    دانلود هدف
-        </button>
+    </section>
 
 
 
@@ -1719,9 +1459,6 @@
     </button>
 
 
-    <!-- =========================
-         PICO
-    ========================== -->
 
     <button
         class="nav-item"
@@ -1751,7 +1488,6 @@
         "https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
 
 
-
     /* =========================
        USER
     ========================== */
@@ -1767,9 +1503,7 @@
 
 
             if (!saved) {
-
                 return null;
-
             }
 
 
@@ -1778,13 +1512,10 @@
         }
 
         catch (error) {
-
             return null;
-
         }
 
     }
-
 
 
     function getEmail() {
@@ -1797,9 +1528,7 @@
             !user ||
             !user.email
         ) {
-
             return "";
-
         }
 
 
@@ -1810,7 +1539,6 @@
         .toLowerCase();
 
     }
-
 
 
     /* =========================
@@ -1862,7 +1590,6 @@
     }
 
 
-
     function goAccount() {
 
         const user =
@@ -1892,7 +1619,6 @@
     }
 
 
-
     function logout() {
 
         localStorage.removeItem(
@@ -1906,7 +1632,6 @@
     }
 
 
-
     /* =========================
        API CALL
     ========================== */
@@ -1917,20 +1642,16 @@
             await fetch(
                 API_URL,
                 {
-
                     method:
                         "POST",
 
                     headers: {
-
                         "Content-Type":
                             "text/plain;charset=utf-8"
-
                     },
 
                     body:
                         JSON.stringify(data)
-
                 }
             );
 
@@ -1938,7 +1659,6 @@
         return await response.json();
 
     }
-
 
 
     /* =========================
@@ -2083,7 +1803,6 @@
     }
 
 
-
     /* =========================
        NAVIGATION
     ========================== */
@@ -2096,7 +1815,6 @@
     }
 
 
-
     function openResalat() {
 
         window.open(
@@ -2106,7 +1824,6 @@
         );
 
     }
-
 
 
     function goHome() {
@@ -2126,7 +1843,6 @@
     }
 
 
-
     function scrollToSection(id) {
 
         const section =
@@ -2134,9 +1850,7 @@
 
 
         if (!section) {
-
             return;
-
         }
 
 
@@ -2152,20 +1866,15 @@
 
 
         if (id === "games") {
-
             setActiveNav(2);
-
         }
 
 
         if (id === "tools") {
-
             setActiveNav(3);
-
         }
 
     }
-
 
 
     function setActiveNav(index) {
@@ -2200,7 +1909,6 @@
     }
 
 
-
     /* =========================
        START
     ========================== */
@@ -2210,7 +1918,6 @@
         function() {
 
             showAccount();
-
             loadGoal();
 
         }
@@ -2218,19 +1925,43 @@
 
 </script>
 
+
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js")
-      .then(() => {
-        console.log("✅ Hadaf PWA فعال شد");
-      })
-      .catch(error => {
-        console.error("❌ خطای PWA:", error);
-      });
-  });
-}
+
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker
+                    .register("./sw.js")
+
+                    .then(() => {
+
+                        console.log(
+                            "✅ Hadaf PWA فعال شد"
+                        );
+
+                    })
+
+                    .catch(error => {
+
+                        console.error(
+                            "❌ خطای PWA:",
+                            error
+                        );
+
+                    });
+
+            }
+        );
+
+    }
+
 </script>
+
+
 </body>
 
-    </html>
+</html>
