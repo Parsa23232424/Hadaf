@@ -11,7 +11,6 @@ const FILES_TO_CACHE = [
   "./qr.html",
   "./manifest.json",
   "./logo.png",
-  "./logo.ico",
   "./logo-192.png",
   "./logo-512.png"
 ];
