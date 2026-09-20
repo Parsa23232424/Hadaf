@@ -190,6 +190,59 @@
                 font-size: 22px;
             }
         }
+        /* =========================
+   نمایش تمام صفحه عکس
+   ========================= */
+
+.image-fullscreen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.94);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.image-fullscreen.active {
+    display: flex;
+}
+
+.image-fullscreen img {
+    max-width: 95vw;
+    max-height: 92vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.fullscreen-close {
+    position: fixed;
+    top: 15px;
+    right: 18px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 100000;
+}
+
+.fullscreen-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.card img {
+    cursor: zoom-in;
+}
     </style>
 </head>
 
