@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -29,8 +28,14 @@
             box-shadow: 0 2px 10px rgba(0,0,0,.08);
         }
 
+        header img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+        }
+
         header h1 {
-            margin: 0;
+            margin: 8px 0 0;
             font-size: 26px;
         }
 
@@ -58,6 +63,44 @@
             color: #777;
             box-shadow: 0 3px 15px rgba(0,0,0,.06);
             grid-column: 1 / -1;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,.07);
+        }
+
+        .card img,
+        .card video {
+            display: block;
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-title {
+            margin: 0 0 7px;
+            font-size: 18px;
+        }
+
+        .card-author {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 0;
         }
 
         .upload-section {
@@ -120,10 +163,24 @@
             opacity: .9;
         }
 
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
         #status {
             margin: 10px 0 0;
             text-align: center;
             font-size: 14px;
+        }
+
+        .loading {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            color: #777;
+            grid-column: 1 / -1;
         }
 
         footer {
@@ -136,6 +193,10 @@
             .upload-row {
                 grid-template-columns: 1fr;
             }
+
+            header h1 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
@@ -143,7 +204,7 @@
 <body>
 
 <header>
-    <img src="logo.png" alt="هدف" style="width:70px;height:70px;object-fit:contain;">
+    <img src="logo.png" alt="هدف">
     <h1>🎨 گالری هنری هدف 🏹</h1>
     <p>آثار هنری کاربران هدف</p>
 </header>
@@ -152,15 +213,9 @@
 
     <section>
         <div class="gallery" id="gallery">
-
-            <div class="empty">
-                🎨
-                <br><br>
-                هنوز اثری در گالری قرار نگرفته است.
-                <br>
-                اولین اثر را تو ارسال کن!
+            <div class="loading">
+                ⏳ در حال دریافت آثار...
             </div>
-
         </div>
     </section>
 
@@ -199,7 +254,7 @@
             accept="image/*,video/*"
         >
 
-        <button onclick="uploadArtwork()">
+        <button id="uploadButton" onclick="uploadArtwork()">
             🚀 ارسال اثر
         </button>
 
@@ -215,22 +270,179 @@
 
 <script>
 
-function uploadArtwork() {
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbzzgwjurZ6rdatu-llk1a69rve5j91TJpzi8fHAC62pBKT9EzmQpDsRdaABJaPLWAJj/exec";
+
+
+/* =========================
+   دریافت گالری
+   ========================= */
+
+async function loadGallery() {
+
+    const gallery =
+        document.getElementById("gallery");
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL + "?action=getArtworks"
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            !data.success ||
+            !Array.isArray(data.artworks)
+        ) {
+
+            throw new Error(
+                data.message || "پاسخ نامعتبر"
+            );
+
+        }
+
+        gallery.innerHTML = "";
+
+
+        if (data.artworks.length === 0) {
+
+            gallery.innerHTML = `
+                <div class="empty">
+                    🎨
+                    <br><br>
+                    هنوز اثری در گالری قرار نگرفته است.
+                    <br>
+                    اولین اثر را تو ارسال کن!
+                </div>
+            `;
+
+            return;
+        }
+
+
+        data.artworks.forEach(artwork => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "card";
+
+
+            let media = "";
+
+            if (
+                artwork.mimeType &&
+                artwork.mimeType.startsWith("video/")
+            ) {
+
+                media = `
+                    <video
+                        src="${escapeAttribute(artwork.fileUrl)}"
+                        controls
+                        preload="metadata">
+                    </video>
+                `;
+
+            } else {
+
+                media = `
+                    <img
+                        src="${escapeAttribute(artwork.fileUrl)}"
+                        alt="${escapeAttribute(artwork.title)}"
+                        loading="lazy">
+                `;
+
+            }
+
+
+            card.innerHTML = `
+                ${media}
+
+                <div class="card-content">
+
+                    <h3 class="card-title">
+                        ${escapeHtml(artwork.title)}
+                    </h3>
+
+                    <div class="card-author">
+                        👤 ${escapeHtml(artwork.author)}
+                    </div>
+
+                    ${
+                        artwork.description
+                        ? `
+                            <p class="card-description">
+                                ${escapeHtml(artwork.description)}
+                            </p>
+                        `
+                        : ""
+                    }
+
+                </div>
+            `;
+
+
+            gallery.appendChild(card);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        gallery.innerHTML = `
+            <div class="empty">
+                ❌ دریافت گالری انجام نشد.
+                <br><br>
+                لطفاً دوباره تلاش کن.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   آپلود اثر
+   ========================= */
+
+async function uploadArtwork() {
 
     const title =
-        document.getElementById("title").value.trim();
+        document
+            .getElementById("title")
+            .value
+            .trim();
 
     const author =
-        document.getElementById("author").value.trim();
+        document
+            .getElementById("author")
+            .value
+            .trim();
 
     const description =
-        document.getElementById("description").value.trim();
+        document
+            .getElementById("description")
+            .value
+            .trim();
+
+    const fileInput =
+        document.getElementById("file");
 
     const file =
-        document.getElementById("file").files[0];
+        fileInput.files[0];
 
     const status =
         document.getElementById("status");
+
+    const button =
+        document.getElementById("uploadButton");
+
 
     if (!title || !author || !file) {
 
@@ -238,22 +450,217 @@ function uploadArtwork() {
             "❌ عنوان، نام سازنده و فایل را وارد کن.";
 
         return;
+
     }
 
-    status.textContent =
-        "ℹ️ اطلاعات اثر آماده ارسال است.";
 
-    console.log({
-        title: title,
-        author: author,
-        description: description,
-        file: file
-    });
+    if (
+        !file.type.startsWith("image/") &&
+        !file.type.startsWith("video/")
+    ) {
+
+        status.textContent =
+            "❌ فقط عکس یا ویدئو قابل ارسال است.";
+
+        return;
+
+    }
+
+
+    const maxSize =
+        10 * 1024 * 1024;
+
+
+    if (file.size > maxSize) {
+
+        status.textContent =
+            "❌ حجم فایل نباید بیشتر از ۱۰ مگابایت باشد.";
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    status.textContent =
+        "⏳ در حال آماده‌سازی فایل...";
+
+
+    try {
+
+        const base64 =
+            await fileToBase64(file);
+
+
+        status.textContent =
+            "⏳ در حال ارسال اثر...";
+
+
+        const response =
+            await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+
+                body: JSON.stringify({
+
+                    action: "uploadArtwork",
+
+                    title: title,
+
+                    author: author,
+
+                    description: description,
+
+                    fileName: file.name,
+
+                    mimeType: file.type,
+
+                    base64: base64
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "آپلود انجام نشد."
+            );
+
+        }
+
+
+        status.textContent =
+            "✅ اثر با موفقیت ارسال شد!";
+
+
+        document
+            .getElementById("title")
+            .value = "";
+
+        document
+            .getElementById("author")
+            .value = "";
+
+        document
+            .getElementById("description")
+            .value = "";
+
+        fileInput.value = "";
+
+
+        await loadGallery();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "❌ " + (
+                error.message ||
+                "آپلود انجام نشد."
+            );
+
+    } finally {
+
+        button.disabled = false;
+
+    }
 
 }
+
+
+/* =========================
+   تبدیل فایل به Base64
+   ========================= */
+
+function fileToBase64(file) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload = () => {
+
+                const result =
+                    String(reader.result);
+
+
+                const base64 =
+                    result.includes(",")
+                    ? result.split(",")[1]
+                    : result;
+
+
+                resolve(base64);
+
+            };
+
+
+            reader.onerror = () => {
+
+                reject(
+                    new Error(
+                        "خواندن فایل انجام نشد."
+                    )
+                );
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+}
+
+
+/* =========================
+   جلوگیری از HTML Injection
+   ========================= */
+
+function escapeHtml(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
+
+}
+
+
+/* =========================
+   شروع
+   ========================= */
+
+loadGallery();
 
 </script>
 
 </body>
 </html>
-
