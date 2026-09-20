@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>گالری هنری | هدف 🏹</title>
-    <meta name="description" content="گالری هنری هدف؛ جایی برای نمایش عکس‌ها و ویدئوهای هنری کاربران.">
+    <meta name="description" content="گالری هنری هدف؛ عکس‌ها و ویدئوهای هنری کاربران">
 
-    <link rel="icon" href="logo.ico">
+    <link rel="icon" type="image/png" href="logo.png">
 
     <style>
         * {
@@ -23,10 +23,10 @@
         }
 
         header {
-            background: #ffffff;
-            padding: 18px 20px;
+            background: white;
+            padding: 22px 15px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0,0,0,.08);
         }
 
         header h1 {
@@ -36,107 +36,106 @@
 
         header p {
             margin: 8px 0 0;
-            color: #666;
+            color: #777;
         }
 
         .container {
             width: min(1000px, 94%);
-            margin: 30px auto;
+            margin: 25px auto;
         }
 
-        .upload-box {
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .empty {
             background: white;
-            padding: 25px;
+            padding: 45px 20px;
             border-radius: 20px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
+            text-align: center;
+            color: #777;
+            box-shadow: 0 3px 15px rgba(0,0,0,.06);
+            grid-column: 1 / -1;
         }
 
-        .upload-box h2 {
-            margin-top: 0;
+        .upload-section {
+            margin-top: 45px;
+            background: white;
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 4px 18px rgba(0,0,0,.08);
+        }
+
+        .upload-section h2 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+
+        .upload-section p {
+            margin: 0 0 15px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .upload-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
         input,
         textarea,
         button {
             width: 100%;
-            margin-top: 12px;
-            padding: 13px;
+            padding: 12px;
             border-radius: 12px;
             border: 1px solid #ddd;
             font-family: inherit;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         textarea {
-            min-height: 100px;
+            margin-top: 10px;
+            min-height: 80px;
             resize: vertical;
         }
 
         input[type="file"] {
+            margin-top: 10px;
             background: #f8f8f8;
         }
 
         button {
-            border: none;
+            margin-top: 10px;
             background: #222;
             color: white;
-            cursor: pointer;
+            border: none;
             font-weight: bold;
+            cursor: pointer;
         }
 
         button:hover {
-            opacity: 0.9;
+            opacity: .9;
         }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .empty {
-            background: white;
-            padding: 35px;
-            border-radius: 18px;
+        #status {
+            margin: 10px 0 0;
             text-align: center;
-            color: #777;
-            grid-column: 1 / -1;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .card img,
-        .card video {
-            width: 100%;
-            display: block;
-            max-height: 300px;
-            object-fit: cover;
-            background: #111;
-        }
-
-        .card-content {
-            padding: 15px;
-        }
-
-        .card-content h3 {
-            margin: 0 0 8px;
-        }
-
-        .card-content p {
-            color: #666;
             font-size: 14px;
         }
 
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 30px 15px;
             color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .upload-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -144,30 +143,54 @@
 <body>
 
 <header>
+    <img src="logo.png" alt="هدف" style="width:70px;height:70px;object-fit:contain;">
     <h1>🎨 گالری هنری هدف 🏹</h1>
-    <p>آثار هنری خودت را با دیگران به اشتراک بگذار</p>
+    <p>آثار هنری کاربران هدف</p>
 </header>
 
 <div class="container">
 
-    <section class="upload-box">
-        <h2>⬆️ ارسال اثر</h2>
+    <section>
+        <div class="gallery" id="gallery">
 
-        <input
-            type="text"
-            id="title"
-            placeholder="عنوان اثر"
-        >
+            <div class="empty">
+                🎨
+                <br><br>
+                هنوز اثری در گالری قرار نگرفته است.
+                <br>
+                اولین اثر را تو ارسال کن!
+            </div>
 
-        <input
-            type="text"
-            id="author"
-            placeholder="نام سازنده"
-        >
+        </div>
+    </section>
+
+    <section class="upload-section">
+
+        <h2>📤 ارسال اثر</h2>
+
+        <p>
+            عکس یا ویدئوی هنری خودت را برای گالری ارسال کن.
+        </p>
+
+        <div class="upload-row">
+
+            <input
+                type="text"
+                id="title"
+                placeholder="عنوان اثر"
+            >
+
+            <input
+                type="text"
+                id="author"
+                placeholder="نام سازنده"
+            >
+
+        </div>
 
         <textarea
             id="description"
-            placeholder="توضیح کوتاه درباره اثر..."
+            placeholder="توضیح کوتاه درباره اثر (اختیاری)"
         ></textarea>
 
         <input
@@ -181,16 +204,7 @@
         </button>
 
         <p id="status"></p>
-    </section>
 
-    <section>
-        <h2>🖼️ آثار هنری</h2>
-
-        <div class="gallery" id="gallery">
-            <div class="empty">
-                هنوز اثری ارسال نشده است.
-            </div>
-        </div>
     </section>
 
 </div>
@@ -200,31 +214,46 @@
 </footer>
 
 <script>
+
 function uploadArtwork() {
 
-    const title = document.getElementById("title").value.trim();
-    const author = document.getElementById("author").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const file = document.getElementById("file").files[0];
-    const status = document.getElementById("status");
+    const title =
+        document.getElementById("title").value.trim();
+
+    const author =
+        document.getElementById("author").value.trim();
+
+    const description =
+        document.getElementById("description").value.trim();
+
+    const file =
+        document.getElementById("file").files[0];
+
+    const status =
+        document.getElementById("status");
 
     if (!title || !author || !file) {
-        status.textContent = "❌ عنوان، نام سازنده و فایل را وارد کن.";
+
+        status.textContent =
+            "❌ عنوان، نام سازنده و فایل را وارد کن.";
+
         return;
     }
 
     status.textContent =
-        "ℹ️ صفحه آماده است؛ سیستم ذخیره‌سازی فایل را در مرحله بعد وصل می‌کنیم.";
+        "ℹ️ اطلاعات اثر آماده ارسال است.";
 
     console.log({
-        title,
-        author,
-        description,
-        file
+        title: title,
+        author: author,
+        description: description,
+        file: file
     });
+
 }
+
 </script>
 
 </body>
 </html>
-```
+
