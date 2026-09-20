@@ -12,11 +12,6 @@ const FILES_TO_CACHE = [
   "./qr.html",
   "./gallery.html",
 
-
-
-  "./style.css",
-  "./game.js",
-
   "./manifest.json",
 
   "./logo.png",
