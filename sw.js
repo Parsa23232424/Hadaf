@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "hadaf-pwa-v6";
+const CACHE_NAME = "hadaf-pwa-v7";
 
 const FILES_TO_CACHE = [
   "./",
@@ -21,7 +21,11 @@ const FILES_TO_CACHE = [
 
   "./logo.png",
   "./resalat.png",
-  "./banner.png"
+  "./banner.png",
+
+  "./Game/Car/Car.html",
+  "./Game/snake/snake.html",
+  "./Game/memory/memory.html"
 ];
 
 self.addEventListener("install", event => {
@@ -59,4 +63,3 @@ self.addEventListener("fetch", event => {
     })
   );
 });
-
