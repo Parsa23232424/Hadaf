@@ -12,7 +12,7 @@ const FILES_TO_CACHE = [
   "./qr.html",
   "./gallery.html",
 
-  "./data.json",
+
 
   "./style.css",
   "./game.js",
