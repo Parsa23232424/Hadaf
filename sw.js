@@ -1,4 +1,5 @@
-const CACHE_NAME = "hadaf-pwa-v2";
+
+const CACHE_NAME = "hadaf-pwa-v6";
 
 const FILES_TO_CACHE = [
   "./",
@@ -9,18 +10,25 @@ const FILES_TO_CACHE = [
   "./pico.html",
   "./calculator.html",
   "./qr.html",
+  "./gallery.html",
+
+  "./data.json",
+
+  "./style.css",
+  "./game.js",
+
   "./manifest.json",
+
   "./logo.png",
-  "./logo-192.png",
-  "./logo-512.png"
+  "./resalat.png",
+  "./banner.png"
 ];
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(FILES_TO_CACHE);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(FILES_TO_CACHE);
+    })
   );
 
   self.skipWaiting();
@@ -42,13 +50,13 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
 
-        return fetch(event.request);
-      })
+      return fetch(event.request);
+    })
   );
 });
+
