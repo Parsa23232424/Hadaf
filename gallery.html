@@ -82,6 +82,11 @@
             background: #eee;
         }
 
+        /* کلیک‌پذیر بودن عکس */
+        .card img {
+            cursor: zoom-in;
+        }
+
         .card-content {
             padding: 15px;
         }
@@ -181,7 +186,58 @@
             color: #777;
         }
 
+        /* =========================
+           نمایش تمام صفحه عکس
+           ========================= */
+
+        .image-fullscreen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.94);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .image-fullscreen.active {
+            display: flex;
+        }
+
+        .image-fullscreen img {
+            max-width: 95vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .fullscreen-close {
+            position: fixed;
+            top: 15px;
+            right: 18px;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 100000;
+        }
+
+        .fullscreen-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
         @media (max-width: 600px) {
+
             .upload-row {
                 grid-template-columns: 1fr;
             }
@@ -189,88 +245,97 @@
             header h1 {
                 font-size: 22px;
             }
+
+            .image-fullscreen {
+                padding: 10px;
+            }
+
+            .image-fullscreen img {
+                max-width: 98vw;
+                max-height: 90vh;
+            }
+
+            .fullscreen-close {
+                top: 10px;
+                right: 10px;
+                width: 44px;
+                height: 44px;
+            }
         }
-        /* =========================
-   نمایش تمام صفحه عکس
-   ========================= */
-
-.image-fullscreen {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: rgba(0, 0, 0, 0.94);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.image-fullscreen.active {
-    display: flex;
-}
-
-.image-fullscreen img {
-    max-width: 95vw;
-    max-height: 92vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-}
-
-.fullscreen-close {
-    position: fixed;
-    top: 15px;
-    right: 18px;
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    margin: 0;
-    border: none;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 100000;
-}
-
-.fullscreen-close:hover {
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.card img {
-    cursor: zoom-in;
-}
     </style>
 </head>
 
 <body>
 
+<!-- =========================
+     نمایش تمام صفحه عکس
+     ========================= -->
+
+<div
+    id="imageFullscreen"
+    class="image-fullscreen"
+    onclick="closeFullscreen(event)"
+>
+
+    <button
+        type="button"
+        class="fullscreen-close"
+        onclick="closeFullscreen()"
+        aria-label="بستن"
+    >
+        ✕
+    </button>
+
+    <img
+        id="fullscreenImage"
+        src=""
+        alt="نمایش تمام صفحه"
+    >
+
+</div>
+
+
 <header>
     <img src="logo.png" alt="هدف">
-    <h1>🎨 گالری هنری هدف 🏹</h1>
-    <p>آثار هنری کاربران هدف</p>
+
+    <h1>
+        🎨 گالری هنری هدف 🏹
+    </h1>
+
+    <p>
+        آثار هنری کاربران هدف
+    </p>
 </header>
+
 
 <div class="container">
 
     <section>
-        <div class="gallery" id="gallery">
+
+        <div
+            class="gallery"
+            id="gallery"
+        >
+
             <div class="loading">
                 ⏳ در حال دریافت آثار...
             </div>
+
         </div>
+
     </section>
+
 
     <section class="upload-section">
 
-        <h2>📤 ارسال اثر</h2>
+        <h2>
+            📤 ارسال اثر
+        </h2>
 
         <p>
             عکس یا ویدئوی هنری خودت را برای گالری ارسال کن.
         </p>
+
 
         <div class="upload-row">
 
@@ -288,16 +353,19 @@
 
         </div>
 
+
         <textarea
             id="description"
             placeholder="توضیح کوتاه درباره اثر (اختیاری)"
         ></textarea>
+
 
         <input
             type="file"
             id="file"
             accept="image/*,video/*"
         >
+
 
         <button
             id="uploadButton"
@@ -307,15 +375,18 @@
             🚀 ارسال اثر
         </button>
 
+
         <p id="status"></p>
 
     </section>
 
 </div>
 
+
 <footer>
     🏹 Hadaf © 2026
 </footer>
+
 
 <script>
 
@@ -342,27 +413,40 @@ async function loadGallery() {
             }
         );
 
+
         const text =
             await response.text();
 
+
         let data;
 
+
         try {
-            data = JSON.parse(text);
+
+            data =
+                JSON.parse(text);
+
         } catch (e) {
+
             throw new Error(
                 "پاسخ API قابل خواندن نیست."
             );
+
         }
+
 
         if (
             !data.success ||
             !Array.isArray(data.artworks)
         ) {
+
             throw new Error(
-                data.message || "پاسخ نامعتبر از API"
+                data.message ||
+                "پاسخ نامعتبر از API"
             );
+
         }
+
 
         gallery.innerHTML = "";
 
@@ -371,11 +455,17 @@ async function loadGallery() {
 
             gallery.innerHTML = `
                 <div class="empty">
+
                     🎨
+
                     <br><br>
+
                     هنوز اثری در گالری قرار نگرفته است.
+
                     <br>
+
                     اولین اثر را تو ارسال کن!
+
                 </div>
             `;
 
@@ -383,89 +473,118 @@ async function loadGallery() {
         }
 
 
-        data.artworks.forEach(function(artwork) {
+        data.artworks.forEach(
+            function(artwork) {
 
-            const card =
-                document.createElement("div");
-
-            card.className = "card";
-
-
-            const title =
-                escapeHtml(artwork.title);
-
-            const author =
-                escapeHtml(artwork.author);
-
-            const description =
-                escapeHtml(artwork.description);
-
-            const fileUrl =
-                escapeAttribute(artwork.fileUrl);
+                const card =
+                    document.createElement("div");
 
 
-            let media = "";
+                card.className =
+                    "card";
 
 
-            if (
-                artwork.mimeType &&
-                String(artwork.mimeType)
-                    .toLowerCase()
-                    .startsWith("video/")
-            ) {
+                const title =
+                    escapeHtml(
+                        artwork.title
+                    );
 
-                media = `
-                    <video
-                        controls
-                        preload="metadata"
-                        playsinline
-                        src="${fileUrl}">
-                    </video>
+
+                const author =
+                    escapeHtml(
+                        artwork.author
+                    );
+
+
+                const description =
+                    escapeHtml(
+                        artwork.description
+                    );
+
+
+                const fileUrl =
+                    escapeAttribute(
+                        artwork.fileUrl
+                    );
+
+
+                let media = "";
+
+
+                /* =========================
+                   ویدئو
+                   ========================= */
+
+                if (
+                    artwork.mimeType &&
+                    String(artwork.mimeType)
+                        .toLowerCase()
+                        .startsWith("video/")
+                ) {
+
+                    media = `
+                        <video
+                            controls
+                            preload="metadata"
+                            playsinline
+                            src="${fileUrl}">
+                        </video>
+                    `;
+
+                }
+
+
+                /* =========================
+                   عکس
+                   ========================= */
+
+                else {
+
+                    media = `
+                        <img
+                            src="${fileUrl}"
+                            alt="${title}"
+                            loading="lazy"
+                            onclick="openFullscreen('${fileUrl}')"
+                            onerror="this.style.display='none';">
+                    `;
+
+                }
+
+
+                card.innerHTML = `
+                    ${media}
+
+                    <div class="card-content">
+
+                        <h3 class="card-title">
+                            ${title}
+                        </h3>
+
+
+                        <div class="card-author">
+                            👤 ${author}
+                        </div>
+
+
+                        ${
+                            description
+                                ? `
+                                    <p class="card-description">
+                                        ${description}
+                                    </p>
+                                `
+                                : ""
+                        }
+
+                    </div>
                 `;
 
-            } else {
 
-                media = `
-                    <img
-                        src="${fileUrl}"
-                        alt="${title}"
-                        loading="lazy"
-                        onerror="this.style.display='none';">
-                `;
+                gallery.appendChild(card);
 
             }
-
-
-            card.innerHTML = `
-                ${media}
-
-                <div class="card-content">
-
-                    <h3 class="card-title">
-                        ${title}
-                    </h3>
-
-                    <div class="card-author">
-                        👤 ${author}
-                    </div>
-
-                    ${
-                        description
-                            ? `
-                                <p class="card-description">
-                                    ${description}
-                                </p>
-                            `
-                            : ""
-                    }
-
-                </div>
-            `;
-
-
-            gallery.appendChild(card);
-
-        });
+        );
 
 
     } catch (error) {
@@ -475,12 +594,18 @@ async function loadGallery() {
             error
         );
 
+
         gallery.innerHTML = `
             <div class="empty">
+
                 ❌ دریافت گالری انجام نشد.
+
                 <br><br>
+
                 ${escapeHtml(error.message)}
+
                 <br><br>
+
                 <button
                     type="button"
                     onclick="loadGallery()"
@@ -488,12 +613,116 @@ async function loadGallery() {
                 >
                     🔄 تلاش دوباره
                 </button>
+
             </div>
         `;
 
     }
 
 }
+
+
+/* =========================
+   نمایش عکس تمام صفحه
+   ========================= */
+
+function openFullscreen(imageUrl) {
+
+    const fullscreen =
+        document.getElementById(
+            "imageFullscreen"
+        );
+
+
+    const image =
+        document.getElementById(
+            "fullscreenImage"
+        );
+
+
+    image.src =
+        imageUrl;
+
+
+    fullscreen.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================
+   بستن نمایش تمام صفحه
+   ========================= */
+
+function closeFullscreen(event) {
+
+    /*
+       اگر روی خود عکس کلیک شد،
+       پنجره بسته نشود.
+    */
+
+    if (
+        event &&
+        event.target &&
+        event.target.id !==
+        "imageFullscreen"
+    ) {
+
+        return;
+
+    }
+
+
+    const fullscreen =
+        document.getElementById(
+            "imageFullscreen"
+        );
+
+
+    const image =
+        document.getElementById(
+            "fullscreenImage"
+        );
+
+
+    fullscreen.classList.remove(
+        "active"
+    );
+
+
+    image.src =
+        "";
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================
+   بستن با Escape
+   ========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeFullscreen();
+
+        }
+
+    }
+);
 
 
 /* =========================
@@ -508,11 +737,13 @@ async function uploadArtwork() {
             .value
             .trim();
 
+
     const author =
         document
             .getElementById("author")
             .value
             .trim();
+
 
     const description =
         document
@@ -520,25 +751,36 @@ async function uploadArtwork() {
             .value
             .trim();
 
+
     const fileInput =
         document.getElementById("file");
+
 
     const file =
         fileInput.files[0];
 
+
     const status =
         document.getElementById("status");
 
+
     const button =
-        document.getElementById("uploadButton");
+        document.getElementById(
+            "uploadButton"
+        );
 
 
-    if (!title || !author || !file) {
+    if (
+        !title ||
+        !author ||
+        !file
+    ) {
 
         status.textContent =
             "❌ عنوان، نام سازنده و فایل را وارد کن.";
 
         return;
+
     }
 
 
@@ -551,6 +793,7 @@ async function uploadArtwork() {
             "❌ فقط عکس یا ویدئو قابل ارسال است.";
 
         return;
+
     }
 
 
@@ -558,16 +801,21 @@ async function uploadArtwork() {
         10 * 1024 * 1024;
 
 
-    if (file.size > maxSize) {
+    if (
+        file.size > maxSize
+    ) {
 
         status.textContent =
             "❌ حجم فایل نباید بیشتر از ۱۰ مگابایت باشد.";
 
         return;
+
     }
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
+
 
     status.textContent =
         "⏳ در حال آماده‌سازی فایل...";
@@ -576,7 +824,9 @@ async function uploadArtwork() {
     try {
 
         const base64 =
-            await fileToBase64(file);
+            await fileToBase64(
+                file
+            );
 
 
         status.textContent =
@@ -585,37 +835,52 @@ async function uploadArtwork() {
 
         const payload = {
 
-            action: "uploadArtwork",
+            action:
+                "uploadArtwork",
 
-            title: title,
+            title:
+                title,
 
-            author: author,
+            author:
+                author,
 
-            description: description,
+            description:
+                description,
 
-            fileName: file.name,
+            fileName:
+                file.name,
 
-            mimeType: file.type,
+            mimeType:
+                file.type,
 
-            base64: base64
+            base64:
+                base64
 
         };
 
 
         const response =
-            await fetch(API_URL, {
+            await fetch(
+                API_URL,
+                {
 
-                method: "POST",
+                    method:
+                        "POST",
 
-                headers: {
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
+                    headers: {
 
-                body:
-                    JSON.stringify(payload)
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
 
-            });
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+
+                }
+            );
 
 
         const text =
@@ -623,6 +888,7 @@ async function uploadArtwork() {
 
 
         let data;
+
 
         try {
 
@@ -636,6 +902,7 @@ async function uploadArtwork() {
                 text
             );
 
+
             throw new Error(
                 "پاسخ API قابل خواندن نیست."
             );
@@ -643,7 +910,9 @@ async function uploadArtwork() {
         }
 
 
-        if (!data.success) {
+        if (
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
@@ -661,15 +930,19 @@ async function uploadArtwork() {
             .getElementById("title")
             .value = "";
 
+
         document
             .getElementById("author")
             .value = "";
+
 
         document
             .getElementById("description")
             .value = "";
 
-        fileInput.value = "";
+
+        fileInput.value =
+            "";
 
 
         await loadGallery();
@@ -682,6 +955,7 @@ async function uploadArtwork() {
             error
         );
 
+
         status.textContent =
             "❌ " +
             (
@@ -691,7 +965,8 @@ async function uploadArtwork() {
 
     } finally {
 
-        button.disabled = false;
+        button.disabled =
+            false;
 
     }
 
@@ -711,41 +986,49 @@ function fileToBase64(file) {
                 new FileReader();
 
 
-            reader.onload = function() {
+            reader.onload =
+                function() {
 
-                const result =
-                    String(reader.result);
+                    const result =
+                        String(
+                            reader.result
+                        );
 
 
-                const comma =
-                    result.indexOf(",");
+                    const comma =
+                        result.indexOf(",");
 
 
-                const base64 =
-                    comma >= 0
-                        ? result.substring(
-                            comma + 1
+                    const base64 =
+                        comma >= 0
+                            ? result.substring(
+                                comma + 1
+                            )
+                            : result;
+
+
+                    resolve(
+                        base64
+                    );
+
+                };
+
+
+            reader.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "خواندن فایل انجام نشد."
                         )
-                        : result;
+                    );
+
+                };
 
 
-                resolve(base64);
-
-            };
-
-
-            reader.onerror = function() {
-
-                reject(
-                    new Error(
-                        "خواندن فایل انجام نشد."
-                    )
-                );
-
-            };
-
-
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(
+                file
+            );
 
         }
     );
@@ -759,19 +1042,38 @@ function fileToBase64(file) {
 
 function escapeHtml(value) {
 
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(
+        value || ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 function escapeAttribute(value) {
 
-    return escapeHtml(value);
+    return escapeHtml(
+        value
+    );
 
 }
 
