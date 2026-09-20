@@ -55,7 +55,8 @@
             gap: 18px;
         }
 
-        .empty {
+        .empty,
+        .loading {
             background: white;
             padding: 45px 20px;
             border-radius: 20px;
@@ -174,15 +175,6 @@
             font-size: 14px;
         }
 
-        .loading {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            color: #777;
-            grid-column: 1 / -1;
-        }
-
         footer {
             text-align: center;
             padding: 30px 15px;
@@ -254,7 +246,11 @@
             accept="image/*,video/*"
         >
 
-        <button id="uploadButton" onclick="uploadArtwork()">
+        <button
+            id="uploadButton"
+            type="button"
+            onclick="uploadArtwork()"
+        >
             🚀 ارسال اثر
         </button>
 
@@ -275,7 +271,7 @@ const API_URL =
 
 
 /* =========================
-   دریافت گالری
+   دریافت آثار
    ========================= */
 
 async function loadGallery() {
@@ -285,23 +281,34 @@ async function loadGallery() {
 
     try {
 
-        const response =
-            await fetch(
-                API_URL + "?action=getArtworks"
-            );
+        const response = await fetch(
+            API_URL + "?action=getArtworks&t=" + Date.now(),
+            {
+                method: "GET",
+                cache: "no-store"
+            }
+        );
 
-        const data =
-            await response.json();
+        const text =
+            await response.text();
+
+        let data;
+
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            throw new Error(
+                "پاسخ API قابل خواندن نیست."
+            );
+        }
 
         if (
             !data.success ||
             !Array.isArray(data.artworks)
         ) {
-
             throw new Error(
-                data.message || "پاسخ نامعتبر"
+                data.message || "پاسخ نامعتبر از API"
             );
-
         }
 
         gallery.innerHTML = "";
@@ -323,7 +330,7 @@ async function loadGallery() {
         }
 
 
-        data.artworks.forEach(artwork => {
+        data.artworks.forEach(function(artwork) {
 
             const card =
                 document.createElement("div");
@@ -331,18 +338,35 @@ async function loadGallery() {
             card.className = "card";
 
 
+            const title =
+                escapeHtml(artwork.title);
+
+            const author =
+                escapeHtml(artwork.author);
+
+            const description =
+                escapeHtml(artwork.description);
+
+            const fileUrl =
+                escapeAttribute(artwork.fileUrl);
+
+
             let media = "";
+
 
             if (
                 artwork.mimeType &&
-                artwork.mimeType.startsWith("video/")
+                String(artwork.mimeType)
+                    .toLowerCase()
+                    .startsWith("video/")
             ) {
 
                 media = `
                     <video
-                        src="${escapeAttribute(artwork.fileUrl)}"
                         controls
-                        preload="metadata">
+                        preload="metadata"
+                        playsinline
+                        src="${fileUrl}">
                     </video>
                 `;
 
@@ -350,9 +374,10 @@ async function loadGallery() {
 
                 media = `
                     <img
-                        src="${escapeAttribute(artwork.fileUrl)}"
-                        alt="${escapeAttribute(artwork.title)}"
-                        loading="lazy">
+                        src="${fileUrl}"
+                        alt="${title}"
+                        loading="lazy"
+                        onerror="this.style.display='none';">
                 `;
 
             }
@@ -364,21 +389,21 @@ async function loadGallery() {
                 <div class="card-content">
 
                     <h3 class="card-title">
-                        ${escapeHtml(artwork.title)}
+                        ${title}
                     </h3>
 
                     <div class="card-author">
-                        👤 ${escapeHtml(artwork.author)}
+                        👤 ${author}
                     </div>
 
                     ${
-                        artwork.description
-                        ? `
-                            <p class="card-description">
-                                ${escapeHtml(artwork.description)}
-                            </p>
-                        `
-                        : ""
+                        description
+                            ? `
+                                <p class="card-description">
+                                    ${description}
+                                </p>
+                            `
+                            : ""
                     }
 
                 </div>
@@ -392,13 +417,24 @@ async function loadGallery() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Gallery Error:",
+            error
+        );
 
         gallery.innerHTML = `
             <div class="empty">
                 ❌ دریافت گالری انجام نشد.
                 <br><br>
-                لطفاً دوباره تلاش کن.
+                ${escapeHtml(error.message)}
+                <br><br>
+                <button
+                    type="button"
+                    onclick="loadGallery()"
+                    style="max-width:220px;"
+                >
+                    🔄 تلاش دوباره
+                </button>
             </div>
         `;
 
@@ -450,7 +486,6 @@ async function uploadArtwork() {
             "❌ عنوان، نام سازنده و فایل را وارد کن.";
 
         return;
-
     }
 
 
@@ -463,7 +498,6 @@ async function uploadArtwork() {
             "❌ فقط عکس یا ویدئو قابل ارسال است.";
 
         return;
-
     }
 
 
@@ -477,7 +511,6 @@ async function uploadArtwork() {
             "❌ حجم فایل نباید بیشتر از ۱۰ مگابایت باشد.";
 
         return;
-
     }
 
 
@@ -497,38 +530,64 @@ async function uploadArtwork() {
             "⏳ در حال ارسال اثر...";
 
 
+        const payload = {
+
+            action: "uploadArtwork",
+
+            title: title,
+
+            author: author,
+
+            description: description,
+
+            fileName: file.name,
+
+            mimeType: file.type,
+
+            base64: base64
+
+        };
+
+
         const response =
             await fetch(API_URL, {
 
                 method: "POST",
 
                 headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
                 },
 
-                body: JSON.stringify({
-
-                    action: "uploadArtwork",
-
-                    title: title,
-
-                    author: author,
-
-                    description: description,
-
-                    fileName: file.name,
-
-                    mimeType: file.type,
-
-                    base64: base64
-
-                })
+                body:
+                    JSON.stringify(payload)
 
             });
 
 
-        const data =
-            await response.json();
+        const text =
+            await response.text();
+
+
+        let data;
+
+        try {
+
+            data =
+                JSON.parse(text);
+
+        } catch (e) {
+
+            console.error(
+                "API response:",
+                text
+            );
+
+            throw new Error(
+                "پاسخ API قابل خواندن نیست."
+            );
+
+        }
 
 
         if (!data.success) {
@@ -565,10 +624,14 @@ async function uploadArtwork() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Upload Error:",
+            error
+        );
 
         status.textContent =
-            "❌ " + (
+            "❌ " +
+            (
                 error.message ||
                 "آپلود انجام نشد."
             );
@@ -589,22 +652,28 @@ async function uploadArtwork() {
 function fileToBase64(file) {
 
     return new Promise(
-        (resolve, reject) => {
+        function(resolve, reject) {
 
             const reader =
                 new FileReader();
 
 
-            reader.onload = () => {
+            reader.onload = function() {
 
                 const result =
                     String(reader.result);
 
 
+                const comma =
+                    result.indexOf(",");
+
+
                 const base64 =
-                    result.includes(",")
-                    ? result.split(",")[1]
-                    : result;
+                    comma >= 0
+                        ? result.substring(
+                            comma + 1
+                        )
+                        : result;
 
 
                 resolve(base64);
@@ -612,7 +681,7 @@ function fileToBase64(file) {
             };
 
 
-            reader.onerror = () => {
+            reader.onerror = function() {
 
                 reject(
                     new Error(
@@ -632,7 +701,7 @@ function fileToBase64(file) {
 
 
 /* =========================
-   جلوگیری از HTML Injection
+   امنیت متن
    ========================= */
 
 function escapeHtml(value) {
@@ -655,7 +724,7 @@ function escapeAttribute(value) {
 
 
 /* =========================
-   شروع
+   شروع گالری
    ========================= */
 
 loadGallery();
