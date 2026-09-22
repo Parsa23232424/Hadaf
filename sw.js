@@ -1,26 +1,12 @@
-
-const CACHE_NAME = "hadaf-pwa-v8";
+const CACHE_NAME = "hadaf-pwa-v9";
 
 const FILES_TO_CACHE = [
   "./",
-  "./index.html",
-  "./login.html",
-  "./signup.html",
-  "./goals.html",
-  "./pico.html",
-  "./calculator.html",
-  "./qr.html",
-  "./gallery.html",
-
   "./manifest.json",
 
   "./logo.png",
   "./resalat.png",
-  "./banner.png",
-
-  "./Game/Car/Car.html",
-  "./Game/snake/snake.html",
-  "./Game/memory/memory.html"
+  "./banner.png"
 ];
 
 self.addEventListener("install", event => {
@@ -32,6 +18,7 @@ self.addEventListener("install", event => {
 
   self.skipWaiting();
 });
+
 
 self.addEventListener("activate", event => {
   event.waitUntil(
@@ -47,14 +34,29 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
 
-      return fetch(event.request);
-    })
+self.addEventListener("fetch", event => {
+
+  // صفحات HTML همیشه از اینترنت گرفته شوند
+  if (event.request.mode === "navigate") {
+
+    event.respondWith(
+      fetch(event.request)
+        .catch(() => caches.match("./index.html"))
+    );
+
+    return;
+  }
+
+
+  // فایل‌های دیگر از cache سریع‌تر باشند
+  event.respondWith(
+    caches.match(event.request)
+      .then(cached => {
+
+        return cached || fetch(event.request);
+
+      })
   );
+
 });
