@@ -1314,7 +1314,7 @@ function saveGoalsCache(email, goals) {
 
         localStorage.setItem(
 
-            getGoalsCacheKey(email),
+            getGoalCacheKey(email),
 
             JSON.stringify({
                 goals: goals,
@@ -1336,7 +1336,7 @@ function saveGoalsCache(email, goals) {
 }
 
 
-function loadGoalsCache(email) {
+function getGoalCache(email) {
 
     try {
 
@@ -1540,7 +1540,7 @@ function showLoadError(message) {
    LOAD ALL GOALS
 ===================================== */
 
-async function loadGoal() {
+async function getGoal() {
 
     const loading =
         document.getElementById(
