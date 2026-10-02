@@ -78,10 +78,7 @@ input{
 button{
     -webkit-appearance:none;
     appearance:none;
-    touch-action:manipulation;
 }
-
-/* APP */
 
 .app{
     width:min(720px,94%);
@@ -575,7 +572,7 @@ input::placeholder{
     <button
         type="button"
         class="back"
-        id="backButton"
+        onclick="goBack()"
         aria-label="بازگشت"
     >
         ←
@@ -643,6 +640,10 @@ input::placeholder{
 </section>
 
 
+<!-- =========================
+     CREATE GOAL
+========================== -->
+
 <section
     id="createBox"
     class="card"
@@ -660,17 +661,13 @@ input::placeholder{
 
     </div>
 
-    <div class="goal-input-wrap">
-
-        <input
-            id="goalInput"
-            type="text"
-            maxlength="120"
-            autocomplete="off"
-            placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم..."
-        >
-
-    </div>
+    <input
+        id="goalInput"
+        type="text"
+        maxlength="120"
+        autocomplete="off"
+        placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم..."
+    >
 
     <button
         type="button"
@@ -682,6 +679,10 @@ input::placeholder{
 
 </section>
 
+
+<!-- =========================
+     GOAL
+========================== -->
 
 <section
     id="goalBox"
@@ -773,7 +774,7 @@ input::placeholder{
     <button
         type="button"
         class="main-button"
-        id="loginButton"
+        onclick="location.href='login.html'"
     >
         ورود به حساب 👤
     </button>
@@ -783,12 +784,16 @@ input::placeholder{
 </main>
 
 
+<!-- =========================
+     BOTTOM NAV
+========================== -->
+
 <nav class="bottom-nav">
 
     <button
         type="button"
         class="nav-item"
-        data-url="index.html"
+        onclick="location.href='index.html'"
     >
         <span class="nav-icon">🏠</span>
         خانه
@@ -797,7 +802,7 @@ input::placeholder{
     <button
         type="button"
         class="nav-item active"
-        data-url="goals.html"
+        onclick="location.href='goals.html'"
     >
         <span class="nav-icon">🎯</span>
         اهداف
@@ -806,7 +811,7 @@ input::placeholder{
     <button
         type="button"
         class="nav-item"
-        data-url="pico.html"
+        onclick="location.href='pico.html'"
     >
         <span class="nav-icon">🤖</span>
         پیکو
@@ -815,7 +820,7 @@ input::placeholder{
     <button
         type="button"
         class="nav-item"
-        data-url="calculator.html"
+        onclick="location.href='calculator.html'"
     >
         <span class="nav-icon">🧮</span>
         ابزارها
@@ -886,12 +891,12 @@ function getEmail(){
         }
         catch(e){}
 
-        if(
-            String(value).includes("@")
-        ){
+        const stringValue =
+            String(value).trim();
 
-            return String(value)
-                .trim()
+        if(stringValue.includes("@")){
+
+            return stringValue
                 .toLowerCase();
 
         }
@@ -899,6 +904,7 @@ function getEmail(){
     }
 
     return "";
+
 }
 
 
@@ -910,8 +916,8 @@ function getGoalsCacheKey(email){
 
     return "hadaf_goals_" +
         String(email)
-            .trim()
-            .toLowerCase();
+        .trim()
+        .toLowerCase();
 
 }
 
@@ -977,39 +983,6 @@ function getGoalsCache(){
 
 
 /* =================================
-   TODAY
-================================= */
-
-function getTodayString(){
-
-    const now =
-        new Date();
-
-    const year =
-        now.getFullYear();
-
-    const month =
-        String(
-            now.getMonth() + 1
-        ).padStart(2,"0");
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2,"0");
-
-    return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day
-    );
-
-}
-
-
-/* =================================
    API CALL
 ================================= */
 
@@ -1021,9 +994,7 @@ async function callAPI(payload){
     const timeout =
         setTimeout(
             function(){
-
                 controller.abort();
-
             },
             20000
         );
@@ -1046,12 +1017,9 @@ async function callAPI(payload){
 
                     cache:"no-store",
 
-                    credentials:"omit",
-
                     redirect:"follow",
 
-                    signal:
-                        controller.signal
+                    signal:controller.signal
                 }
             );
 
@@ -1129,16 +1097,24 @@ async function loadGoal(){
         getEmail();
 
     const loading =
-        document.getElementById("loading");
+        document.getElementById(
+            "loading"
+        );
 
     const loginWarning =
-        document.getElementById("loginWarning");
+        document.getElementById(
+            "loginWarning"
+        );
 
     if(!email){
 
-        loading.classList.add("hidden");
+        loading.classList.add(
+            "hidden"
+        );
 
-        loginWarning.classList.remove("hidden");
+        loginWarning.classList.remove(
+            "hidden"
+        );
 
         render();
 
@@ -1146,16 +1122,27 @@ async function loadGoal(){
 
     }
 
-    loginWarning.classList.add("hidden");
 
-    loading.classList.remove("hidden");
+    loginWarning.classList.add(
+        "hidden"
+    );
+
+    loading.classList.remove(
+        "hidden"
+    );
+
+
+    /* =============================
+       CACHE
+    ============================= */
 
     const cached =
         getGoalsCache();
 
     if(
         cached &&
-        Array.isArray(cached.goals)
+        Array.isArray(cached.goals) &&
+        cached.goals.length > 0
     ){
 
         currentGoals =
@@ -1166,7 +1153,9 @@ async function loadGoal(){
                 function(goal){
 
                     return String(goal.id) ===
-                        String(cached.currentGoalId);
+                        String(
+                            cached.currentGoalId
+                        );
 
                 }
             ) ||
@@ -1177,13 +1166,22 @@ async function loadGoal(){
 
     }
 
+
+    /* =============================
+       SERVER
+    ============================= */
+
     try{
 
         const data =
             await callAPI({
+
                 action:"getGoal",
+
                 email:email
+
             });
+
 
         if(!data.success){
 
@@ -1194,7 +1192,9 @@ async function loadGoal(){
 
         }
 
+
         let goals = [];
+
 
         if(
             Array.isArray(data.goals)
@@ -1214,31 +1214,15 @@ async function loadGoal(){
 
         }
 
+
         currentGoals =
             goals;
 
-        /*
-         * اگر هدف قبلی از کش انتخاب شده بود،
-         * همان هدف را نگه می‌داریم.
-         * در غیر این صورت اولین هدف انتخاب می‌شود.
-         */
-
-        const oldId =
-            currentGoal
-                ? currentGoal.id
-                : null;
 
         currentGoal =
-            currentGoals.find(
-                function(goal){
-
-                    return String(goal.id) ===
-                        String(oldId);
-
-                }
-            ) ||
             currentGoals[0] ||
             null;
+
 
         saveGoalsCache();
 
@@ -1247,10 +1231,34 @@ async function loadGoal(){
     }
     catch(error){
 
-        const message =
-            document.getElementById("message");
+        /*
+         * اگر کش داریم، صفحه را خراب نکن.
+         * فقط خطای اتصال را نشان بده.
+         */
 
-        if(message && !currentGoal){
+        if(
+            currentGoal
+        ){
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
+
+            message.textContent =
+                "⚠️ اطلاعات ذخیره‌شده نمایش داده شد. اتصال به سرور برقرار نشد.";
+
+            message.classList.add(
+                "error"
+            );
+
+        }
+        else{
+
+            const message =
+                document.getElementById(
+                    "message"
+                );
 
             message.textContent =
                 "❌ " +
@@ -1259,14 +1267,18 @@ async function loadGoal(){
                     "خطا در دریافت اطلاعات"
                 );
 
-            message.classList.add("error");
+            message.classList.add(
+                "error"
+            );
 
         }
 
     }
     finally{
 
-        loading.classList.add("hidden");
+        loading.classList.add(
+            "hidden"
+        );
 
     }
 
@@ -1282,7 +1294,7 @@ async function createGoal(event){
     if(event){
 
         event.preventDefault();
-        event.stopImmediatePropagation();
+        event.stopPropagation();
 
     }
 
@@ -1294,13 +1306,20 @@ async function createGoal(event){
         getEmail();
 
     const input =
-        document.getElementById("goalInput");
+        document.getElementById(
+            "goalInput"
+        );
 
     const button =
-        document.getElementById("createButton");
+        document.getElementById(
+            "createButton"
+        );
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
+
 
     if(!email){
 
@@ -1311,8 +1330,10 @@ async function createGoal(event){
 
     }
 
+
     const goal =
         input.value.trim();
+
 
     if(!goal){
 
@@ -1322,6 +1343,7 @@ async function createGoal(event){
 
     }
 
+
     busy = true;
 
     button.disabled = true;
@@ -1329,18 +1351,27 @@ async function createGoal(event){
     button.textContent =
         "⏳ در حال ساخت...";
 
+
     message.textContent = "";
 
-    message.classList.remove("error");
+    message.classList.remove(
+        "error"
+    );
+
 
     try{
 
         const data =
             await callAPI({
+
                 action:"createGoal",
+
                 email:email,
+
                 goal:goal
+
             });
+
 
         if(!data.success){
 
@@ -1351,18 +1382,22 @@ async function createGoal(event){
 
         }
 
+
         let newGoal =
             data.goal ||
             data.data ||
             null;
 
+
         if(!newGoal){
 
             newGoal = {
 
-                id:Date.now(),
+                id:
+                    Date.now(),
 
-                goal:goal,
+                goal:
+                    goal,
 
                 streak:0,
 
@@ -1376,22 +1411,32 @@ async function createGoal(event){
 
         }
 
-        currentGoals.push(
+
+        /*
+         * اگر سرور هدف ساخته، همان را انتخاب کن.
+         */
+
+        currentGoals = [
             newGoal
-        );
+        ];
+
 
         currentGoal =
             newGoal;
 
+
         input.value = "";
+
 
         saveGoalsCache();
 
         render();
 
+
         message.textContent =
             data.message ||
             "هدف با موفقیت ساخته شد.";
+
 
     }
     catch(error){
@@ -1403,7 +1448,9 @@ async function createGoal(event){
                 "خطا در ساخت هدف"
             );
 
-        message.classList.add("error");
+        message.classList.add(
+            "error"
+        );
 
     }
     finally{
@@ -1431,7 +1478,7 @@ async function completeGoal(event){
     if(event){
 
         event.preventDefault();
-        event.stopImmediatePropagation();
+        event.stopPropagation();
 
     }
 
@@ -1451,14 +1498,25 @@ async function completeGoal(event){
 
     }
 
+
     const button =
-        document.getElementById("doneButton");
+        document.getElementById(
+            "doneButton"
+        );
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
+
 
     const today =
         getTodayString();
+
+
+    /*
+     * جلوگیری از ثبت دوباره امروز
+     */
 
     if(
         currentGoal.lastCompleted &&
@@ -1473,6 +1531,7 @@ async function completeGoal(event){
 
     }
 
+
     busy = true;
 
     button.disabled = true;
@@ -1482,16 +1541,10 @@ async function completeGoal(event){
 
     message.textContent = "";
 
-    message.classList.remove("error");
+    message.classList.remove(
+        "error"
+    );
 
-    /*
-     * اطلاعات قبلی را نگه می‌داریم تا اگر پاسخ API
-     * ناقص بود، صفحه خراب نشود.
-     */
-
-    const previousGoal = {
-        ...currentGoal
-    };
 
     try{
 
@@ -1502,9 +1555,11 @@ async function completeGoal(event){
 
                 email:email,
 
-                goalId:currentGoal.id
+                goalId:
+                    currentGoal.id
 
             });
+
 
         if(!data.success){
 
@@ -1514,6 +1569,12 @@ async function completeGoal(event){
             );
 
         }
+
+
+        /*
+         * اطلاعات جدید را از سرور بگیر.
+         * اگر سرور goal برگرداند از آن استفاده می‌کنیم.
+         */
 
         if(data.goal){
 
@@ -1550,29 +1611,19 @@ async function completeGoal(event){
 
         }
 
-        /*
-         * اگر API تاریخ را با فرمت متفاوت فرستاد،
-         * برای امروز همچنان وضعیت دکمه درست می‌ماند.
-         */
-
-        if(
-            !currentGoal.lastCompleted
-        ){
-
-            currentGoal.lastCompleted =
-                today;
-
-        }
 
         const index =
             currentGoals.findIndex(
                 function(goal){
 
                     return String(goal.id) ===
-                        String(currentGoal.id);
+                        String(
+                            currentGoal.id
+                        );
 
                 }
             );
+
 
         if(index !== -1){
 
@@ -1583,45 +1634,22 @@ async function completeGoal(event){
 
         }
 
+
         saveGoalsCache();
 
         render();
+
 
         message.textContent =
             data.message ||
             "🔥 امروز هم ثبت شد.";
 
-        message.classList.remove("error");
 
         celebrate();
 
+
     }
     catch(error){
-
-        /*
-         * مهم:
-         * در صورت خطا، صفحه رفرش نمی‌شود
-         * و اطلاعات قبلی برمی‌گردد.
-         */
-
-        currentGoal = previousGoal;
-
-        const index =
-            currentGoals.findIndex(
-                function(goal){
-
-                    return String(goal.id) ===
-                        String(previousGoal.id);
-
-                }
-            );
-
-        if(index !== -1){
-
-            currentGoals[index] =
-                previousGoal;
-
-        }
 
         message.textContent =
             "❌ " +
@@ -1630,7 +1658,9 @@ async function completeGoal(event){
                 "خطایی رخ داد."
             );
 
-        message.classList.add("error");
+        message.classList.add(
+            "error"
+        );
 
         button.disabled = false;
 
@@ -1643,6 +1673,7 @@ async function completeGoal(event){
         busy = false;
 
     }
+
 
     return false;
 
@@ -1658,7 +1689,7 @@ async function deleteGoal(event){
     if(event){
 
         event.preventDefault();
-        event.stopImmediatePropagation();
+        event.stopPropagation();
 
     }
 
@@ -1678,10 +1709,12 @@ async function deleteGoal(event){
 
     }
 
+
     const confirmed =
-        window.confirm(
+        confirm(
             "مطمئنی می‌خواهی این هدف و Streak آن را حذف کنی؟"
         );
+
 
     if(!confirmed){
 
@@ -1689,7 +1722,9 @@ async function deleteGoal(event){
 
     }
 
+
     busy = true;
+
 
     try{
 
@@ -1700,9 +1735,11 @@ async function deleteGoal(event){
 
                 email:email,
 
-                goalId:currentGoal.id
+                goalId:
+                    currentGoal.id
 
             });
+
 
         if(!data.success){
 
@@ -1713,19 +1750,24 @@ async function deleteGoal(event){
 
         }
 
+
         currentGoals =
             currentGoals.filter(
                 function(goal){
 
                     return String(goal.id) !==
-                        String(currentGoal.id);
+                        String(
+                            currentGoal.id
+                        );
 
                 }
             );
 
+
         currentGoal =
             currentGoals[0] ||
             null;
+
 
         saveGoalsCache();
 
@@ -1734,7 +1776,7 @@ async function deleteGoal(event){
     }
     catch(error){
 
-        window.alert(
+        alert(
             "❌ " +
             (
                 error.message ||
@@ -1748,6 +1790,7 @@ async function deleteGoal(event){
         busy = false;
 
     }
+
 
     return false;
 
@@ -1770,12 +1813,15 @@ function selectGoal(id){
             }
         );
 
+
     if(!found){
         return;
     }
 
+
     currentGoal =
         found;
+
 
     saveGoalsCache();
 
@@ -1795,19 +1841,13 @@ function renderGoalList(){
             "multiGoalList"
         );
 
-    const goalBox =
-        document.getElementById(
-            "goalBox"
-        );
-
-    if(!goalBox){
-        return;
-    }
 
     if(!list){
 
         list =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         list.id =
             "multiGoalList";
@@ -1821,6 +1861,13 @@ function renderGoalList(){
         list.style.gap =
             "8px";
 
+
+        const goalBox =
+            document.getElementById(
+                "goalBox"
+            );
+
+
         goalBox.parentNode.insertBefore(
             list,
             goalBox
@@ -1828,95 +1875,100 @@ function renderGoalList(){
 
     }
 
+
     if(currentGoals.length <= 1){
 
         list.innerHTML = "";
 
-        list.classList.add("hidden");
+        list.classList.add(
+            "hidden"
+        );
 
         return;
 
     }
 
-    list.classList.remove("hidden");
+
+    list.classList.remove(
+        "hidden"
+    );
+
 
     list.innerHTML =
         currentGoals
-            .map(
-                function(goal,index){
+        .map(
+            function(goal,index){
 
-                    const active =
-                        currentGoal &&
-                        String(currentGoal.id) ===
-                        String(goal.id);
+                const active =
+                    currentGoal &&
+                    String(currentGoal.id) ===
+                    String(goal.id);
 
-                    const safeId =
-                        String(goal.id)
-                            .replace(
-                                /\\/g,
-                                "\\\\"
+
+                const safeId =
+                    String(goal.id)
+                    .replace(
+                        /'/g,
+                        "\\'"
+                    );
+
+
+                return `
+
+                    <button
+                        type="button"
+                        onclick="selectGoal('${safeId}')"
+                        style="
+                            width:100%;
+                            padding:13px 15px;
+                            border-radius:16px;
+                            border:1px solid ${
+                                active
+                                ? "rgba(103,88,255,.45)"
+                                : "rgba(255,255,255,.075)"
+                            };
+                            background:${
+                                active
+                                ? "rgba(103,88,255,.12)"
+                                : "rgba(255,255,255,.035)"
+                            };
+                            color:#fff;
+                            text-align:right;
+                            cursor:pointer;
+                            font-family:inherit;
+                            font-size:13px;
+                        "
+                    >
+
+                        🎯 ${
+                            escapeHTML(
+                                goal.goal ||
+                                ("هدف " + (index + 1))
                             )
-                            .replace(
-                                /'/g,
-                                "\\'"
-                            );
+                        }
 
-                    return `
-
-                        <button
-                            type="button"
-                            onclick="selectGoal('${safeId}')"
+                        <span
                             style="
-                                width:100%;
-                                padding:13px 15px;
-                                border-radius:16px;
-                                border:1px solid ${
-                                    active
-                                        ? "rgba(103,88,255,.45)"
-                                        : "rgba(255,255,255,.075)"
-                                };
-                                background:${
-                                    active
-                                        ? "rgba(103,88,255,.12)"
-                                        : "rgba(255,255,255,.035)"
-                                };
-                                color:#fff;
-                                text-align:right;
-                                cursor:pointer;
-                                font-family:inherit;
-                                font-size:13px;
+                                display:block;
+                                color:#8f98a9;
+                                font-size:10px;
+                                margin-top:4px;
                             "
                         >
-
-                            🎯 ${
-                                escapeHTML(
-                                    goal.goal ||
-                                    ("هدف " + (index + 1))
+                            🔥 ${
+                                Number(
+                                    goal.streak || 0
                                 )
-                            }
+                            } روز
+                        </span>
 
-                            <span
-                                style="
-                                    display:block;
-                                    color:#8f98a9;
-                                    font-size:10px;
-                                    margin-top:4px;
-                                "
-                            >
-                                🔥 ${
-                                    Number(
-                                        goal.streak || 0
-                                    )
-                                } روز
-                            </span>
+                    </button>
 
-                        </button>
+                `;
 
-                    `;
-
-                }
-            )
-            .join("");
+            }
+        )
+        .join("");
 
 }
 
@@ -1928,56 +1980,103 @@ function renderGoalList(){
 function render(){
 
     const createBox =
-        document.getElementById("createBox");
+        document.getElementById(
+            "createBox"
+        );
 
     const goalBox =
-        document.getElementById("goalBox");
+        document.getElementById(
+            "goalBox"
+        );
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
-    if(!createBox || !goalBox){
-        return;
-    }
 
-    message.classList.remove("error");
+    message.classList.remove(
+        "error"
+    );
+
 
     renderGoalList();
 
+
+    /*
+     * ==============================
+     * بدون هدف
+     * ==============================
+     */
+
     if(!currentGoal){
 
-        createBox.classList.remove("hidden");
+        /*
+         * فقط ساخت هدف نمایش داده شود
+         */
 
-        goalBox.classList.add("hidden");
+        createBox.classList.remove(
+            "hidden"
+        );
+
+        goalBox.classList.add(
+            "hidden"
+        );
+
 
         document
             .getElementById("streak")
-            .textContent = "0";
+            .textContent =
+            "0";
+
 
         document
             .getElementById("bestStreak")
-            .textContent = "0";
+            .textContent =
+            "0";
+
 
         document
             .getElementById("record")
-            .textContent = "0";
+            .textContent =
+            "0";
+
 
         document
             .getElementById("totalDays")
-            .textContent = "0";
+            .textContent =
+            "0";
+
 
         return;
 
     }
 
-    createBox.classList.remove("hidden");
 
-    goalBox.classList.remove("hidden");
+    /*
+     * ==============================
+     * دارای هدف
+     * ==============================
+     *
+     * اینجا مشکل عکس قبلی بود:
+     * createBox نباید همزمان با goalBox
+     * نمایش داده شود.
+     */
+
+    createBox.classList.add(
+        "hidden"
+    );
+
+    goalBox.classList.remove(
+        "hidden"
+    );
+
 
     document
         .getElementById("goalName")
         .textContent =
         currentGoal.goal || "";
+
 
     document
         .getElementById("streak")
@@ -1986,12 +2085,14 @@ function render(){
             currentGoal.streak || 0
         );
 
+
     document
         .getElementById("bestStreak")
         .textContent =
         Number(
             currentGoal.bestStreak || 0
         );
+
 
     document
         .getElementById("record")
@@ -2000,6 +2101,7 @@ function render(){
             currentGoal.bestStreak || 0
         );
 
+
     document
         .getElementById("totalDays")
         .textContent =
@@ -2007,17 +2109,22 @@ function render(){
             currentGoal.totalDays || 0
         );
 
+
     const button =
         document.getElementById(
             "doneButton"
         );
 
+
+    const today =
+        getTodayString();
+
+
     if(
         currentGoal.lastCompleted &&
         String(
             currentGoal.lastCompleted
-        ).slice(0,10) ===
-        getTodayString()
+        ).slice(0,10) === today
     ){
 
         button.disabled = true;
@@ -2031,23 +2138,70 @@ function render(){
     }
     else{
 
+        button.disabled = false;
+
+        button.textContent =
+            "امروز انجامش دادم 🔥";
+
         /*
-         * اگر در حال ارسال درخواست هستیم،
-         * دکمه را دوباره فعال نکن.
+         * پیام خطای اتصال را پاک نکن.
+         * فقط اگر پیام موفقیت قبلی نبود خالی کن.
          */
 
-        if(!busy){
+        if(
+            !message.classList.contains(
+                "error"
+            )
+        ){
 
-            button.disabled = false;
-
-            button.textContent =
-                "امروز انجامش دادم 🔥";
+            message.textContent = "";
 
         }
 
-        message.textContent = "";
-
     }
+
+}
+
+
+/* =================================
+   TODAY
+================================= */
+
+function getTodayString(){
+
+    const now =
+        new Date();
+
+
+    const year =
+        now.getFullYear();
+
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
 
 }
 
@@ -2059,11 +2213,15 @@ function render(){
 function celebrate(){
 
     const fire =
-        document.querySelector(".fire");
+        document.querySelector(
+            ".fire"
+        );
+
 
     if(!fire){
         return;
     }
+
 
     if(
         typeof fire.animate ===
@@ -2073,7 +2231,8 @@ function celebrate(){
         fire.animate(
             [
                 {
-                    transform:"scale(1)"
+                    transform:
+                        "scale(1)"
                 },
                 {
                     transform:
@@ -2084,7 +2243,8 @@ function celebrate(){
                         "scale(1.12) rotate(6deg)"
                 },
                 {
-                    transform:"scale(1)"
+                    transform:
+                        "scale(1)"
                 }
             ],
             {
@@ -2105,10 +2265,14 @@ function celebrate(){
 function escapeHTML(text){
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.textContent =
         String(text);
+
 
     return div.innerHTML;
 
@@ -2139,73 +2303,6 @@ function goBack(){
 
 
 /* =================================
-   NAVIGATION
-================================= */
-
-function navigate(url){
-
-    if(
-        !url
-    ){
-        return;
-    }
-
-    window.location.assign(url);
-
-}
-
-
-/* =================================
-   GLOBAL CLICK PROTECTION
-================================= */
-
-/*
- * این قسمت اضافه شده تا هیچ کلیک روی دکمه
- * باعث submit یا رفرش ناخواسته صفحه نشود.
- */
-
-document.addEventListener(
-    "click",
-    function(event){
-
-        const button =
-            event.target.closest("button");
-
-        if(!button){
-            return;
-        }
-
-        if(
-            button.id === "doneButton" ||
-            button.id === "createButton" ||
-            button.id === "deleteButton"
-        ){
-
-            event.preventDefault();
-
-        }
-
-    },
-    true
-);
-
-
-/* =================================
-   PREVENT FORM SUBMIT
-================================= */
-
-document.addEventListener(
-    "submit",
-    function(event){
-
-        event.preventDefault();
-
-    },
-    true
-);
-
-
-/* =================================
    EVENTS
 ================================= */
 
@@ -2233,18 +2330,11 @@ document.addEventListener(
                 "deleteButton"
             );
 
-        const backButton =
-            document.getElementById(
-                "backButton"
-            );
 
-        const loginButton =
-            document.getElementById(
-                "loginButton"
-            );
-
-
-        /* دکمه‌ها همیشه button هستند */
+        /*
+         * همه دکمه‌ها button هستند
+         * و هیچ فرم submit وجود ندارد.
+         */
 
         createButton.type =
             "button";
@@ -2256,14 +2346,13 @@ document.addEventListener(
             "button";
 
 
-        /* ساخت هدف */
-
         createButton.addEventListener(
             "click",
             function(event){
 
                 event.preventDefault();
-                event.stopImmediatePropagation();
+
+                event.stopPropagation();
 
                 createGoal(event);
 
@@ -2271,14 +2360,13 @@ document.addEventListener(
         );
 
 
-        /* انجام هدف */
-
         doneButton.addEventListener(
             "click",
             function(event){
 
                 event.preventDefault();
-                event.stopImmediatePropagation();
+
+                event.stopPropagation();
 
                 completeGoal(event);
 
@@ -2286,14 +2374,13 @@ document.addEventListener(
         );
 
 
-        /* حذف هدف */
-
         deleteButton.addEventListener(
             "click",
             function(event){
 
                 event.preventDefault();
-                event.stopImmediatePropagation();
+
+                event.stopPropagation();
 
                 deleteGoal(event);
 
@@ -2301,18 +2388,18 @@ document.addEventListener(
         );
 
 
-        /* Enter داخل ورودی */
-
         goalInput.addEventListener(
             "keydown",
             function(event){
 
                 if(
-                    event.key === "Enter"
+                    event.key ===
+                    "Enter"
                 ){
 
                     event.preventDefault();
-                    event.stopImmediatePropagation();
+
+                    event.stopPropagation();
 
                     createGoal(event);
 
@@ -2321,63 +2408,6 @@ document.addEventListener(
             }
         );
 
-
-        /* بازگشت */
-
-        backButton.addEventListener(
-            "click",
-            function(event){
-
-                event.preventDefault();
-
-                goBack();
-
-            }
-        );
-
-
-        /* ورود */
-
-        loginButton.addEventListener(
-            "click",
-            function(event){
-
-                event.preventDefault();
-
-                location.href =
-                    "login.html";
-
-            }
-        );
-
-
-        /* منوی پایین */
-
-        document
-            .querySelectorAll(
-                ".nav-item[data-url]"
-            )
-            .forEach(
-                function(item){
-
-                    item.addEventListener(
-                        "click",
-                        function(event){
-
-                            event.preventDefault();
-
-                            navigate(
-                                item.dataset.url
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-
-        /* شروع */
 
         loadGoal();
 
