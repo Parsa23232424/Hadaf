@@ -2,7 +2,6 @@
 <html lang="fa" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -17,832 +16,531 @@
     content="هدف روزانه خودت را در سایت هدف بساز، هر روز انجامش بده و Streak خودت را ادامه بده."
 >
 
-<meta
-    name="theme-color"
-    content="#07090f"
->
+<meta name="theme-color" content="#07090f">
 
 <style>
 
-:root {
-
-    --bg: #07090f;
-    --card: rgba(18,22,34,.95);
-    --border: rgba(255,255,255,.075);
-    --text: #f8fafc;
-    --muted: #8f98a9;
-    --primary: #6758ff;
-    --primary-2: #5146da;
-    --orange: #ff7a32;
-    --yellow: #facc15;
-    --green: #22c55e;
-    --red: #ef4444;
-
-    --radius-xl: 28px;
-    --radius-lg: 22px;
-    --radius-md: 16px;
-
-    --shadow:
-        0 22px 70px rgba(0,0,0,.34);
+:root{
+    --bg:#07090f;
+    --card:rgba(18,22,34,.97);
+    --border:rgba(255,255,255,.075);
+    --text:#f8fafc;
+    --muted:#8f98a9;
+    --primary:#6758ff;
+    --primary2:#5146da;
+    --orange:#ff7a32;
+    --yellow:#facc15;
+    --green:#22c55e;
+    --red:#ef4444;
+    --radius-xl:28px;
+    --radius-lg:22px;
+    --radius-md:16px;
 }
 
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html {
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-
-    margin: 0;
-
-    min-height: 100vh;
-
-    padding-bottom: 100px;
-
+body{
+    margin:0;
+    min-height:100vh;
+    padding-bottom:100px;
     font-family:
         Tahoma,
         "Segoe UI",
         Arial,
         sans-serif;
-
-    color: var(--text);
-
+    color:var(--text);
     background:
-
         radial-gradient(
             circle at 85% -5%,
             rgba(103,88,255,.15),
             transparent 28%
         ),
-
         radial-gradient(
             circle at 0% 35%,
             rgba(37,99,235,.07),
             transparent 28%
         ),
-
-        #07090f;
+        var(--bg);
 }
 
 button,
-input {
-    font-family: inherit;
+input{
+    font-family:inherit;
 }
 
-button {
-    -webkit-tap-highlight-color: transparent;
+button{
+    -webkit-appearance:none;
+    appearance:none;
 }
 
-.app {
-
-    width: min(720px, 94%);
-
-    margin: auto;
-
-    padding: 18px 0 50px;
+.app{
+    width:min(720px,94%);
+    margin:auto;
+    padding:18px 0 50px;
 }
 
-.topbar {
+/* TOPBAR */
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 14px;
-
-    margin-bottom: 24px;
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:24px;
 }
 
-.brand {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
 }
 
-.brand-logo {
+.brand-logo{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:rgba(103,88,255,.09);
+    border:1px solid var(--border);
+}
 
-    width: 45px;
-    height: 45px;
+.brand-logo img{
+    width:37px;
+    height:37px;
+    object-fit:contain;
+}
 
-    border-radius: 14px;
+.brand-text strong{
+    display:block;
+    font-size:17px;
+}
 
-    display: flex;
+.brand-text span{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:10px;
+}
 
-    align-items: center;
-    justify-content: center;
+.back{
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    color:#c7cbd4;
+    background:rgba(255,255,255,.035);
+    font-size:20px;
+    cursor:pointer;
+}
 
-    overflow: hidden;
+/* HEADER */
 
+.page-header{
+    margin-bottom:20px;
+}
+
+.page-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:7px 11px;
+    margin-bottom:12px;
+    border-radius:999px;
+    color:#c7c0ff;
+    background:rgba(103,88,255,.10);
+    border:1px solid rgba(103,88,255,.20);
+    font-size:11px;
+}
+
+.page-header h1{
+    margin:0;
+    font-size:clamp(29px,6vw,42px);
+    line-height:1.45;
+}
+
+.page-header h1 span{
+    color:#8b80ff;
+}
+
+.page-header p{
+    margin:10px 0 0;
+    color:var(--muted);
+    line-height:1.9;
+    font-size:13px;
+}
+
+/* STREAK */
+
+.streak-card{
+    position:relative;
+    overflow:hidden;
+    padding:24px;
+    margin-bottom:18px;
+    border-radius:var(--radius-xl);
     background:
-        rgba(103,88,255,.09);
-
-    border:
-        1px solid var(--border);
-}
-
-.brand-logo img {
-
-    width: 37px;
-    height: 37px;
-
-    object-fit: contain;
-}
-
-.brand-text strong {
-
-    display: block;
-
-    font-size: 17px;
-}
-
-.brand-text span {
-
-    display: block;
-
-    margin-top: 3px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-}
-
-.back {
-
-    width: 42px;
-    height: 42px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 14px;
-
-    color: #c7cbd4;
-
-    background:
-        rgba(255,255,255,.035);
-
-    font-size: 20px;
-
-    cursor: pointer;
-}
-
-.page-header {
-    margin-bottom: 20px;
-}
-
-.page-badge {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    padding: 7px 11px;
-
-    margin-bottom: 12px;
-
-    border-radius: 999px;
-
-    color: #c7c0ff;
-
-    background:
-        rgba(103,88,255,.10);
-
-    border:
-        1px solid
-        rgba(103,88,255,.20);
-
-    font-size: 11px;
-}
-
-.page-header h1 {
-
-    margin: 0;
-
-    font-size:
-        clamp(29px, 6vw, 42px);
-
-    line-height: 1.45;
-}
-
-.page-header h1 span {
-    color: #8b80ff;
-}
-
-.page-header p {
-
-    margin: 10px 0 0;
-
-    color: var(--muted);
-
-    line-height: 1.9;
-
-    font-size: 13px;
-}
-
-.streak-card {
-
-    position: relative;
-
-    overflow: hidden;
-
-    padding: 24px;
-
-    margin-bottom: 18px;
-
-    border-radius:
-        var(--radius-xl);
-
-    background:
-
         radial-gradient(
             circle at 85% 0%,
             rgba(255,122,50,.12),
             transparent 32%
         ),
-
         radial-gradient(
             circle at 10% 100%,
             rgba(103,88,255,.14),
             transparent 35%
         ),
-
         linear-gradient(
             150deg,
             rgba(20,24,36,.98),
             rgba(11,14,23,.98)
         );
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    box-shadow:
-        var(--shadow);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 22px 70px rgba(0,0,0,.34);
 }
 
-.streak-main {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
+.streak-main{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
 }
 
-.fire-wrap {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
+.fire-wrap{
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
-.fire {
-
-    width: 64px;
-    height: 64px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 20px;
-
-    font-size: 34px;
-
-    background:
-        rgba(255,122,50,.09);
-
-    border:
-        1px solid
-        rgba(255,122,50,.16);
-
-    box-shadow:
-        0 12px 35px
-        rgba(255,122,50,.10);
+.fire{
+    width:64px;
+    height:64px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:20px;
+    font-size:34px;
+    background:rgba(255,122,50,.09);
+    border:1px solid rgba(255,122,50,.16);
+    box-shadow:0 12px 35px rgba(255,122,50,.10);
 }
 
-.streak-info {
-    min-width: 0;
+.streak-info{
+    min-width:0;
 }
 
-.streak {
-
-    font-size: 39px;
-
-    font-weight: 800;
-
-    line-height: 1;
+.streak{
+    font-size:39px;
+    font-weight:800;
+    line-height:1;
 }
 
-.streak-label {
-
-    margin-top: 6px;
-
-    color: var(--muted);
-
-    font-size: 12px;
+.streak-label{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:12px;
 }
 
-.best {
-
-    flex-shrink: 0;
-
-    padding:
-        10px 12px;
-
-    border-radius: 14px;
-
-    text-align: center;
-
-    color: var(--yellow);
-
-    background:
-        rgba(250,204,21,.06);
-
-    border:
-        1px solid
-        rgba(250,204,21,.10);
-
-    font-size: 10px;
+.best{
+    flex-shrink:0;
+    padding:10px 12px;
+    border-radius:14px;
+    text-align:center;
+    color:var(--yellow);
+    background:rgba(250,204,21,.06);
+    border:1px solid rgba(250,204,21,.10);
+    font-size:10px;
 }
 
-.best strong {
-
-    display: block;
-
-    margin-top: 5px;
-
-    color: #fff;
-
-    font-size: 18px;
+.best strong{
+    display:block;
+    margin-top:5px;
+    color:#fff;
+    font-size:18px;
 }
 
-.card {
+/* CARD */
 
-    margin-top: 14px;
-
-    padding: 21px;
-
-    border-radius:
-        var(--radius-lg);
-
+.card{
+    margin-top:14px;
+    padding:21px;
+    border-radius:var(--radius-lg);
     background:
         linear-gradient(
             145deg,
             rgba(18,22,34,.97),
             rgba(12,15,23,.97)
         );
-
-    border:
-        1px solid var(--border);
-
-    box-shadow:
-        0 15px 45px
-        rgba(0,0,0,.23);
+    border:1px solid var(--border);
+    box-shadow:0 15px 45px rgba(0,0,0,.23);
 }
 
-.card-title {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    margin-bottom: 16px;
+.card-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:16px;
 }
 
-.card-title h2 {
-
-    margin: 0;
-
-    font-size: 17px;
+.card-title h2{
+    margin:0;
+    font-size:17px;
 }
 
-.card-title span {
-
-    color: var(--muted);
-
-    font-size: 10px;
+.card-title span{
+    color:var(--muted);
+    font-size:10px;
 }
 
-.goal-input-wrap {
-    position: relative;
+/* INPUT */
+
+input{
+    width:100%;
+    min-height:54px;
+    padding:14px 15px;
+    border:1px solid rgba(255,255,255,.075);
+    border-radius:var(--radius-md);
+    outline:none;
+    color:white;
+    background:rgba(255,255,255,.035);
+    font-size:14px;
 }
 
-input {
-
-    width: 100%;
-
-    min-height: 54px;
-
-    padding:
-        14px 15px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.075);
-
-    border-radius:
-        var(--radius-md);
-
-    outline: none;
-
-    color: white;
-
-    background:
-        rgba(255,255,255,.035);
-
-    font-size: 14px;
+input:focus{
+    border-color:rgba(103,88,255,.50);
+    box-shadow:0 0 0 4px rgba(103,88,255,.08);
 }
 
-input:focus {
-
-    border-color:
-        rgba(103,88,255,.50);
-
-    box-shadow:
-        0 0 0 4px
-        rgba(103,88,255,.08);
+input::placeholder{
+    color:#667085;
 }
 
-input::placeholder {
-    color: #667085;
+/* BUTTON */
+
+.main-button{
+    width:100%;
+    margin-top:12px;
+    padding:15px;
+    border:0;
+    border-radius:var(--radius-md);
+    color:white;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    background:linear-gradient(
+        100deg,
+        #6657ff,
+        #7868ff
+    );
+    box-shadow:0 12px 32px rgba(103,88,255,.20);
 }
 
-.main-button {
-
-    width: 100%;
-
-    margin-top: 12px;
-
-    padding: 15px;
-
-    border: 0;
-
-    border-radius:
-        var(--radius-md);
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    background:
-        linear-gradient(
-            100deg,
-            #6657ff,
-            #7868ff
-        );
-
-    box-shadow:
-        0 12px 32px
-        rgba(103,88,255,.20);
-
-    transition:
-        transform .2s,
-        filter .2s;
+.main-button:disabled{
+    opacity:.48;
+    cursor:default;
 }
 
-.main-button:active {
-    transform: scale(.985);
+.done{
+    background:linear-gradient(
+        100deg,
+        #6758ff,
+        #5146da
+    );
 }
 
-.main-button:disabled {
+/* GOAL */
 
-    opacity: .48;
-
-    cursor: default;
-
-    transform: none;
+.goal-name{
+    padding:16px;
+    margin-bottom:4px;
+    border-radius:var(--radius-md);
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.055);
+    font-size:18px;
+    font-weight:800;
+    line-height:1.8;
+    text-align:center;
 }
 
-.done {
+/* STATS */
 
-    background:
-        linear-gradient(
-            100deg,
-            #6758ff,
-            #5146da
-        );
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:14px;
 }
 
-.goal-name {
-
-    padding:
-        16px;
-
-    margin-bottom: 4px;
-
-    border-radius:
-        var(--radius-md);
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid
-        rgba(255,255,255,.055);
-
-    font-size: 18px;
-
-    font-weight: 800;
-
-    line-height: 1.8;
-
-    text-align: center;
+.stat{
+    padding:14px 9px;
+    border-radius:16px;
+    text-align:center;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.045);
+    color:var(--muted);
+    font-size:10px;
 }
 
-.stats {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 10px;
-
-    margin-top: 14px;
+.stat strong{
+    display:block;
+    margin-top:6px;
+    color:white;
+    font-size:22px;
 }
 
-.stat {
+/* MESSAGE */
 
-    padding: 14px 9px;
-
-    border-radius: 16px;
-
-    text-align: center;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid
-        rgba(255,255,255,.045);
-
-    color: var(--muted);
-
-    font-size: 10px;
+.message{
+    min-height:22px;
+    margin-top:12px;
+    text-align:center;
+    color:#86efac;
+    font-size:12px;
+    font-weight:700;
 }
 
-.stat strong {
-
-    display: block;
-
-    margin-top: 6px;
-
-    color: white;
-
-    font-size: 22px;
+.error{
+    color:#fca5a5 !important;
 }
 
-.message {
+/* DELETE */
 
-    min-height: 22px;
-
-    margin-top: 12px;
-
-    text-align: center;
-
-    color: #86efac;
-
-    font-size: 12px;
-
-    font-weight: 700;
+.delete{
+    width:100%;
+    margin-top:17px;
+    padding:12px;
+    border:1px solid rgba(239,68,68,.13);
+    border-radius:14px;
+    color:#f87171;
+    background:rgba(239,68,68,.045);
+    font-size:12px;
+    cursor:pointer;
 }
 
-.error {
-    color: #fca5a5 !important;
+/* GENERAL */
+
+.hidden{
+    display:none !important;
 }
 
-.delete {
-
-    width: 100%;
-
-    margin-top: 17px;
-
-    padding: 12px;
-
-    border:
-        1px solid
-        rgba(239,68,68,.13);
-
-    border-radius: 14px;
-
-    color: #f87171;
-
-    background:
-        rgba(239,68,68,.045);
-
-    font-size: 12px;
-
-    cursor: pointer;
+.loading{
+    padding:31px;
+    text-align:center;
+    color:var(--muted);
 }
 
-.loading,
-.login-warning {
-    text-align: center;
+.login-warning{
+    text-align:center;
 }
 
-.loading {
-
-    padding: 31px;
-
-    color: var(--muted);
+.login-warning p{
+    color:var(--muted);
+    line-height:1.9;
+    font-size:12px;
 }
 
-.login-warning p {
+/* NAV */
 
-    color: var(--muted);
-
-    line-height: 1.9;
-
-    font-size: 12px;
+.bottom-nav{
+    position:fixed;
+    bottom:14px;
+    left:50%;
+    z-index:50;
+    width:min(520px,calc(100% - 28px));
+    transform:translateX(-50%);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:8px 7px;
+    border-radius:22px;
+    background:rgba(13,16,24,.93);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 16px 50px rgba(0,0,0,.45);
+    backdrop-filter:blur(22px);
 }
 
-.retry-button {
-
-    margin-top: 12px;
-
-    width: 100%;
-
-    padding: 13px;
-
-    border-radius: 14px;
-
-    border:
-        1px solid
-        rgba(103,88,255,.25);
-
-    background:
-        rgba(103,88,255,.10);
-
-    color: #c7c0ff;
-
-    font-family: inherit;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    cursor: pointer;
+.nav-item{
+    border:0;
+    padding:7px 4px;
+    border-radius:15px;
+    color:#727b8c;
+    background:transparent;
+    cursor:pointer;
+    font-size:10px;
 }
 
-.hidden {
-    display: none !important;
+.nav-item .nav-icon{
+    display:block;
+    margin-bottom:4px;
+    font-size:19px;
 }
 
-.bottom-nav {
-
-    position: fixed;
-
-    bottom: 14px;
-    left: 50%;
-
-    z-index: 50;
-
-    width:
-        min(520px, calc(100% - 28px));
-
-    transform:
-        translateX(-50%);
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    padding:
-        8px 7px;
-
-    border-radius: 22px;
-
-    background:
-        rgba(13,16,24,.93);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    box-shadow:
-        0 16px 50px
-        rgba(0,0,0,.45);
-
-    backdrop-filter:
-        blur(22px);
+.nav-item.active{
+    color:#8a7fff;
+    background:rgba(103,88,255,.10);
 }
 
-.nav-item {
+/* MOBILE */
 
-    border: 0;
+@media(max-width:520px){
 
-    padding:
-        7px 4px;
-
-    border-radius: 15px;
-
-    color: #727b8c;
-
-    background: transparent;
-
-    cursor: pointer;
-
-    font-size: 10px;
-}
-
-.nav-item .nav-icon {
-
-    display: block;
-
-    margin-bottom: 4px;
-
-    font-size: 19px;
-}
-
-.nav-item.active {
-
-    color: #8a7fff;
-
-    background:
-        rgba(103,88,255,.10);
-}
-
-@media(max-width: 520px) {
-
-    .app {
-        width: 92%;
+    .app{
+        width:92%;
     }
 
-    .streak-card {
-        padding: 18px;
+    .streak-card{
+        padding:18px;
     }
 
-    .streak-main {
-        align-items: flex-start;
+    .streak-main{
+        align-items:flex-start;
     }
 
-    .fire {
-
-        width: 56px;
-        height: 56px;
-
-        font-size: 30px;
+    .fire{
+        width:56px;
+        height:56px;
+        font-size:30px;
     }
 
-    .streak {
-        font-size: 34px;
+    .streak{
+        font-size:34px;
     }
 
-    .best {
-        padding: 8px 9px;
+    .best{
+        padding:8px 9px;
     }
 
-    .card {
-        padding: 18px;
+    .card{
+        padding:18px;
     }
 
-    .goal-name {
-        font-size: 16px;
+    .goal-name{
+        font-size:16px;
     }
 }
 
-@media(max-width: 390px) {
+@media(max-width:390px){
 
-    .stats {
-        grid-template-columns: 1fr;
+    .stats{
+        grid-template-columns:1fr;
     }
 
-    .best {
-        display: none;
+    .best{
+        display:none;
     }
 }
 
 </style>
-
 </head>
-
 
 <body>
 
@@ -863,22 +561,19 @@ input::placeholder {
 
         <div class="brand-text">
 
-            <strong>
-                هدف
-            </strong>
+            <strong>هدف 🏹</strong>
 
-            <span>
-                هر روز یک قدم جلوتر
-            </span>
+            <span>هر روز یک قدم جلوتر</span>
 
         </div>
 
     </div>
 
     <button
+        type="button"
         class="back"
-        onclick="location.href='index.html'"
-        aria-label="بازگشت به صفحه اصلی"
+        onclick="goBack()"
+        aria-label="بازگشت"
     >
         ←
     </button>
@@ -889,7 +584,7 @@ input::placeholder {
 <section class="page-header">
 
     <div class="page-badge">
-        ✦ مسیر روزانه
+        🎯 پیگیری هدف
     </div>
 
     <h1>
@@ -897,57 +592,13 @@ input::placeholder {
     </h1>
 
     <p>
-        هدفت رو بساز، هر روز انجامش بده
-        و رکوردت رو ادامه بده.
+        هر روز هدفت را انجام بده و زنجیره‌ات را حفظ کن 🔥
     </p>
 
 </section>
 
 
-<section
-    id="loginWarning"
-    class="card login-warning hidden"
->
-
-    <div class="card-title">
-
-        <h2>
-            🔐 وارد حساب شو
-        </h2>
-
-    </div>
-
-    <p>
-        برای ساخت هدف، ثبت انجام روزانه
-        و ذخیره Streak باید وارد حساب هدف باشی.
-    </p>
-
-    <button
-        class="main-button"
-        onclick="location.href='login.html'"
-    >
-        ورود به حساب
-    </button>
-
-</section>
-
-
-<section
-    id="loading"
-    class="card loading"
->
-
-    ⏳ در حال دریافت اطلاعات...
-
-</section>
-
-
-<section
-    id="mainContent"
-    class="hidden"
->
-
-<div class="streak-card">
+<section class="streak-card">
 
     <div class="streak-main">
 
@@ -960,8 +611,8 @@ input::placeholder {
             <div class="streak-info">
 
                 <div
-                    class="streak"
                     id="streak"
+                    class="streak"
                 >
                     0
                 </div>
@@ -976,7 +627,7 @@ input::placeholder {
 
         <div class="best">
 
-            🏆 رکورد
+            بهترین رکورد
 
             <strong id="bestStreak">
                 0
@@ -986,50 +637,26 @@ input::placeholder {
 
     </div>
 
-</div>
+</section>
 
 
-<div
-    id="goalListCard"
-    class="card hidden"
->
+<!-- =========================
+     CREATE GOAL
+========================== -->
 
-    <div class="card-title">
-
-        <h2>
-            🎯 هدف‌های من
-        </h2>
-
-        <span>
-            انتخاب هدف
-        </span>
-
-    </div>
-
-    <div
-        id="multiGoalList"
-        style="
-            display:grid;
-            gap:8px;
-        "
-    ></div>
-
-</div>
-
-
-<div
+<section
     id="createBox"
-    class="card hidden"
+    class="card"
 >
 
     <div class="card-title">
 
         <h2>
-            ساخت هدف جدید
+            🎯 هدف جدید
         </h2>
 
         <span>
-            شروع مسیر
+            روزانه
         </span>
 
     </div>
@@ -1038,30 +665,30 @@ input::placeholder {
 
         <input
             id="goalInput"
-            maxlength="100"
+            type="text"
+            maxlength="120"
             autocomplete="off"
-            placeholder="مثلاً هر روز ۲۰ دقیقه کتاب بخوانم"
+            placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم..."
         >
 
     </div>
 
     <button
+        type="button"
         id="createButton"
         class="main-button"
-        onclick="createGoal()"
     >
-        ساخت هدف 🎯
+        ساختن هدف 🚀
     </button>
 
-    <div
-        id="createMessage"
-        class="message"
-    ></div>
-
-</div>
+</section>
 
 
-<div
+<!-- =========================
+     GOAL
+========================== -->
+
+<section
     id="goalBox"
     class="card hidden"
 >
@@ -1069,7 +696,7 @@ input::placeholder {
     <div class="card-title">
 
         <h2>
-            هدف امروز
+            🎯 هدف امروز
         </h2>
 
         <span>
@@ -1084,23 +711,18 @@ input::placeholder {
     ></div>
 
     <button
+        type="button"
         id="doneButton"
         class="main-button done"
-        onclick="completeGoal()"
     >
         امروز انجامش دادم 🔥
     </button>
-
-    <div
-        id="message"
-        class="message"
-    ></div>
 
     <div class="stats">
 
         <div class="stat">
 
-            ✓ کل روزهای انجام‌شده
+            روزهای انجام‌شده
 
             <strong id="totalDays">
                 0
@@ -1110,7 +732,7 @@ input::placeholder {
 
         <div class="stat">
 
-            🏆 بهترین رکورد
+            بهترین رکورد
 
             <strong id="record">
                 0
@@ -1120,73 +742,92 @@ input::placeholder {
 
     </div>
 
+    <div
+        id="message"
+        class="message"
+    ></div>
+
     <button
+        type="button"
+        id="deleteButton"
         class="delete"
-        onclick="deleteGoal()"
     >
         حذف این هدف
     </button>
 
+</section>
+
+
+<div
+    id="loading"
+    class="loading"
+>
+    در حال بارگذاری هدف...
 </div>
 
 
-</section>
+<div
+    id="loginWarning"
+    class="login-warning hidden"
+>
+
+    <p>
+        برای استفاده از اهداف روزانه ابتدا وارد حساب کاربری خودت شو.
+    </p>
+
+    <button
+        type="button"
+        class="main-button"
+        onclick="location.href='login.html'"
+    >
+        ورود به حساب 👤
+    </button>
+
+</div>
 
 </main>
 
 
+<!-- =========================
+     BOTTOM NAV
+========================== -->
+
 <nav class="bottom-nav">
 
     <button
+        type="button"
         class="nav-item"
         onclick="location.href='index.html'"
     >
-
-        <span class="nav-icon">
-            ⌂
-        </span>
-
+        <span class="nav-icon">🏠</span>
         خانه
-
     </button>
 
     <button
+        type="button"
         class="nav-item active"
         onclick="location.href='goals.html'"
     >
-
-        <span class="nav-icon">
-            🎯
-        </span>
-
-        هدف من
-
+        <span class="nav-icon">🎯</span>
+        اهداف
     </button>
 
     <button
+        type="button"
         class="nav-item"
-        onclick="location.href='index.html#games'"
+        onclick="location.href='pico.html'"
     >
-
-        <span class="nav-icon">
-            🎮
-        </span>
-
-        بازی‌ها
-
+        <span class="nav-icon">🤖</span>
+        پیکو
     </button>
 
     <button
+        type="button"
         class="nav-item"
         onclick="location.href='calculator.html'"
     >
-
-        <span class="nav-icon">
-            ◫
-        </span>
-
+        <span class="nav-icon">🧮</span>
         ابزارها
-
     </button>
 
 </nav>
@@ -1194,172 +835,161 @@ input::placeholder {
 
 <script>
 
-/* ==================================================
+/* =================================
    API
-================================================== */
+================================= */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbw1TBun1WJbTehqUspDdQV1gQ4s34zhonvMgote3w-fVVYjqxxuSOeeMLAFKJNfsf0y/exec";
 
 
-const GOALS_CACHE_PREFIX =
-    "hadaf_goals_cache_";
-
+/* =================================
+   STATE
+================================= */
 
 let currentGoal = null;
 
 let currentGoals = [];
 
+let busy = false;
 
-/* ==================================================
-   USER
-================================================== */
 
-function getUser() {
+/* =================================
+   EMAIL
+================================= */
 
-    try {
+function getEmail(){
 
-        const raw =
-            localStorage.getItem("hadafUser");
+    const keys = [
+        "hadafUser",
+        "user",
+        "email",
+        "hadaf_email",
+        "userEmail"
+    ];
 
-        if (!raw) {
-            return null;
+    for(const key of keys){
+
+        const value =
+            localStorage.getItem(key);
+
+        if(!value){
+            continue;
         }
 
-        return JSON.parse(raw);
+        try{
 
+            const parsed =
+                JSON.parse(value);
+
+            if(
+                parsed &&
+                typeof parsed === "object"
+            ){
+
+                if(parsed.email){
+                    return String(parsed.email)
+                        .trim()
+                        .toLowerCase();
+                }
+
+            }
+
+        }
+        catch(e){}
+
+        if(
+            String(value).includes("@")
+        ){
+            return String(value)
+                .trim()
+                .toLowerCase();
+        }
     }
-    catch (error) {
 
-        console.warn(
-            "خطا در خواندن کاربر:",
-            error
-        );
-
-        return null;
-
-    }
-
+    return "";
 }
 
 
-function getEmail() {
+/* =================================
+   CACHE
+================================= */
 
-    const user =
-        getUser();
+function getGoalsCacheKey(email){
 
-    if (
-        !user ||
-        !user.email
-    ) {
-
-        return null;
-
-    }
-
-    return String(user.email)
+    return "hadaf_goals_" +
+        String(email)
         .trim()
         .toLowerCase();
 
 }
 
 
-/* ==================================================
-   CACHE
-================================================== */
+function saveGoalsCache(){
 
-function getGoalsCacheKey(email) {
+    const email =
+        getEmail();
 
-    return (
-        GOALS_CACHE_PREFIX +
-        String(email)
-            .trim()
-            .toLowerCase()
-    );
+    if(!email){
+        return;
+    }
 
-}
-
-
-function saveGoalsCache(
-    email,
-    goals
-) {
-
-    try {
+    try{
 
         localStorage.setItem(
-
             getGoalsCacheKey(email),
-
             JSON.stringify({
-
-                goals:
-                    Array.isArray(goals)
-                        ? goals
-                        : [],
-
-                savedAt:
-                    Date.now()
-
+                goals: currentGoals,
+                currentGoalId:
+                    currentGoal
+                        ? currentGoal.id
+                        : null
             })
-
         );
 
     }
-    catch (error) {
-
-        console.warn(
-            "ذخیره کش انجام نشد:",
-            error
-        );
-
-    }
+    catch(e){}
 
 }
 
 
-function loadGoalsCache(email) {
+function getGoalsCache(){
 
-    try {
+    const email =
+        getEmail();
+
+    if(!email){
+        return null;
+    }
+
+    try{
 
         const raw =
             localStorage.getItem(
                 getGoalsCacheKey(email)
             );
 
-        if (!raw) {
-            return [];
+        if(!raw){
+            return null;
         }
 
-        const data =
-            JSON.parse(raw);
-
-        if (
-            !data ||
-            !Array.isArray(data.goals)
-        ) {
-
-            return [];
-
-        }
-
-        return data.goals;
+        return JSON.parse(raw);
 
     }
-    catch {
+    catch(e){
 
-        return [];
+        return null;
 
     }
 
 }
 
 
-/* ==================================================
+/* =================================
    API CALL
-================================================== */
+================================= */
 
-async function callAPI(data) {
+async function callAPI(payload){
 
     const controller =
         new AbortController();
@@ -1367,127 +997,64 @@ async function callAPI(data) {
     const timeout =
         setTimeout(
             () => controller.abort(),
-            30000
+            20000
         );
 
-
-    try {
+    try{
 
         const response =
             await fetch(
-
                 API_URL,
-
                 {
-                    method: "POST",
+                    method:"POST",
 
-                    headers: {
-
+                    headers:{
                         "Content-Type":
                             "text/plain;charset=utf-8"
-
                     },
 
                     body:
-                        JSON.stringify(data),
+                        JSON.stringify(payload),
 
-                    cache:
-                        "no-store",
+                    cache:"no-store",
 
                     signal:
                         controller.signal
-
                 }
-
             );
 
-
-        if (!response.ok) {
+        if(!response.ok){
 
             throw new Error(
-                "کد پاسخ سرور: " +
+                "خطای سرور: " +
                 response.status
             );
 
         }
 
-
         const text =
             await response.text();
 
+        let data;
 
-        if (!text) {
+        try{
 
-            throw new Error(
-                "سرور پاسخ خالی فرستاد."
-            );
-
-        }
-
-
-        let result;
-
-        try {
-
-            result =
+            data =
                 JSON.parse(text);
 
         }
-        catch {
-
-            console.error(
-                "پاسخ خام API:",
-                text
-            );
+        catch(e){
 
             throw new Error(
-                "پاسخ سرور JSON معتبر نیست."
+                "پاسخ سرور معتبر نیست."
             );
 
         }
 
-
-        return result;
+        return data;
 
     }
-    catch (error) {
-
-        console.error(
-            "API ERROR:",
-            error
-        );
-
-
-        if (
-            error.name ===
-            "AbortError"
-        ) {
-
-            throw new Error(
-                "اتصال به سرور بیشتر از ۳۰ ثانیه طول کشید."
-            );
-
-        }
-
-
-        if (
-            error.message &&
-            error.message.includes(
-                "Failed to fetch"
-            )
-        ) {
-
-            throw new Error(
-                "ارتباط با سرور برقرار نشد."
-            );
-
-        }
-
-
-        throw error;
-
-    }
-    finally {
+    finally{
 
         clearTimeout(timeout);
 
@@ -1496,151 +1063,35 @@ async function callAPI(data) {
 }
 
 
-/* ==================================================
-   NORMALIZE GOALS
-================================================== */
-
-function normalizeGoals(data) {
-
-    if (!data) {
-        return [];
-    }
-
-
-    if (
-        Array.isArray(data.goals)
-    ) {
-
-        return data.goals;
-
-    }
-
-
-    if (
-        Array.isArray(data.data)
-    ) {
-
-        return data.data;
-
-    }
-
-
-    if (
-        data.goal &&
-        typeof data.goal === "object"
-    ) {
-
-        return [data.goal];
-
-    }
-
-
-    if (
-        data.data &&
-        typeof data.data === "object"
-    ) {
-
-        return [data.data];
-
-    }
-
-
-    /*
-       اگر خود پاسخ یک هدف باشد
-    */
-
-    if (
-        data.id ||
-        data.goal ||
-        data.email
-    ) {
-
-        return [data];
-
-    }
-
-
-    return [];
-
-}
-
-
-/* ==================================================
-   SHOW LOAD ERROR
-================================================== */
-
-function showLoadError(message) {
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
-
-    loading.innerHTML = `
-
-        <div style="
-            font-size:28px;
-            margin-bottom:10px;
-        ">
-            ⚠️
-        </div>
-
-        <div style="
-            color:#fca5a5;
-            font-weight:700;
-            line-height:1.9;
-        ">
-            ${escapeHTML(message)}
-        </div>
-
-        <button
-            class="retry-button"
-            onclick="loadGoal()"
-        >
-            🔄 تلاش دوباره
-        </button>
-
-    `;
-
-
-    loading.classList.remove(
-        "hidden"
-    );
-
-}
-
-
-/* ==================================================
+/* =================================
    LOAD GOAL
-   API ACTION = getGoal
-================================================== */
+================================= */
 
-async function loadGoal() {
+async function loadGoal(){
+
+    const email =
+        getEmail();
 
     const loading =
-        document.getElementById(
-            "loading"
-        );
-
-    const mainContent =
-        document.getElementById(
-            "mainContent"
-        );
+        document.getElementById("loading");
 
     const loginWarning =
         document.getElementById(
             "loginWarning"
         );
 
+    if(!email){
 
-    const email =
-        getEmail();
+        loading.classList.add("hidden");
 
+        loginWarning.classList.remove(
+            "hidden"
+        );
 
-    mainContent.classList.add(
-        "hidden"
-    );
+        render();
+
+        return;
+    }
 
     loginWarning.classList.add(
         "hidden"
@@ -1650,60 +1101,45 @@ async function loadGoal() {
         "hidden"
     );
 
+    /* اول کش */
 
-    loading.innerHTML =
-        "⏳ در حال دریافت اطلاعات...";
+    const cached =
+        getGoalsCache();
 
+    if(
+        cached &&
+        Array.isArray(cached.goals)
+    ){
 
-    if (!email) {
+        currentGoals =
+            cached.goals;
 
-        loading.classList.add(
-            "hidden"
-        );
+        currentGoal =
+            currentGoals.find(
+                goal =>
+                    String(goal.id) ===
+                    String(cached.currentGoalId)
+            ) ||
+            currentGoals[0] ||
+            null;
 
-        loginWarning.classList.remove(
-            "hidden"
-        );
-
-        return;
+        render();
 
     }
 
-
-    const cachedGoals =
-        loadGoalsCache(email);
-
-
-    try {
-
-        /*
-         * مهم:
-         * در Apps Script تو اسم عملیات
-         * getGoal است، نه getGoals
-         */
+    try{
 
         const data =
             await callAPI({
 
-                action:
-                    "getGoal",
+                action:"getGoal",
 
-                email:
-                    email
+                email:email
 
             });
 
 
-        console.log(
-            "GET GOAL RESPONSE:",
-            data
-        );
-
-
-        if (
-            data &&
-            data.success === false
-        ) {
+        if(!data.success){
 
             throw new Error(
                 data.message ||
@@ -1713,96 +1149,72 @@ async function loadGoal() {
         }
 
 
+        let goals = [];
+
+        if(
+            Array.isArray(data.goals)
+        ){
+
+            goals =
+                data.goals;
+
+        }
+        else if(
+            data.goal
+        ){
+
+            goals = [
+                data.goal
+            ];
+
+        }
+
+
         currentGoals =
-            normalizeGoals(data);
+            goals;
 
 
         currentGoal =
-            currentGoals.length
-                ? currentGoals[0]
-                : null;
+            currentGoals[0] ||
+            null;
 
 
-        saveGoalsCache(
-            email,
-            currentGoals
-        );
-
-
-        loading.classList.add(
-            "hidden"
-        );
-
-        mainContent.classList.remove(
-            "hidden"
-        );
-
+        saveGoalsCache();
 
         render();
 
     }
-    catch (error) {
+    catch(error){
 
-        console.error(
-            "❌ GET GOAL ERROR:",
-            error
-        );
-
-
-        /*
-         * اگر کش قبلی داریم،
-         * همان را نمایش بده
-         */
-
-        if (
-            cachedGoals &&
-            cachedGoals.length > 0
-        ) {
-
-            currentGoals =
-                cachedGoals;
-
-            currentGoal =
-                currentGoals[0] ||
-                null;
-
-
-            loading.classList.add(
-                "hidden"
-            );
-
-            mainContent.classList.remove(
-                "hidden"
-            );
-
-
-            render();
-
+        if(!currentGoal){
 
             const message =
                 document.getElementById(
                     "message"
                 );
 
+            if(message){
 
-            message.textContent =
-                "⚠️ اطلاعات آخرین بار نمایش داده شد.";
+                message.textContent =
+                    "❌ " +
+                    (
+                        error.message ||
+                        "خطا در دریافت اطلاعات"
+                    );
 
-            message.classList.add(
-                "error"
-            );
+                message.classList.add(
+                    "error"
+                );
 
-
-            return;
+            }
 
         }
 
+    }
+    finally{
 
-        showLoadError(
-
-            error.message ||
-            "خطا در دریافت هدف."
-
+        loading.classList.add(
+            "hidden"
         );
 
     }
@@ -1810,62 +1222,65 @@ async function loadGoal() {
 }
 
 
-/* ==================================================
+/* =================================
    CREATE GOAL
-   API ACTION = createGoal
-================================================== */
+================================= */
 
-async function createGoal() {
+async function createGoal(event){
+
+    if(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+    }
+
+    if(busy){
+        return false;
+    }
 
     const email =
         getEmail();
-
 
     const input =
         document.getElementById(
             "goalInput"
         );
 
-
     const button =
         document.getElementById(
             "createButton"
         );
 
-
     const message =
         document.getElementById(
-            "createMessage"
+            "message"
         );
+
+    if(!email){
+
+        location.href =
+            "login.html";
+
+        return false;
+
+    }
 
 
     const goal =
         input.value.trim();
 
 
-    if (!email) {
+    if(!goal){
 
-        location.href =
-            "login.html";
+        input.focus();
 
-        return;
-
-    }
-
-
-    if (!goal) {
-
-        message.textContent =
-            "اول هدفت رو بنویس 🎯";
-
-        message.classList.add(
-            "error"
-        );
-
-        return;
+        return false;
 
     }
 
+
+    busy = true;
 
     button.disabled = true;
 
@@ -1873,63 +1288,29 @@ async function createGoal() {
         "⏳ در حال ساخت...";
 
 
-    message.textContent =
-        "";
-
-    message.classList.remove(
-        "error"
-    );
-
-
-    try {
+    try{
 
         const data =
             await callAPI({
 
-                action:
-                    "createGoal",
+                action:"createGoal",
 
-                email:
-                    email,
+                email:email,
 
-                goal:
-                    goal
+                goal:goal
 
             });
 
 
-        console.log(
-            "CREATE GOAL RESPONSE:",
-            data
-        );
-
-
-        if (
-            !data ||
-            data.success !== true
-        ) {
+        if(!data.success){
 
             throw new Error(
-
-                data &&
-                data.message
-
-                    ? data.message
-
-                    : "ساخت هدف ناموفق بود."
-
+                data.message ||
+                "ساخت هدف ناموفق بود."
             );
 
         }
 
-
-        input.value =
-            "";
-
-
-        /*
-         * هدف برگشتی API
-         */
 
         let newGoal =
             data.goal ||
@@ -1937,103 +1318,107 @@ async function createGoal() {
             null;
 
 
-        if (
-            newGoal &&
-            typeof newGoal === "object"
-        ) {
+        if(!newGoal){
 
-            currentGoals.push(
-                newGoal
-            );
+            newGoal = {
 
-            currentGoal =
-                newGoal;
+                id:
+                    Date.now(),
 
-        }
-        else {
+                goal:goal,
 
-            /*
-             * اگر API هدف را برنگرداند،
-             * دوباره از سرور می‌گیریم.
-             */
+                streak:0,
 
-            await loadGoal();
+                bestStreak:0,
 
-            return;
+                totalDays:0,
+
+                lastCompleted:""
+
+            };
 
         }
 
 
-        saveGoalsCache(
-            email,
-            currentGoals
+        currentGoals.push(
+            newGoal
         );
 
+
+        currentGoal =
+            newGoal;
+
+
+        input.value = "";
+
+
+        saveGoalsCache();
 
         render();
 
 
-        document
-            .getElementById(
-                "message"
-            )
-            .textContent =
+        message.textContent =
             data.message ||
-            "🎯 هدفت ساخته شد؛ از امروز شروع کن.";
+            "هدف با موفقیت ساخته شد.";
 
 
     }
-    catch (error) {
-
-        console.error(
-            "CREATE ERROR:",
-            error
-        );
-
+    catch(error){
 
         message.textContent =
             "❌ " +
             (
                 error.message ||
-                "خطایی رخ داد."
+                "خطا در ساخت هدف"
             );
-
 
         message.classList.add(
             "error"
         );
 
     }
-    finally {
+    finally{
 
-        button.disabled =
-            false;
+        busy = false;
+
+        button.disabled = false;
 
         button.textContent =
-            "ساخت هدف 🎯";
+            "ساختن هدف 🚀";
 
     }
+
+    return false;
 
 }
 
 
-/* ==================================================
+/* =================================
    COMPLETE GOAL
-   API ACTION = completeGoal
-================================================== */
+================================= */
 
-async function completeGoal() {
+async function completeGoal(event){
+
+    if(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+    }
+
+    if(busy){
+        return false;
+    }
 
     const email =
         getEmail();
 
-
-    if (
+    if(
         !email ||
         !currentGoal
-    ) {
+    ){
 
-        return;
+        return false;
 
     }
 
@@ -2043,38 +1428,44 @@ async function completeGoal() {
             "doneButton"
         );
 
-
     const message =
         document.getElementById(
             "message"
         );
 
 
-    button.disabled =
-        true;
+    if(
+        currentGoal.lastCompleted ===
+        getTodayString()
+    ){
+
+        return false;
+
+    }
+
+
+    busy = true;
+
+    button.disabled = true;
 
     button.textContent =
         "⏳ در حال ثبت...";
 
-
-    message.textContent =
-        "";
+    message.textContent = "";
 
     message.classList.remove(
         "error"
     );
 
 
-    try {
+    try{
 
         const data =
             await callAPI({
 
-                action:
-                    "completeGoal",
+                action:"completeGoal",
 
-                email:
-                    email,
+                email:email,
 
                 goalId:
                     currentGoal.id
@@ -2082,93 +1473,71 @@ async function completeGoal() {
             });
 
 
-        console.log(
-            "COMPLETE RESPONSE:",
-            data
-        );
-
-
-        if (
-            !data ||
-            data.success !== true
-        ) {
+        if(!data.success){
 
             throw new Error(
-
-                data &&
-                data.message
-
-                    ? data.message
-
-                    : "ثبت انجام هدف ناموفق بود."
-
+                data.message ||
+                "ثبت انجام هدف ناموفق بود."
             );
 
         }
 
 
-        const updatedGoal =
-            data.goal ||
-            data.data ||
-            null;
-
-
-        if (
-            updatedGoal &&
-            typeof updatedGoal === "object"
-        ) {
+        if(data.goal){
 
             currentGoal = {
-
                 ...currentGoal,
-
-                ...updatedGoal
-
+                ...data.goal
             };
 
+        }
+        else{
 
-            const index =
-                currentGoals.findIndex(
+            currentGoal.lastCompleted =
+                getTodayString();
 
-                    item =>
-                        String(item.id) ===
-                        String(currentGoal.id)
+            currentGoal.streak =
+                Number(
+                    currentGoal.streak || 0
+                ) + 1;
 
+            currentGoal.totalDays =
+                Number(
+                    currentGoal.totalDays || 0
+                ) + 1;
+
+            currentGoal.bestStreak =
+                Math.max(
+                    Number(
+                        currentGoal.bestStreak || 0
+                    ),
+                    Number(
+                        currentGoal.streak || 0
+                    )
                 );
 
-
-            if (index !== -1) {
-
-                currentGoals[index] = {
-
-                    ...currentGoals[index],
-
-                    ...updatedGoal
-
-                };
-
-            }
-
         }
-        else {
 
-            /*
-             * اگر API اطلاعات جدید را
-             * برنگرداند، دوباره هدف را بگیر.
-             */
 
-            await loadGoal();
+        const index =
+            currentGoals.findIndex(
+                goal =>
+                    String(goal.id) ===
+                    String(currentGoal.id)
+            );
 
-            return;
+
+        if(index !== -1){
+
+            currentGoals[index] = {
+                ...currentGoals[index],
+                ...currentGoal
+            };
 
         }
 
 
-        saveGoalsCache(
-            email,
-            currentGoals
-        );
-
+        saveGoalsCache();
 
         render();
 
@@ -2180,14 +1549,9 @@ async function completeGoal() {
 
         celebrate();
 
+
     }
-    catch (error) {
-
-        console.error(
-            "COMPLETE ERROR:",
-            error
-        );
-
+    catch(error){
 
         message.textContent =
             "❌ " +
@@ -2196,40 +1560,54 @@ async function completeGoal() {
                 "خطایی رخ داد."
             );
 
-
         message.classList.add(
             "error"
         );
 
-
-        button.disabled =
-            false;
+        button.disabled = false;
 
         button.textContent =
             "امروز انجامش دادم 🔥";
 
     }
+    finally{
+
+        busy = false;
+
+    }
+
+
+    return false;
 
 }
 
 
-/* ==================================================
-   DELETE GOAL
-   API ACTION = deleteGoal
-================================================== */
+/* =================================
+   DELETE
+================================= */
 
-async function deleteGoal() {
+async function deleteGoal(event){
+
+    if(event){
+
+        event.preventDefault();
+        event.stopPropagation();
+
+    }
+
+    if(busy){
+        return false;
+    }
 
     const email =
         getEmail();
 
-
-    if (
+    if(
         !email ||
         !currentGoal
-    ) {
+    ){
 
-        return;
+        return false;
 
     }
 
@@ -2240,21 +1618,24 @@ async function deleteGoal() {
         );
 
 
-    if (!confirmed) {
-        return;
+    if(!confirmed){
+
+        return false;
+
     }
 
 
-    try {
+    busy = true;
+
+
+    try{
 
         const data =
             await callAPI({
 
-                action:
-                    "deleteGoal",
+                action:"deleteGoal",
 
-                email:
-                    email,
+                email:email,
 
                 goalId:
                     currentGoal.id
@@ -2262,26 +1643,11 @@ async function deleteGoal() {
             });
 
 
-        console.log(
-            "DELETE RESPONSE:",
-            data
-        );
-
-
-        if (
-            !data ||
-            data.success !== true
-        ) {
+        if(!data.success){
 
             throw new Error(
-
-                data &&
-                data.message
-
-                    ? data.message
-
-                    : "حذف هدف ناموفق بود."
-
+                data.message ||
+                "حذف هدف ناموفق بود."
             );
 
         }
@@ -2289,12 +1655,9 @@ async function deleteGoal() {
 
         currentGoals =
             currentGoals.filter(
-
                 goal =>
-
                     String(goal.id) !==
                     String(currentGoal.id)
-
             );
 
 
@@ -2303,57 +1666,50 @@ async function deleteGoal() {
             null;
 
 
-        saveGoalsCache(
-            email,
-            currentGoals
-        );
-
+        saveGoalsCache();
 
         render();
 
 
     }
-    catch (error) {
-
-        console.error(
-            "DELETE ERROR:",
-            error
-        );
-
+    catch(error){
 
         alert(
-
             "❌ " +
             (
                 error.message ||
-                "خطا در حذف هدف."
+                "خطا در حذف هدف"
             )
-
         );
 
     }
+    finally{
+
+        busy = false;
+
+    }
+
+
+    return false;
 
 }
 
 
-/* ==================================================
+/* =================================
    SELECT GOAL
-================================================== */
+================================= */
 
-function selectGoal(id) {
+function selectGoal(id){
 
     const found =
         currentGoals.find(
-
             goal =>
-
                 String(goal.id) ===
                 String(id)
-
         );
 
 
-    if (!found) {
+    if(!found){
         return;
     }
 
@@ -2362,47 +1718,64 @@ function selectGoal(id) {
         found;
 
 
+    saveGoalsCache();
+
     render();
 
 }
 
 
-/* ==================================================
+/* =================================
    GOAL LIST
-================================================== */
+================================= */
 
-function renderGoalList() {
+function renderGoalList(){
 
-    const list =
+    let list =
         document.getElementById(
             "multiGoalList"
         );
 
 
-    const card =
-        document.getElementById(
-            "goalListCard"
+    if(!list){
+
+        list =
+            document.createElement(
+                "div"
+            );
+
+        list.id =
+            "multiGoalList";
+
+        list.style.marginBottom =
+            "14px";
+
+        list.style.display =
+            "grid";
+
+        list.style.gap =
+            "8px";
+
+
+        const goalBox =
+            document.getElementById(
+                "goalBox"
+            );
+
+
+        goalBox.parentNode.insertBefore(
+            list,
+            goalBox
         );
 
-
-    if (!list || !card) {
-        return;
     }
 
 
-    /*
-     * اگر فقط یک هدف داریم،
-     * لیست انتخاب هدف لازم نیست.
-     */
+    if(currentGoals.length <= 1){
 
-    if (
-        currentGoals.length <= 1
-    ) {
+        list.innerHTML = "";
 
-        list.innerHTML =
-            "";
-
-        card.classList.add(
+        list.classList.add(
             "hidden"
         );
 
@@ -2411,127 +1784,105 @@ function renderGoalList() {
     }
 
 
-    card.classList.remove(
+    list.classList.remove(
         "hidden"
     );
 
 
     list.innerHTML =
-
         currentGoals
-            .map(
-                (goal, index) => {
+        .map(
+            (goal,index) => {
 
-                    const active =
-
-                        currentGoal &&
-
-                        String(
-                            currentGoal.id
-                        ) ===
-                        String(
-                            goal.id
-                        );
+                const active =
+                    currentGoal &&
+                    String(currentGoal.id) ===
+                    String(goal.id);
 
 
-                    const goalText =
-                        escapeHTML(
+                const safeId =
+                    String(goal.id)
+                    .replace(
+                        /'/g,
+                        "\\'"
+                    );
 
-                            goal.goal ||
-                            (
-                                "هدف " +
-                                (index + 1)
+
+                return `
+
+                    <button
+                        type="button"
+                        onclick="selectGoal('${safeId}')"
+                        style="
+                            width:100%;
+                            padding:13px 15px;
+                            border-radius:16px;
+                            border:1px solid ${
+                                active
+                                ? "rgba(103,88,255,.45)"
+                                : "rgba(255,255,255,.075)"
+                            };
+                            background:${
+                                active
+                                ? "rgba(103,88,255,.12)"
+                                : "rgba(255,255,255,.035)"
+                            };
+                            color:#fff;
+                            text-align:right;
+                            cursor:pointer;
+                            font-family:inherit;
+                            font-size:13px;
+                        "
+                    >
+
+                        🎯 ${
+                            escapeHTML(
+                                goal.goal ||
+                                ("هدف " + (index + 1))
                             )
+                        }
 
-                        );
-
-
-                    return `
-
-                        <button
-                            type="button"
-
-                            onclick="
-                                selectGoal(
-                                    '${String(goal.id)
-                                        .replace(
-                                            /'/g,
-                                            "\\'"
-                                        )}'
-                                )
-                            "
-
+                        <span
                             style="
-                                width:100%;
-                                padding:13px 15px;
-                                border-radius:16px;
-                                border:1px solid ${
-                                    active
-                                    ? "rgba(103,88,255,.45)"
-                                    : "rgba(255,255,255,.075)"
-                                };
-                                background:${
-                                    active
-                                    ? "rgba(103,88,255,.12)"
-                                    : "rgba(255,255,255,.035)"
-                                };
-                                color:#fff;
-                                text-align:right;
-                                cursor:pointer;
-                                font-family:inherit;
-                                font-size:13px;
+                                display:block;
+                                color:#8f98a9;
+                                font-size:10px;
+                                margin-top:4px;
                             "
                         >
+                            🔥 ${
+                                Number(
+                                    goal.streak || 0
+                                )
+                            } روز
+                        </span>
 
-                            🎯 ${goalText}
+                    </button>
 
-                            <span
-                                style="
-                                    display:block;
-                                    color:#8f98a9;
-                                    font-size:10px;
-                                    margin-top:4px;
-                                "
-                            >
+                `;
 
-                                🔥 ${
-                                    Number(
-                                        goal.streak ||
-                                        0
-                                    )
-                                } روز
-
-                            </span>
-
-                        </button>
-
-                    `;
-
-                }
-
-            )
-            .join("");
+            }
+        )
+        .join("");
 
 }
 
 
-/* ==================================================
+/* =================================
    RENDER
-================================================== */
+================================= */
 
-function render() {
+function render(){
 
     const createBox =
         document.getElementById(
             "createBox"
         );
 
-
     const goalBox =
         document.getElementById(
             "goalBox"
         );
-
 
     const message =
         document.getElementById(
@@ -2539,28 +1890,15 @@ function render() {
         );
 
 
-    if (!createBox || !goalBox) {
-        return;
-    }
-
-
-    if (message) {
-
-        message.classList.remove(
-            "error"
-        );
-
-    }
+    message.classList.remove(
+        "error"
+    );
 
 
     renderGoalList();
 
 
-    /*
-     * هیچ هدفی نداریم
-     */
-
-    if (!currentGoal) {
+    if(!currentGoal){
 
         createBox.classList.remove(
             "hidden"
@@ -2572,35 +1910,23 @@ function render() {
 
 
         document
-            .getElementById(
-                "streak"
-            )
-            .textContent =
-            "0";
+            .getElementById("streak")
+            .textContent = "0";
 
 
         document
-            .getElementById(
-                "bestStreak"
-            )
-            .textContent =
-            "0";
+            .getElementById("bestStreak")
+            .textContent = "0";
 
 
         document
-            .getElementById(
-                "record"
-            )
-            .textContent =
-            "0";
+            .getElementById("record")
+            .textContent = "0";
 
 
         document
-            .getElementById(
-                "totalDays"
-            )
-            .textContent =
-            "0";
+            .getElementById("totalDays")
+            .textContent = "0";
 
 
         return;
@@ -2608,11 +1934,7 @@ function render() {
     }
 
 
-    /*
-     * هدف داریم
-     */
-
-    createBox.classList.add(
+    createBox.classList.remove(
         "hidden"
     );
 
@@ -2621,71 +1943,42 @@ function render() {
     );
 
 
-    const goalName =
-        document.getElementById(
-            "goalName"
-        );
+    document
+        .getElementById("goalName")
+        .textContent =
+        currentGoal.goal || "";
 
 
-    goalName.textContent =
-        currentGoal.goal ||
-        currentGoal.title ||
-        "هدف من";
-
-
-    const streak =
+    document
+        .getElementById("streak")
+        .textContent =
         Number(
-            currentGoal.streak ||
-            0
+            currentGoal.streak || 0
         );
 
 
-    const bestStreak =
+    document
+        .getElementById("bestStreak")
+        .textContent =
         Number(
-            currentGoal.bestStreak ||
-            currentGoal.record ||
-            0
+            currentGoal.bestStreak || 0
         );
 
 
-    const totalDays =
+    document
+        .getElementById("record")
+        .textContent =
         Number(
-            currentGoal.totalDays ||
-            currentGoal.completedDays ||
-            0
+            currentGoal.bestStreak || 0
         );
 
 
     document
-        .getElementById(
-            "streak"
-        )
+        .getElementById("totalDays")
         .textContent =
-        streak;
-
-
-    document
-        .getElementById(
-            "bestStreak"
-        )
-        .textContent =
-        bestStreak;
-
-
-    document
-        .getElementById(
-            "record"
-        )
-        .textContent =
-        bestStreak;
-
-
-    document
-        .getElementById(
-            "totalDays"
-        )
-        .textContent =
-        totalDays;
+        Number(
+            currentGoal.totalDays || 0
+        );
 
 
     const button =
@@ -2694,70 +1987,42 @@ function render() {
         );
 
 
-    /*
-     * تاریخ آخرین انجام
-     */
-
-    const lastCompleted =
-        currentGoal.lastCompleted ||
-        currentGoal.lastCompletedDate ||
-        currentGoal.lastDone ||
-        "";
-
-
-    if (
-
-        lastCompleted &&
-
-        String(lastCompleted)
-            .substring(0, 10) ===
+    if(
+        currentGoal.lastCompleted &&
+        String(
+            currentGoal.lastCompleted
+        ).slice(0,10) ===
         getTodayString()
+    ){
 
-    ) {
-
-        button.disabled =
-            true;
-
+        button.disabled = true;
 
         button.textContent =
             "امروز انجام شد ✓";
 
-
-        if (message) {
-
-            message.textContent =
-                "🔥 امروز ثبت شده.";
-
-        }
+        message.textContent =
+            "🔥 امروز ثبت شده.";
 
     }
-    else {
+    else{
 
-        button.disabled =
-            false;
-
+        button.disabled = false;
 
         button.textContent =
             "امروز انجامش دادم 🔥";
 
-
-        if (message) {
-
-            message.textContent =
-                "";
-
-        }
+        message.textContent = "";
 
     }
 
 }
 
 
-/* ==================================================
+/* =================================
    TODAY
-================================================== */
+================================= */
 
-function getTodayString() {
+function getTodayString(){
 
     const now =
         new Date();
@@ -2770,8 +2035,7 @@ function getTodayString() {
     const month =
         String(
             now.getMonth() + 1
-        )
-        .padStart(
+        ).padStart(
             2,
             "0"
         );
@@ -2780,8 +2044,7 @@ function getTodayString() {
     const day =
         String(
             now.getDate()
-        )
-        .padStart(
+        ).padStart(
             2,
             "0"
         );
@@ -2798,11 +2061,11 @@ function getTodayString() {
 }
 
 
-/* ==================================================
+/* =================================
    CELEBRATE
-================================================== */
+================================= */
 
-function celebrate() {
+function celebrate(){
 
     const fire =
         document.querySelector(
@@ -2810,52 +2073,51 @@ function celebrate() {
         );
 
 
-    if (!fire) {
+    if(!fire){
         return;
     }
 
 
-    fire.animate(
+    if(
+        typeof fire.animate ===
+        "function"
+    ){
 
-        [
-
+        fire.animate(
+            [
+                {
+                    transform:
+                        "scale(1)"
+                },
+                {
+                    transform:
+                        "scale(1.28) rotate(-7deg)"
+                },
+                {
+                    transform:
+                        "scale(1.12) rotate(6deg)"
+                },
+                {
+                    transform:
+                        "scale(1)"
+                }
+            ],
             {
-                transform:
-                    "scale(1)"
-            },
-
-            {
-                transform:
-                    "scale(1.28) rotate(-7deg)"
-            },
-
-            {
-                transform:
-                    "scale(1.12) rotate(6deg)"
-            },
-
-            {
-                transform:
-                    "scale(1)"
+                duration:620,
+                easing:"ease"
             }
+        );
 
-        ],
-
-        {
-            duration: 620,
-            easing: "ease"
-        }
-
-    );
+    }
 
 }
 
 
-/* ==================================================
-   ESCAPE HTML
-================================================== */
+/* =================================
+   SAFE TEXT
+================================= */
 
-function escapeHTML(text) {
+function escapeHTML(text){
 
     const div =
         document.createElement(
@@ -2872,48 +2134,144 @@ function escapeHTML(text) {
 }
 
 
-/* ==================================================
-   ENTER KEY
-================================================== */
+/* =================================
+   BACK
+================================= */
 
-const goalInput =
-    document.getElementById(
-        "goalInput"
-    );
+function goBack(){
 
+    if(
+        history.length > 1
+    ){
 
-if (goalInput) {
+        history.back();
 
-    goalInput.addEventListener(
+    }
+    else{
 
-        "keydown",
+        location.href =
+            "index.html";
 
-        function(event) {
-
-            if (
-                event.key ===
-                "Enter"
-            ) {
-
-                createGoal();
-
-            }
-
-        }
-
-    );
+    }
 
 }
 
 
-/* ==================================================
-   START
-================================================== */
+/* =================================
+   EVENTS
+================================ */
 
-loadGoal();
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const goalInput =
+            document.getElementById(
+                "goalInput"
+            );
+
+        const createButton =
+            document.getElementById(
+                "createButton"
+            );
+
+        const doneButton =
+            document.getElementById(
+                "doneButton"
+            );
+
+        const deleteButton =
+            document.getElementById(
+                "deleteButton"
+            );
+
+
+        /*
+         * مهم:
+         * هیچ‌کدام از دکمه‌ها submit نیستند.
+         * بنابراین کلیک روی «امروز انجامش دادم»
+         * باعث رفرش صفحه نمی‌شود.
+         */
+
+        createButton.type =
+            "button";
+
+        doneButton.type =
+            "button";
+
+        deleteButton.type =
+            "button";
+
+
+        createButton.addEventListener(
+            "click",
+            function(event){
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                createGoal(event);
+
+            }
+        );
+
+
+        doneButton.addEventListener(
+            "click",
+            function(event){
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                completeGoal(event);
+
+            }
+        );
+
+
+        deleteButton.addEventListener(
+            "click",
+            function(event){
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                deleteGoal(event);
+
+            }
+        );
+
+
+        goalInput.addEventListener(
+            "keydown",
+            function(event){
+
+                if(
+                    event.key ===
+                    "Enter"
+                ){
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    createGoal(event);
+
+                }
+
+            }
+        );
+
+
+        loadGoal();
+
+    }
+);
 
 </script>
 
 </body>
-
     </html>
