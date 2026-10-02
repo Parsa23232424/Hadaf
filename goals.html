@@ -2,6 +2,7 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -18,539 +19,1286 @@
 
 <meta name="theme-color" content="#07090f">
 
+<link
+    rel="manifest"
+    href="./manifest.json"
+>
+
 <style>
 
-:root{
-    --bg:#07090f;
-    --card:rgba(18,22,34,.97);
-    --border:rgba(255,255,255,.075);
-    --text:#f8fafc;
-    --muted:#8f98a9;
-    --primary:#6758ff;
-    --primary2:#5146da;
-    --orange:#ff7a32;
-    --yellow:#facc15;
-    --green:#22c55e;
-    --red:#ef4444;
-    --radius-xl:28px;
-    --radius-lg:22px;
-    --radius-md:16px;
+/* =========================
+   VARIABLES
+========================= */
+
+:root {
+
+    --bg: #07090f;
+
+    --card: rgba(18,22,34,.95);
+
+    --border: rgba(255,255,255,.075);
+
+    --text: #f8fafc;
+
+    --muted: #8f98a9;
+
+    --primary: #6758ff;
+
+    --primary-2: #5146da;
+
+    --orange: #ff7a32;
+
+    --green: #22c55e;
+
+    --red: #ef4444;
+
 }
 
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+
+/* =========================
+   RESET
+========================= */
+
+* {
+
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: transparent;
+
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+
+    scroll-behavior: smooth;
+
 }
 
-body{
-    margin:0;
-    min-height:100vh;
-    padding-bottom:100px;
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    padding-bottom: 105px;
+
+    color: var(--text);
+
     font-family:
         Tahoma,
         "Segoe UI",
         Arial,
         sans-serif;
-    color:var(--text);
+
     background:
+
         radial-gradient(
             circle at 85% -5%,
-            rgba(103,88,255,.15),
+            rgba(103,88,255,.16),
             transparent 28%
         ),
+
         radial-gradient(
             circle at 0% 35%,
             rgba(37,99,235,.07),
-            transparent 28%
+            transparent 30%
         ),
+
         var(--bg);
+
 }
 
 button,
-input{
-    font-family:inherit;
+input {
+
+    font-family: inherit;
+
 }
 
-button{
-    -webkit-appearance:none;
-    appearance:none;
+
+/* =========================
+   APP
+========================= */
+
+.app {
+
+    width: min(760px, 94%);
+
+    margin: auto;
+
+    padding: 18px 0 45px;
+
 }
 
-.app{
-    width:min(720px,94%);
-    margin:auto;
-    padding:18px 0 50px;
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+    direction: ltr;
+
 }
 
-/* TOPBAR */
 
-.topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    margin-bottom:24px;
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    direction: rtl;
+
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:11px;
+
+.logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 16px;
+
+    background: rgba(103,88,255,.08);
+
+    border: 1px solid var(--border);
+
 }
 
-.brand-logo{
-    width:45px;
-    height:45px;
-    border-radius:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    background:rgba(103,88,255,.09);
-    border:1px solid var(--border);
+
+.logo img {
+
+    width: 40px;
+
+    height: 40px;
+
+    object-fit: contain;
+
 }
 
-.brand-logo img{
-    width:37px;
-    height:37px;
-    object-fit:contain;
+
+.brand strong {
+
+    display: block;
+
+    font-size: 18px;
+
 }
 
-.brand-text strong{
-    display:block;
-    font-size:17px;
+
+.brand small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
 }
 
-.brand-text span{
-    display:block;
-    margin-top:3px;
-    color:var(--muted);
-    font-size:10px;
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.top-account {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    direction: rtl;
+
+    cursor: pointer;
+
 }
 
-.back{
-    width:42px;
-    height:42px;
-    border:1px solid var(--border);
-    border-radius:14px;
-    color:#c7cbd4;
-    background:rgba(255,255,255,.035);
-    font-size:20px;
-    cursor:pointer;
+
+.account-button {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    color: white;
+
+    background: rgba(255,255,255,.035);
+
+    cursor: pointer;
+
+    font-size: 18px;
+
 }
 
-/* HEADER */
 
-.page-header{
-    margin-bottom:20px;
+.top-account-name {
+
+    max-width: 135px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
 }
 
-.page-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:7px 11px;
-    margin-bottom:12px;
-    border-radius:999px;
-    color:#c7c0ff;
-    background:rgba(103,88,255,.10);
-    border:1px solid rgba(103,88,255,.20);
-    font-size:11px;
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header {
+
+    margin-bottom: 22px;
+
 }
 
-.page-header h1{
-    margin:0;
-    font-size:clamp(29px,6vw,42px);
-    line-height:1.45;
+
+.page-badge {
+
+    display: inline-flex;
+
+    padding: 7px 11px;
+
+    margin-bottom: 12px;
+
+    border-radius: 999px;
+
+    color: #c9c3ff;
+
+    background: rgba(103,88,255,.10);
+
+    border: 1px solid rgba(103,88,255,.20);
+
+    font-size: 11px;
+
 }
 
-.page-header h1 span{
-    color:#8b80ff;
+
+.page-header h1 {
+
+    margin: 0;
+
+    font-size: clamp(32px,7vw,49px);
+
+    line-height: 1.35;
+
 }
 
-.page-header p{
-    margin:10px 0 0;
-    color:var(--muted);
-    line-height:1.9;
-    font-size:13px;
+
+.page-header h1 span {
+
+    color: #8b80ff;
+
 }
 
-/* STREAK */
 
-.streak-card{
-    position:relative;
-    overflow:hidden;
-    padding:24px;
-    margin-bottom:18px;
-    border-radius:var(--radius-xl);
+.page-header p {
+
+    margin: 9px 0 0;
+
+    color: var(--muted);
+
+    line-height: 1.9;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================
+   STREAK CARD
+========================= */
+
+.streak-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 25px 28px;
+
+    margin-bottom: 15px;
+
+    border-radius: 24px;
+
     background:
+
         radial-gradient(
-            circle at 85% 0%,
-            rgba(255,122,50,.12),
-            transparent 32%
+            circle at 100% 0%,
+            rgba(255,122,50,.16),
+            transparent 38%
         ),
+
         radial-gradient(
-            circle at 10% 100%,
-            rgba(103,88,255,.14),
-            transparent 35%
+            circle at 0% 100%,
+            rgba(103,88,255,.12),
+            transparent 40%
         ),
-        linear-gradient(
-            150deg,
-            rgba(20,24,36,.98),
-            rgba(11,14,23,.98)
-        );
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 22px 70px rgba(0,0,0,.34);
-}
 
-.streak-main{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-}
-
-.fire-wrap{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.fire{
-    width:64px;
-    height:64px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:20px;
-    font-size:34px;
-    background:rgba(255,122,50,.09);
-    border:1px solid rgba(255,122,50,.16);
-    box-shadow:0 12px 35px rgba(255,122,50,.10);
-}
-
-.streak-info{
-    min-width:0;
-}
-
-.streak{
-    font-size:39px;
-    font-weight:800;
-    line-height:1;
-}
-
-.streak-label{
-    margin-top:6px;
-    color:var(--muted);
-    font-size:12px;
-}
-
-.best{
-    flex-shrink:0;
-    padding:10px 12px;
-    border-radius:14px;
-    text-align:center;
-    color:var(--yellow);
-    background:rgba(250,204,21,.06);
-    border:1px solid rgba(250,204,21,.10);
-    font-size:10px;
-}
-
-.best strong{
-    display:block;
-    margin-top:5px;
-    color:#fff;
-    font-size:18px;
-}
-
-/* CARD */
-
-.card{
-    margin-top:14px;
-    padding:21px;
-    border-radius:var(--radius-lg);
-    background:
         linear-gradient(
             145deg,
-            rgba(18,22,34,.97),
-            rgba(12,15,23,.97)
+            rgba(18,22,34,.98),
+            rgba(11,14,22,.98)
         );
-    border:1px solid var(--border);
-    box-shadow:0 15px 45px rgba(0,0,0,.23);
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 16px 50px rgba(0,0,0,.22);
+
 }
 
-.card-title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:16px;
+
+.streak-main {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
 }
 
-.card-title h2{
-    margin:0;
-    font-size:17px;
+
+.fire-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 20px;
+
+    background: rgba(255,122,50,.09);
+
+    border: 1px solid rgba(255,122,50,.16);
+
+    font-size: 34px;
+
+    box-shadow:
+        0 8px 30px rgba(255,122,50,.08);
+
 }
 
-.card-title span{
-    color:var(--muted);
-    font-size:10px;
+
+.streak-number {
+
+    font-size: 43px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
 }
 
-/* INPUT */
 
-input{
-    width:100%;
-    min-height:54px;
-    padding:14px 15px;
-    border:1px solid rgba(255,255,255,.075);
-    border-radius:var(--radius-md);
-    outline:none;
-    color:white;
-    background:rgba(255,255,255,.035);
-    font-size:14px;
+.streak-label {
+
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
 }
 
-input:focus{
-    border-color:rgba(103,88,255,.50);
-    box-shadow:0 0 0 4px rgba(103,88,255,.08);
+
+.best-box {
+
+    min-width: 92px;
+
+    padding: 13px 10px;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,.025);
+
+    border: 1px solid rgba(255,255,255,.05);
+
 }
 
-input::placeholder{
-    color:#667085;
+
+.best-box strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #facc15;
+
+    font-size: 22px;
+
 }
 
-/* BUTTON */
 
-.main-button{
-    width:100%;
-    margin-top:12px;
-    padding:15px;
-    border:0;
-    border-radius:var(--radius-md);
-    color:white;
-    font-size:14px;
-    font-weight:800;
-    cursor:pointer;
-    background:linear-gradient(
-        100deg,
-        #6657ff,
-        #7868ff
-    );
-    box-shadow:0 12px 32px rgba(103,88,255,.20);
+.best-box span {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
 }
 
-.main-button:disabled{
-    opacity:.48;
-    cursor:default;
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+
+    padding: 20px;
+
+    margin-bottom: 14px;
+
+    border-radius: 24px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(18,22,34,.98),
+            rgba(11,14,22,.98)
+        );
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 16px 50px rgba(0,0,0,.22);
+
 }
 
-.done{
-    background:linear-gradient(
-        100deg,
-        #6758ff,
-        #5146da
-    );
+
+/* =========================
+   SECTION HEAD
+========================= */
+
+.section-head {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
 }
 
-/* GOAL */
 
-.goal-name{
-    padding:16px;
-    margin-bottom:4px;
-    border-radius:var(--radius-md);
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.055);
-    font-size:18px;
-    font-weight:800;
-    line-height:1.8;
-    text-align:center;
+.section-head h2 {
+
+    margin: 0;
+
+    font-size: 19px;
+
 }
 
-/* STATS */
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-top:14px;
+.section-head span {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
 }
 
-.stat{
-    padding:14px 9px;
-    border-radius:16px;
-    text-align:center;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.045);
-    color:var(--muted);
-    font-size:10px;
+
+/* =========================
+   INPUT
+========================= */
+
+.input-label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
 }
 
-.stat strong{
-    display:block;
-    margin-top:6px;
-    color:white;
-    font-size:22px;
+
+.goal-input {
+
+    width: 100%;
+
+    height: 58px;
+
+    padding: 0 17px;
+
+    outline: none;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    color: white;
+
+    background: rgba(255,255,255,.035);
+
+    font-size: 13px;
+
+    direction: rtl;
+
+    transition: .2s;
+
 }
 
-/* MESSAGE */
 
-.message{
-    min-height:22px;
-    margin-top:12px;
-    text-align:center;
-    color:#86efac;
-    font-size:12px;
-    font-weight:700;
+.goal-input::placeholder {
+
+    color: #687080;
+
 }
 
-.error{
-    color:#fca5a5 !important;
+
+.goal-input:focus {
+
+    border-color: rgba(103,88,255,.55);
+
+    background: rgba(103,88,255,.055);
+
+    box-shadow:
+        0 0 0 3px rgba(103,88,255,.08);
+
 }
 
-/* DELETE */
 
-.delete{
-    width:100%;
-    margin-top:17px;
-    padding:12px;
-    border:1px solid rgba(239,68,68,.13);
-    border-radius:14px;
-    color:#f87171;
-    background:rgba(239,68,68,.045);
-    font-size:12px;
-    cursor:pointer;
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.primary-button {
+
+    width: 100%;
+
+    min-height: 55px;
+
+    margin-top: 13px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    color: white;
+
+    background:
+
+        linear-gradient(
+            100deg,
+            var(--primary),
+            var(--primary-2)
+        );
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 25px rgba(103,88,255,.18);
+
 }
 
-/* GENERAL */
 
-.hidden{
-    display:none !important;
+.primary-button:active {
+
+    transform: scale(.98);
+
 }
 
-.loading{
-    padding:31px;
-    text-align:center;
-    color:var(--muted);
+
+/* =========================
+   CURRENT GOAL
+========================= */
+
+.current-goal {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 95% 0%,
+            rgba(103,88,255,.16),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            145deg,
+            rgba(18,22,34,.98),
+            rgba(11,14,22,.98)
+        );
+
 }
 
-.login-warning{
-    text-align:center;
+
+.goal-title-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
 }
 
-.login-warning p{
-    color:var(--muted);
-    line-height:1.9;
-    font-size:12px;
+
+.goal-small-label {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
 }
 
-/* NAV */
 
-.bottom-nav{
-    position:fixed;
-    bottom:14px;
-    left:50%;
-    z-index:50;
-    width:min(520px,calc(100% - 28px));
-    transform:translateX(-50%);
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    padding:8px 7px;
-    border-radius:22px;
-    background:rgba(13,16,24,.93);
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 16px 50px rgba(0,0,0,.45);
-    backdrop-filter:blur(22px);
+.goal-title {
+
+    margin-top: 7px;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    line-height: 1.7;
+
+    word-break: break-word;
+
 }
 
-.nav-item{
-    border:0;
-    padding:7px 4px;
-    border-radius:15px;
-    color:#727b8c;
-    background:transparent;
-    cursor:pointer;
-    font-size:10px;
+
+.goal-target-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    background: rgba(103,88,255,.10);
+
+    border: 1px solid rgba(103,88,255,.12);
+
+    font-size: 23px;
+
 }
 
-.nav-item .nav-icon{
-    display:block;
-    margin-bottom:4px;
-    font-size:19px;
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 8px;
+
+    margin-top: 18px;
+
 }
 
-.nav-item.active{
-    color:#8a7fff;
-    background:rgba(103,88,255,.10);
+
+.stat {
+
+    padding: 13px 5px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    color: var(--muted);
+
+    background: rgba(255,255,255,.025);
+
+    border: 1px solid rgba(255,255,255,.045);
+
+    font-size: 9px;
+
 }
 
-/* MOBILE */
 
-@media(max-width:520px){
+.stat strong {
 
-    .app{
-        width:92%;
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: white;
+
+    font-size: 20px;
+
+}
+
+
+.stat.fire strong {
+
+    color: #ff8a45;
+
+}
+
+
+.stat.best strong {
+
+    color: #facc15;
+
+}
+
+
+.stat.days strong {
+
+    color: #8b80ff;
+
+}
+
+
+/* =========================
+   COMPLETE BUTTON
+========================= */
+
+.complete-button {
+
+    width: 100%;
+
+    min-height: 56px;
+
+    margin-top: 14px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    color: white;
+
+    background:
+
+        linear-gradient(
+            100deg,
+            #22c55e,
+            #16a34a
+        );
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+}
+
+
+.complete-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+.complete-button.done {
+
+    color: #86efac;
+
+    background: rgba(34,197,94,.08);
+
+    border: 1px solid rgba(34,197,94,.16);
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+.delete-button {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 13px;
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(239,68,68,.12);
+
+    color: #fca5a5;
+
+    background: rgba(239,68,68,.045);
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+}
+
+
+.delete-button:active {
+
+    transform: scale(.98);
+
+}
+
+
+/* =========================
+   LOGIN MESSAGE
+========================= */
+
+.login-card {
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+}
+
+
+.login-icon {
+
+    font-size: 40px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.login-card h2 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+}
+
+
+.login-card p {
+
+    margin: 9px 0 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.9;
+
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-card {
+
+    text-align: center;
+
+    padding: 28px 20px;
+
+}
+
+
+.empty-icon {
+
+    font-size: 38px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.empty-card h2 {
+
+    margin: 0;
+
+    font-size: 17px;
+
+}
+
+
+.empty-card p {
+
+    margin: 8px 0 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.9;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    padding: 28px 0 8px;
+
+    text-align: center;
+
+    color: #596171;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav {
+
+    position: fixed;
+
+    z-index: 100;
+
+    right: 50%;
+
+    bottom: max(12px, env(safe-area-inset-bottom));
+
+    transform: translateX(50%);
+
+    width: min(520px,92%);
+
+    height: 68px;
+
+    padding: 7px 8px;
+
+    display: grid;
+
+    grid-template-columns: repeat(5,1fr);
+
+    gap: 5px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 22px;
+
+    background: rgba(13,16,25,.93);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.45);
+
+}
+
+
+.nav-item {
+
+    border: none;
+
+    border-radius: 16px;
+
+    color: var(--muted);
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 9px;
+
+}
+
+
+.nav-item span {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 18px;
+
+}
+
+
+.nav-item.active {
+
+    color: white;
+
+    background: rgba(103,88,255,.13);
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+
+    position: fixed;
+
+    z-index: 500;
+
+    left: 50%;
+
+    bottom: 95px;
+
+    transform: translateX(-50%) translateY(20px);
+
+    width: min(420px,88%);
+
+    padding: 13px 16px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    color: white;
+
+    background: rgba(20,24,36,.97);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.35);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .25s;
+
+    font-size: 11px;
+
+}
+
+
+.message.show {
+
+    opacity: 1;
+
+    transform: translateX(-50%) translateY(0);
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px) {
+
+    .streak-card {
+
+        padding: 22px 19px;
+
     }
 
-    .streak-card{
-        padding:18px;
+    .best-box {
+
+        min-width: 78px;
+
     }
 
-    .streak-main{
-        align-items:flex-start;
-    }
-
-    .fire{
-        width:56px;
-        height:56px;
-        font-size:30px;
-    }
-
-    .streak{
-        font-size:34px;
-    }
-
-    .best{
-        padding:8px 9px;
-    }
-
-    .card{
-        padding:18px;
-    }
-
-    .goal-name{
-        font-size:16px;
-    }
 }
 
-@media(max-width:390px){
 
-    .stats{
-        grid-template-columns:1fr;
+@media(max-width:420px) {
+
+    .app {
+
+        width: 92%;
+
     }
 
-    .best{
-        display:none;
+    .brand small {
+
+        display: none;
+
     }
+
+    .top-account-name {
+
+        max-width: 95px;
+
+        font-size: 12px;
+
+    }
+
+    .page-header h1 {
+
+        font-size: 34px;
+
+    }
+
+    .card {
+
+        padding: 17px;
+
+    }
+
+    .goal-title {
+
+        font-size: 17px;
+
+    }
+
+    .streak-number {
+
+        font-size: 37px;
+
+    }
+
+    .fire-icon {
+
+        width: 58px;
+
+        height: 58px;
+
+        font-size: 29px;
+
+    }
+
+    .stats {
+
+        gap: 6px;
+
+    }
+
+}
+
+
+/* =========================
+   HIDE
+========================= */
+
+.hidden {
+
+    display: none !important;
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <main class="app">
+
+
+<!-- =========================
+     TOP BAR
+========================= -->
 
 <header class="topbar">
 
+
+    <div
+        class="top-account"
+        onclick="goAccount()"
+    >
+
+        <button
+            class="account-button"
+            aria-label="حساب کاربری"
+        >
+            👤
+        </button>
+
+        <div
+            class="top-account-name"
+            id="accountName"
+        >
+            مهمان
+        </div>
+
+    </div>
+
+
     <div class="brand">
 
-        <div class="brand-logo">
+        <div class="logo">
 
             <img
                 src="logo.png"
@@ -559,32 +1307,32 @@ input::placeholder{
 
         </div>
 
-        <div class="brand-text">
+        <div>
 
-            <strong>هدف 🏹</strong>
+            <strong>
+                هدف
+            </strong>
 
-            <span>هر روز یک قدم جلوتر</span>
+            <small>
+                هر روز یک قدم جلوتر
+            </small>
 
         </div>
 
     </div>
 
-    <button
-        type="button"
-        class="back"
-        onclick="goBack()"
-        aria-label="بازگشت"
-    >
-        ←
-    </button>
 
 </header>
 
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <section class="page-header">
 
     <div class="page-badge">
-        🎯 پیگیری هدف
+        🎯 هدف روزانه
     </div>
 
     <h1>
@@ -592,1829 +1340,1112 @@ input::placeholder{
     </h1>
 
     <p>
-        هر روز هدفت را انجام بده و زنجیره‌ات را حفظ کن 🔥
+        هر روز یک قدم جلوتر برو، هدفت رو انجام بده
+        و زنجیره‌ات رو حفظ کن 🔥
     </p>
 
 </section>
 
+
+<!-- =========================
+     STREAK
+========================= -->
 
 <section class="streak-card">
 
+
     <div class="streak-main">
 
-        <div class="fire-wrap">
+        <div class="fire-icon">
+            🔥
+        </div>
 
-            <div class="fire">
-                🔥
+        <div>
+
+            <div
+                class="streak-number"
+                id="mainStreak"
+            >
+                0
             </div>
 
-            <div class="streak-info">
+            <div class="streak-label">
+                روز پشت سر هم
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="best-box">
+
+        <span>
+            🏆 بهترین رکورد
+        </span>
+
+        <strong id="mainBest">
+            0
+        </strong>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<div id="content">
+
+
+    <!-- =========================
+         LOGIN
+    ========================== -->
+
+    <section
+        class="card login-card hidden"
+        id="loginCard"
+    >
+
+        <div class="login-icon">
+            🔐
+        </div>
+
+        <h2>
+            اول وارد حساب شو
+        </h2>
+
+        <p>
+            برای ساخت و ذخیره هدف روزانه،
+            وارد حساب کاربری هدف شو.
+        </p>
+
+        <button
+            class="primary-button"
+            onclick="location.href='login.html'"
+        >
+            ورود به حساب
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         CREATE
+    ========================== -->
+
+    <section
+        class="card"
+        id="createCard"
+    >
+
+        <div class="section-head">
+
+            <h2>
+                🎯 هدف جدید
+            </h2>
+
+            <span>
+                روزانه
+            </span>
+
+        </div>
+
+
+        <label
+            class="input-label"
+            for="goalInput"
+        >
+            هدفت رو بنویس
+        </label>
+
+
+        <input
+            id="goalInput"
+            class="goal-input"
+            type="text"
+            maxlength="120"
+            autocomplete="off"
+            placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم..."
+        >
+
+
+        <button
+            class="primary-button"
+            onclick="createGoal()"
+        >
+            🚀 ساختن هدف
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         CURRENT GOAL
+    ========================== -->
+
+    <section
+        class="card current-goal hidden"
+        id="goalCard"
+    >
+
+        <div class="goal-title-row">
+
+            <div>
+
+                <div class="goal-small-label">
+                    🎯 هدف من
+                </div>
 
                 <div
-                    id="streak"
-                    class="streak"
+                    class="goal-title"
+                    id="goalTitle"
                 >
-                    0
-                </div>
-
-                <div class="streak-label">
-                    روز پشت سر هم
+                    -
                 </div>
 
             </div>
 
-        </div>
 
-        <div class="best">
-
-            بهترین رکورد
-
-            <strong id="bestStreak">
-                0
-            </strong>
+            <div class="goal-target-icon">
+                🎯
+            </div>
 
         </div>
 
-    </div>
 
-</section>
+        <div class="stats">
 
 
-<!-- =========================
-     CREATE GOAL
-========================== -->
+            <div class="stat fire">
 
-<section
-    id="createBox"
-    class="card"
->
+                <strong id="goalStreak">
+                    0
+                </strong>
 
-    <div class="card-title">
+                🔥 Streak
+
+            </div>
+
+
+            <div class="stat best">
+
+                <strong id="goalBest">
+                    0
+                </strong>
+
+                🏆 رکورد
+
+            </div>
+
+
+            <div class="stat days">
+
+                <strong id="goalTotal">
+                    0
+                </strong>
+
+                روز انجام
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="complete-button"
+            id="completeButton"
+            onclick="completeGoal()"
+        >
+            🔥 امروز انجامش دادم
+        </button>
+
+
+        <button
+            class="delete-button"
+            onclick="deleteGoal()"
+        >
+            حذف این هدف
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         EMPTY
+    ========================== -->
+
+    <section
+        class="card empty-card hidden"
+        id="emptyCard"
+    >
+
+        <div class="empty-icon">
+            🎯
+        </div>
 
         <h2>
-            🎯 هدف جدید
+            هنوز هدفی نساختی
         </h2>
 
-        <span>
-            روزانه
-        </span>
+        <p>
+            یک هدف کوچک برای امروز بنویس
+            و از همین امروز شروع کن.
+        </p>
 
-    </div>
-
-    <input
-        id="goalInput"
-        type="text"
-        maxlength="120"
-        autocomplete="off"
-        placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم..."
-    >
-
-    <button
-        type="button"
-        id="createButton"
-        class="main-button"
-    >
-        ساختن هدف 🚀
-    </button>
-
-</section>
+    </section>
 
 
-<!-- =========================
-     GOAL
-========================== -->
-
-<section
-    id="goalBox"
-    class="card hidden"
->
-
-    <div class="card-title">
-
-        <h2>
-            🎯 هدف امروز
-        </h2>
-
-        <span>
-            امروز
-        </span>
-
-    </div>
-
-    <div
-        id="goalName"
-        class="goal-name"
-    ></div>
-
-    <button
-        type="button"
-        id="doneButton"
-        class="main-button done"
-    >
-        امروز انجامش دادم 🔥
-    </button>
-
-    <div class="stats">
-
-        <div class="stat">
-
-            روزهای انجام‌شده
-
-            <strong id="totalDays">
-                0
-            </strong>
-
-        </div>
-
-        <div class="stat">
-
-            بهترین رکورد
-
-            <strong id="record">
-                0
-            </strong>
-
-        </div>
-
-    </div>
-
-    <div
-        id="message"
-        class="message"
-    ></div>
-
-    <button
-        type="button"
-        id="deleteButton"
-        class="delete"
-    >
-        حذف این هدف
-    </button>
-
-</section>
-
-
-<div
-    id="loading"
-    class="loading"
->
-    در حال بارگذاری هدف...
 </div>
 
 
-<div
-    id="loginWarning"
-    class="login-warning hidden"
->
+<footer>
+    سایت هدف • هر روز یک قدم جلوتر
+</footer>
 
-    <p>
-        برای استفاده از اهداف روزانه ابتدا وارد حساب کاربری خودت شو.
-    </p>
-
-    <button
-        type="button"
-        class="main-button"
-        onclick="location.href='login.html'"
-    >
-        ورود به حساب 👤
-    </button>
-
-</div>
 
 </main>
 
 
 <!-- =========================
+     MESSAGE
+========================= -->
+
+<div
+    class="message"
+    id="message"
+></div>
+
+
+<!-- =========================
      BOTTOM NAV
-========================== -->
+========================= -->
 
 <nav class="bottom-nav">
 
+
     <button
-        type="button"
         class="nav-item"
         onclick="location.href='index.html'"
     >
-        <span class="nav-icon">🏠</span>
+
+        <span>
+            ⌂
+        </span>
+
         خانه
+
     </button>
 
+
     <button
-        type="button"
         class="nav-item active"
-        onclick="location.href='goals.html'"
     >
-        <span class="nav-icon">🎯</span>
-        اهداف
+
+        <span>
+            ◎
+        </span>
+
+        هدف من
+
     </button>
 
+
     <button
-        type="button"
+        class="nav-item"
+        onclick="location.href='index.html#games'"
+    >
+
+        <span>
+            🎮
+        </span>
+
+        بازی‌ها
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="location.href='index.html#tools'"
+    >
+
+        <span>
+            ◈
+        </span>
+
+        ابزارها
+
+    </button>
+
+
+    <button
         class="nav-item"
         onclick="location.href='pico.html'"
     >
-        <span class="nav-icon">🤖</span>
+
+        <span>
+            🤖
+        </span>
+
         پیکو
+
     </button>
 
-    <button
-        type="button"
-        class="nav-item"
-        onclick="location.href='calculator.html'"
-    >
-        <span class="nav-icon">🧮</span>
-        ابزارها
-    </button>
 
 </nav>
 
 
 <script>
 
-/* =================================
+/* =========================
    API
-================================= */
+========================= */
 
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbw1TBun1WJbTehqUspDdQV1gQ4s34zhonvMgote3w-fVVYjqxxuSOeeMLAFKJNfsf0y/exec";
+"https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
 
 
-/* =================================
-   STATE
-================================= */
+/* =========================
+   USER
+========================= */
 
-let currentGoal = null;
-let currentGoals = [];
-let busy = false;
+function getUser() {
 
+    try {
 
-/* =================================
-   EMAIL
-================================= */
+        const saved =
+            localStorage.getItem("hadafUser");
 
-function getEmail(){
-
-    const keys = [
-        "hadafUser",
-        "user",
-        "email",
-        "hadaf_email",
-        "userEmail"
-    ];
-
-    for(const key of keys){
-
-        const value =
-            localStorage.getItem(key);
-
-        if(!value){
-            continue;
+        if (!saved) {
+            return null;
         }
 
-        try{
+        return JSON.parse(saved);
 
-            const parsed =
-                JSON.parse(value);
+    } catch (error) {
 
-            if(
-                parsed &&
-                typeof parsed === "object" &&
-                parsed.email
-            ){
-
-                return String(parsed.email)
-                    .trim()
-                    .toLowerCase();
-
-            }
-
-        }
-        catch(e){}
-
-        const stringValue =
-            String(value).trim();
-
-        if(stringValue.includes("@")){
-
-            return stringValue
-                .toLowerCase();
-
-        }
+        return null;
 
     }
-
-    return "";
 
 }
 
 
-/* =================================
-   CACHE
-================================= */
+function getEmail() {
 
-function getGoalsCacheKey(email){
+    const user =
+        getUser();
 
-    return "hadaf_goals_" +
-        String(email)
+    if (
+        !user ||
+        !user.email
+    ) {
+
+        return "";
+
+    }
+
+    return String(user.email)
         .trim()
         .toLowerCase();
 
 }
 
 
-function saveGoalsCache(){
+/* =========================
+   ACCOUNT
+========================= */
 
-    const email =
-        getEmail();
+function showAccount() {
 
-    if(!email){
-        return;
-    }
+    const user =
+        getUser();
 
-    try{
+    const name =
+        document.getElementById("accountName");
 
-        localStorage.setItem(
-            getGoalsCacheKey(email),
-            JSON.stringify({
-                goals:currentGoals,
-                currentGoalId:
-                    currentGoal
-                        ? currentGoal.id
-                        : null
-            })
-        );
+    if (!user) {
 
-    }
-    catch(e){}
-
-}
-
-
-function getGoalsCache(){
-
-    const email =
-        getEmail();
-
-    if(!email){
-        return null;
-    }
-
-    try{
-
-        const raw =
-            localStorage.getItem(
-                getGoalsCacheKey(email)
-            );
-
-        if(!raw){
-            return null;
-        }
-
-        return JSON.parse(raw);
-
-    }
-    catch(e){
-
-        return null;
-
-    }
-
-}
-
-
-/* =================================
-   API CALL
-================================= */
-
-async function callAPI(payload){
-
-    const controller =
-        new AbortController();
-
-    const timeout =
-        setTimeout(
-            function(){
-                controller.abort();
-            },
-            20000
-        );
-
-    try{
-
-        const response =
-            await fetch(
-                API_URL,
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
-
-                    body:
-                        JSON.stringify(payload),
-
-                    cache:"no-store",
-
-                    redirect:"follow",
-
-                    signal:controller.signal
-                }
-            );
-
-        if(!response.ok){
-
-            throw new Error(
-                "خطای سرور: " +
-                response.status
-            );
-
-        }
-
-        const text =
-            await response.text();
-
-        if(!text){
-
-            throw new Error(
-                "سرور پاسخ خالی فرستاد."
-            );
-
-        }
-
-        let data;
-
-        try{
-
-            data =
-                JSON.parse(text);
-
-        }
-        catch(e){
-
-            throw new Error(
-                "پاسخ سرور معتبر نیست."
-            );
-
-        }
-
-        return data;
-
-    }
-    catch(error){
-
-        if(
-            error &&
-            error.name === "AbortError"
-        ){
-
-            throw new Error(
-                "زمان اتصال به سرور تمام شد. اینترنت را بررسی کن."
-            );
-
-        }
-
-        throw error;
-
-    }
-    finally{
-
-        clearTimeout(timeout);
-
-    }
-
-}
-
-
-/* =================================
-   LOAD GOAL
-================================= */
-
-async function loadGoal(){
-
-    const email =
-        getEmail();
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
-    const loginWarning =
-        document.getElementById(
-            "loginWarning"
-        );
-
-    if(!email){
-
-        loading.classList.add(
-            "hidden"
-        );
-
-        loginWarning.classList.remove(
-            "hidden"
-        );
-
-        render();
+        name.textContent =
+            "مهمان";
 
         return;
 
     }
 
-
-    loginWarning.classList.add(
-        "hidden"
-    );
-
-    loading.classList.remove(
-        "hidden"
-    );
-
-
-    /* =============================
-       CACHE
-    ============================= */
-
-    const cached =
-        getGoalsCache();
-
-    if(
-        cached &&
-        Array.isArray(cached.goals) &&
-        cached.goals.length > 0
-    ){
-
-        currentGoals =
-            cached.goals;
-
-        currentGoal =
-            currentGoals.find(
-                function(goal){
-
-                    return String(goal.id) ===
-                        String(
-                            cached.currentGoalId
-                        );
-
-                }
-            ) ||
-            currentGoals[0] ||
-            null;
-
-        render();
-
-    }
-
-
-    /* =============================
-       SERVER
-    ============================= */
-
-    try{
-
-        const data =
-            await callAPI({
-
-                action:"getGoal",
-
-                email:email
-
-            });
-
-
-        if(!data.success){
-
-            throw new Error(
-                data.message ||
-                "دریافت هدف ناموفق بود."
-            );
-
-        }
-
-
-        let goals = [];
-
-
-        if(
-            Array.isArray(data.goals)
-        ){
-
-            goals =
-                data.goals;
-
-        }
-        else if(
-            data.goal
-        ){
-
-            goals = [
-                data.goal
-            ];
-
-        }
-
-
-        currentGoals =
-            goals;
-
-
-        currentGoal =
-            currentGoals[0] ||
-            null;
-
-
-        saveGoalsCache();
-
-        render();
-
-    }
-    catch(error){
-
-        /*
-         * اگر کش داریم، صفحه را خراب نکن.
-         * فقط خطای اتصال را نشان بده.
-         */
-
-        if(
-            currentGoal
-        ){
-
-            const message =
-                document.getElementById(
-                    "message"
-                );
-
-            message.textContent =
-                "⚠️ اطلاعات ذخیره‌شده نمایش داده شد. اتصال به سرور برقرار نشد.";
-
-            message.classList.add(
-                "error"
-            );
-
-        }
-        else{
-
-            const message =
-                document.getElementById(
-                    "message"
-                );
-
-            message.textContent =
-                "❌ " +
-                (
-                    error.message ||
-                    "خطا در دریافت اطلاعات"
-                );
-
-            message.classList.add(
-                "error"
-            );
-
-        }
-
-    }
-    finally{
-
-        loading.classList.add(
-            "hidden"
-        );
-
-    }
+    name.textContent =
+        user.username ||
+        user.name ||
+        "کاربر هدف";
 
 }
 
 
-/* =================================
-   CREATE GOAL
-================================= */
+function goAccount() {
 
-async function createGoal(event){
+    const user =
+        getUser();
 
-    if(event){
-
-        event.preventDefault();
-        event.stopPropagation();
-
-    }
-
-    if(busy){
-        return false;
-    }
-
-    const email =
-        getEmail();
-
-    const input =
-        document.getElementById(
-            "goalInput"
-        );
-
-    const button =
-        document.getElementById(
-            "createButton"
-        );
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    if(!email){
+    if (!user) {
 
         location.href =
             "login.html";
 
-        return false;
+        return;
 
     }
 
+    showMessage(
+        "سلام " +
+        (
+            user.username ||
+            user.name ||
+            "دوست هدف"
+        ) +
+        " 👋"
+    );
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+let messageTimer;
+
+
+function showMessage(text) {
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent =
+        text;
+
+    box.classList.add("show");
+
+    clearTimeout(messageTimer);
+
+    messageTimer =
+        setTimeout(
+            function() {
+
+                box.classList.remove("show");
+
+            },
+            2600
+        );
+
+}
+
+
+/* =========================
+   API CALL
+========================= */
+
+async function callAPI(data) {
+
+    const response =
+        await fetch(
+            API_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(data)
+            }
+        );
+
+    return await response.json();
+
+}
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const loginCard =
+    document.getElementById("loginCard");
+
+const createCard =
+    document.getElementById("createCard");
+
+const goalCard =
+    document.getElementById("goalCard");
+
+const emptyCard =
+    document.getElementById("emptyCard");
+
+
+/* =========================
+   LOAD GOAL
+========================= */
+
+async function loadGoal() {
+
+    const email =
+        getEmail();
+
+
+    if (!email) {
+
+        loginCard.classList.remove("hidden");
+
+        createCard.classList.add("hidden");
+
+        goalCard.classList.add("hidden");
+
+        emptyCard.classList.add("hidden");
+
+        updateStats(0,0,0);
+
+        return;
+
+    }
+
+
+    loginCard.classList.add("hidden");
+
+    createCard.classList.remove("hidden");
+
+
+    try {
+
+        const result =
+            await callAPI({
+
+                action:
+                    "getGoal",
+
+                email:
+                    email
+
+            });
+
+
+        if (
+            !result ||
+            !result.success ||
+            !result.goal
+        ) {
+
+            goalCard.classList.add("hidden");
+
+            emptyCard.classList.remove("hidden");
+
+            updateStats(0,0,0);
+
+            return;
+
+        }
+
+
+        const goal =
+            result.goal;
+
+
+        goalCard.classList.remove("hidden");
+
+        emptyCard.classList.add("hidden");
+
+
+        document.getElementById("goalTitle")
+            .textContent =
+                goal.goal ||
+                goal.name ||
+                "هدف من";
+
+
+        const streak =
+            Number(goal.streak || 0);
+
+        const best =
+            Number(goal.bestStreak || 0);
+
+        const total =
+            Number(goal.totalDays || 0);
+
+
+        updateStats(
+            streak,
+            best,
+            total
+        );
+
+
+        updateCompleteButton(
+            goal
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "خطا در دریافت هدف"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   UPDATE STATS
+========================= */
+
+function updateStats(
+    streak,
+    best,
+    total
+) {
+
+    document.getElementById("mainStreak")
+        .textContent =
+            streak;
+
+    document.getElementById("mainBest")
+        .textContent =
+            best;
+
+    document.getElementById("goalStreak")
+        .textContent =
+            streak;
+
+    document.getElementById("goalBest")
+        .textContent =
+            best;
+
+    document.getElementById("goalTotal")
+        .textContent =
+            total;
+
+}
+
+
+/* =========================
+   CREATE GOAL
+========================= */
+
+async function createGoal() {
+
+    const email =
+        getEmail();
+
+    if (!email) {
+
+        location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    const input =
+        document.getElementById("goalInput");
 
     const goal =
         input.value.trim();
 
 
-    if(!goal){
+    if (!goal) {
+
+        showMessage(
+            "اول هدفت رو بنویس 🎯"
+        );
 
         input.focus();
 
-        return false;
+        return;
 
     }
 
 
-    busy = true;
+    const button =
+        document.querySelector(
+            "#createCard .primary-button"
+        );
 
-    button.disabled = true;
+
+    button.disabled =
+        true;
 
     button.textContent =
         "⏳ در حال ساخت...";
 
 
-    message.textContent = "";
+    try {
 
-    message.classList.remove(
-        "error"
-    );
-
-
-    try{
-
-        const data =
+        const result =
             await callAPI({
 
-                action:"createGoal",
+                action:
+                    "createGoal",
 
-                email:email,
+                email:
+                    email,
 
-                goal:goal
+                goal:
+                    goal
 
             });
 
 
-        if(!data.success){
+        if (
+            result &&
+            result.success
+        ) {
 
-            throw new Error(
-                data.message ||
-                "ساخت هدف ناموفق بود."
+            input.value =
+                "";
+
+            showMessage(
+                "هدف با موفقیت ساخته شد 🎯"
+            );
+
+            await loadGoal();
+
+        } else {
+
+            showMessage(
+                result?.message ||
+                "ساخت هدف انجام نشد"
             );
 
         }
 
+    } catch (error) {
 
-        let newGoal =
-            data.goal ||
-            data.data ||
-            null;
+        console.error(error);
 
-
-        if(!newGoal){
-
-            newGoal = {
-
-                id:
-                    Date.now(),
-
-                goal:
-                    goal,
-
-                streak:0,
-
-                bestStreak:0,
-
-                totalDays:0,
-
-                lastCompleted:""
-
-            };
-
-        }
-
-
-        /*
-         * اگر سرور هدف ساخته، همان را انتخاب کن.
-         */
-
-        currentGoals = [
-            newGoal
-        ];
-
-
-        currentGoal =
-            newGoal;
-
-
-        input.value = "";
-
-
-        saveGoalsCache();
-
-        render();
-
-
-        message.textContent =
-            data.message ||
-            "هدف با موفقیت ساخته شد.";
-
-
-    }
-    catch(error){
-
-        message.textContent =
-            "❌ " +
-            (
-                error.message ||
-                "خطا در ساخت هدف"
-            );
-
-        message.classList.add(
-            "error"
+        showMessage(
+            "خطا در اتصال به سرور"
         );
 
-    }
-    finally{
+    } finally {
 
-        busy = false;
-
-        button.disabled = false;
+        button.disabled =
+            false;
 
         button.textContent =
-            "ساختن هدف 🚀";
+            "🚀 ساختن هدف";
 
     }
-
-    return false;
 
 }
 
 
-/* =================================
-   COMPLETE GOAL
-================================= */
+/* =========================
+   COMPLETE
+========================= */
 
-async function completeGoal(event){
-
-    if(event){
-
-        event.preventDefault();
-        event.stopPropagation();
-
-    }
-
-    if(busy){
-        return false;
-    }
+async function completeGoal() {
 
     const email =
         getEmail();
 
-    if(
-        !email ||
-        !currentGoal
-    ){
 
-        return false;
+    if (!email) {
+
+        location.href =
+            "login.html";
+
+        return;
 
     }
 
 
     const button =
         document.getElementById(
-            "doneButton"
-        );
-
-    const message =
-        document.getElementById(
-            "message"
+            "completeButton"
         );
 
 
-    const today =
-        getTodayString();
-
-
-    /*
-     * جلوگیری از ثبت دوباره امروز
-     */
-
-    if(
-        currentGoal.lastCompleted &&
-        String(
-            currentGoal.lastCompleted
-        ).slice(0,10) === today
-    ){
-
-        render();
-
-        return false;
-
-    }
-
-
-    busy = true;
-
-    button.disabled = true;
+    button.disabled =
+        true;
 
     button.textContent =
         "⏳ در حال ثبت...";
 
-    message.textContent = "";
 
-    message.classList.remove(
-        "error"
-    );
+    try {
 
-
-    try{
-
-        const data =
+        const result =
             await callAPI({
 
-                action:"completeGoal",
+                action:
+                    "completeGoal",
 
-                email:email,
-
-                goalId:
-                    currentGoal.id
+                email:
+                    email
 
             });
 
 
-        if(!data.success){
+        if (
+            result &&
+            result.success
+        ) {
 
-            throw new Error(
-                data.message ||
-                "ثبت انجام هدف ناموفق بود."
+            showMessage(
+                result.message ||
+                "آفرین! هدف امروز انجام شد 🔥"
+            );
+
+            await loadGoal();
+
+        } else {
+
+            showMessage(
+                result?.message ||
+                "ثبت انجام هدف ناموفق بود"
             );
 
         }
 
+    } catch (error) {
 
-        /*
-         * اطلاعات جدید را از سرور بگیر.
-         * اگر سرور goal برگرداند از آن استفاده می‌کنیم.
-         */
+        console.error(error);
 
-        if(data.goal){
-
-            currentGoal = {
-                ...currentGoal,
-                ...data.goal
-            };
-
-        }
-        else{
-
-            currentGoal.lastCompleted =
-                today;
-
-            currentGoal.streak =
-                Number(
-                    currentGoal.streak || 0
-                ) + 1;
-
-            currentGoal.totalDays =
-                Number(
-                    currentGoal.totalDays || 0
-                ) + 1;
-
-            currentGoal.bestStreak =
-                Math.max(
-                    Number(
-                        currentGoal.bestStreak || 0
-                    ),
-                    Number(
-                        currentGoal.streak || 0
-                    )
-                );
-
-        }
-
-
-        const index =
-            currentGoals.findIndex(
-                function(goal){
-
-                    return String(goal.id) ===
-                        String(
-                            currentGoal.id
-                        );
-
-                }
-            );
-
-
-        if(index !== -1){
-
-            currentGoals[index] = {
-                ...currentGoals[index],
-                ...currentGoal
-            };
-
-        }
-
-
-        saveGoalsCache();
-
-        render();
-
-
-        message.textContent =
-            data.message ||
-            "🔥 امروز هم ثبت شد.";
-
-
-        celebrate();
-
-
-    }
-    catch(error){
-
-        message.textContent =
-            "❌ " +
-            (
-                error.message ||
-                "خطایی رخ داد."
-            );
-
-        message.classList.add(
-            "error"
+        showMessage(
+            "خطا در اتصال به سرور"
         );
 
-        button.disabled = false;
+    } finally {
 
-        button.textContent =
-            "امروز انجامش دادم 🔥";
-
-    }
-    finally{
-
-        busy = false;
+        button.disabled =
+            false;
 
     }
-
-
-    return false;
 
 }
 
 
-/* =================================
+/* =========================
+   COMPLETE BUTTON STATE
+========================= */
+
+function updateCompleteButton(goal) {
+
+    const button =
+        document.getElementById(
+            "completeButton"
+        );
+
+    if (!button) {
+        return;
+    }
+
+
+    /*
+       اگر API مقدار completedToday
+       یا todayCompleted را برگرداند،
+       دکمه به حالت انجام‌شده می‌رود.
+    */
+
+    const completed =
+        goal.completedToday === true ||
+        goal.todayCompleted === true ||
+        goal.isCompletedToday === true;
+
+
+    if (completed) {
+
+        button.classList.add("done");
+
+        button.textContent =
+            "✅ امروز انجام شده";
+
+        button.disabled =
+            true;
+
+    } else {
+
+        button.classList.remove("done");
+
+        button.textContent =
+            "🔥 امروز انجامش دادم";
+
+        button.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================
    DELETE
-================================= */
+========================= */
 
-async function deleteGoal(event){
-
-    if(event){
-
-        event.preventDefault();
-        event.stopPropagation();
-
-    }
-
-    if(busy){
-        return false;
-    }
+async function deleteGoal() {
 
     const email =
         getEmail();
 
-    if(
-        !email ||
-        !currentGoal
-    ){
 
-        return false;
+    if (!email) {
+
+        location.href =
+            "login.html";
+
+        return;
 
     }
 
 
-    const confirmed =
+    const ok =
         confirm(
-            "مطمئنی می‌خواهی این هدف و Streak آن را حذف کنی؟"
+            "مطمئنی می‌خواهی این هدف را حذف کنی؟"
         );
 
 
-    if(!confirmed){
-
-        return false;
-
+    if (!ok) {
+        return;
     }
 
 
-    busy = true;
+    try {
 
-
-    try{
-
-        const data =
+        const result =
             await callAPI({
 
-                action:"deleteGoal",
+                action:
+                    "deleteGoal",
 
-                email:email,
-
-                goalId:
-                    currentGoal.id
+                email:
+                    email
 
             });
 
 
-        if(!data.success){
+        if (
+            result &&
+            result.success
+        ) {
 
-            throw new Error(
-                data.message ||
-                "حذف هدف ناموفق بود."
+            showMessage(
+                "هدف حذف شد"
+            );
+
+            await loadGoal();
+
+        } else {
+
+            showMessage(
+                result?.message ||
+                "حذف هدف انجام نشد"
             );
 
         }
 
+    } catch (error) {
 
-        currentGoals =
-            currentGoals.filter(
-                function(goal){
+        console.error(error);
 
-                    return String(goal.id) !==
-                        String(
-                            currentGoal.id
-                        );
-
-                }
-            );
-
-
-        currentGoal =
-            currentGoals[0] ||
-            null;
-
-
-        saveGoalsCache();
-
-        render();
-
-    }
-    catch(error){
-
-        alert(
-            "❌ " +
-            (
-                error.message ||
-                "خطا در حذف هدف"
-            )
+        showMessage(
+            "خطا در اتصال به سرور"
         );
 
     }
-    finally{
-
-        busy = false;
-
-    }
-
-
-    return false;
 
 }
 
 
-/* =================================
-   SELECT GOAL
-================================= */
+/* =========================
+   ENTER KEY
+========================= */
 
-function selectGoal(id){
+document
+    .getElementById("goalInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
 
-    const found =
-        currentGoals.find(
-            function(goal){
+            if (
+                event.key === "Enter"
+            ) {
 
-                return String(goal.id) ===
-                    String(id);
+                createGoal();
 
             }
-        );
-
-
-    if(!found){
-        return;
-    }
-
-
-    currentGoal =
-        found;
-
-
-    saveGoalsCache();
-
-    render();
-
-}
-
-
-/* =================================
-   GOAL LIST
-================================= */
-
-function renderGoalList(){
-
-    let list =
-        document.getElementById(
-            "multiGoalList"
-        );
-
-
-    if(!list){
-
-        list =
-            document.createElement(
-                "div"
-            );
-
-        list.id =
-            "multiGoalList";
-
-        list.style.marginBottom =
-            "14px";
-
-        list.style.display =
-            "grid";
-
-        list.style.gap =
-            "8px";
-
-
-        const goalBox =
-            document.getElementById(
-                "goalBox"
-            );
-
-
-        goalBox.parentNode.insertBefore(
-            list,
-            goalBox
-        );
-
-    }
-
-
-    if(currentGoals.length <= 1){
-
-        list.innerHTML = "";
-
-        list.classList.add(
-            "hidden"
-        );
-
-        return;
-
-    }
-
-
-    list.classList.remove(
-        "hidden"
-    );
-
-
-    list.innerHTML =
-        currentGoals
-        .map(
-            function(goal,index){
-
-                const active =
-                    currentGoal &&
-                    String(currentGoal.id) ===
-                    String(goal.id);
-
-
-                const safeId =
-                    String(goal.id)
-                    .replace(
-                        /'/g,
-                        "\\'"
-                    );
-
-
-                return `
-
-                    <button
-                        type="button"
-                        onclick="selectGoal('${safeId}')"
-                        style="
-                            width:100%;
-                            padding:13px 15px;
-                            border-radius:16px;
-                            border:1px solid ${
-                                active
-                                ? "rgba(103,88,255,.45)"
-                                : "rgba(255,255,255,.075)"
-                            };
-                            background:${
-                                active
-                                ? "rgba(103,88,255,.12)"
-                                : "rgba(255,255,255,.035)"
-                            };
-                            color:#fff;
-                            text-align:right;
-                            cursor:pointer;
-                            font-family:inherit;
-                            font-size:13px;
-                        "
-                    >
-
-                        🎯 ${
-                            escapeHTML(
-                                goal.goal ||
-                                ("هدف " + (index + 1))
-                            )
-                        }
-
-                        <span
-                            style="
-                                display:block;
-                                color:#8f98a9;
-                                font-size:10px;
-                                margin-top:4px;
-                            "
-                        >
-                            🔥 ${
-                                Number(
-                                    goal.streak || 0
-                                )
-                            } روز
-                        </span>
-
-                    </button>
-
-                `;
-
-            }
-        )
-        .join("");
-
-}
-
-
-/* =================================
-   RENDER
-================================= */
-
-function render(){
-
-    const createBox =
-        document.getElementById(
-            "createBox"
-        );
-
-    const goalBox =
-        document.getElementById(
-            "goalBox"
-        );
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    message.classList.remove(
-        "error"
-    );
-
-
-    renderGoalList();
-
-
-    /*
-     * ==============================
-     * بدون هدف
-     * ==============================
-     */
-
-    if(!currentGoal){
-
-        /*
-         * فقط ساخت هدف نمایش داده شود
-         */
-
-        createBox.classList.remove(
-            "hidden"
-        );
-
-        goalBox.classList.add(
-            "hidden"
-        );
-
-
-        document
-            .getElementById("streak")
-            .textContent =
-            "0";
-
-
-        document
-            .getElementById("bestStreak")
-            .textContent =
-            "0";
-
-
-        document
-            .getElementById("record")
-            .textContent =
-            "0";
-
-
-        document
-            .getElementById("totalDays")
-            .textContent =
-            "0";
-
-
-        return;
-
-    }
-
-
-    /*
-     * ==============================
-     * دارای هدف
-     * ==============================
-     *
-     * اینجا مشکل عکس قبلی بود:
-     * createBox نباید همزمان با goalBox
-     * نمایش داده شود.
-     */
-
-    createBox.classList.add(
-        "hidden"
-    );
-
-    goalBox.classList.remove(
-        "hidden"
-    );
-
-
-    document
-        .getElementById("goalName")
-        .textContent =
-        currentGoal.goal || "";
-
-
-    document
-        .getElementById("streak")
-        .textContent =
-        Number(
-            currentGoal.streak || 0
-        );
-
-
-    document
-        .getElementById("bestStreak")
-        .textContent =
-        Number(
-            currentGoal.bestStreak || 0
-        );
-
-
-    document
-        .getElementById("record")
-        .textContent =
-        Number(
-            currentGoal.bestStreak || 0
-        );
-
-
-    document
-        .getElementById("totalDays")
-        .textContent =
-        Number(
-            currentGoal.totalDays || 0
-        );
-
-
-    const button =
-        document.getElementById(
-            "doneButton"
-        );
-
-
-    const today =
-        getTodayString();
-
-
-    if(
-        currentGoal.lastCompleted &&
-        String(
-            currentGoal.lastCompleted
-        ).slice(0,10) === today
-    ){
-
-        button.disabled = true;
-
-        button.textContent =
-            "امروز انجام شد ✓";
-
-        message.textContent =
-            "🔥 امروز ثبت شده.";
-
-    }
-    else{
-
-        button.disabled = false;
-
-        button.textContent =
-            "امروز انجامش دادم 🔥";
-
-        /*
-         * پیام خطای اتصال را پاک نکن.
-         * فقط اگر پیام موفقیت قبلی نبود خالی کن.
-         */
-
-        if(
-            !message.classList.contains(
-                "error"
-            )
-        ){
-
-            message.textContent = "";
 
         }
-
-    }
-
-}
-
-
-/* =================================
-   TODAY
-================================= */
-
-function getTodayString(){
-
-    const now =
-        new Date();
-
-
-    const year =
-        now.getFullYear();
-
-
-    const month =
-        String(
-            now.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day
     );
 
-}
 
-
-/* =================================
-   CELEBRATE
-================================= */
-
-function celebrate(){
-
-    const fire =
-        document.querySelector(
-            ".fire"
-        );
-
-
-    if(!fire){
-        return;
-    }
-
-
-    if(
-        typeof fire.animate ===
-        "function"
-    ){
-
-        fire.animate(
-            [
-                {
-                    transform:
-                        "scale(1)"
-                },
-                {
-                    transform:
-                        "scale(1.28) rotate(-7deg)"
-                },
-                {
-                    transform:
-                        "scale(1.12) rotate(6deg)"
-                },
-                {
-                    transform:
-                        "scale(1)"
-                }
-            ],
-            {
-                duration:620,
-                easing:"ease"
-            }
-        );
-
-    }
-
-}
-
-
-/* =================================
-   SAFE TEXT
-================================= */
-
-function escapeHTML(text){
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        String(text);
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =================================
-   BACK
-================================= */
-
-function goBack(){
-
-    if(
-        history.length > 1
-    ){
-
-        history.back();
-
-    }
-    else{
-
-        location.href =
-            "index.html";
-
-    }
-
-}
-
-
-/* =================================
-   EVENTS
-================================= */
+/* =========================
+   START
+========================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function(){
+    function() {
 
-        const goalInput =
-            document.getElementById(
-                "goalInput"
-            );
-
-        const createButton =
-            document.getElementById(
-                "createButton"
-            );
-
-        const doneButton =
-            document.getElementById(
-                "doneButton"
-            );
-
-        const deleteButton =
-            document.getElementById(
-                "deleteButton"
-            );
-
-
-        /*
-         * همه دکمه‌ها button هستند
-         * و هیچ فرم submit وجود ندارد.
-         */
-
-        createButton.type =
-            "button";
-
-        doneButton.type =
-            "button";
-
-        deleteButton.type =
-            "button";
-
-
-        createButton.addEventListener(
-            "click",
-            function(event){
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                createGoal(event);
-
-            }
-        );
-
-
-        doneButton.addEventListener(
-            "click",
-            function(event){
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                completeGoal(event);
-
-            }
-        );
-
-
-        deleteButton.addEventListener(
-            "click",
-            function(event){
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                deleteGoal(event);
-
-            }
-        );
-
-
-        goalInput.addEventListener(
-            "keydown",
-            function(event){
-
-                if(
-                    event.key ===
-                    "Enter"
-                ){
-
-                    event.preventDefault();
-
-                    event.stopPropagation();
-
-                    createGoal(event);
-
-                }
-
-            }
-        );
-
+        showAccount();
 
         loadGoal();
 
     }
 );
 
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(
+                    function() {
+
+                        console.log(
+                            "✅ Hadaf PWA فعال شد"
+                        );
+
+                    }
+                )
+                .catch(
+                    function(error) {
+
+                        console.error(
+                            "❌ خطای PWA:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
 </script>
 
+
 </body>
+
 </html>
