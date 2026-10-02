@@ -25,6 +25,7 @@
 <style>
 
 :root {
+
     --bg: #07090f;
     --card: rgba(18,22,34,.95);
     --border: rgba(255,255,255,.075);
@@ -55,8 +56,11 @@ html {
 }
 
 body {
+
     margin: 0;
+
     min-height: 100vh;
+
     padding-bottom: 100px;
 
     font-family:
@@ -94,32 +98,45 @@ button {
 }
 
 .app {
+
     width: min(720px, 94%);
+
     margin: auto;
+
     padding: 18px 0 50px;
 }
 
 .topbar {
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 14px;
+
     margin-bottom: 24px;
 }
 
 .brand {
+
     display: flex;
+
     align-items: center;
+
     gap: 11px;
 }
 
 .brand-logo {
+
     width: 45px;
     height: 45px;
 
     border-radius: 14px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -133,35 +150,47 @@ button {
 }
 
 .brand-logo img {
+
     width: 37px;
     height: 37px;
+
     object-fit: contain;
 }
 
 .brand-text strong {
+
     display: block;
+
     font-size: 17px;
 }
 
 .brand-text span {
+
     display: block;
+
     margin-top: 3px;
+
     color: var(--muted);
+
     font-size: 10px;
 }
 
 .back {
+
     width: 42px;
     height: 42px;
 
     border: 1px solid var(--border);
+
     border-radius: 14px;
 
     color: #c7cbd4;
+
     background:
         rgba(255,255,255,.035);
 
     font-size: 20px;
+
     cursor: pointer;
 }
 
@@ -170,11 +199,15 @@ button {
 }
 
 .page-badge {
+
     display: inline-flex;
+
     align-items: center;
+
     gap: 6px;
 
     padding: 7px 11px;
+
     margin-bottom: 12px;
 
     border-radius: 999px;
@@ -192,6 +225,7 @@ button {
 }
 
 .page-header h1 {
+
     margin: 0;
 
     font-size:
@@ -205,6 +239,7 @@ button {
 }
 
 .page-header p {
+
     margin: 10px 0 0;
 
     color: var(--muted);
@@ -215,10 +250,13 @@ button {
 }
 
 .streak-card {
+
     position: relative;
+
     overflow: hidden;
 
     padding: 24px;
+
     margin-bottom: 18px;
 
     border-radius:
@@ -253,25 +291,34 @@ button {
 }
 
 .streak-main {
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     gap: 15px;
 }
 
 .fire-wrap {
+
     display: flex;
+
     align-items: center;
+
     gap: 14px;
 }
 
 .fire {
+
     width: 64px;
     height: 64px;
 
     flex-shrink: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -296,18 +343,25 @@ button {
 }
 
 .streak {
+
     font-size: 39px;
+
     font-weight: 800;
+
     line-height: 1;
 }
 
 .streak-label {
+
     margin-top: 6px;
+
     color: var(--muted);
+
     font-size: 12px;
 }
 
 .best {
+
     flex-shrink: 0;
 
     padding:
@@ -330,13 +384,18 @@ button {
 }
 
 .best strong {
+
     display: block;
+
     margin-top: 5px;
+
     color: #fff;
+
     font-size: 18px;
 }
 
 .card {
+
     margin-top: 14px;
 
     padding: 21px;
@@ -360,25 +419,38 @@ button {
 }
 
 .card-title {
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     gap: 10px;
+
     margin-bottom: 16px;
 }
 
 .card-title h2 {
+
     margin: 0;
+
     font-size: 17px;
 }
 
 .card-title span {
+
     color: var(--muted);
+
     font-size: 10px;
 }
 
+.goal-input-wrap {
+    position: relative;
+}
+
 input {
+
     width: 100%;
 
     min-height: 54px;
@@ -404,6 +476,7 @@ input {
 }
 
 input:focus {
+
     border-color:
         rgba(103,88,255,.50);
 
@@ -417,6 +490,7 @@ input::placeholder {
 }
 
 .main-button {
+
     width: 100%;
 
     margin-top: 12px;
@@ -457,12 +531,16 @@ input::placeholder {
 }
 
 .main-button:disabled {
+
     opacity: .48;
+
     cursor: default;
+
     transform: none;
 }
 
 .done {
+
     background:
         linear-gradient(
             100deg,
@@ -472,7 +550,10 @@ input::placeholder {
 }
 
 .goal-name {
-    padding: 16px;
+
+    padding:
+        16px;
+
     margin-bottom: 4px;
 
     border-radius:
@@ -486,13 +567,16 @@ input::placeholder {
         rgba(255,255,255,.055);
 
     font-size: 18px;
+
     font-weight: 800;
 
     line-height: 1.8;
+
     text-align: center;
 }
 
 .stats {
+
     display: grid;
 
     grid-template-columns:
@@ -504,6 +588,7 @@ input::placeholder {
 }
 
 .stat {
+
     padding: 14px 9px;
 
     border-radius: 16px;
@@ -523,6 +608,7 @@ input::placeholder {
 }
 
 .stat strong {
+
     display: block;
 
     margin-top: 6px;
@@ -533,6 +619,7 @@ input::placeholder {
 }
 
 .message {
+
     min-height: 22px;
 
     margin-top: 12px;
@@ -551,6 +638,7 @@ input::placeholder {
 }
 
 .delete {
+
     width: 100%;
 
     margin-top: 17px;
@@ -579,17 +667,23 @@ input::placeholder {
 }
 
 .loading {
+
     padding: 31px;
+
     color: var(--muted);
 }
 
 .login-warning p {
+
     color: var(--muted);
+
     line-height: 1.9;
+
     font-size: 12px;
 }
 
 .retry-button {
+
     margin-top: 12px;
 
     width: 100%;
@@ -621,6 +715,7 @@ input::placeholder {
 }
 
 .bottom-nav {
+
     position: fixed;
 
     bottom: 14px;
@@ -660,6 +755,7 @@ input::placeholder {
 }
 
 .nav-item {
+
     border: 0;
 
     padding:
@@ -677,12 +773,16 @@ input::placeholder {
 }
 
 .nav-item .nav-icon {
+
     display: block;
+
     margin-bottom: 4px;
+
     font-size: 19px;
 }
 
 .nav-item.active {
+
     color: #8a7fff;
 
     background:
@@ -704,8 +804,10 @@ input::placeholder {
     }
 
     .fire {
+
         width: 56px;
         height: 56px;
+
         font-size: 30px;
     }
 
@@ -746,7 +848,6 @@ input::placeholder {
 
 <main class="app">
 
-
 <header class="topbar">
 
     <div class="brand">
@@ -773,7 +874,6 @@ input::placeholder {
         </div>
 
     </div>
-
 
     <button
         class="back"
@@ -847,7 +947,6 @@ input::placeholder {
     class="hidden"
 >
 
-
 <div class="streak-card">
 
     <div class="streak-main">
@@ -875,7 +974,6 @@ input::placeholder {
 
         </div>
 
-
         <div class="best">
 
             🏆 رکورد
@@ -887,6 +985,34 @@ input::placeholder {
         </div>
 
     </div>
+
+</div>
+
+
+<div
+    id="goalListCard"
+    class="card hidden"
+>
+
+    <div class="card-title">
+
+        <h2>
+            🎯 هدف‌های من
+        </h2>
+
+        <span>
+            انتخاب هدف
+        </span>
+
+    </div>
+
+    <div
+        id="multiGoalList"
+        style="
+            display:grid;
+            gap:8px;
+        "
+    ></div>
 
 </div>
 
@@ -908,14 +1034,16 @@ input::placeholder {
 
     </div>
 
+    <div class="goal-input-wrap">
 
-    <input
-        id="goalInput"
-        maxlength="100"
-        autocomplete="off"
-        placeholder="مثلاً هر روز ۲۰ دقیقه کتاب بخوانم"
-    >
+        <input
+            id="goalInput"
+            maxlength="100"
+            autocomplete="off"
+            placeholder="مثلاً هر روز ۲۰ دقیقه کتاب بخوانم"
+        >
 
+    </div>
 
     <button
         id="createButton"
@@ -924,7 +1052,6 @@ input::placeholder {
     >
         ساخت هدف 🎯
     </button>
-
 
     <div
         id="createMessage"
@@ -951,12 +1078,10 @@ input::placeholder {
 
     </div>
 
-
     <div
         id="goalName"
         class="goal-name"
     ></div>
-
 
     <button
         id="doneButton"
@@ -966,12 +1091,10 @@ input::placeholder {
         امروز انجامش دادم 🔥
     </button>
 
-
     <div
         id="message"
         class="message"
     ></div>
-
 
     <div class="stats">
 
@@ -985,7 +1108,6 @@ input::placeholder {
 
         </div>
 
-
         <div class="stat">
 
             🏆 بهترین رکورد
@@ -998,7 +1120,6 @@ input::placeholder {
 
     </div>
 
-
     <button
         class="delete"
         onclick="deleteGoal()"
@@ -1010,7 +1131,6 @@ input::placeholder {
 
 
 </section>
-
 
 </main>
 
@@ -1030,7 +1150,6 @@ input::placeholder {
 
     </button>
 
-
     <button
         class="nav-item active"
         onclick="location.href='goals.html'"
@@ -1044,7 +1163,6 @@ input::placeholder {
 
     </button>
 
-
     <button
         class="nav-item"
         onclick="location.href='index.html#games'"
@@ -1057,7 +1175,6 @@ input::placeholder {
         بازی‌ها
 
     </button>
-
 
     <button
         class="nav-item"
@@ -1077,41 +1194,33 @@ input::placeholder {
 
 <script>
 
-/* =========================================
+/* ==================================================
    API
-========================================= */
+================================================== */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbw1TBun1WJbTehqUspDdQV1gQ4s34zhonvMgote3w-fVVYjqxxuSOeeMLAFKJNfsf0y/exec";
 
 
-/* =========================================
-   CACHE
-========================================= */
-
 const GOALS_CACHE_PREFIX =
     "hadaf_goals_cache_";
 
 
-/* =========================================
-   VARIABLES
-========================================= */
-
 let currentGoal = null;
 
+let currentGoals = [];
 
-/* =========================================
+
+/* ==================================================
    USER
-========================================= */
+================================================== */
 
 function getUser() {
 
     try {
 
         const raw =
-            localStorage.getItem(
-                "hadafUser"
-            );
+            localStorage.getItem("hadafUser");
 
         if (!raw) {
             return null;
@@ -1122,7 +1231,7 @@ function getUser() {
     }
     catch (error) {
 
-        console.error(
+        console.warn(
             "خطا در خواندن کاربر:",
             error
         );
@@ -1139,7 +1248,6 @@ function getEmail() {
     const user =
         getUser();
 
-
     if (
         !user ||
         !user.email
@@ -1149,7 +1257,6 @@ function getEmail() {
 
     }
 
-
     return String(user.email)
         .trim()
         .toLowerCase();
@@ -1157,9 +1264,9 @@ function getEmail() {
 }
 
 
-/* =========================================
-   CACHE KEY
-========================================= */
+/* ==================================================
+   CACHE
+================================================== */
 
 function getGoalsCacheKey(email) {
 
@@ -1173,11 +1280,10 @@ function getGoalsCacheKey(email) {
 }
 
 
-/* =========================================
-   SAVE CACHE
-========================================= */
-
-function saveGoalCache(email, goal) {
+function saveGoalsCache(
+    email,
+    goals
+) {
 
     try {
 
@@ -1187,9 +1293,13 @@ function saveGoalCache(email, goal) {
 
             JSON.stringify({
 
-                goal: goal,
+                goals:
+                    Array.isArray(goals)
+                        ? goals
+                        : [],
 
-                savedAt: Date.now()
+                savedAt:
+                    Date.now()
 
             })
 
@@ -1199,7 +1309,7 @@ function saveGoalCache(email, goal) {
     catch (error) {
 
         console.warn(
-            "ذخیره موقت هدف انجام نشد:",
+            "ذخیره کش انجام نشد:",
             error
         );
 
@@ -1208,11 +1318,7 @@ function saveGoalCache(email, goal) {
 }
 
 
-/* =========================================
-   GET CACHE
-========================================= */
-
-function getGoalCache(email) {
+function loadGoalsCache(email) {
 
     try {
 
@@ -1221,63 +1327,46 @@ function getGoalCache(email) {
                 getGoalsCacheKey(email)
             );
 
-
         if (!raw) {
-            return null;
+            return [];
         }
-
 
         const data =
             JSON.parse(raw);
 
-
         if (
             !data ||
-            !Object.prototype.hasOwnProperty.call(
-                data,
-                "goal"
-            )
+            !Array.isArray(data.goals)
         ) {
 
-            return null;
+            return [];
 
         }
 
-
-        return data.goal;
+        return data.goals;
 
     }
-    catch (error) {
+    catch {
 
-        console.warn(
-            "خواندن کش ناموفق بود:",
-            error
-        );
-
-        return null;
+        return [];
 
     }
 
 }
 
 
-/* =========================================
+/* ==================================================
    API CALL
-========================================= */
+================================================== */
 
 async function callAPI(data) {
 
     const controller =
         new AbortController();
 
-
     const timeout =
         setTimeout(
-            function() {
-
-                controller.abort();
-
-            },
+            () => controller.abort(),
             30000
         );
 
@@ -1290,7 +1379,6 @@ async function callAPI(data) {
                 API_URL,
 
                 {
-
                     method: "POST",
 
                     headers: {
@@ -1306,9 +1394,6 @@ async function callAPI(data) {
                     cache:
                         "no-store",
 
-                    redirect:
-                        "follow",
-
                     signal:
                         controller.signal
 
@@ -1320,7 +1405,7 @@ async function callAPI(data) {
         if (!response.ok) {
 
             throw new Error(
-                "سرور پاسخ مناسبی نداد. کد: " +
+                "کد پاسخ سرور: " +
                 response.status
             );
 
@@ -1342,14 +1427,13 @@ async function callAPI(data) {
 
         let result;
 
-
         try {
 
             result =
                 JSON.parse(text);
 
         }
-        catch (error) {
+        catch {
 
             console.error(
                 "پاسخ خام API:",
@@ -1357,7 +1441,7 @@ async function callAPI(data) {
             );
 
             throw new Error(
-                "پاسخ API قابل خواندن نیست."
+                "پاسخ سرور JSON معتبر نیست."
             );
 
         }
@@ -1380,18 +1464,21 @@ async function callAPI(data) {
         ) {
 
             throw new Error(
-                "اتصال به API بیش از ۳۰ ثانیه طول کشید."
+                "اتصال به سرور بیشتر از ۳۰ ثانیه طول کشید."
             );
 
         }
 
 
         if (
-            error instanceof TypeError
+            error.message &&
+            error.message.includes(
+                "Failed to fetch"
+            )
         ) {
 
             throw new Error(
-                "اتصال به سرور برقرار نشد."
+                "ارتباط با سرور برقرار نشد."
             );
 
         }
@@ -1409,9 +1496,78 @@ async function callAPI(data) {
 }
 
 
-/* =========================================
-   LOAD ERROR
-========================================= */
+/* ==================================================
+   NORMALIZE GOALS
+================================================== */
+
+function normalizeGoals(data) {
+
+    if (!data) {
+        return [];
+    }
+
+
+    if (
+        Array.isArray(data.goals)
+    ) {
+
+        return data.goals;
+
+    }
+
+
+    if (
+        Array.isArray(data.data)
+    ) {
+
+        return data.data;
+
+    }
+
+
+    if (
+        data.goal &&
+        typeof data.goal === "object"
+    ) {
+
+        return [data.goal];
+
+    }
+
+
+    if (
+        data.data &&
+        typeof data.data === "object"
+    ) {
+
+        return [data.data];
+
+    }
+
+
+    /*
+       اگر خود پاسخ یک هدف باشد
+    */
+
+    if (
+        data.id ||
+        data.goal ||
+        data.email
+    ) {
+
+        return [data];
+
+    }
+
+
+    return [];
+
+}
+
+
+/* ==================================================
+   SHOW LOAD ERROR
+================================================== */
 
 function showLoadError(message) {
 
@@ -1424,7 +1580,7 @@ function showLoadError(message) {
     loading.innerHTML = `
 
         <div style="
-            font-size:30px;
+            font-size:28px;
             margin-bottom:10px;
         ">
             ⚠️
@@ -1455,11 +1611,10 @@ function showLoadError(message) {
 }
 
 
-/* =========================================
+/* ==================================================
    LOAD GOAL
-   API OPERATION:
-   getGoal
-========================================= */
+   API ACTION = getGoal
+================================================== */
 
 async function loadGoal() {
 
@@ -1468,12 +1623,10 @@ async function loadGoal() {
             "loading"
         );
 
-
     const mainContent =
         document.getElementById(
             "mainContent"
         );
-
 
     const loginWarning =
         document.getElementById(
@@ -1489,11 +1642,9 @@ async function loadGoal() {
         "hidden"
     );
 
-
     loginWarning.classList.add(
         "hidden"
     );
-
 
     loading.classList.remove(
         "hidden"
@@ -1501,7 +1652,7 @@ async function loadGoal() {
 
 
     loading.innerHTML =
-        "⏳ در حال دریافت هدف...";
+        "⏳ در حال دریافت اطلاعات...";
 
 
     if (!email) {
@@ -1510,32 +1661,26 @@ async function loadGoal() {
             "hidden"
         );
 
-
         loginWarning.classList.remove(
             "hidden"
         );
-
 
         return;
 
     }
 
 
-    /*
-        کش قبلی
-    */
-
-    const cachedGoal =
-        getGoalCache(email);
+    const cachedGoals =
+        loadGoalsCache(email);
 
 
     try {
 
         /*
-            مهم:
-            API شما getGoal است
-            نه getGoals
-        */
+         * مهم:
+         * در Apps Script تو اسم عملیات
+         * getGoal است، نه getGoals
+         */
 
         const data =
             await callAPI({
@@ -1555,40 +1700,32 @@ async function loadGoal() {
         );
 
 
-        /*
-            حالت اصلی:
-            data.goal
-        */
-
         if (
             data &&
-            data.success
+            data.success === false
         ) {
 
-            currentGoal =
-                data.goal || null;
-
-        }
-        else {
-
-            /*
-                اگر API هدف نداشت،
-                اجازه می‌دهیم کاربر هدف بسازد.
-            */
-
-            currentGoal =
-                null;
+            throw new Error(
+                data.message ||
+                "دریافت هدف ناموفق بود."
+            );
 
         }
 
 
-        /*
-            ذخیره در کش
-        */
+        currentGoals =
+            normalizeGoals(data);
 
-        saveGoalCache(
+
+        currentGoal =
+            currentGoals.length
+                ? currentGoals[0]
+                : null;
+
+
+        saveGoalsCache(
             email,
-            currentGoal
+            currentGoals
         );
 
 
@@ -1596,14 +1733,12 @@ async function loadGoal() {
             "hidden"
         );
 
-
         mainContent.classList.remove(
             "hidden"
         );
 
 
         render();
-
 
     }
     catch (error) {
@@ -1615,20 +1750,26 @@ async function loadGoal() {
 
 
         /*
-            اگر کش داشتیم،
-            آخرین هدف را نشان می‌دهیم.
-        */
+         * اگر کش قبلی داریم،
+         * همان را نمایش بده
+         */
 
-        if (cachedGoal) {
+        if (
+            cachedGoals &&
+            cachedGoals.length > 0
+        ) {
+
+            currentGoals =
+                cachedGoals;
 
             currentGoal =
-                cachedGoal;
+                currentGoals[0] ||
+                null;
 
 
             loading.classList.add(
                 "hidden"
             );
-
 
             mainContent.classList.remove(
                 "hidden"
@@ -1645,8 +1786,7 @@ async function loadGoal() {
 
 
             message.textContent =
-                "⚠️ اتصال به سرور برقرار نشد؛ آخرین اطلاعات نمایش داده شد.";
-
+                "⚠️ اطلاعات آخرین بار نمایش داده شد.";
 
             message.classList.add(
                 "error"
@@ -1659,8 +1799,10 @@ async function loadGoal() {
 
 
         showLoadError(
+
             error.message ||
             "خطا در دریافت هدف."
+
         );
 
     }
@@ -1668,11 +1810,10 @@ async function loadGoal() {
 }
 
 
-/* =========================================
+/* ==================================================
    CREATE GOAL
-   API OPERATION:
-   createGoal
-========================================= */
+   API ACTION = createGoal
+================================================== */
 
 async function createGoal() {
 
@@ -1726,9 +1867,7 @@ async function createGoal() {
     }
 
 
-    button.disabled =
-        true;
-
+    button.disabled = true;
 
     button.textContent =
         "⏳ در حال ساخت...";
@@ -1736,7 +1875,6 @@ async function createGoal() {
 
     message.textContent =
         "";
-
 
     message.classList.remove(
         "error"
@@ -1768,7 +1906,7 @@ async function createGoal() {
 
         if (
             !data ||
-            !data.success
+            data.success !== true
         ) {
 
             throw new Error(
@@ -1785,40 +1923,51 @@ async function createGoal() {
         }
 
 
-        /*
-            API ممکن است goal را
-            مستقیم برگرداند.
-        */
-
-        currentGoal =
-            data.goal || {
-
-                goal:
-                    goal,
-
-                streak:
-                    0,
-
-                bestStreak:
-                    0,
-
-                totalDays:
-                    0,
-
-                lastCompleted:
-                    ""
-
-            };
-
-
-        saveGoalCache(
-            email,
-            currentGoal
-        );
-
-
         input.value =
             "";
+
+
+        /*
+         * هدف برگشتی API
+         */
+
+        let newGoal =
+            data.goal ||
+            data.data ||
+            null;
+
+
+        if (
+            newGoal &&
+            typeof newGoal === "object"
+        ) {
+
+            currentGoals.push(
+                newGoal
+            );
+
+            currentGoal =
+                newGoal;
+
+        }
+        else {
+
+            /*
+             * اگر API هدف را برنگرداند،
+             * دوباره از سرور می‌گیریم.
+             */
+
+            await loadGoal();
+
+            return;
+
+        }
+
+
+        saveGoalsCache(
+            email,
+            currentGoals
+        );
 
 
         render();
@@ -1837,7 +1986,7 @@ async function createGoal() {
     catch (error) {
 
         console.error(
-            "CREATE GOAL ERROR:",
+            "CREATE ERROR:",
             error
         );
 
@@ -1860,7 +2009,6 @@ async function createGoal() {
         button.disabled =
             false;
 
-
         button.textContent =
             "ساخت هدف 🎯";
 
@@ -1869,11 +2017,10 @@ async function createGoal() {
 }
 
 
-/* =========================================
+/* ==================================================
    COMPLETE GOAL
-   API OPERATION:
-   completeGoal
-========================================= */
+   API ACTION = completeGoal
+================================================== */
 
 async function completeGoal() {
 
@@ -1906,14 +2053,12 @@ async function completeGoal() {
     button.disabled =
         true;
 
-
     button.textContent =
         "⏳ در حال ثبت...";
 
 
     message.textContent =
         "";
-
 
     message.classList.remove(
         "error"
@@ -1938,14 +2083,14 @@ async function completeGoal() {
 
 
         console.log(
-            "COMPLETE GOAL RESPONSE:",
+            "COMPLETE RESPONSE:",
             data
         );
 
 
         if (
             !data ||
-            !data.success
+            data.success !== true
         ) {
 
             throw new Error(
@@ -1962,69 +2107,66 @@ async function completeGoal() {
         }
 
 
-        /*
-            اگر API اطلاعات جدید هدف
-            را فرستاده باشد.
-        */
-
-        if (data.goal) {
-
-            currentGoal = {
-
-                ...currentGoal,
-
-                ...data.goal
-
-            };
-
-        }
+        const updatedGoal =
+            data.goal ||
+            data.data ||
+            null;
 
 
-        /*
-            اگر API goal برنگرداند،
-            حداقل تاریخ امروز را محلی ثبت می‌کنیم.
-        */
-
-        else {
+        if (
+            updatedGoal &&
+            typeof updatedGoal === "object"
+        ) {
 
             currentGoal = {
 
                 ...currentGoal,
 
-                lastCompleted:
-                    getTodayString(),
-
-                streak:
-                    Number(
-                        currentGoal.streak || 0
-                    ) + 1,
-
-                totalDays:
-                    Number(
-                        currentGoal.totalDays || 0
-                    ) + 1
+                ...updatedGoal
 
             };
 
 
-            if (
-                currentGoal.streak >
-                Number(
-                    currentGoal.bestStreak || 0
-                )
-            ) {
+            const index =
+                currentGoals.findIndex(
 
-                currentGoal.bestStreak =
-                    currentGoal.streak;
+                    item =>
+                        String(item.id) ===
+                        String(currentGoal.id)
+
+                );
+
+
+            if (index !== -1) {
+
+                currentGoals[index] = {
+
+                    ...currentGoals[index],
+
+                    ...updatedGoal
+
+                };
 
             }
 
         }
+        else {
+
+            /*
+             * اگر API اطلاعات جدید را
+             * برنگرداند، دوباره هدف را بگیر.
+             */
+
+            await loadGoal();
+
+            return;
+
+        }
 
 
-        saveGoalCache(
+        saveGoalsCache(
             email,
-            currentGoal
+            currentGoals
         );
 
 
@@ -2042,7 +2184,7 @@ async function completeGoal() {
     catch (error) {
 
         console.error(
-            "COMPLETE GOAL ERROR:",
+            "COMPLETE ERROR:",
             error
         );
 
@@ -2063,7 +2205,6 @@ async function completeGoal() {
         button.disabled =
             false;
 
-
         button.textContent =
             "امروز انجامش دادم 🔥";
 
@@ -2072,11 +2213,10 @@ async function completeGoal() {
 }
 
 
-/* =========================================
+/* ==================================================
    DELETE GOAL
-   API OPERATION:
-   deleteGoal
-========================================= */
+   API ACTION = deleteGoal
+================================================== */
 
 async function deleteGoal() {
 
@@ -2123,14 +2263,14 @@ async function deleteGoal() {
 
 
         console.log(
-            "DELETE GOAL RESPONSE:",
+            "DELETE RESPONSE:",
             data
         );
 
 
         if (
             !data ||
-            !data.success
+            data.success !== true
         ) {
 
             throw new Error(
@@ -2147,64 +2287,237 @@ async function deleteGoal() {
         }
 
 
+        currentGoals =
+            currentGoals.filter(
+
+                goal =>
+
+                    String(goal.id) !==
+                    String(currentGoal.id)
+
+            );
+
+
         currentGoal =
+            currentGoals[0] ||
             null;
 
 
-        saveGoalCache(
+        saveGoalsCache(
             email,
-            null
+            currentGoals
         );
 
 
         render();
 
 
-        document
-            .getElementById(
-                "createMessage"
-            )
-            .textContent =
-            data.message ||
-            "هدف حذف شد. می‌توانی یک هدف جدید بسازی.";
-
     }
     catch (error) {
 
         console.error(
-            "DELETE GOAL ERROR:",
+            "DELETE ERROR:",
             error
         );
 
 
-        document
-            .getElementById(
-                "message"
-            )
-            .textContent =
+        alert(
+
             "❌ " +
             (
                 error.message ||
-                "خطا در حذف هدف"
-            );
-
-
-        document
-            .getElementById(
-                "message"
+                "خطا در حذف هدف."
             )
-            .classList.add(
-                "error"
-            );
+
+        );
 
     }
 
 }
 
 
-/* =========================================
+/* ==================================================
+   SELECT GOAL
+================================================== */
+
+function selectGoal(id) {
+
+    const found =
+        currentGoals.find(
+
+            goal =>
+
+                String(goal.id) ===
+                String(id)
+
+        );
+
+
+    if (!found) {
+        return;
+    }
+
+
+    currentGoal =
+        found;
+
+
+    render();
+
+}
+
+
+/* ==================================================
+   GOAL LIST
+================================================== */
+
+function renderGoalList() {
+
+    const list =
+        document.getElementById(
+            "multiGoalList"
+        );
+
+
+    const card =
+        document.getElementById(
+            "goalListCard"
+        );
+
+
+    if (!list || !card) {
+        return;
+    }
+
+
+    /*
+     * اگر فقط یک هدف داریم،
+     * لیست انتخاب هدف لازم نیست.
+     */
+
+    if (
+        currentGoals.length <= 1
+    ) {
+
+        list.innerHTML =
+            "";
+
+        card.classList.add(
+            "hidden"
+        );
+
+        return;
+
+    }
+
+
+    card.classList.remove(
+        "hidden"
+    );
+
+
+    list.innerHTML =
+
+        currentGoals
+            .map(
+                (goal, index) => {
+
+                    const active =
+
+                        currentGoal &&
+
+                        String(
+                            currentGoal.id
+                        ) ===
+                        String(
+                            goal.id
+                        );
+
+
+                    const goalText =
+                        escapeHTML(
+
+                            goal.goal ||
+                            (
+                                "هدف " +
+                                (index + 1)
+                            )
+
+                        );
+
+
+                    return `
+
+                        <button
+                            type="button"
+
+                            onclick="
+                                selectGoal(
+                                    '${String(goal.id)
+                                        .replace(
+                                            /'/g,
+                                            "\\'"
+                                        )}'
+                                )
+                            "
+
+                            style="
+                                width:100%;
+                                padding:13px 15px;
+                                border-radius:16px;
+                                border:1px solid ${
+                                    active
+                                    ? "rgba(103,88,255,.45)"
+                                    : "rgba(255,255,255,.075)"
+                                };
+                                background:${
+                                    active
+                                    ? "rgba(103,88,255,.12)"
+                                    : "rgba(255,255,255,.035)"
+                                };
+                                color:#fff;
+                                text-align:right;
+                                cursor:pointer;
+                                font-family:inherit;
+                                font-size:13px;
+                            "
+                        >
+
+                            🎯 ${goalText}
+
+                            <span
+                                style="
+                                    display:block;
+                                    color:#8f98a9;
+                                    font-size:10px;
+                                    margin-top:4px;
+                                "
+                            >
+
+                                🔥 ${
+                                    Number(
+                                        goal.streak ||
+                                        0
+                                    )
+                                } روز
+
+                            </span>
+
+                        </button>
+
+                    `;
+
+                }
+
+            )
+            .join("");
+
+}
+
+
+/* ==================================================
    RENDER
-========================================= */
+================================================== */
 
 function render() {
 
@@ -2226,21 +2539,32 @@ function render() {
         );
 
 
-    message.classList.remove(
-        "error"
-    );
+    if (!createBox || !goalBox) {
+        return;
+    }
+
+
+    if (message) {
+
+        message.classList.remove(
+            "error"
+        );
+
+    }
+
+
+    renderGoalList();
 
 
     /*
-        هیچ هدفی نداریم
-    */
+     * هیچ هدفی نداریم
+     */
 
     if (!currentGoal) {
 
         createBox.classList.remove(
             "hidden"
         );
-
 
         goalBox.classList.add(
             "hidden"
@@ -2285,43 +2609,50 @@ function render() {
 
 
     /*
-        هدف داریم
-    */
+     * هدف داریم
+     */
 
     createBox.classList.add(
         "hidden"
     );
-
 
     goalBox.classList.remove(
         "hidden"
     );
 
 
-    document
-        .getElementById(
+    const goalName =
+        document.getElementById(
             "goalName"
-        )
-        .textContent =
+        );
+
+
+    goalName.textContent =
         currentGoal.goal ||
-        "";
+        currentGoal.title ||
+        "هدف من";
 
 
     const streak =
         Number(
-            currentGoal.streak || 0
+            currentGoal.streak ||
+            0
         );
 
 
     const bestStreak =
         Number(
-            currentGoal.bestStreak || 0
+            currentGoal.bestStreak ||
+            currentGoal.record ||
+            0
         );
 
 
     const totalDays =
         Number(
-            currentGoal.totalDays || 0
+            currentGoal.totalDays ||
+            currentGoal.completedDays ||
+            0
         );
 
 
@@ -2364,16 +2695,22 @@ function render() {
 
 
     /*
-        آیا امروز انجام شده؟
-    */
+     * تاریخ آخرین انجام
+     */
+
+    const lastCompleted =
+        currentGoal.lastCompleted ||
+        currentGoal.lastCompletedDate ||
+        currentGoal.lastDone ||
+        "";
+
 
     if (
 
-        currentGoal.lastCompleted &&
+        lastCompleted &&
 
-        String(
-            currentGoal.lastCompleted
-        ).substring(0, 10) ===
+        String(lastCompleted)
+            .substring(0, 10) ===
         getTodayString()
 
     ) {
@@ -2386,8 +2723,12 @@ function render() {
             "امروز انجام شد ✓";
 
 
-        message.textContent =
-            "🔥 امروز ثبت شده.";
+        if (message) {
+
+            message.textContent =
+                "🔥 امروز ثبت شده.";
+
+        }
 
     }
     else {
@@ -2400,17 +2741,21 @@ function render() {
             "امروز انجامش دادم 🔥";
 
 
-        message.textContent =
-            "";
+        if (message) {
+
+            message.textContent =
+                "";
+
+        }
 
     }
 
 }
 
 
-/* =========================================
+/* ==================================================
    TODAY
-========================================= */
+================================================== */
 
 function getTodayString() {
 
@@ -2426,14 +2771,20 @@ function getTodayString() {
         String(
             now.getMonth() + 1
         )
-        .padStart(2, "0");
+        .padStart(
+            2,
+            "0"
+        );
 
 
     const day =
         String(
             now.getDate()
         )
-        .padStart(2, "0");
+        .padStart(
+            2,
+            "0"
+        );
 
 
     return (
@@ -2447,9 +2798,9 @@ function getTodayString() {
 }
 
 
-/* =========================================
+/* ==================================================
    CELEBRATE
-========================================= */
+================================================== */
 
 function celebrate() {
 
@@ -2491,12 +2842,8 @@ function celebrate() {
         ],
 
         {
-            duration:
-                620,
-
-            easing:
-                "ease"
-
+            duration: 620,
+            easing: "ease"
         }
 
     );
@@ -2504,9 +2851,9 @@ function celebrate() {
 }
 
 
-/* =========================================
-   SAFE HTML
-========================================= */
+/* ==================================================
+   ESCAPE HTML
+================================================== */
 
 function escapeHTML(text) {
 
@@ -2525,15 +2872,19 @@ function escapeHTML(text) {
 }
 
 
-/* =========================================
+/* ==================================================
    ENTER KEY
-========================================= */
+================================================== */
 
-document
-    .getElementById(
+const goalInput =
+    document.getElementById(
         "goalInput"
-    )
-    .addEventListener(
+    );
+
+
+if (goalInput) {
+
+    goalInput.addEventListener(
 
         "keydown",
 
@@ -2552,10 +2903,12 @@ document
 
     );
 
+}
 
-/* =========================================
+
+/* ==================================================
    START
-========================================= */
+================================================== */
 
 loadGoal();
 
@@ -2563,4 +2916,4 @@ loadGoal();
 
 </body>
 
-</html>
+    </html>
