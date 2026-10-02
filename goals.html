@@ -1232,7 +1232,6 @@ input::placeholder {
 
 <script>
 
-
 /* =====================================
    API
 ===================================== */
@@ -1314,11 +1313,16 @@ function saveGoalsCache(email, goals) {
 
         localStorage.setItem(
 
-            getGoalCacheKey(email),
+            getGoalsCacheKey(email),
 
             JSON.stringify({
-                goals: goals,
+
+                goals: Array.isArray(goals)
+                    ? goals
+                    : [],
+
                 savedAt: Date.now()
+
             })
 
         );
@@ -1349,8 +1353,10 @@ function getGoalCache(email) {
             return null;
         }
 
+
         const data =
             JSON.parse(raw);
+
 
         if (
             !data ||
@@ -1360,6 +1366,7 @@ function getGoalCache(email) {
             return null;
 
         }
+
 
         return data.goals;
 
@@ -1382,6 +1389,7 @@ async function callAPI(data) {
     const controller =
         new AbortController();
 
+
     const timeout =
         setTimeout(
             () => controller.abort(),
@@ -1397,17 +1405,21 @@ async function callAPI(data) {
                 API_URL,
 
                 {
+
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
                             "text/plain;charset=utf-8"
+
                     },
 
                     body:
                         JSON.stringify(data),
 
-                    cache: "no-store",
+                    cache:
+                        "no-store",
 
                     signal:
                         controller.signal
@@ -1441,6 +1453,7 @@ async function callAPI(data) {
 
 
         let result;
+
 
         try {
 
@@ -1478,6 +1491,7 @@ async function callAPI(data) {
 
         }
 
+
         throw error;
 
     }
@@ -1491,7 +1505,7 @@ async function callAPI(data) {
 
 
 /* =====================================
-   SHOW LOADING ERROR
+   SHOW LOAD ERROR
 ===================================== */
 
 function showLoadError(message) {
@@ -1537,10 +1551,11 @@ function showLoadError(message) {
 
 
 /* =====================================
-   LOAD ALL GOALS
+   LOAD GOAL
+   API ACTION = getGoal
 ===================================== */
 
-async function getGoal() {
+async function loadGoal() {
 
     const loading =
         document.getElementById(
@@ -1579,11 +1594,6 @@ async function getGoal() {
     );
 
 
-    loading.classList.remove(
-        "error"
-    );
-
-
     loading.innerHTML =
         "⏳ در حال دریافت اطلاعات...";
 
@@ -1594,9 +1604,11 @@ async function getGoal() {
             "hidden"
         );
 
+
         loginWarning.classList.remove(
             "hidden"
         );
+
 
         return;
 
@@ -1604,24 +1616,28 @@ async function getGoal() {
 
 
     /*
-       ابتدا اطلاعات قبلی را می‌خوانیم.
-
-       اگر API کمی دیر جواب بدهد،
-       صفحه کاملاً خالی نمی‌ماند.
+       اول Cache قبلی را می‌گیریم.
     */
 
     const cachedGoals =
-        loadGoalsCache(email);
+        getGoalCache(email);
 
 
     try {
 
+        /*
+           طبق Apps Script:
+           action = getGoal
+        */
+
         const data =
             await callAPI({
 
-                action: "getGoals",
+                action:
+                    "getGoal",
 
-                email: email
+                email:
+                    email
 
             });
 
@@ -1630,25 +1646,47 @@ async function getGoal() {
 
             throw new Error(
                 data.message ||
-                "دریافت اطلاعات ناموفق بود."
+                "دریافت هدف ناموفق بود."
             );
 
         }
 
 
-        currentGoals =
+        /*
+           پشتیبانی از چند نوع پاسخ API
+        */
+
+        let goals = [];
+
+
+        if (
             Array.isArray(data.goals)
-                ? data.goals
-                : [];
+        ) {
+
+            goals =
+                data.goals;
+
+        }
+        else if (
+            data.goal
+        ) {
+
+            goals =
+                Array.isArray(data.goal)
+                    ? data.goal
+                    : [data.goal];
+
+        }
+
+
+        currentGoals =
+            goals;
 
 
         currentGoal =
-            currentGoals[0] || null;
+            currentGoals[0] ||
+            null;
 
-
-        /*
-           ذخیره آخرین اطلاعات موفق
-        */
 
         saveGoalsCache(
             email,
@@ -1668,19 +1706,19 @@ async function getGoal() {
 
         render();
 
-
     }
     catch(error) {
 
         console.error(
-            "❌ LOAD GOALS ERROR:",
+            "❌ LOAD GOAL ERROR:",
             error
         );
 
 
         /*
-           اگر اطلاعات قبلی داریم،
-           همان‌ها را نمایش بده.
+           اگر سرور در دسترس نبود
+           ولی Cache داشتیم،
+           Cache را نمایش می‌دهیم.
         */
 
         if (
@@ -1691,8 +1729,10 @@ async function getGoal() {
             currentGoals =
                 cachedGoals;
 
+
             currentGoal =
-                currentGoals[0] || null;
+                currentGoals[0] ||
+                null;
 
 
             loading.classList.add(
@@ -1715,7 +1755,7 @@ async function getGoal() {
 
 
             message.textContent =
-                "⚠️ اتصال به سرور برقرار نشد؛ اطلاعات آخرین بار نمایش داده شد.";
+                "⚠️ اتصال به سرور برقرار نشد؛ آخرین اطلاعات ذخیره‌شده نمایش داده شد.";
 
 
             message.classList.add(
@@ -1731,7 +1771,7 @@ async function getGoal() {
         showLoadError(
 
             error.message ||
-            "خطا در دریافت اهداف."
+            "خطا در دریافت هدف."
 
         );
 
@@ -1742,6 +1782,7 @@ async function getGoal() {
 
 /* =====================================
    CREATE GOAL
+   API ACTION = createGoal
 ===================================== */
 
 async function createGoal() {
@@ -1787,9 +1828,11 @@ async function createGoal() {
         message.textContent =
             "اول هدفت رو بنویس 🎯";
 
+
         message.classList.add(
             "error"
         );
+
 
         return;
 
@@ -1798,11 +1841,13 @@ async function createGoal() {
 
     button.disabled = true;
 
+
     button.textContent =
         "⏳ در حال ساخت...";
 
 
     message.textContent = "";
+
 
     message.classList.remove(
         "error"
@@ -1839,14 +1884,40 @@ async function createGoal() {
         input.value = "";
 
 
+        /*
+           اگر API خود هدف را برگرداند
+        */
+
         if (data.goal) {
 
-            currentGoals.push(
-                data.goal
-            );
+            const newGoal =
+                Array.isArray(data.goal)
+                    ? data.goal[0]
+                    : data.goal;
 
-            currentGoal =
-                data.goal;
+
+            if (newGoal) {
+
+                currentGoals.push(
+                    newGoal
+                );
+
+                currentGoal =
+                    newGoal;
+
+            }
+
+        }
+        else {
+
+            /*
+               اگر API هدف را برنگرداند،
+               دوباره از سرور می‌خوانیم.
+            */
+
+            await loadGoal();
+
+            return;
 
         }
 
@@ -1866,7 +1937,6 @@ async function createGoal() {
             )
             .textContent =
             "🎯 هدفت ساخته شد؛ از امروز شروع کن.";
-
 
     }
     catch(error) {
@@ -1889,6 +1959,7 @@ async function createGoal() {
         button.disabled =
             false;
 
+
         button.textContent =
             "ساخت هدف 🎯";
 
@@ -1899,6 +1970,7 @@ async function createGoal() {
 
 /* =====================================
    COMPLETE GOAL
+   API ACTION = completeGoal
 ===================================== */
 
 async function completeGoal() {
@@ -1929,13 +2001,16 @@ async function completeGoal() {
         );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
+
 
     button.textContent =
         "⏳ در حال ثبت...";
 
 
     message.textContent = "";
+
 
     message.classList.remove(
         "error"
@@ -1969,19 +2044,26 @@ async function completeGoal() {
         }
 
 
-        currentGoal = {
+        if (data.goal) {
 
-            ...currentGoal,
+            currentGoal = {
 
-            ...data.goal
+                ...currentGoal,
 
-        };
+                ...(Array.isArray(data.goal)
+                    ? data.goal[0]
+                    : data.goal)
+
+            };
+
+        }
 
 
         const index =
             currentGoals.findIndex(
 
                 goal =>
+
                     String(goal.id) ===
                     String(currentGoal.id)
 
@@ -1994,7 +2076,7 @@ async function completeGoal() {
 
                 ...currentGoals[index],
 
-                ...data.goal
+                ...currentGoal
 
             };
 
@@ -2046,7 +2128,8 @@ async function completeGoal() {
 
 
 /* =====================================
-   DELETE
+   DELETE GOAL
+   API ACTION = deleteGoal
 ===================================== */
 
 async function deleteGoal() {
@@ -2109,6 +2192,7 @@ async function deleteGoal() {
             currentGoals.filter(
 
                 goal =>
+
                     String(goal.id) !==
                     String(currentGoal.id)
 
@@ -2156,6 +2240,7 @@ function selectGoal(id) {
         currentGoals.find(
 
             goal =>
+
                 String(goal.id) ===
                 String(id)
 
@@ -2234,9 +2319,11 @@ function renderGoalList() {
 
         list.innerHTML = "";
 
+
         list.classList.add(
             "hidden"
         );
+
 
         return;
 
@@ -2266,6 +2353,20 @@ function renderGoalList() {
                         );
 
 
+                    const safeId =
+                        String(
+                            goal.id
+                        )
+                        .replace(
+                            /\\/g,
+                            "\\\\"
+                        )
+                        .replace(
+                            /'/g,
+                            "\\'"
+                        );
+
+
                     return `
 
                         <button
@@ -2273,11 +2374,7 @@ function renderGoalList() {
 
                             onclick="
                                 selectGoal(
-                                    '${String(goal.id)
-                                        .replace(
-                                            /'/g,
-                                            "\\'"
-                                        )}'
+                                    '${safeId}'
                                 )
                             "
 
@@ -2401,6 +2498,22 @@ function render() {
             "0";
 
 
+        document
+            .getElementById(
+                "record"
+            )
+            .textContent =
+            "0";
+
+
+        document
+            .getElementById(
+                "totalDays"
+            )
+            .textContent =
+            "0";
+
+
         return;
 
     }
@@ -2479,7 +2592,10 @@ function render() {
 
         currentGoal.lastCompleted &&
 
-        currentGoal.lastCompleted ===
+        String(
+            currentGoal.lastCompleted
+        )
+        .slice(0, 10) ===
         getTodayString()
 
     ) {
@@ -2575,6 +2691,7 @@ function celebrate() {
     fire.animate(
 
         [
+
             {
                 transform:
                     "scale(1)"
@@ -2598,8 +2715,11 @@ function celebrate() {
         ],
 
         {
+
             duration: 620,
+
             easing: "ease"
+
         }
 
     );
@@ -2661,7 +2781,6 @@ document
 ===================================== */
 
 loadGoal();
-
 
 </script>
 
