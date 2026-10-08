@@ -2,7 +2,6 @@
 <html lang="fa" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -22,35 +21,34 @@
 <link rel="manifest" href="./manifest.json">
 
 <style>
-
 :root {
-    --bg: #07090f;
-    --card: rgba(18,22,34,.95);
-    --border: rgba(255,255,255,.075);
-    --text: #f8fafc;
-    --muted: #8f98a9;
-    --primary: #6758ff;
-    --primary-2: #5146da;
-    --orange: #ff7a32;
-    --green: #22c55e;
-    --red: #ef4444;
+    --bg:#07090f;
+    --card:rgba(18,22,34,.95);
+    --border:rgba(255,255,255,.075);
+    --text:#f8fafc;
+    --muted:#8f98a9;
+    --primary:#6758ff;
+    --primary-2:#5146da;
+    --orange:#ff7a32;
+    --green:#22c55e;
+    --red:#ef4444;
 }
 
 * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior:smooth;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    padding-bottom: 105px;
-    color: var(--text);
-    font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+    margin:0;
+    min-height:100vh;
+    padding-bottom:105px;
+    color:var(--text);
+    font-family:Tahoma,"Segoe UI",Arial,sans-serif;
 
     background:
         radial-gradient(
@@ -66,146 +64,145 @@ body {
         var(--bg);
 }
 
-button,
-input {
-    font-family: inherit;
+button,input {
+    font-family:inherit;
 }
 
 .app {
-    width: min(760px, 94%);
-    margin: auto;
-    padding: 18px 0 45px;
+    width:min(760px,94%);
+    margin:auto;
+    padding:18px 0 45px;
 }
 
 /* TOP BAR */
 
 .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 30px;
-    direction: ltr;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:30px;
+    direction:ltr;
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    direction: rtl;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    direction:rtl;
 }
 
 .logo {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 16px;
-    background: rgba(103,88,255,.08);
-    border: 1px solid var(--border);
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border-radius:16px;
+    background:rgba(103,88,255,.08);
+    border:1px solid var(--border);
 }
 
 .logo img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+    width:40px;
+    height:40px;
+    object-fit:contain;
 }
 
 .brand strong {
-    display: block;
-    font-size: 18px;
+    display:block;
+    font-size:18px;
 }
 
 .brand small {
-    display: block;
-    margin-top: 3px;
-    color: var(--muted);
-    font-size: 10px;
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:10px;
 }
 
 /* ACCOUNT */
 
 .top-account {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    direction: rtl;
-    cursor: pointer;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    direction:rtl;
+    cursor:pointer;
 }
 
 .account-button {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    color: white;
-    background: rgba(255,255,255,.035);
-    cursor: pointer;
-    font-size: 18px;
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border:1px solid var(--border);
+    border-radius:14px;
+    color:white;
+    background:rgba(255,255,255,.035);
+    cursor:pointer;
+    font-size:18px;
 }
 
 .top-account-name {
-    max-width: 135px;
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width:135px;
+    color:var(--text);
+    font-size:13px;
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 /* HEADER */
 
 .page-header {
-    margin-bottom: 22px;
+    margin-bottom:22px;
 }
 
 .page-badge {
-    display: inline-flex;
-    padding: 7px 11px;
-    margin-bottom: 12px;
-    border-radius: 999px;
-    color: #c9c3ff;
-    background: rgba(103,88,255,.10);
-    border: 1px solid rgba(103,88,255,.20);
-    font-size: 11px;
+    display:inline-flex;
+    padding:7px 11px;
+    margin-bottom:12px;
+    border-radius:999px;
+    color:#c9c3ff;
+    background:rgba(103,88,255,.10);
+    border:1px solid rgba(103,88,255,.20);
+    font-size:11px;
 }
 
 .page-header h1 {
-    margin: 0;
-    font-size: clamp(32px,7vw,49px);
-    line-height: 1.35;
+    margin:0;
+    font-size:clamp(32px,7vw,49px);
+    line-height:1.35;
 }
 
 .page-header h1 span {
-    color: #8b80ff;
+    color:#8b80ff;
 }
 
 .page-header p {
-    margin: 9px 0 0;
-    color: var(--muted);
-    line-height: 1.9;
-    font-size: 13px;
+    margin:9px 0 0;
+    color:var(--muted);
+    line-height:1.9;
+    font-size:13px;
 }
 
 /* STREAK */
 
 .streak-card {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 25px 28px;
-    margin-bottom: 15px;
-    border-radius: 24px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:25px 28px;
+    margin-bottom:15px;
+    border-radius:24px;
 
     background:
         radial-gradient(
@@ -224,73 +221,73 @@ input {
             rgba(11,14,22,.98)
         );
 
-    border: 1px solid var(--border);
+    border:1px solid var(--border);
 
     box-shadow:
         0 16px 50px rgba(0,0,0,.22);
 }
 
 .streak-main {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
 .fire-icon {
-    width: 65px;
-    height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border-radius: 20px;
-    background: rgba(255,122,50,.09);
-    border: 1px solid rgba(255,122,50,.16);
-    font-size: 34px;
+    width:65px;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:20px;
+    background:rgba(255,122,50,.09);
+    border:1px solid rgba(255,122,50,.16);
+    font-size:34px;
 
     box-shadow:
         0 8px 30px rgba(255,122,50,.08);
 }
 
 .streak-number {
-    font-size: 43px;
-    line-height: 1;
-    font-weight: 900;
+    font-size:43px;
+    line-height:1;
+    font-weight:900;
 }
 
 .streak-label {
-    margin-top: 7px;
-    color: var(--muted);
-    font-size: 11px;
+    margin-top:7px;
+    color:var(--muted);
+    font-size:11px;
 }
 
 .best-box {
-    min-width: 92px;
-    padding: 13px 10px;
-    text-align: center;
-    border-radius: 16px;
-    background: rgba(255,255,255,.025);
-    border: 1px solid rgba(255,255,255,.05);
+    min-width:92px;
+    padding:13px 10px;
+    text-align:center;
+    border-radius:16px;
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.05);
 }
 
 .best-box strong {
-    display: block;
-    margin-top: 5px;
-    color: #facc15;
-    font-size: 22px;
+    display:block;
+    margin-top:5px;
+    color:#facc15;
+    font-size:22px;
 }
 
 .best-box span {
-    color: var(--muted);
-    font-size: 9px;
+    color:var(--muted);
+    font-size:9px;
 }
 
 /* CARD */
 
 .card {
-    padding: 20px;
-    margin-bottom: 14px;
-    border-radius: 24px;
+    padding:20px;
+    margin-bottom:14px;
+    border-radius:24px;
 
     background:
         linear-gradient(
@@ -299,7 +296,7 @@ input {
             rgba(11,14,22,.98)
         );
 
-    border: 1px solid var(--border);
+    border:1px solid var(--border);
 
     box-shadow:
         0 16px 50px rgba(0,0,0,.22);
@@ -308,52 +305,52 @@ input {
 /* SECTION */
 
 .section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
 }
 
 .section-head h2 {
-    margin: 0;
-    font-size: 19px;
+    margin:0;
+    font-size:19px;
 }
 
 .section-head span {
-    color: var(--muted);
-    font-size: 10px;
+    color:var(--muted);
+    font-size:10px;
 }
 
 /* INPUT */
 
 .input-label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--muted);
-    font-size: 10px;
+    display:block;
+    margin-bottom:8px;
+    color:var(--muted);
+    font-size:10px;
 }
 
 .goal-input {
-    width: 100%;
-    height: 58px;
-    padding: 0 17px;
-    outline: none;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,.07);
-    color: white;
-    background: rgba(255,255,255,.035);
-    font-size: 13px;
-    direction: rtl;
-    transition: .2s;
+    width:100%;
+    height:58px;
+    padding:0 17px;
+    outline:none;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.07);
+    color:white;
+    background:rgba(255,255,255,.035);
+    font-size:13px;
+    direction:rtl;
+    transition:.2s;
 }
 
 .goal-input::placeholder {
-    color: #687080;
+    color:#687080;
 }
 
 .goal-input:focus {
-    border-color: rgba(103,88,255,.55);
-    background: rgba(103,88,255,.055);
+    border-color:rgba(103,88,255,.55);
+    background:rgba(103,88,255,.055);
 
     box-shadow:
         0 0 0 3px rgba(103,88,255,.08);
@@ -362,13 +359,13 @@ input {
 /* BUTTON */
 
 .primary-button {
-    width: 100%;
-    min-height: 55px;
-    margin-top: 13px;
-    padding: 14px;
-    border: none;
-    border-radius: 16px;
-    color: white;
+    width:100%;
+    min-height:55px;
+    margin-top:13px;
+    padding:14px;
+    border:none;
+    border-radius:16px;
+    color:white;
 
     background:
         linear-gradient(
@@ -377,33 +374,33 @@ input {
             var(--primary-2)
         );
 
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 800;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:800;
 
     box-shadow:
         0 10px 25px rgba(103,88,255,.18);
 
-    transition: .15s;
+    transition:.15s;
 }
 
 .primary-button:active,
 .complete-button:active,
 .delete-button:active {
-    transform: scale(.98);
+    transform:scale(.98);
 }
 
 .primary-button:disabled,
 .complete-button:disabled {
-    opacity: .65;
-    cursor: wait;
+    opacity:.65;
+    cursor:wait;
 }
 
 /* GOAL */
 
 .current-goal {
-    position: relative;
-    overflow: hidden;
+    position:relative;
+    overflow:hidden;
 
     background:
         radial-gradient(
@@ -419,85 +416,85 @@ input {
 }
 
 .goal-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
 }
 
 .goal-small-label {
-    color: var(--muted);
-    font-size: 10px;
+    color:var(--muted);
+    font-size:10px;
 }
 
 .goal-title {
-    margin-top: 7px;
-    font-size: 20px;
-    font-weight: 900;
-    line-height: 1.7;
-    word-break: break-word;
+    margin-top:7px;
+    font-size:20px;
+    font-weight:900;
+    line-height:1.7;
+    word-break:break-word;
 }
 
 .goal-target-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border-radius: 15px;
-    background: rgba(103,88,255,.10);
-    border: 1px solid rgba(103,88,255,.12);
-    font-size: 23px;
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    border-radius:15px;
+    background:rgba(103,88,255,.10);
+    border:1px solid rgba(103,88,255,.12);
+    font-size:23px;
 }
 
 /* STATS */
 
 .stats {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 8px;
-    margin-top: 18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:18px;
 }
 
 .stat {
-    padding: 13px 5px;
-    text-align: center;
-    border-radius: 15px;
-    color: var(--muted);
-    background: rgba(255,255,255,.025);
-    border: 1px solid rgba(255,255,255,.045);
-    font-size: 9px;
+    padding:13px 5px;
+    text-align:center;
+    border-radius:15px;
+    color:var(--muted);
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.045);
+    font-size:9px;
 }
 
 .stat strong {
-    display: block;
-    margin-bottom: 5px;
-    color: white;
-    font-size: 20px;
+    display:block;
+    margin-bottom:5px;
+    color:white;
+    font-size:20px;
 }
 
 .stat.fire strong {
-    color: #ff8a45;
+    color:#ff8a45;
 }
 
 .stat.best strong {
-    color: #facc15;
+    color:#facc15;
 }
 
 .stat.days strong {
-    color: #8b80ff;
+    color:#8b80ff;
 }
 
 /* COMPLETE */
 
 .complete-button {
-    width: 100%;
-    min-height: 56px;
-    margin-top: 14px;
-    border: none;
-    border-radius: 16px;
-    color: white;
+    width:100%;
+    min-height:56px;
+    margin-top:14px;
+    border:none;
+    border-radius:16px;
+    color:white;
 
     background:
         linear-gradient(
@@ -506,185 +503,185 @@ input {
             #16a34a
         );
 
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 800;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:800;
 }
 
 .complete-button.done {
-    color: #86efac;
-    background: rgba(34,197,94,.08);
-    border: 1px solid rgba(34,197,94,.16);
+    color:#86efac;
+    background:rgba(34,197,94,.08);
+    border:1px solid rgba(34,197,94,.16);
 }
 
 /* DELETE */
 
 .delete-button {
-    width: 100%;
-    margin-top: 12px;
-    padding: 13px;
-    border-radius: 15px;
-    border: 1px solid rgba(239,68,68,.12);
-    color: #fca5a5;
-    background: rgba(239,68,68,.045);
-    cursor: pointer;
-    font-size: 11px;
+    width:100%;
+    margin-top:12px;
+    padding:13px;
+    border-radius:15px;
+    border:1px solid rgba(239,68,68,.12);
+    color:#fca5a5;
+    background:rgba(239,68,68,.045);
+    cursor:pointer;
+    font-size:11px;
 }
 
 /* LOGIN */
 
 .login-card {
-    text-align: center;
-    padding: 30px 20px;
+    text-align:center;
+    padding:30px 20px;
 }
 
 .login-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
+    font-size:40px;
+    margin-bottom:10px;
 }
 
 .login-card h2 {
-    margin: 0;
-    font-size: 18px;
+    margin:0;
+    font-size:18px;
 }
 
 .login-card p {
-    margin: 9px 0 0;
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.9;
+    margin:9px 0 0;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.9;
 }
 
 /* EMPTY */
 
 .empty-card {
-    text-align: center;
-    padding: 28px 20px;
+    text-align:center;
+    padding:28px 20px;
 }
 
 .empty-icon {
-    font-size: 38px;
-    margin-bottom: 9px;
+    font-size:38px;
+    margin-bottom:9px;
 }
 
 .empty-card h2 {
-    margin: 0;
-    font-size: 17px;
+    margin:0;
+    font-size:17px;
 }
 
 .empty-card p {
-    margin: 8px 0 0;
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.9;
+    margin:8px 0 0;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.9;
 }
 
 /* FOOTER */
 
 footer {
-    padding: 28px 0 8px;
-    text-align: center;
-    color: #596171;
-    font-size: 10px;
+    padding:28px 0 8px;
+    text-align:center;
+    color:#596171;
+    font-size:10px;
 }
 
 /* NAV */
 
 .bottom-nav {
-    position: fixed;
-    z-index: 100;
-    right: 50%;
-    bottom: max(12px, env(safe-area-inset-bottom));
-    transform: translateX(50%);
-    width: min(520px,92%);
-    height: 68px;
-    padding: 7px 8px;
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 5px;
+    position:fixed;
+    z-index:100;
+    right:50%;
+    bottom:max(12px,env(safe-area-inset-bottom));
+    transform:translateX(50%);
+    width:min(520px,92%);
+    height:68px;
+    padding:7px 8px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:5px;
 
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 22px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
 
-    background: rgba(13,16,25,.93);
+    background:rgba(13,16,25,.93);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
     box-shadow:
         0 15px 45px rgba(0,0,0,.45);
 }
 
 .nav-item {
-    border: none;
-    border-radius: 16px;
-    color: var(--muted);
-    background: transparent;
-    cursor: pointer;
-    font-size: 9px;
+    border:none;
+    border-radius:16px;
+    color:var(--muted);
+    background:transparent;
+    cursor:pointer;
+    font-size:9px;
 }
 
 .nav-item span {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 18px;
+    display:block;
+    margin-bottom:4px;
+    font-size:18px;
 }
 
 .nav-item.active {
-    color: white;
-    background: rgba(103,88,255,.13);
+    color:white;
+    background:rgba(103,88,255,.13);
 }
 
 /* MESSAGE */
 
 .message {
-    position: fixed;
-    z-index: 500;
-    left: 50%;
-    bottom: 95px;
-    transform: translateX(-50%) translateY(20px);
-    width: min(420px,88%);
-    padding: 13px 16px;
-    text-align: center;
-    border-radius: 15px;
-    color: white;
-    background: rgba(20,24,36,.97);
-    border: 1px solid rgba(255,255,255,.08);
+    position:fixed;
+    z-index:500;
+    left:50%;
+    bottom:95px;
+    transform:translateX(-50%) translateY(20px);
+    width:min(420px,88%);
+    padding:13px 16px;
+    text-align:center;
+    border-radius:15px;
+    color:white;
+    background:rgba(20,24,36,.97);
+    border:1px solid rgba(255,255,255,.08);
 
     box-shadow:
         0 15px 40px rgba(0,0,0,.35);
 
-    opacity: 0;
-    pointer-events: none;
-    transition: .25s;
-    font-size: 11px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    font-size:11px;
 }
 
 .message.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
 }
 
 /* LOADING */
 
 .loading-card {
-    text-align: center;
-    padding: 25px;
+    text-align:center;
+    padding:25px;
 }
 
 .loading-spinner {
-    width: 32px;
-    height: 32px;
-    margin: auto;
-    border-radius: 50%;
-    border: 3px solid rgba(255,255,255,.08);
-    border-top-color: var(--primary);
-    animation: spin .8s linear infinite;
+    width:32px;
+    height:32px;
+    margin:auto;
+    border-radius:50%;
+    border:3px solid rgba(255,255,255,.08);
+    border-top-color:var(--primary);
+    animation:spin .8s linear infinite;
 }
 
 @keyframes spin {
     to {
-        transform: rotate(360deg);
+        transform:rotate(360deg);
     }
 }
 
@@ -693,64 +690,59 @@ footer {
 @media(max-width:600px) {
 
     .streak-card {
-        padding: 22px 19px;
+        padding:22px 19px;
     }
 
     .best-box {
-        min-width: 78px;
+        min-width:78px;
     }
-
 }
 
 @media(max-width:420px) {
 
     .app {
-        width: 92%;
+        width:92%;
     }
 
     .brand small {
-        display: none;
+        display:none;
     }
 
     .top-account-name {
-        max-width: 95px;
-        font-size: 12px;
+        max-width:95px;
+        font-size:12px;
     }
 
     .page-header h1 {
-        font-size: 34px;
+        font-size:34px;
     }
 
     .card {
-        padding: 17px;
+        padding:17px;
     }
 
     .goal-title {
-        font-size: 17px;
+        font-size:17px;
     }
 
     .streak-number {
-        font-size: 37px;
+        font-size:37px;
     }
 
     .fire-icon {
-        width: 58px;
-        height: 58px;
-        font-size: 29px;
+        width:58px;
+        height:58px;
+        font-size:29px;
     }
 
     .stats {
-        gap: 6px;
+        gap:6px;
     }
-
 }
-
-/* HIDE */
 
 .hidden {
-    display: none !important;
+    display:none !important;
 }
-
 </style>
 
 </head>
@@ -1138,36 +1130,24 @@ function getUser() {
 
     } catch (error) {
 
-        console.error(
-            "User error:",
-            error
-        );
+        console.error("User error:", error);
 
         return null;
-
     }
-
 }
 
 
 function getEmail() {
 
-    const user =
-        getUser();
+    const user = getUser();
 
-    if (
-        !user ||
-        !user.email
-    ) {
-
+    if (!user || !user.email) {
         return "";
-
     }
 
     return String(user.email)
         .trim()
         .toLowerCase();
-
 }
 
 
@@ -1177,41 +1157,34 @@ function getEmail() {
 
 function showAccount() {
 
-    const user =
-        getUser();
+    const user = getUser();
 
     const name =
         document.getElementById("accountName");
 
     if (!user) {
 
-        name.textContent =
-            "مهمان";
+        name.textContent = "مهمان";
 
         return;
-
     }
 
     name.textContent =
         user.username ||
         user.name ||
         "کاربر هدف";
-
 }
 
 
 function goAccount() {
 
-    const user =
-        getUser();
+    const user = getUser();
 
     if (!user) {
 
-        location.href =
-            "login.html";
+        location.href = "login.html";
 
         return;
-
     }
 
     showMessage(
@@ -1223,7 +1196,6 @@ function goAccount() {
         ) +
         " 👋"
     );
-
 }
 
 
@@ -1238,8 +1210,7 @@ function showMessage(message) {
     const box =
         document.getElementById("message");
 
-    box.textContent =
-        message;
+    box.textContent = message;
 
     box.classList.add("show");
 
@@ -1254,7 +1225,6 @@ function showMessage(message) {
             },
             2800
         );
-
 }
 
 
@@ -1270,7 +1240,9 @@ async function callAPI(data) {
     const timeout =
         setTimeout(
             function() {
+
                 controller.abort();
+
             },
             20000
         );
@@ -1281,9 +1253,9 @@ async function callAPI(data) {
             await fetch(
                 API_URL,
                 {
-                    method: "POST",
+                    method:"POST",
 
-                    headers: {
+                    headers:{
                         "Content-Type":
                             "text/plain;charset=utf-8"
                     },
@@ -1291,8 +1263,7 @@ async function callAPI(data) {
                     body:
                         JSON.stringify(data),
 
-                    cache:
-                        "no-store",
+                    cache:"no-store",
 
                     signal:
                         controller.signal
@@ -1305,7 +1276,6 @@ async function callAPI(data) {
                 "HTTP " +
                 response.status
             );
-
         }
 
         const result =
@@ -1318,7 +1288,6 @@ async function callAPI(data) {
         clearTimeout(timeout);
 
     }
-
 }
 
 
@@ -1352,11 +1321,6 @@ function extractGoal(result) {
         return null;
     }
 
-
-    /* حالت:
-       { success:true, goal:{...} }
-    */
-
     if (
         result.goal &&
         typeof result.goal === "object" &&
@@ -1364,13 +1328,7 @@ function extractGoal(result) {
     ) {
 
         return result.goal;
-
     }
-
-
-    /* حالت:
-       { success:true, data:{goal:{...}} }
-    */
 
     if (
         result.data &&
@@ -1379,13 +1337,7 @@ function extractGoal(result) {
     ) {
 
         return result.data.goal;
-
     }
-
-
-    /* حالت:
-       { success:true, goals:[...] }
-    */
 
     if (
         Array.isArray(result.goals) &&
@@ -1393,13 +1345,7 @@ function extractGoal(result) {
     ) {
 
         return result.goals[0];
-
     }
-
-
-    /* حالت:
-       { success:true, data:{goals:[...]} }
-    */
 
     if (
         result.data &&
@@ -1408,12 +1354,9 @@ function extractGoal(result) {
     ) {
 
         return result.data.goals[0];
-
     }
 
-
     return null;
-
 }
 
 
@@ -1433,7 +1376,6 @@ function getGoalId(goal) {
         goal.ID ||
         ""
     ).trim();
-
 }
 
 
@@ -1443,9 +1385,7 @@ function getGoalId(goal) {
 
 async function loadGoal() {
 
-    const email =
-        getEmail();
-
+    const email = getEmail();
 
     if (!email) {
 
@@ -1461,12 +1401,10 @@ async function loadGoal() {
 
         currentGoal = null;
 
-        updateStats(0, 0, 0);
+        updateStats(0,0,0);
 
         return;
-
     }
-
 
     loginCard.classList.add("hidden");
 
@@ -1478,26 +1416,18 @@ async function loadGoal() {
 
     loadingCard.classList.remove("hidden");
 
-
     try {
 
         const result =
             await callAPI({
-
-                action:
-                    "getGoal",
-
-                email:
-                    email
-
+                action:"getGoal",
+                email:email
             });
-
 
         console.log(
             "getGoal:",
             result
         );
-
 
         if (
             !result ||
@@ -1508,16 +1438,12 @@ async function loadGoal() {
                 result?.message ||
                 "دریافت هدف ناموفق بود"
             );
-
         }
-
 
         const goal =
             extractGoal(result);
 
-
         loadingCard.classList.add("hidden");
-
 
         if (!goal) {
 
@@ -1527,21 +1453,16 @@ async function loadGoal() {
 
             emptyCard.classList.remove("hidden");
 
-            updateStats(0, 0, 0);
+            updateStats(0,0,0);
 
             return;
-
         }
 
-
-        currentGoal =
-            goal;
-
+        currentGoal = goal;
 
         goalCard.classList.remove("hidden");
 
         emptyCard.classList.add("hidden");
-
 
         document
             .getElementById("goalTitle")
@@ -1550,24 +1471,20 @@ async function loadGoal() {
                 goal.name ||
                 "هدف من";
 
-
         const streak =
             Number(
                 goal.streak || 0
             );
-
 
         const best =
             Number(
                 goal.bestStreak || 0
             );
 
-
         const total =
             Number(
                 goal.totalDays || 0
             );
-
 
         updateStats(
             streak,
@@ -1575,11 +1492,7 @@ async function loadGoal() {
             total
         );
 
-
-        updateCompleteButton(
-            goal
-        );
-
+        updateCompleteButton(goal);
 
     } catch (error) {
 
@@ -1595,9 +1508,7 @@ async function loadGoal() {
                 ? "زمان اتصال تمام شد"
                 : "خطا در دریافت هدف"
         );
-
     }
-
 }
 
 
@@ -1613,29 +1524,23 @@ function updateStats(
 
     document
         .getElementById("mainStreak")
-        .textContent =
-            streak;
+        .textContent = streak;
 
     document
         .getElementById("mainBest")
-        .textContent =
-            best;
+        .textContent = best;
 
     document
         .getElementById("goalStreak")
-        .textContent =
-            streak;
+        .textContent = streak;
 
     document
         .getElementById("goalBest")
-        .textContent =
-            best;
+        .textContent = best;
 
     document
         .getElementById("goalTotal")
-        .textContent =
-            total;
-
+        .textContent = total;
 }
 
 
@@ -1645,27 +1550,20 @@ function updateStats(
 
 async function createGoal() {
 
-    const email =
-        getEmail();
-
+    const email = getEmail();
 
     if (!email) {
 
-        location.href =
-            "login.html";
+        location.href = "login.html";
 
         return;
-
     }
-
 
     const input =
         document.getElementById("goalInput");
 
-
     const goal =
         input.value.trim();
-
 
     if (!goal) {
 
@@ -1676,53 +1574,41 @@ async function createGoal() {
         input.focus();
 
         return;
-
     }
-
 
     const button =
         document.getElementById(
             "createButton"
         );
 
-
-    button.disabled =
-        true;
+    button.disabled = true;
 
     button.textContent =
         "⏳ در حال ساخت...";
-
 
     try {
 
         const result =
             await callAPI({
 
-                action:
-                    "createGoal",
+                action:"createGoal",
 
-                email:
-                    email,
+                email:email,
 
-                goal:
-                    goal
-
+                goal:goal
             });
-
 
         console.log(
             "createGoal:",
             result
         );
 
-
         if (
             result &&
             result.success === true
         ) {
 
-            input.value =
-                "";
+            input.value = "";
 
             showMessage(
                 "هدف با موفقیت ساخته شد 🎯"
@@ -1736,7 +1622,6 @@ async function createGoal() {
                 result?.message ||
                 "ساخت هدف انجام نشد"
             );
-
         }
 
     } catch (error) {
@@ -1752,14 +1637,11 @@ async function createGoal() {
 
     } finally {
 
-        button.disabled =
-            false;
+        button.disabled = false;
 
         button.textContent =
             "🚀 ساختن هدف";
-
     }
-
 }
 
 
@@ -1769,19 +1651,14 @@ async function createGoal() {
 
 async function completeGoal() {
 
-    const email =
-        getEmail();
-
+    const email = getEmail();
 
     if (!email) {
 
-        location.href =
-            "login.html";
+        location.href = "login.html";
 
         return;
-
     }
-
 
     if (!currentGoal) {
 
@@ -1792,18 +1669,10 @@ async function completeGoal() {
         await loadGoal();
 
         return;
-
     }
-
 
     const goalId =
         getGoalId(currentGoal);
-
-
-    /*
-       بسیار مهم:
-       completeGoal باید goalId داشته باشد.
-    */
 
     if (!goalId) {
 
@@ -1817,45 +1686,34 @@ async function completeGoal() {
         );
 
         return;
-
     }
-
 
     const button =
         document.getElementById(
             "completeButton"
         );
 
-
-    button.disabled =
-        true;
+    button.disabled = true;
 
     button.textContent =
         "⏳ در حال ثبت...";
-
 
     try {
 
         const result =
             await callAPI({
 
-                action:
-                    "completeGoal",
+                action:"completeGoal",
 
-                email:
-                    email,
+                email:email,
 
-                goalId:
-                    goalId
-
+                goalId:goalId
             });
-
 
         console.log(
             "completeGoal:",
             result
         );
-
 
         if (
             result &&
@@ -1875,7 +1733,6 @@ async function completeGoal() {
                 result?.message ||
                 "ثبت انجام هدف ناموفق بود"
             );
-
         }
 
     } catch (error) {
@@ -1891,11 +1748,8 @@ async function completeGoal() {
 
     } finally {
 
-        button.disabled =
-            false;
-
+        button.disabled = false;
     }
-
 }
 
 
@@ -1910,17 +1764,14 @@ function updateCompleteButton(goal) {
             "completeButton"
         );
 
-
     if (!button) {
         return;
     }
-
 
     const completed =
         goal.completedToday === true ||
         goal.todayCompleted === true ||
         goal.isCompletedToday === true;
-
 
     if (completed) {
 
@@ -1929,8 +1780,7 @@ function updateCompleteButton(goal) {
         button.textContent =
             "✅ امروز انجام شده";
 
-        button.disabled =
-            true;
+        button.disabled = true;
 
     } else {
 
@@ -1939,11 +1789,8 @@ function updateCompleteButton(goal) {
         button.textContent =
             "🔥 امروز انجامش دادم";
 
-        button.disabled =
-            false;
-
+        button.disabled = false;
     }
-
 }
 
 
@@ -1953,19 +1800,14 @@ function updateCompleteButton(goal) {
 
 async function deleteGoal() {
 
-    const email =
-        getEmail();
-
+    const email = getEmail();
 
     if (!email) {
 
-        location.href =
-            "login.html";
+        location.href = "login.html";
 
         return;
-
     }
-
 
     if (!currentGoal) {
 
@@ -1976,18 +1818,10 @@ async function deleteGoal() {
         await loadGoal();
 
         return;
-
     }
-
 
     const goalId =
         getGoalId(currentGoal);
-
-
-    /*
-       بسیار مهم:
-       deleteGoal هم باید goalId داشته باشد.
-    */
 
     if (!goalId) {
 
@@ -2001,64 +1835,50 @@ async function deleteGoal() {
         );
 
         return;
-
     }
-
 
     const ok =
         confirm(
             "مطمئنی می‌خواهی این هدف را حذف کنی؟"
         );
 
-
     if (!ok) {
         return;
     }
-
 
     const button =
         document.getElementById(
             "deleteButton"
         );
 
-
-    button.disabled =
-        true;
+    button.disabled = true;
 
     button.textContent =
         "⏳ در حال حذف...";
-
 
     try {
 
         const result =
             await callAPI({
 
-                action:
-                    "deleteGoal",
+                action:"deleteGoal",
 
-                email:
-                    email,
+                email:email,
 
-                goalId:
-                    goalId
-
+                goalId:goalId
             });
-
 
         console.log(
             "deleteGoal:",
             result
         );
 
-
         if (
             result &&
             result.success === true
         ) {
 
-            currentGoal =
-                null;
+            currentGoal = null;
 
             showMessage(
                 result.message ||
@@ -2073,7 +1893,6 @@ async function deleteGoal() {
                 result?.message ||
                 "حذف هدف انجام نشد"
             );
-
         }
 
     } catch (error) {
@@ -2089,14 +1908,11 @@ async function deleteGoal() {
 
     } finally {
 
-        button.disabled =
-            false;
+        button.disabled = false;
 
         button.textContent =
             "حذف این هدف";
-
     }
-
 }
 
 
@@ -2115,9 +1931,7 @@ document
             ) {
 
                 createGoal();
-
             }
-
         }
     );
 
@@ -2174,11 +1988,9 @@ if (
 
         }
     );
-
 }
 
 </script>
 
 </body>
-
 </html>
