@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>تست Streak | هدف</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+
+    min-height: 100vh;
+
+    font-family: Tahoma, Arial, sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #191735,
+            #07090f 55%
+        );
+}
+
+.container {
+    width: min(600px, 100%);
+    margin: auto;
+}
+
+h1 {
+    margin-top: 10px;
+    font-size: 28px;
+}
+
+.card {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(20,24,36,.95);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.3);
+}
+
+label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+}
+
+input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 14px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    outline: none;
+
+    color: white;
+
+    background: #0d111b;
+
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: #6d5dfc;
+}
+
+button {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 15px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            100deg,
+            #6d5dfc,
+            #5146da
+        );
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .6;
+}
+
+.streak {
+    text-align: center;
+
+    padding: 20px;
+
+    font-size: 50px;
+
+    font-weight: 900;
+}
+
+.streak small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+}
+
+pre {
+    direction: ltr;
+
+    overflow-x: auto;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    color: #d1d5db;
+
+    background: #05070c;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+.status {
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.04);
+
+    color: #cbd5e1;
+
+    font-size: 12px;
+}
+
+.warning {
+    color: #fbbf24;
+
+    line-height: 1.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+🧪 تست Streak هدف
+</h1>
+
+<div class="card">
+
+<label>
+ایمیل حساب
+</label>
+
+<input
+    id="email"
+    type="email"
+    placeholder="ایمیل حساب هدف"
+>
+
+<label style="margin-top:15px;">
+رمز تست
+</label>
+
+<input
+    id="password"
+    type="password"
+    value="xxxxx"
+    placeholder="رمز تست"
+>
+
+<button
+    id="loadButton"
+    onclick="loadGoal()"
+>
+🔍 دریافت هدف
+</button>
+
+</div>
+
+
+<div
+    class="card"
+    id="goalCard"
+    style="display:none;"
+>
+
+<div
+    class="streak"
+>
+
+🔥 <span id="streak">0</span>
+
+<small>
+Streak فعلی
+</small>
+
+</div>
+
+
+<div id="goalText"
+     style="
+        text-align:center;
+        color:#d1d5db;
+        line-height:1.8;
+     ">
+-
+</div>
+
+
+<button
+    id="completeButton"
+    onclick="completeGoal()"
+>
+🔥 امروز انجامش دادم
+</button>
+
+</div>
+
+
+<div class="card">
+
+<strong>
+📡 وضعیت API
+</strong>
+
+<div
+    class="status"
+    id="status"
+>
+هنوز تستی انجام نشده.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<strong>
+📦 پاسخ خام API
+</strong>
+
+<pre id="result">
+هنوز پاسخی دریافت نشده.
+</pre>
+
+</div>
+
+
+<div class="card">
+
+<div class="warning">
+
+⚠️ این فایل فقط برای تست است.
+
+رمز فعلی داخل فایل:
+
+xxxxx
+
+است.
+
+بعداً اگر لازم بود مقدارش را عوض کن.
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   تنظیمات
+===================================== */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbw1TBun1WJbTehqUspDdQV1gQ4s34zhonvMgote3w-fVVYjqxxuSOeeMLAFKJNfsf0y/exec";
+
+
+/*
+   رمز تست
+
+   فعلاً:
+   xxxxx
+
+   خودت می‌توانی عوضش کنی.
+*/
+
+const TEST_PASSWORD =
+"xxxxx";
+
+
+let currentGoal = null;
+
+
+/* =====================================
+   عناصر
+===================================== */
+
+const emailInput =
+document.getElementById("email");
+
+const passwordInput =
+document.getElementById("password");
+
+const loadButton =
+document.getElementById("loadButton");
+
+const completeButton =
+document.getElementById("completeButton");
+
+const goalCard =
+document.getElementById("goalCard");
+
+const goalText =
+document.getElementById("goalText");
+
+const streakText =
+document.getElementById("streak");
+
+const statusText =
+document.getElementById("status");
+
+const resultBox =
+document.getElementById("result");
+
+
+/* =====================================
+   نمایش نتیجه
+===================================== */
+
+function showResult(data) {
+
+    try {
+
+        resultBox.textContent =
+            JSON.stringify(
+                data,
+                null,
+                2
+            );
+
+    } catch {
+
+        resultBox.textContent =
+            String(data);
+
+    }
+
+}
+
+
+/* =====================================
+   API
+===================================== */
+
+async function callAPI(data) {
+
+    const controller =
+        new AbortController();
+
+    const timeout =
+        setTimeout(
+            () => controller.abort(),
+            20000
+        );
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                        "text/plain;charset=utf-8"
+                    },
+
+                    body:
+                        JSON.stringify(data),
+
+                    cache:
+                        "no-store",
+
+                    signal:
+                        controller.signal
+                }
+            );
+
+
+        const text =
+            await response.text();
+
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(text);
+
+        } catch {
+
+            result = {
+                raw: text
+            };
+
+        }
+
+
+        return {
+            httpStatus:
+                response.status,
+
+            ok:
+                response.ok,
+
+            data:
+                result
+        };
+
+
+    } finally {
+
+        clearTimeout(timeout);
+
+    }
+
+}
+
+
+/* =====================================
+   دریافت هدف
+===================================== */
+
+async function loadGoal() {
+
+    const email =
+        emailInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const password =
+        passwordInput.value;
+
+
+    if (!email) {
+
+        statusText.textContent =
+            "❌ ایمیل را وارد کن.";
+
+        return;
+
+    }
+
+
+    if (
+        password !== TEST_PASSWORD
+    ) {
+
+        statusText.textContent =
+            "❌ رمز تست اشتباه است.";
+
+        return;
+
+    }
+
+
+    loadButton.disabled =
+        true;
+
+    loadButton.textContent =
+        "⏳ در حال دریافت...";
+
+
+    statusText.textContent =
+        "در حال ارتباط با API...";
+
+
+    try {
+
+        const response =
+            await callAPI({
+
+                action:
+                    "getGoal",
+
+                email:
+                    email
+
+            });
+
+
+        showResult(
+            response
+        );
+
+
+        const data =
+            response.data;
+
+
+        if (
+            !data ||
+            data.success !== true &&
+            data.success !== "true"
+        ) {
+
+            statusText.textContent =
+                "❌ getGoal موفق نبود.";
+
+            return;
+
+        }
+
+
+        const goal =
+            extractGoal(data);
+
+
+        if (!goal) {
+
+            goalCard.style.display =
+                "none";
+
+            statusText.textContent =
+                "⚠️ هدفی از API دریافت نشد.";
+
+            return;
+
+        }
+
+
+        currentGoal =
+            goal;
+
+
+        goalCard.style.display =
+            "block";
+
+
+        goalText.textContent =
+            getGoalText(goal) ||
+            "هدف بدون عنوان";
+
+
+        const streak =
+            getNumber(
+                goal.streak
+            );
+
+
+        streakText.textContent =
+            streak;
+
+
+        statusText.textContent =
+            "✅ هدف با موفقیت دریافت شد.";
+
+    } catch (error) {
+
+        console.error(error);
+
+        statusText.textContent =
+            "❌ خطا: " +
+            error.message;
+
+    } finally {
+
+        loadButton.disabled =
+            false;
+
+        loadButton.textContent =
+            "🔍 دریافت هدف";
+
+    }
+
+}
+
+
+/* =====================================
+   پیدا کردن هدف
+===================================== */
+
+function extractGoal(result) {
+
+    if (!result) {
+        return null;
+    }
+
+
+    if (
+        result.goal &&
+        typeof result.goal === "object"
+    ) {
+
+        return result.goal;
+
+    }
+
+
+    if (
+        result.data &&
+        result.data.goal &&
+        typeof result.data.goal === "object"
+    ) {
+
+        return result.data.goal;
+
+    }
+
+
+    if (
+        Array.isArray(result.goals) &&
+        result.goals.length
+    ) {
+
+        return result.goals[0];
+
+    }
+
+
+    if (
+        result.data &&
+        Array.isArray(result.data.goals) &&
+        result.data.goals.length
+    ) {
+
+        return result.data.goals[0];
+
+    }
+
+
+    if (
+        result.data &&
+        typeof result.data === "object" &&
+        (
+            result.data.id ||
+            result.data.goalId ||
+            result.data.goal ||
+            result.data.title
+        )
+    ) {
+
+        return result.data;
+
+    }
+
+
+    if (
+        result.id ||
+        result.goalId ||
+        result.ID ||
+        result.goal ||
+        result.title
+    ) {
+
+        return result;
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================
+   متن هدف
+===================================== */
+
+function getGoalText(goal) {
+
+    return String(
+        goal.goal ??
+        goal.name ??
+        goal.title ??
+        goal.text ??
+        ""
+    ).trim();
+
+}
+
+
+/* =====================================
+   عدد
+===================================== */
+
+function getNumber(value) {
+
+    const number =
+        Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : 0;
+
+}
+
+
+/* =====================================
+   شناسه هدف
+===================================== */
+
+function getGoalId(goal) {
+
+    if (!goal) {
+        return "";
+    }
+
+
+    const ids = [
+
+        goal.id,
+
+        goal.goalId,
+
+        goal.ID,
+
+        goal.Id,
+
+        goal.goalID,
+
+        goal.goal_id
+
+    ];
+
+
+    for (
+        const id of ids
+    ) {
+
+        if (
+            id !== undefined &&
+            id !== null &&
+            String(id).trim()
+        ) {
+
+            return String(id).trim();
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =====================================
+   انجام هدف
+===================================== */
+
+async function completeGoal() {
+
+    const email =
+        emailInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const password =
+        passwordInput.value;
+
+
+    if (!email) {
+
+        statusText.textContent =
+            "❌ ایمیل وارد نشده.";
+
+        return;
+
+    }
+
+
+    if (
+        password !== TEST_PASSWORD
+    ) {
+
+        statusText.textContent =
+            "❌ رمز تست اشتباه است.";
+
+        return;
+
+    }
+
+
+    if (!currentGoal) {
+
+        statusText.textContent =
+            "❌ ابتدا هدف را دریافت کن.";
+
+        return;
+
+    }
+
+
+    const goalId =
+        getGoalId(
+            currentGoal
+        );
+
+
+    if (!goalId) {
+
+        statusText.textContent =
+            "❌ API شناسه هدف را برنگردانده.";
+
+        showResult({
+            error:
+                "goalId پیدا نشد",
+
+            goal:
+                currentGoal
+        });
+
+        return;
+
+    }
+
+
+    completeButton.disabled =
+        true;
+
+    completeButton.textContent =
+        "⏳ در حال ثبت...";
+
+
+    statusText.textContent =
+        "در حال ارسال completeGoal...";
+
+
+    try {
+
+        const response =
+            await callAPI({
+
+                action:
+                    "completeGoal",
+
+                email:
+                    email,
+
+                goalId:
+                    goalId
+
+            });
+
+
+        /*
+          این قسمت خیلی مهم است.
+
+          پاسخ واقعی API
+          کامل روی صفحه نمایش داده می‌شود.
+        */
+
+        showResult(
+            response
+        );
+
+
+        const data =
+            response.data;
+
+
+        if (
+            data &&
+            (
+                data.success === true ||
+                data.success === "true"
+            )
+        ) {
+
+            statusText.textContent =
+                "✅ completeGoal موفق بود.";
+
+            /*
+              دوباره هدف را می‌گیریم
+              تا ببینیم Streak واقعاً
+              در API تغییر کرده یا نه.
+            */
+
+            await loadGoal();
+
+        } else {
+
+            statusText.textContent =
+                "❌ completeGoal ناموفق بود.";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        statusText.textContent =
+            "❌ خطا: " +
+            error.message;
+
+    } finally {
+
+        completeButton.disabled =
+            false;
+
+        completeButton.textContent =
+            "🔥 امروز انجامش دادم";
+
+    }
+
+}
+
+
+/* =====================================
+   پر کردن ایمیل از localStorage
+===================================== */
+
+try {
+
+    const saved =
+        localStorage.getItem(
+            "hadafUser"
+        );
+
+
+    if (saved) {
+
+        const user =
+            JSON.parse(saved);
+
+
+        if (
+            user &&
+            user.email
+        ) {
+
+            emailInput.value =
+                user.email;
+
+        }
+
+    }
+
+} catch (error) {
+
+    console.log(
+        "localStorage unavailable"
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
