@@ -1,97 +1,214 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f0c29">
 <title>ثبت نام | هدف 🏹</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-font-family:Tahoma,"Segoe UI",sans-serif;
-min-height:100vh;display:flex;align-items:center;
-justify-content:center;padding:20px;
-background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-.container{
-width:100%;max-width:420px;padding:35px;border-radius:24px;
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.1);
-box-shadow:0 20px 60px rgba(0,0,0,.5);
-backdrop-filter:blur(12px)
+
+body {
+    font-family: Tahoma, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
 }
-h1{color:white;text-align:center;margin-bottom:10px}
-.subtitle{color:#aaa;text-align:center;margin-bottom:30px}
-.form-group{margin-bottom:18px}
-label{display:block;color:#ddd;margin-bottom:7px;font-size:14px}
-input{
-width:100%;padding:14px;border-radius:12px;
-border:1px solid rgba(255,255,255,.15);
-background:rgba(255,255,255,.07);color:white;
-font-size:16px;outline:none
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    padding: 35px;
+    border-radius: 24px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    backdrop-filter: blur(12px);
 }
-input:focus{border-color:#6c63ff;box-shadow:0 0 0 3px rgba(108,99,255,.2)}
-button{
-width:100%;padding:14px;border:0;border-radius:12px;
-background:linear-gradient(135deg,#6c63ff,#3f3d9e);
-color:white;font-size:18px;font-weight:bold;cursor:pointer
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
 }
-button:disabled{opacity:.5;cursor:not-allowed}
-#message{
-display:none;margin-top:16px;padding:13px;border-radius:10px;
-text-align:center;line-height:1.8;white-space:pre-line;
-overflow-wrap:anywhere
+
+.subtitle {
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.8;
 }
-.login-link{text-align:center;color:#aaa;margin-top:20px}
-.login-link a{color:#8b83ff;text-decoration:none;font-weight:bold}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    color: #ddd;
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(255,255,255,.07);
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108,99,255,.2);
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6c63ff, #3f3d9e);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+#message {
+    display: none;
+    margin-top: 16px;
+    padding: 13px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.9;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.login-link {
+    text-align: center;
+    color: #aaa;
+    margin-top: 20px;
+    line-height: 1.8;
+}
+
+.login-link a {
+    color: #8b83ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 25px 20px;
+    }
+}
 </style>
 </head>
 
 <body>
 <div class="container">
-<h1>🏹 ثبت نام</h1>
-<p class="subtitle">حساب هدف خودت رو بساز!</p>
+    <h1>🏹 ثبت نام</h1>
+    <p class="subtitle">حساب هدف خودت رو بساز!</p>
 
-<div class="form-group">
-<label for="username">👤 نام کاربری</label>
-<input id="username" type="text" placeholder="مثلاً Parsa" autocomplete="username" maxlength="50">
-</div>
+    <form id="signupForm">
+        <div class="form-group">
+            <label for="username">👤 نام کاربری</label>
+            <input
+                id="username"
+                type="text"
+                placeholder="مثلاً Parsa"
+                autocomplete="username"
+                maxlength="50"
+                required
+            >
+        </div>
 
-<div class="form-group">
-<label for="email">📧 ایمیل</label>
-<input id="email" type="email" placeholder="example@gmail.com" autocomplete="email">
-</div>
+        <div class="form-group">
+            <label for="email">📧 ایمیل</label>
+            <input
+                id="email"
+                type="email"
+                placeholder="example@gmail.com"
+                autocomplete="email"
+                maxlength="254"
+                required
+            >
+        </div>
 
-<div class="form-group">
-<label for="password">🔒 رمز عبور</label>
-<input id="password" type="password" placeholder="رمز عبور" autocomplete="new-password">
-</div>
+        <div class="form-group">
+            <label for="password">🔒 رمز عبور</label>
+            <input
+                id="password"
+                type="password"
+                placeholder="حداقل ۶ کاراکتر"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+        </div>
 
-<div class="form-group">
-<label for="confirmPassword">🔒 تکرار رمز عبور</label>
-<input id="confirmPassword" type="password" placeholder="رمز عبور را دوباره وارد کن" autocomplete="new-password">
-</div>
+        <div class="form-group">
+            <label for="confirmPassword">🔒 تکرار رمز عبور</label>
+            <input
+                id="confirmPassword"
+                type="password"
+                placeholder="رمز عبور را دوباره وارد کن"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+        </div>
 
-<button id="signupBtn" type="button">ثبت نام 🚀</button>
-<div id="message" role="status" aria-live="polite"></div>
+        <button id="signupBtn" type="submit">ثبت نام 🚀</button>
+    </form>
 
-<div class="login-link">
-قبلاً حساب ساختی؟
-<a href="login.html">وارد شو</a>
-</div>
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <div class="login-link">
+        قبلاً حساب ساختی؟
+        <a href="login.html">وارد شو</a>
+    </div>
 </div>
 
 <script>
-/* آدرس API جدید سایت هدف */
-const API_URL = "https://hadafparsa.atwebpages.com/api.php";
+"use strict";
 
-const username = document.getElementById("username");
-const email = document.getElementById("email");
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmPassword");
+/* آدرس وب‌اپ Google Apps Script متصل به Supabase */
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbxW_lhXYDjsPOPM92a02X-LvYVeYyLyrmdFpSuYvx1Bq4jmDoc78vX7swXbH_w-s8Qx/exec";
+
+const form = document.getElementById("signupForm");
+const usernameInput = document.getElementById("username");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const confirmPasswordInput = document.getElementById("confirmPassword");
 const signupBtn = document.getElementById("signupBtn");
 const message = document.getElementById("message");
+
+let isSubmitting = false;
 
 function showMessage(text, error = false) {
     message.style.display = "block";
@@ -102,38 +219,56 @@ function showMessage(text, error = false) {
     message.style.color = error ? "#ff7777" : "#6cff6c";
 }
 
-async function signup() {
-    const name = username.value.trim();
-    const mail = email.value.trim().toLowerCase();
-    const pass = password.value;
-    const confirm = confirmPassword.value;
+function setLoading(loading) {
+    isSubmitting = loading;
+    signupBtn.disabled = loading;
+    signupBtn.textContent = loading
+        ? "⏳ در حال ساخت حساب..."
+        : "ثبت نام 🚀";
+}
 
-    if (name.length < 3) {
+async function signup(event) {
+    event.preventDefault();
+
+    if (isSubmitting) return;
+
+    const username = usernameInput.value.trim();
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+
+    if (username.length < 3) {
         showMessage("❌ نام کاربری باید حداقل ۳ کاراکتر باشد.", true);
-        username.focus();
+        usernameInput.focus();
         return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
-        showMessage("❌ ایمیل معتبر وارد کن.", true);
-        email.focus();
+    if (username.length > 50) {
+        showMessage("❌ نام کاربری نباید بیشتر از ۵۰ کاراکتر باشد.", true);
+        usernameInput.focus();
         return;
     }
 
-    if (pass.length < 6) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showMessage("❌ لطفاً یک ایمیل معتبر وارد کن.", true);
+        emailInput.focus();
+        return;
+    }
+
+    if (password.length < 6) {
         showMessage("❌ رمز عبور باید حداقل ۶ کاراکتر باشد.", true);
-        password.focus();
+        passwordInput.focus();
         return;
     }
 
-    if (pass !== confirm) {
+    if (password !== confirmPassword) {
         showMessage("❌ رمزهای عبور یکسان نیستند.", true);
-        confirmPassword.focus();
+        confirmPasswordInput.focus();
         return;
     }
 
-    signupBtn.disabled = true;
-    signupBtn.textContent = "⏳ در حال ساخت حساب...";
+    setLoading(true);
+    showMessage("در حال ارتباط با سرور...");
 
     try {
         const response = await fetch(API_URL, {
@@ -143,76 +278,98 @@ async function signup() {
             },
             body: JSON.stringify({
                 action: "signup",
-                username: name,
-                email: mail,
-                password: pass
-            })
+                username: username,
+                email: email,
+                password: password
+            }),
+            redirect: "follow"
         });
 
-        const text = await response.text();
+        const responseText = await response.text();
         let result;
 
         try {
-            result = JSON.parse(text);
+            result = JSON.parse(responseText);
         } catch {
-            throw new Error("پاسخ سرور معتبر نیست. اتصال هاست را بررسی کن.");
+            throw new Error(
+                "پاسخ API قابل خواندن نیست. مطمئن شو نسخه جدید اسکریپت را منتشر کرده‌ای."
+            );
         }
 
         if (!response.ok) {
-            throw new Error(result.message || "خطای سرور: " + response.status);
+            throw new Error(
+                result.message || "خطای سرور: " + response.status
+            );
         }
 
-        if (!result.success) {
-            throw new Error(result.message || "ثبت نام انجام نشد.");
+        if (result.success !== true) {
+            throw new Error(
+                result.message || "ثبت نام انجام نشد. دوباره تلاش کن."
+            );
         }
+
+        const serverUser = result.user || {};
 
         const user = {
-            id: result.id || result.user?.id || "",
-            username: result.username || result.user?.username || name,
-            email: result.email || result.user?.email || mail,
-            score: Number(result.score ?? result.user?.score ?? 0)
+            id: serverUser.id ??
+                serverUser.user_id ??
+                result.id ??
+                result.user_id ??
+                "",
+            username: serverUser.username ||
+                result.username ||
+                username,
+            email: serverUser.email ||
+                result.email ||
+                email,
+            score: Number(
+                serverUser.score ??
+                result.score ??
+                0
+            )
         };
 
+        /*
+         * فقط اطلاعات غیرمحرمانه را ذخیره می‌کنیم.
+         * رمز عبور و هش آن در localStorage ذخیره نمی‌شوند.
+         */
         localStorage.setItem("hadafUser", JSON.stringify(user));
 
         showMessage(
             "🎉 حساب با موفقیت ساخته شد!\n\n" +
-            "👤 " + user.username +
-            "\n⭐ امتیاز: " + user.score
+            "👤 نام کاربری: " + user.username +
+            "\n📧 ایمیل: " + user.email +
+            "\n⭐ امتیاز: " + user.score +
+            "\n\nدر حال رفتن به صفحه اصلی..."
         );
 
+        signupBtn.disabled = true;
+
         setTimeout(() => {
-            location.href = "index.html";
+            window.location.href = "index.html";
         }, 1200);
 
     } catch (error) {
         console.error("Signup Error:", error);
 
-        let errorText = error.message || "ارتباط با سرور برقرار نشد.";
-
         if (error instanceof TypeError) {
-            errorText =
-                "ارتباط با API برقرار نشد. اگر سایت را با HTTPS باز کرده‌ای، " +
-                "دسترسی هاست و اتصال شبکه را بررسی کن.";
+            showMessage(
+                "❌ اتصال به API برقرار نشد.\n" +
+                "اتصال اینترنت و انتشار نسخه جدید Google Apps Script را بررسی کن.",
+                true
+            );
+        } else {
+            showMessage("❌ " + (error.message || "خطای ناشناخته رخ داد."), true);
         }
 
-        showMessage("❌ " + errorText, true);
-
     } finally {
-        signupBtn.disabled = false;
-        signupBtn.textContent = "ثبت نام 🚀";
+        if (isSubmitting) {
+            setLoading(false);
+        }
     }
 }
 
-signupBtn.addEventListener("click", signup);
-
-confirmPassword.addEventListener("keydown", event => {
-    if (event.key === "Enter") signup();
-});
-
-password.addEventListener("keydown", event => {
-    if (event.key === "Enter") signup();
-});
+form.addEventListener("submit", signup);
 </script>
 </body>
 </html>
