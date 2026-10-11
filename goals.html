@@ -4,48 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f0c29">
-<meta name="description" content="هدف روزانه‌ات را بساز، هر روز انجامش بده و Streak خودت را ادامه بده.">
-<title>هدف من 🎯 | سایت هدف</title>
+<meta name="description" content="هدف‌هایت را بساز، هر روز انجام بده و Streak خودت را ادامه بده.">
+<title>هدف‌های من 🎯 | سایت هدف</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{color-scheme:dark}
-body{font-family:Tahoma,Arial,sans-serif;background:linear-gradient(145deg,#0f0c29,#171536,#24243e);color:#fff;min-height:100vh;padding:20px 14px 90px}
-.container{width:100%;max-width:720px;margin:auto}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:25px}
-.brand{font-size:23px;font-weight:bold}
-header a,.link{color:#c4b5fd;text-decoration:none}
-.card{background:#ffffff0d;border:1px solid #ffffff20;border-radius:20px;padding:22px;margin-bottom:17px;box-shadow:0 12px 30px #0002}
-h1{font-size:25px;margin-bottom:10px}
+body{font-family:Tahoma,Arial,sans-serif;min-height:100vh;background:linear-gradient(145deg,#0f0c29,#171536,#24243e);color:#fff;padding:20px 14px 90px}
+.container{max-width:760px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px}
+.brand{font-size:22px;font-weight:bold;color:white;text-decoration:none}
+a{color:#c4b5fd;text-decoration:none}
+.card,.goal-card{background:#ffffff0d;border:1px solid #ffffff20;border-radius:20px;padding:22px;margin-bottom:17px;box-shadow:0 12px 30px #0002}
+h1{font-size:25px;margin-bottom:12px}
 h2{font-size:19px;margin-bottom:14px}
-p{line-height:1.9;color:#ddd}
-.small{font-size:13px;color:#c8c4df}
-input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff30;background:#ffffff0d;color:white;font:inherit;outline:none}
+p{color:#ddd;line-height:1.9}
+.small{font-size:12px;color:#c8c4df}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff30;background:#ffffff0d;color:#fff;font:inherit;outline:none}
 input:focus{border-color:#a78bfa}
-button{border:0;border-radius:12px;padding:13px 17px;font:inherit;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.6;cursor:wait}
+button{border:0;border-radius:12px;padding:12px 15px;font:inherit;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
 .primary{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:white}
 .secondary{background:#ffffff15;color:white;border:1px solid #ffffff20}
 .danger{background:#ef444425;color:#fecaca;border:1px solid #ef444450}
-.full{width:100%;margin-top:14px}
-.message{display:none;margin-top:13px;padding:12px;border-radius:10px;line-height:1.8;overflow-wrap:anywhere}
+.full{width:100%;margin-top:13px}
+.message{display:none;margin-top:13px;padding:12px;border-radius:10px;line-height:1.9;overflow-wrap:anywhere}
 .message.show{display:block}
 .message.error{background:#ef444425;color:#fecaca}
 .message.success{background:#22c55e25;color:#bbf7d0}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
-.stat{padding:15px 8px;border-radius:14px;background:#ffffff0c;text-align:center;border:1px solid #ffffff12}
-.stat-number{font-size:25px;font-weight:bold;color:#c4b5fd;margin-bottom:8px}
-.stat-label{font-size:12px;color:#ddd}
-.goal-title{font-size:22px;font-weight:bold;line-height:1.7;margin:8px 0 18px;overflow-wrap:anywhere}
-.status{padding:10px 12px;background:#ffffff0b;border-radius:10px;margin:12px 0}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
-.actions button{flex:1;min-width:130px}
 .hidden{display:none!important}
-footer{text-align:center;margin:28px 0 0;color:#aaa;font-size:12px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#100e28ee;backdrop-filter:blur(14px);border-top:1px solid #ffffff18;display:flex;justify-content:center;gap:25px;padding:15px 10px calc(15px + env(safe-area-inset-bottom));z-index:5}
-.bottom-nav a{color:#ddd;text-decoration:none;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:17px 0}
+.stat{background:#ffffff0b;border:1px solid #ffffff12;border-radius:13px;padding:13px 5px;text-align:center}
+.stat-number{font-size:24px;font-weight:bold;color:#c4b5fd;margin-bottom:7px}
+.stat-label{font-size:11px;color:#ddd;line-height:1.7}
+.goal-title{font-size:20px;font-weight:bold;line-height:1.9;overflow-wrap:anywhere}
+.goal-status{background:#ffffff0b;border-radius:10px;padding:11px;margin:12px 0;font-size:13px;line-height:1.9}
+.goal-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.goal-actions button{flex:1;min-width:125px}
+.list-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.count{font-size:12px;background:#8b5cf625;color:#ddd6fe;padding:7px 10px;border-radius:20px}
+.empty{text-align:center;padding:20px 5px}
+.empty-icon{font-size:45px;margin-bottom:12px}
+footer{text-align:center;margin-top:26px;color:#aaa;font-size:12px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:center;gap:24px;padding:14px 10px calc(14px + env(safe-area-inset-bottom));background:#100e28ee;backdrop-filter:blur(14px);border-top:1px solid #ffffff18}
+.bottom-nav a{font-size:12px;color:#ddd}
 .bottom-nav a.active{color:#c4b5fd;font-weight:bold}
-@media(max-width:420px){.card{padding:17px}.stats{gap:7px}.stat-number{font-size:21px}.stat-label{font-size:11px}.brand{font-size:20px}}
+@media(max-width:430px){.card,.goal-card{padding:16px}.stat-number{font-size:20px}.stat-label{font-size:10px}.goal-actions button{min-width:100%}}
 </style>
 </head>
 
@@ -57,60 +60,72 @@ footer{text-align:center;margin:28px 0 0;color:#aaa;font-size:12px}
   </header>
 
   <section class="card" id="loginCard">
-    <h1>🎯 هدف من</h1>
-    <p>برای دیدن و مدیریت هدف‌هایت، اول وارد حسابت شو.</p>
-    <div class="actions">
-      <button class="primary" id="loginLink" type="button">ورود به حساب</button>
-      <button class="secondary" id="signupLink" type="button">ثبت‌نام</button>
+    <h1>🎯 هدف‌های من</h1>
+    <p>برای مدیریت هدف‌هایت ابتدا وارد حساب کاربری‌ات شو.</p>
+    <button class="primary full" onclick="location.href='login.html'">ورود به حساب</button>
+    <button class="secondary full" onclick="location.href='signup.html'">ساخت حساب جدید</button>
+  </section>
+
+  <section class="card hidden" id="mainCard">
+    <h1>🎯 هدف‌های من</h1>
+    <p>هر هدف را جداگانه دنبال کن و Streak مخصوص خودش را بساز.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number" id="goalCount">۰</div>
+        <div class="stat-label">🎯 تعداد هدف‌ها</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="completedCount">۰</div>
+        <div class="stat-label">✅ انجام‌شده امروز</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="totalCount">۰</div>
+        <div class="stat-label">🔥 مجموع روزهای انجام</div>
+      </div>
     </div>
-  </section>
 
-  <section class="card hidden" id="loadingCard">
-    <h2>⏳ در حال بارگذاری</h2>
-    <p>داریم اطلاعات هدف تو را دریافت می‌کنیم...</p>
-  </section>
-
-  <section class="card hidden" id="emptyCard">
-    <h1>🎯 هنوز هدفی نداری</h1>
-    <p>یک هدف برای خودت بنویس و از امروز شروع کن!</p>
-    <button class="primary full" id="showCreateButton" type="button">ساخت اولین هدف</button>
+    <button class="primary full" id="showCreateButton">➕ ساخت هدف جدید</button>
+    <button class="secondary full" id="refreshButton">🔄 به‌روزرسانی هدف‌ها</button>
   </section>
 
   <section class="card hidden" id="createCard">
-    <h1>✨ ساخت هدف جدید</h1>
-    <p class="small">هدفت را کوتاه و واضح بنویس.</p>
+    <h2>✨ ساخت هدف جدید</h2>
+    <p class="small">هدف جدید به فهرست اضافه می‌شود و هدف‌های قبلی حذف نمی‌شوند.</p>
     <form id="createForm">
-      <input id="goalInput" type="text" maxlength="200" placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم" required>
-      <button class="primary full" id="createButton" type="submit">ذخیره هدف</button>
+      <input id="goalInput" maxlength="200" placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم" required>
+      <button class="primary full" id="createButton" type="submit">ذخیره هدف جدید</button>
+      <button class="secondary full" id="cancelCreateButton" type="button">انصراف</button>
     </form>
     <div id="createMessage" class="message" role="status" aria-live="polite"></div>
   </section>
 
-  <section class="card hidden" id="goalCard">
-    <h1>🏆 هدف فعلی من</h1>
-    <div class="goal-title" id="goalTitle">در حال دریافت هدف...</div>
+  <section class="card hidden" id="loadingCard">
+    <h2>⏳ در حال دریافت هدف‌ها...</h2>
+    <p>لطفاً کمی صبر کن.</p>
+  </section>
 
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-number" id="streakValue">۰</div>
-        <div class="stat-label">🔥 روزهای پشت‌سرهم</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number" id="bestStreakValue">۰</div>
-        <div class="stat-label">🏅 بهترین Streak</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number" id="totalDaysValue">۰</div>
-        <div class="stat-label">✅ روزهای انجام‌شده</div>
-      </div>
+  <section class="card hidden" id="emptyCard">
+    <div class="empty">
+      <div class="empty-icon">🎯</div>
+      <h2>هنوز هدفی نساخته‌ای</h2>
+      <p>اولین هدفت را بساز و شروع کن!</p>
+      <button class="primary full" id="emptyCreateButton">➕ ساخت اولین هدف</button>
     </div>
+  </section>
 
-    <div class="status" id="todayStatus">در حال بررسی وضعیت امروز...</div>
+  <section class="card hidden" id="errorCard">
+    <h2>⚠️ دریافت هدف‌ها ناموفق بود</h2>
+    <p id="errorText"></p>
+    <button class="primary full" id="retryButton">تلاش دوباره</button>
+  </section>
 
-    <button class="primary full" id="completeButton" type="button">✅ هدف امروز را انجام دادم</button>
-    <button class="secondary full" id="refreshButton" type="button">🔄 به‌روزرسانی اطلاعات</button>
-    <button class="danger full" id="deleteButton" type="button">🗑️ حذف هدف</button>
-    <div id="goalMessage" class="message" role="status" aria-live="polite"></div>
+  <section class="card hidden" id="goalsSection">
+    <div class="list-heading">
+      <h2>📋 فهرست هدف‌ها</h2>
+      <span class="count" id="listCount">۰ هدف</span>
+    </div>
+    <div id="goalsList"></div>
   </section>
 
   <footer>🏹 Hadaf © 2026</footer>
@@ -129,73 +144,76 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0Pcu
 
 const $ = id => document.getElementById(id);
 
-const loginCard = $("loginCard");
-const loadingCard = $("loadingCard");
-const emptyCard = $("emptyCard");
-const createCard = $("createCard");
-const goalCard = $("goalCard");
+let goals = [];
+let busy = false;
 
-let currentGoal = null;
-let isLoading = false;
-
-function readUser() {
+function getUser() {
   try {
-    const raw = localStorage.getItem("hadafUser");
-    if (!raw) return null;
-    const user = JSON.parse(raw);
-    if (!user || !user.email) return null;
-    return user;
+    const user = JSON.parse(localStorage.getItem("hadafUser") || "null");
+    return user && user.email ? user : null;
   } catch {
     return null;
   }
 }
 
 function getEmail() {
-  const user = readUser();
-  return user ? String(user.email).trim().toLowerCase() : "";
+  return String(getUser()?.email || "").trim().toLowerCase();
 }
 
-function showMessage(id, message, type = "error") {
-  const element = $(id);
-  element.textContent = message;
-  element.className = "message show " + type;
+function show(element) {
+  element.classList.remove("hidden");
 }
 
-function hideMessage(id) {
-  const element = $(id);
-  element.textContent = "";
-  element.className = "message";
+function hide(element) {
+  element.classList.add("hidden");
 }
 
-function showOnly(section) {
-  [loginCard, loadingCard, emptyCard, createCard, goalCard].forEach(el => {
-    el.classList.add("hidden");
-  });
-  if (section) section.classList.remove("hidden");
+function showMessage(id, text, type = "error") {
+  const el = $(id);
+  el.textContent = text;
+  el.className = "message show " + type;
 }
 
-function responseMessage(result, fallback) {
-  return result?.message || result?.error || result?.msg || fallback;
+function clearMessage(id) {
+  $(id).textContent = "";
+  $(id).className = "message";
 }
 
-function isSuccess(result) {
-  return result && (
-    result.success === true ||
-    result.status === "success" ||
-    result.ok === true
-  );
+function showMainView(view) {
+  [
+    $("loginCard"),
+    $("mainCard"),
+    $("createCard"),
+    $("loadingCard"),
+    $("emptyCard"),
+    $("errorCard"),
+    $("goalsSection")
+  ].forEach(hide);
+
+  if (view === "login") {
+    show($("loginCard"));
+  } else if (view === "loading") {
+    show($("loadingCard"));
+  } else if (view === "empty") {
+    show($("mainCard"));
+    show($("emptyCard"));
+  } else if (view === "list") {
+    show($("mainCard"));
+    show($("goalsSection"));
+  } else if (view === "error") {
+    show($("mainCard"));
+    show($("errorCard"));
+  }
 }
 
-async function callAPI(data) {
+async function api(data) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 20000);
 
   try {
     const response = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=UTF-8"
-      },
+      headers: {"Content-Type": "text/plain;charset=UTF-8"},
       body: JSON.stringify(data),
       signal: controller.signal,
       redirect: "follow"
@@ -207,17 +225,17 @@ async function callAPI(data) {
     try {
       result = JSON.parse(text);
     } catch {
-      throw new Error("پاسخ سرور JSON معتبر نیست. کد API را بررسی کن.");
+      throw new Error("پاسخ API قابل خواندن نیست. کد Google Apps Script را بررسی کن.");
     }
 
     if (!response.ok) {
-      throw new Error(responseMessage(result, "خطای سرور: " + response.status));
+      throw new Error(result.message || result.error || "خطای سرور: " + response.status);
     }
 
     return result;
   } catch (error) {
     if (error.name === "AbortError") {
-      throw new Error("زمان پاسخ سرور تمام شد. دوباره تلاش کن.");
+      throw new Error("پاسخ سرور بیشتر از ۲۰ ثانیه طول کشید.");
     }
     throw error;
   } finally {
@@ -225,205 +243,269 @@ async function callAPI(data) {
   }
 }
 
-function numberValue(...values) {
+function succeeded(result) {
+  return result && (
+    result.success === true ||
+    result.status === "success" ||
+    result.ok === true
+  );
+}
+
+function messageOf(result, fallback) {
+  return result?.message || result?.error || result?.msg || fallback;
+}
+
+function asNumber(...values) {
   for (const value of values) {
-    const number = Number(value);
-    if (value !== undefined && value !== null && value !== "" && Number.isFinite(number)) {
-      return number;
+    if (value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value))) {
+      return Number(value);
     }
   }
   return 0;
 }
 
-function extractGoal(result) {
+function idOf(goal) {
+  return goal?.id || goal?.goalId || goal?.goal_id || goal?.goalID || "";
+}
+
+function titleOf(goal) {
+  if (typeof goal === "string") return goal;
+  return goal?.title || goal?.goal || goal?.text || goal?.name || "هدف بدون عنوان";
+}
+
+function doneToday(goal) {
+  return goal?.completedToday === true ||
+    goal?.completed_today === true ||
+    goal?.doneToday === true ||
+    goal?.done_today === true;
+}
+
+/*
+ * این تابع فهرست‌های رایج API را می‌خواند.
+ * اگر API فقط یک goal برگرداند، فقط همان یک هدف قابل نمایش است.
+ * برای چند هدف واقعی، API باید آرایه goals را برگرداند.
+ */
+function extractGoals(result) {
   const candidates = [
-    result?.goal,
-    result?.data?.goal,
-    result?.data,
-    result?.goals?.[0],
-    result?.data?.goals?.[0]
+    result?.goals,
+    result?.data?.goals,
+    result?.data?.data?.goals,
+    result?.items,
+    result?.data?.items
   ];
 
-  for (const item of candidates) {
-    if (item && typeof item === "object" &&
-        (item.id || item.goalId || item.goal_id || item.title || item.goal || item.text)) {
-      return item;
-    }
+  for (const list of candidates) {
+    if (Array.isArray(list)) return list;
   }
 
-  return null;
-}
-
-function getGoalId(goal) {
-  return goal?.id || goal?.goalId || goal?.goal_id || "";
-}
-
-function getGoalText(goal) {
-  return goal?.title || goal?.goal || goal?.text || goal?.name || "";
-}
-
-function renderGoal(goal) {
-  currentGoal = goal;
-
-  $("goalTitle").textContent = getGoalText(goal) || "هدف بدون عنوان";
-  $("streakValue").textContent = numberValue(
-    goal.streak, goal.currentStreak, goal.current_streak
-  ).toLocaleString("fa-IR");
-
-  $("bestStreakValue").textContent = numberValue(
-    goal.bestStreak, goal.best_streak, goal.best, goal.maxStreak, goal.max_streak
-  ).toLocaleString("fa-IR");
-
-  $("totalDaysValue").textContent = numberValue(
-    goal.totalDays, goal.total_days, goal.days, goal.completedDays, goal.completed_days
-  ).toLocaleString("fa-IR");
-
-  const done = goal.completedToday === true ||
-    goal.completed_today === true ||
-    goal.doneToday === true ||
-    goal.done_today === true;
-
-  $("todayStatus").textContent = done
-    ? "🎉 آفرین! هدف امروز را انجام داده‌ای."
-    : "💪 هنوز هدف امروز ثبت نشده است. بعد از انجامش دکمه پایین را بزن.";
-
-  $("completeButton").disabled = done;
-  $("completeButton").textContent = done
-    ? "✅ هدف امروز ثبت شده"
-    : "✅ هدف امروز را انجام دادم";
-
-  showOnly(goalCard);
-}
-
-async function loadGoal() {
-  if (isLoading) return;
-
-  const email = getEmail();
-  if (!email) {
-    showOnly(loginCard);
-    return;
+  if (result?.goal && typeof result.goal === "object") {
+    return [result.goal];
   }
 
-  isLoading = true;
-  showOnly(loadingCard);
-  hideMessage("goalMessage");
-  hideMessage("createMessage");
+  if (result?.data?.goal && typeof result.data.goal === "object") {
+    return [result.data.goal];
+  }
 
-  try {
-    const result = await callAPI({
-      action: "getGoal",
-      operation: "getGoal",
-      email: email
+  if (result?.data && typeof result.data === "object" &&
+      (result.data.id || result.data.goal_id || result.data.title)) {
+    return [result.data];
+  }
+
+  return [];
+}
+
+function renderGoals() {
+  const list = $("goalsList");
+  list.replaceChildren();
+
+  const totalCompleted = goals.reduce(
+    (sum, goal) => sum + asNumber(
+      goal.totalDays, goal.total_days, goal.completedDays, goal.completed_days, goal.days
+    ), 0
+  );
+
+  const completedTodayCount = goals.filter(doneToday).length;
+
+  $("goalCount").textContent = goals.length.toLocaleString("fa-IR");
+  $("completedCount").textContent = completedTodayCount.toLocaleString("fa-IR");
+  $("totalCount").textContent = totalCompleted.toLocaleString("fa-IR");
+  $("listCount").textContent = goals.length.toLocaleString("fa-IR") + " هدف";
+
+  goals.forEach((goal, index) => {
+    const card = document.createElement("article");
+    card.className = "goal-card";
+
+    const title = document.createElement("div");
+    title.className = "goal-title";
+    title.textContent = titleOf(goal);
+
+    const stats = document.createElement("div");
+    stats.className = "stats";
+
+    const statItems = [
+      ["🔥", asNumber(goal.streak, goal.currentStreak, goal.current_streak), "Streak فعلی"],
+      ["🏅", asNumber(goal.bestStreak, goal.best_streak, goal.best, goal.maxStreak), "بهترین Streak"],
+      ["✅", asNumber(goal.totalDays, goal.total_days, goal.completedDays, goal.completed_days, goal.days), "روزهای انجام"]
+    ];
+
+    statItems.forEach(item => {
+      const box = document.createElement("div");
+      box.className = "stat";
+
+      const number = document.createElement("div");
+      number.className = "stat-number";
+      number.textContent = item[1].toLocaleString("fa-IR");
+
+      const label = document.createElement("div");
+      label.className = "stat-label";
+      label.textContent = item[0] + " " + item[2];
+
+      box.append(number, label);
+      stats.append(box);
     });
 
-    if (!isSuccess(result)) {
-      const noGoal = result?.goal === null ||
-        (Array.isArray(result?.goals) && result.goals.length === 0) ||
-        result?.hasGoal === false ||
-        result?.has_goal === false;
+    const status = document.createElement("div");
+    status.className = "goal-status";
+    status.textContent = doneToday(goal)
+      ? "🎉 این هدف را امروز انجام داده‌ای."
+      : "💪 انجام امروز هنوز ثبت نشده است.";
 
-      if (noGoal) {
-        currentGoal = null;
-        showOnly(emptyCard);
-        return;
-      }
+    const actions = document.createElement("div");
+    actions.className = "goal-actions";
 
-      throw new Error(responseMessage(result, "دریافت هدف‌ها موفق نبود."));
+    const completeButton = document.createElement("button");
+    completeButton.className = "primary";
+    completeButton.textContent = doneToday(goal) ? "✅ ثبت شده امروز" : "✅ انجام دادم";
+    completeButton.disabled = doneToday(goal);
+    completeButton.addEventListener("click", () => completeGoal(goal, completeButton));
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "danger";
+    deleteButton.textContent = "🗑️ حذف هدف";
+    deleteButton.addEventListener("click", () => deleteGoal(goal, deleteButton));
+
+    actions.append(completeButton, deleteButton);
+    card.append(title, stats, status, actions);
+    list.append(card);
+  });
+}
+
+async function loadGoals() {
+  if (busy) return;
+  busy = true;
+  showMainView("loading");
+
+  try {
+    const result = await api({
+      action: "getGoals",
+      operation: "getGoals",
+      email: getEmail()
+    });
+
+    if (!succeeded(result)) {
+      throw new Error(messageOf(result, "دریافت فهرست هدف‌ها ناموفق بود."));
     }
 
-    const goal = extractGoal(result);
+    goals = extractGoals(result);
+    renderGoals();
 
-    if (!goal) {
-      currentGoal = null;
-      showOnly(emptyCard);
-      return;
+    if (goals.length === 0) {
+      showMainView("empty");
+    } else {
+      showMainView("list");
     }
-
-    renderGoal(goal);
   } catch (error) {
-    showOnly(loginCard);
-    showMessage("loginCard", error.message || "دریافت هدف ناموفق بود.");
+    $("errorText").textContent = error.message || "خطا در دریافت هدف‌ها.";
+    showMainView("error");
   } finally {
-    isLoading = false;
+    busy = false;
   }
 }
 
-$("loginLink").addEventListener("click", () => {
-  location.href = "login.html";
-});
-
-$("signupLink").addEventListener("click", () => {
-  location.href = "signup.html";
-});
-
 $("showCreateButton").addEventListener("click", () => {
-  showOnly(createCard);
+  show($("createCard"));
+  clearMessage("createMessage");
   $("goalInput").focus();
 });
+
+$("emptyCreateButton").addEventListener("click", () => {
+  show($("createCard"));
+  clearMessage("createMessage");
+  $("goalInput").focus();
+});
+
+$("cancelCreateButton").addEventListener("click", () => {
+  hide($("createCard"));
+  clearMessage("createMessage");
+});
+
+$("refreshButton").addEventListener("click", loadGoals);
+$("retryButton").addEventListener("click", loadGoals);
 
 $("createForm").addEventListener("submit", async event => {
   event.preventDefault();
 
   const email = getEmail();
-  const goalText = $("goalInput").value.trim();
+  const title = $("goalInput").value.trim();
 
   if (!email) {
-    showOnly(loginCard);
+    showMainView("login");
     return;
   }
 
-  if (!goalText) {
-    showMessage("createMessage", "لطفاً متن هدف را وارد کن.");
+  if (!title) {
+    showMessage("createMessage", "لطفاً متن هدف را بنویس.");
     return;
   }
 
   const button = $("createButton");
   button.disabled = true;
   button.textContent = "در حال ذخیره...";
-  hideMessage("createMessage");
+  clearMessage("createMessage");
 
   try {
-    const result = await callAPI({
+    /*
+     * از createGoal استفاده می‌کنیم و هم goal و هم title می‌فرستیم.
+     * API باید هدف جدید را به جدول اضافه کند، نه اینکه هدف قبلی را به‌روزرسانی کند.
+     */
+    const result = await api({
       action: "createGoal",
       operation: "createGoal",
       email: email,
-      goal: goalText,
-      title: goalText
+      goal: title,
+      title: title
     });
 
-    if (!isSuccess(result)) {
-      throw new Error(responseMessage(result, "ساخت هدف انجام نشد."));
+    if (!succeeded(result)) {
+      throw new Error(messageOf(result, "ساخت هدف ناموفق بود."));
     }
 
     $("goalInput").value = "";
-    showMessage("createMessage", "هدف ساخته شد!", "success");
-    await loadGoal();
+    hide($("createCard"));
+
+    await loadGoals();
   } catch (error) {
-    showMessage("createMessage", error.message || "ساخت هدف انجام نشد.");
+    showMessage("createMessage", error.message || "ساخت هدف ناموفق بود.");
   } finally {
     button.disabled = false;
-    button.textContent = "ذخیره هدف";
+    button.textContent = "ذخیره هدف جدید";
   }
 });
 
-$("completeButton").addEventListener("click", async () => {
+async function completeGoal(goal, button) {
   const email = getEmail();
-  const goalId = getGoalId(currentGoal);
-
-  if (!email || !currentGoal) return;
+  const goalId = idOf(goal);
 
   if (!goalId) {
-    showMessage("goalMessage", "سرور هدف را برگردانده اما شناسه هدف وجود ندارد؛ پاسخ API باید اصلاح شود.");
+    alert("این هدف شناسه ندارد. API باید برای هر هدف یک id برگرداند.");
     return;
   }
 
-  const button = $("completeButton");
   button.disabled = true;
   button.textContent = "در حال ثبت...";
-  hideMessage("goalMessage");
 
   try {
-    const result = await callAPI({
+    const result = await api({
       action: "completeGoal",
       operation: "completeGoal",
       email: email,
@@ -431,41 +513,36 @@ $("completeButton").addEventListener("click", async () => {
       goal_id: goalId
     });
 
-    if (!isSuccess(result)) {
-      throw new Error(responseMessage(result, "ثبت انجام هدف ناموفق بود."));
+    if (!succeeded(result)) {
+      throw new Error(messageOf(result, "ثبت انجام هدف ناموفق بود."));
     }
 
-    showMessage("goalMessage", responseMessage(result, "آفرین! انجام هدف ثبت شد. 🔥"), "success");
-    await loadGoal();
+    await loadGoals();
   } catch (error) {
-    showMessage("goalMessage", error.message || "ثبت انجام هدف ناموفق بود.");
+    alert(error.message || "ثبت انجام هدف ناموفق بود.");
     button.disabled = false;
-    button.textContent = "✅ هدف امروز را انجام دادم";
+    button.textContent = "✅ انجام دادم";
   }
-});
+}
 
-$("refreshButton").addEventListener("click", loadGoal);
-
-$("deleteButton").addEventListener("click", async () => {
+async function deleteGoal(goal, button) {
   const email = getEmail();
-  const goalId = getGoalId(currentGoal);
-
-  if (!email || !currentGoal) return;
-
-  if (!confirm("مطمئنی می‌خواهی این هدف را حذف کنی؟")) return;
+  const goalId = idOf(goal);
 
   if (!goalId) {
-    showMessage("goalMessage", "شناسه هدف دریافت نشده؛ نمی‌توان آن را حذف کرد.");
+    alert("این هدف شناسه ندارد و قابل حذف نیست.");
     return;
   }
 
-  const button = $("deleteButton");
+  if (!confirm("آیا مطمئنی می‌خواهی فقط همین هدف را حذف کنی؟")) {
+    return;
+  }
+
   button.disabled = true;
   button.textContent = "در حال حذف...";
-  hideMessage("goalMessage");
 
   try {
-    const result = await callAPI({
+    const result = await api({
       action: "deleteGoal",
       operation: "deleteGoal",
       email: email,
@@ -473,26 +550,24 @@ $("deleteButton").addEventListener("click", async () => {
       goal_id: goalId
     });
 
-    if (!isSuccess(result)) {
-      throw new Error(responseMessage(result, "حذف هدف ناموفق بود."));
+    if (!succeeded(result)) {
+      throw new Error(messageOf(result, "حذف هدف ناموفق بود."));
     }
 
-    currentGoal = null;
-    showOnly(emptyCard);
+    await loadGoals();
   } catch (error) {
-    showMessage("goalMessage", error.message || "حذف هدف ناموفق بود.");
-  } finally {
+    alert(error.message || "حذف هدف ناموفق بود.");
     button.disabled = false;
     button.textContent = "🗑️ حذف هدف";
   }
-});
+}
 
-async function start() {
+function start() {
   if (!getEmail()) {
-    showOnly(loginCard);
+    showMainView("login");
     return;
   }
-  await loadGoal();
+  loadGoals();
 }
 
 start();
