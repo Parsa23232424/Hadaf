@@ -7,178 +7,83 @@
 <title>ورود | هدف 🏹</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Tahoma,"Segoe UI",sans-serif;
+min-height:100vh;display:flex;align-items:center;
+justify-content:center;padding:20px;
+background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)
 }
-
-body {
-    font-family: Tahoma, "Segoe UI", sans-serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+.container{
+width:100%;max-width:420px;padding:35px;border-radius:24px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.1);
+box-shadow:0 20px 60px rgba(0,0,0,.5);
+backdrop-filter:blur(12px)
 }
-
-.container {
-    width: 100%;
-    max-width: 420px;
-    padding: 35px;
-    border-radius: 24px;
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.1);
-    box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    backdrop-filter: blur(12px);
+h1{color:white;text-align:center;margin-bottom:10px}
+.subtitle{color:#aaa;text-align:center;margin-bottom:30px;line-height:1.8}
+.form-group{margin-bottom:18px}
+label{display:block;color:#ddd;margin-bottom:7px;font-size:14px}
+input{
+width:100%;padding:14px;border-radius:12px;
+border:1px solid rgba(255,255,255,.15);
+background:rgba(255,255,255,.07);color:white;font-size:16px;outline:none
 }
-
-h1 {
-    color: white;
-    text-align: center;
-    margin-bottom: 10px;
+input::placeholder{color:#aaa}
+input:focus{border-color:#6c63ff;box-shadow:0 0 0 3px rgba(108,99,255,.2)}
+button{
+width:100%;padding:14px;border:0;border-radius:12px;
+background:linear-gradient(135deg,#6c63ff,#3f3d9e);
+color:white;font-size:18px;font-weight:bold;cursor:pointer
 }
-
-.subtitle {
-    color: #aaa;
-    text-align: center;
-    margin-bottom: 30px;
-    line-height: 1.8;
+button:disabled{opacity:.6;cursor:wait}
+#message{
+display:none;margin-top:16px;padding:13px;border-radius:10px;
+text-align:center;line-height:1.9;white-space:pre-line;
+overflow-wrap:anywhere;font-size:14px
 }
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-label {
-    display: block;
-    color: #ddd;
-    margin-bottom: 7px;
-    font-size: 14px;
-}
-
-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.15);
-    background: rgba(255,255,255,.07);
-    color: white;
-    font-size: 16px;
-    outline: none;
-}
-
-input::placeholder {
-    color: #aaa;
-}
-
-input:focus {
-    border-color: #6c63ff;
-    box-shadow: 0 0 0 3px rgba(108,99,255,.2);
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    border: 0;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #6c63ff, #3f3d9e);
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:disabled {
-    opacity: .6;
-    cursor: wait;
-}
-
-#message {
-    display: none;
-    margin-top: 16px;
-    padding: 13px;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 1.9;
-    white-space: pre-line;
-    overflow-wrap: anywhere;
-    font-size: 14px;
-}
-
-.register-link {
-    text-align: center;
-    color: #aaa;
-    margin-top: 20px;
-    line-height: 2;
-}
-
-.register-link a {
-    color: #8b83ff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-@media (max-width: 400px) {
-    .container {
-        padding: 25px 20px;
-    }
-}
+.register-link{text-align:center;color:#aaa;margin-top:20px;line-height:2}
+.register-link a{color:#8b83ff;text-decoration:none;font-weight:bold}
+@media(max-width:400px){.container{padding:25px 20px}}
 </style>
 </head>
 
 <body>
 <div class="container">
+<h1>🔐 ورود</h1>
+<p class="subtitle">به حساب هدف خوش آمدی!</p>
 
-    <h1>🔐 ورود</h1>
-    <p class="subtitle">به حساب هدف خوش آمدی!</p>
+<form id="loginForm">
+<div class="form-group">
+<label for="email">📧 ایمیل</label>
+<input id="email" name="email" type="email"
+placeholder="example@gmail.com" autocomplete="username"
+inputmode="email" maxlength="254" required>
+</div>
 
-    <form id="loginForm">
-        <div class="form-group">
-            <label for="email">📧 ایمیل</label>
-            <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="example@gmail.com"
-                autocomplete="username"
-                inputmode="email"
-                maxlength="254"
-                required
-            >
-        </div>
+<div class="form-group">
+<label for="password">🔒 رمز عبور</label>
+<input id="password" name="password" type="password"
+placeholder="رمز عبور" autocomplete="current-password" required>
+</div>
 
-        <div class="form-group">
-            <label for="password">🔒 رمز عبور</label>
-            <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="رمز عبور"
-                autocomplete="current-password"
-                required
-            >
-        </div>
+<button id="loginBtn" type="submit">ورود 🚀</button>
+</form>
 
-        <button id="loginBtn" type="submit">ورود 🚀</button>
-    </form>
+<div id="message" role="status" aria-live="polite"></div>
 
-    <div id="message" role="status" aria-live="polite"></div>
-
-    <div class="register-link">
-        حساب نداری؟
-        <a href="signup.html">ثبت نام کن</a>
-    </div>
-
+<div class="register-link">
+حساب نداری؟
+<a href="signup.html">ثبت نام کن</a>
+</div>
 </div>
 
 <script>
 "use strict";
 
-/* وب‌اپ Google Apps Script متصل به Supabase */
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbxW_lhXYDjsPOPM92a02X-LvYVeYyLyrmdFpSuYvx1Bq4jmDoc78vX7swXbH_w-s8Qx/exec";
+"https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0PcukUBEiT0cb3joLPvbakKKkPND5z48gDcj7mcg6CnSb7RJ/exec";
 
 const form = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
@@ -191,31 +96,20 @@ let isSubmitting = false;
 function showMessage(text, error = false) {
     message.style.display = "block";
     message.textContent = text;
-
     message.style.background = error
         ? "rgba(255,70,70,.15)"
         : "rgba(70,255,70,.15)";
-
-    message.style.color = error
-        ? "#ff8585"
-        : "#8aff8a";
+    message.style.color = error ? "#ff8585" : "#8aff8a";
 }
 
 function getErrorMessage(result) {
-    if (result && typeof result.message === "string") {
-        return result.message;
-    }
-
-    if (result && typeof result.error === "string") {
-        return result.error;
-    }
-
+    if (result && typeof result.message === "string") return result.message;
+    if (result && typeof result.error === "string") return result.error;
     return "ورود انجام نشد. اطلاعات را بررسی کن.";
 }
 
 async function login(event) {
     event.preventDefault();
-
     if (isSubmitting) return;
 
     const email = emailInput.value.trim().toLowerCase();
@@ -255,15 +149,13 @@ async function login(event) {
         });
 
         const text = await response.text();
-
         let result;
 
         try {
             result = JSON.parse(text.trim());
         } catch {
             throw new Error(
-                "پاسخ API معتبر نیست.\n" +
-                "بررسی کن نسخه جدید Google Apps Script منتشر شده باشد."
+                "پاسخ API معتبر نیست. انتشار وب‌اپ Google Apps Script را بررسی کن."
             );
         }
 
@@ -279,38 +171,17 @@ async function login(event) {
         }
 
         const apiUser = result.user || {};
+        const id = apiUser.user_id ?? apiUser.id ??
+                   result.user_id ?? result.id ?? "";
 
-        const id =
-            apiUser.user_id ??
-            apiUser.id ??
-            result.user_id ??
-            result.id ??
-            "";
+        const username = apiUser.username || result.username || "کاربر هدف";
+        const userEmail = String(apiUser.email || result.email || email)
+            .trim().toLowerCase();
+        const score = Number(apiUser.score ?? result.score ?? 0);
 
-        const username =
-            apiUser.username ||
-            result.username ||
-            "کاربر هدف";
-
-        const userEmail = (
-            apiUser.email ||
-            result.email ||
-            email
-        ).trim().toLowerCase();
-
-        const score = Number(
-            apiUser.score ??
-            result.score ??
-            0
-        );
-
-        /*
-         * شناسه واقعی کاربر باید از API دریافت شود.
-         * اگر API شناسه برنگرداند، ورود را موفق اعلام نمی‌کنیم.
-         */
         if (id === "" || id === null) {
             throw new Error(
-                "API ورود را تأیید کرد، اما شناسه کاربر را برنگرداند. کد Google Apps Script باید اصلاح شود."
+                "شناسه کاربر در پاسخ API وجود ندارد. کد Google Apps Script باید شناسه را برگرداند."
             );
         }
 
@@ -321,10 +192,19 @@ async function login(event) {
             score: Number.isFinite(score) ? score : 0
         };
 
-        localStorage.setItem(
-            "hadafUser",
-            JSON.stringify(user)
-        );
+        localStorage.setItem("hadafUser", JSON.stringify(user));
+
+        const accessToken =
+            result.access_token ||
+            result.accessToken ||
+            (result.session && result.session.access_token) ||
+            "";
+
+        if (accessToken) {
+            localStorage.setItem("hadafAccessToken", accessToken);
+        } else {
+            localStorage.removeItem("hadafAccessToken");
+        }
 
         showMessage(
             "🎉 ورود با موفقیت انجام شد!\n\n" +
@@ -342,22 +222,20 @@ async function login(event) {
     } catch (error) {
         console.error("Hadaf Login Error:", error);
 
-        let errorText = error.message ||
-            "ارتباط با سرور برقرار نشد.";
+        let errorText = error.message || "ارتباط با سرور برقرار نشد.";
 
         if (error instanceof TypeError) {
             errorText =
                 "❌ اتصال به API برقرار نشد.\n" +
-                "اینترنت، آدرس API و انتشار نسخه جدید اسکریپت را بررسی کن.";
+                "اینترنت، آدرس API و دسترسی وب‌اپ را بررسی کن.";
         }
 
         showMessage("❌ " + errorText, true);
 
     } finally {
         isSubmitting = false;
-        loginBtn.disabled = false;
-
         if (loginBtn.textContent !== "✅ ورود موفق") {
+            loginBtn.disabled = false;
             loginBtn.textContent = "ورود 🚀";
         }
     }
