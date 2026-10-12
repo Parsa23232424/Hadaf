@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -5,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f0c29">
 <title>ثبت نام | هدف 🏹</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Tahoma,Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff}
@@ -26,31 +26,30 @@ a{color:#c4b5fd;text-decoration:none}
 .footer{text-align:center;margin-top:20px;font-size:13px;color:#ddd}
 </style>
 </head>
-
 <body>
 <main class="card">
-  <div class="logo">🏹</div>
-  <h1>ساخت حساب هدف</h1>
-  <p class="subtitle">حساب بساز و برای رسیدن به هدف‌هایت تلاش کن!</p>
+<div class="logo">🏹</div>
+<h1>ساخت حساب هدف</h1>
+<p class="subtitle">حساب بساز و برای رسیدن به هدف‌هایت تلاش کن!</p>
 
-  <form id="signupForm">
-    <label for="username">نام کاربری</label>
-    <input id="username" name="username" type="text" placeholder="نام کاربری" minlength="3" maxlength="50" autocomplete="username" required>
+<form id="signupForm">
+<label for="username">نام کاربری</label>
+<input id="username" name="username" type="text" minlength="3" maxlength="50" autocomplete="username" placeholder="نام کاربری" required>
 
-    <label for="email">ایمیل</label>
-    <input id="email" name="email" type="email" placeholder="example@email.com" autocomplete="email" required>
+<label for="email">ایمیل</label>
+<input id="email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="example@email.com" required>
 
-    <label for="password">رمز عبور</label>
-    <input id="password" name="password" type="password" placeholder="حداقل ۶ کاراکتر" minlength="6" autocomplete="new-password" required>
+<label for="password">رمز عبور</label>
+<input id="password" name="password" type="password" minlength="6" autocomplete="new-password" placeholder="حداقل ۶ کاراکتر" required>
 
-    <label for="confirmPassword">تکرار رمز عبور</label>
-    <input id="confirmPassword" name="confirmPassword" type="password" placeholder="رمز عبور را دوباره وارد کن" minlength="6" autocomplete="new-password" required>
+<label for="confirmPassword">تکرار رمز عبور</label>
+<input id="confirmPassword" name="confirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="رمز عبور را دوباره وارد کن" required>
 
-    <button id="signupBtn" type="submit">ثبت‌نام</button>
-    <div id="message" class="message" role="status" aria-live="polite"></div>
-  </form>
+<button id="signupBtn" type="submit">ثبت‌نام</button>
+<div id="message" class="message" role="status" aria-live="polite"></div>
+</form>
 
-  <p class="footer">قبلاً حساب ساخته‌ای؟ <a href="login.html">وارد شو</a></p>
+<p class="footer">قبلاً حساب ساخته‌ای؟ <a href="login.html">وارد شو</a></p>
 </main>
 
 <script>
@@ -63,112 +62,96 @@ const usernameInput = document.getElementById("username");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const confirmInput = document.getElementById("confirmPassword");
-const signupBtn = document.getElementById("signupBtn");
-const messageBox = document.getElementById("message");
+const button = document.getElementById("signupBtn");
+const message = document.getElementById("message");
 
-function showMessage(message, type = "error") {
-  messageBox.textContent = message;
-  messageBox.className = "message " + type;
+function showMessage(text, type = "error") {
+    message.textContent = text;
+    message.className = "message " + type;
 }
 
-function getMessage(result) {
-  return result?.message || result?.error || result?.msg || "ثبت‌نام انجام نشد.";
+function getError(result) {
+    return result?.message || result?.error || "ثبت‌نام انجام نشد.";
 }
 
-function saveUser(result, username, email) {
-  const user = result?.user || result?.data?.user || result?.data || {};
-  const userId = user.id || user.user_id || result?.userId || result?.user_id;
+form.addEventListener("submit", async event => {
+    event.preventDefault();
 
-  const savedUser = {
-    ...user,
-    id: userId || user.id || "",
-    username: user.username || username,
-    email: String(user.email || email).trim().toLowerCase(),
-    score: Number(user.score ?? 0)
-  };
+    const username = usernameInput.value.trim();
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+    const confirmPassword = confirmInput.value;
 
-  localStorage.setItem("hadafUser", JSON.stringify(savedUser));
+    if (username.length < 3) {
+        showMessage("نام کاربری باید حداقل ۳ کاراکتر باشد.");
+        return;
+    }
 
-  const token =
-    result?.access_token ||
-    result?.accessToken ||
-    result?.session?.access_token;
+    if (password.length < 6) {
+        showMessage("رمز عبور باید حداقل ۶ کاراکتر باشد.");
+        return;
+    }
 
-  if (token) {
-    localStorage.setItem("hadafAccessToken", token);
-  }
-}
+    if (password !== confirmPassword) {
+        showMessage("رمز عبور و تکرار آن یکسان نیستند.");
+        return;
+    }
 
-form.addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  const username = usernameInput.value.trim();
-  const email = emailInput.value.trim().toLowerCase();
-  const password = passwordInput.value;
-  const confirmPassword = confirmInput.value;
-
-  if (username.length < 3) {
-    showMessage("نام کاربری باید حداقل ۳ کاراکتر باشد.");
-    return;
-  }
-
-  if (password.length < 6) {
-    showMessage("رمز عبور باید حداقل ۶ کاراکتر باشد.");
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    showMessage("رمز عبور و تکرار آن یکسان نیستند.");
-    return;
-  }
-
-  signupBtn.disabled = true;
-  signupBtn.textContent = "در حال ثبت‌نام...";
-  messageBox.className = "message";
-  messageBox.textContent = "";
-
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=UTF-8"
-      },
-      body: JSON.stringify({
-        action: "signup",
-        operation: "signup",
-        username: username,
-        email: email,
-        password: password
-      }),
-      redirect: "follow"
-    });
-
-    const text = await response.text();
-    let result;
+    button.disabled = true;
+    button.textContent = "در حال ثبت‌نام...";
+    message.className = "message";
 
     try {
-      result = JSON.parse(text);
-    } catch {
-      throw new Error("پاسخ API قابل خواندن نیست. کد Google Apps Script را بررسی کن.");
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type": "text/plain;charset=UTF-8"},
+            body: JSON.stringify({
+                action: "signup",
+                operation: "signup",
+                username,
+                email,
+                password
+            }),
+            cache: "no-store",
+            redirect: "follow"
+        });
+
+        const text = await response.text();
+        let result;
+
+        try {
+            result = JSON.parse(text);
+        } catch {
+            throw new Error("پاسخ API معتبر نیست. انتشار وب‌اپ را بررسی کن.");
+        }
+
+        if (!response.ok || result.success !== true) {
+            throw new Error(getError(result));
+        }
+
+        const apiUser = result.user || result.data?.user || result.data || {};
+
+        const user = {
+            id: apiUser.id ?? "",
+            user_id: apiUser.user_id ?? "",
+            username: apiUser.username || username,
+            email: String(apiUser.email || email).trim().toLowerCase(),
+            score: Number(apiUser.score ?? 0)
+        };
+
+        localStorage.setItem("hadafUser", JSON.stringify(user));
+        localStorage.removeItem("hadafAccessToken");
+
+        showMessage("ثبت‌نام موفق بود! در حال رفتن به سایت...", "success");
+        button.textContent = "ثبت‌نام موفق";
+
+        setTimeout(() => location.href = "index.html", 800);
+
+    } catch (error) {
+        showMessage(error.message || "ارتباط با سرور برقرار نشد.");
+        button.disabled = false;
+        button.textContent = "ثبت‌نام";
     }
-
-    if (!response.ok || result.success !== true) {
-      throw new Error(getMessage(result));
-    }
-
-    saveUser(result, username, email);
-    showMessage("ثبت‌نام موفق بود! در حال رفتن به سایت...", "success");
-
-    setTimeout(() => {
-      location.href = "index.html";
-    }, 700);
-
-  } catch (error) {
-    showMessage(error.message || "ارتباط با سرور برقرار نشد.");
-  } finally {
-    signupBtn.disabled = false;
-    signupBtn.textContent = "ثبت‌نام";
-  }
 });
 </script>
 </body>
