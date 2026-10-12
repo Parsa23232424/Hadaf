@@ -5,31 +5,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
-<meta name="description" content="هدف روزانه خودت را در سایت هدف بساز، هر روز انجامش بده و زنجیره‌ات را حفظ کن.">
+<meta name="description" content="هدف‌هایت را بساز، هر روز انجام بده و زنجیره‌ات را حفظ کن.">
 <title>هدف من 🎯 | سایت هدف</title>
 <link rel="manifest" href="./manifest.json">
 
 <style>
-:root {
-    --bg:#07090f;
-    --card:rgba(18,22,34,.95);
-    --border:rgba(255,255,255,.075);
-    --text:#f8fafc;
-    --muted:#8f98a9;
-    --primary:#6758ff;
-    --primary2:#5146da;
-    --orange:#ff7a32;
-    --green:#22c55e;
-    --red:#ef4444;
-}
+:root{--bg:#07090f;--border:rgba(255,255,255,.075);--text:#f8fafc;--muted:#8f98a9;--primary:#6758ff;--primary2:#5146da;--orange:#ff7a32;--green:#22c55e;--red:#ef4444}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{
-    margin:0;min-height:100vh;padding-bottom:105px;color:var(--text);
-    font-family:Tahoma,"Segoe UI",Arial,sans-serif;
-    background:radial-gradient(circle at 85% -5%,rgba(103,88,255,.16),transparent 28%),
-    radial-gradient(circle at 0% 35%,rgba(37,99,235,.07),transparent 30%),var(--bg)
-}
+body{margin:0;min-height:100vh;padding-bottom:105px;color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 85% -5%,rgba(103,88,255,.16),transparent 28%),radial-gradient(circle at 0% 35%,rgba(37,99,235,.07),transparent 30%),var(--bg)}
 button,input{font-family:inherit}
 button{appearance:none}
 .app{width:min(760px,94%);margin:auto;padding:18px 0 45px}
@@ -60,16 +44,15 @@ button{appearance:none}
 .section-head h2{margin:0;font-size:19px}
 .section-head span{color:var(--muted);font-size:10px}
 .input-label{display:block;margin-bottom:8px;color:var(--muted);font-size:10px}
-.goal-input{width:100%;height:58px;padding:0 17px;outline:none;border-radius:16px;border:1px solid rgba(255,255,255,.07);color:white;background:rgba(255,255,255,.035);font-size:13px;direction:rtl;transition:.2s}
+.goal-input{width:100%;height:58px;padding:0 17px;outline:none;border-radius:16px;border:1px solid rgba(255,255,255,.07);color:white;background:rgba(255,255,255,.035);font-size:13px;direction:rtl}
 .goal-input::placeholder{color:#687080}
 .goal-input:focus{border-color:rgba(103,88,255,.55);background:rgba(103,88,255,.055);box-shadow:0 0 0 3px rgba(103,88,255,.08)}
-.primary-button{width:100%;min-height:55px;margin-top:13px;padding:14px;border:0;border-radius:16px;color:white;background:linear-gradient(100deg,var(--primary),var(--primary2));cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 10px 25px rgba(103,88,255,.18);transition:.15s}
-.primary-button:active,.complete-button:active,.delete-button:active{transform:scale(.98)}
+.primary-button{width:100%;min-height:55px;margin-top:13px;padding:14px;border:0;border-radius:16px;color:white;background:linear-gradient(100deg,var(--primary),var(--primary2));cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 10px 25px rgba(103,88,255,.18)}
 button:disabled{opacity:.65;cursor:wait}
 .current-goal{position:relative;overflow:hidden;background:radial-gradient(circle at 95% 0%,rgba(103,88,255,.16),transparent 35%),linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98))}
 .goal-title-row{display:flex;align-items:center;justify-content:space-between;gap:15px}
 .goal-small-label{color:var(--muted);font-size:10px}
-.goal-title{margin-top:7px;font-size:20px;font-weight:900;line-height:1.7;word-break:break-word}
+.goal-title{margin-top:7px;font-size:20px;font-weight:900;line-height:1.7;overflow-wrap:anywhere}
 .goal-target-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:15px;background:rgba(103,88,255,.10);border:1px solid rgba(103,88,255,.12);font-size:23px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
 .stat{padding:13px 5px;text-align:center;border-radius:15px;color:var(--muted);background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.045);font-size:9px}
@@ -97,6 +80,7 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 @media(max-width:420px){.app{width:92%}.brand small{display:none}.top-account-name{max-width:95px;font-size:12px}.page-header h1{font-size:34px}.card{padding:17px}.goal-title{font-size:17px}.streak-number{font-size:37px}.fire-icon{width:58px;height:58px;font-size:29px}.stats{gap:6px}}
 </style>
 </head>
+
 <body>
 <main class="app">
 <header class="topbar">
@@ -119,9 +103,15 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 <section class="streak-card">
     <div class="streak-main">
         <div class="fire-icon">🔥</div>
-        <div><div class="streak-number" id="mainStreak">0</div><div class="streak-label">روز پشت سر هم</div></div>
+        <div>
+            <div class="streak-number" id="mainStreak">0</div>
+            <div class="streak-label">بهترین زنجیره فعلی بین هدف‌ها</div>
+        </div>
     </div>
-    <div class="best-box"><span>🏆 بهترین رکورد</span><strong id="mainBest">0</strong></div>
+    <div class="best-box">
+        <span>🏆 بهترین رکورد</span>
+        <strong id="mainBest">0</strong>
+    </div>
 </section>
 
 <div id="content">
@@ -132,42 +122,31 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
         <button class="primary-button" type="button" onclick="location.href='login.html'">ورود به حساب</button>
     </section>
 
-    <section class="card" id="createCard">
+    <section class="card hidden" id="createCard">
         <div class="section-head"><h2>🎯 هدف جدید</h2><span>روزانه</span></div>
         <label class="input-label" for="goalInput">هدفت رو بنویس</label>
         <input id="goalInput" class="goal-input" type="text" maxlength="120" autocomplete="off" placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم...">
         <button class="primary-button" id="createButton" type="button" onclick="createGoal()">🚀 ساختن هدف</button>
     </section>
 
-    <section class="card current-goal hidden" id="goalCard">
-        <div class="goal-title-row">
-            <div><div class="goal-small-label">🎯 هدف من</div><div class="goal-title" id="goalTitle">-</div></div>
-            <div class="goal-target-icon">🎯</div>
-        </div>
-        <div class="stats">
-            <div class="stat fire"><strong id="goalStreak">0</strong>🔥 Streak</div>
-            <div class="stat best"><strong id="goalBest">0</strong>🏆 رکورد</div>
-            <div class="stat days"><strong id="goalTotal">0</strong>روز انجام</div>
-        </div>
-        <button class="complete-button" id="completeButton" type="button" onclick="completeGoal()">🔥 امروز انجامش دادم</button>
-        <button class="delete-button" id="deleteButton" type="button" onclick="deleteGoal()">حذف این هدف</button>
-    </section>
-
     <section class="card empty-card hidden" id="emptyCard">
-        <div class="empty-icon">🎯</div><h2>هنوز هدفی نساختی</h2>
+        <div class="empty-icon">🎯</div>
+        <h2>هنوز هدفی نساختی</h2>
         <p>یک هدف کوچک برای امروز بنویس و از همین امروز شروع کن.</p>
     </section>
 
     <section class="card loading-card hidden" id="loadingCard">
         <div class="loading-spinner"></div>
-        <p style="color:var(--muted);font-size:11px">در حال دریافت هدف...</p>
+        <p style="color:var(--muted);font-size:11px">در حال دریافت هدف‌ها...</p>
     </section>
+
+    <div id="goalsList"></div>
 </div>
 
 <footer>سایت هدف • هر روز یک قدم جلوتر</footer>
 </main>
 
-<div class="message" id="message" role="status"></div>
+<div class="message" id="message" role="status" aria-live="polite"></div>
 
 <nav class="bottom-nav">
     <button class="nav-item" type="button" onclick="location.href='index.html'"><span>⌂</span>خانه</button>
@@ -182,11 +161,11 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 
 const API_URL = "https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0PcukUBEiT0cb3joLPvbakKKkPND5z48gDcj7mcg6CnSb7RJ/exec";
 
-let currentGoal = null;
-let requestRunning = false;
-let messageTimer = null;
-
 const $ = id => document.getElementById(id);
+let goals = [];
+let busyGoals = new Set();
+let creating = false;
+let messageTimer = null;
 
 function getUser() {
     try {
@@ -199,7 +178,7 @@ function getUser() {
 
 function getEmail() {
     const user = getUser();
-    return user && user.email ? String(user.email).trim().toLowerCase() : "";
+    return user?.email ? String(user.email).trim().toLowerCase() : "";
 }
 
 function showAccount() {
@@ -241,7 +220,6 @@ async function callAPI(data) {
         });
 
         const text = await response.text();
-        console.log("Hadaf API:", data.action, response.status, text);
 
         if (!response.ok) throw new Error("خطای HTTP " + response.status);
         if (!text.trim()) throw new Error("پاسخ API خالی است.");
@@ -264,16 +242,12 @@ function apiSuccess(result) {
 }
 
 function apiMessage(result, fallback) {
-    return result && (result.message || result.error) || fallback;
+    return result?.message || result?.error || fallback;
 }
 
-function extractGoal(result) {
-    if (!result) return null;
-    if (result.goal && typeof result.goal === "object" && !Array.isArray(result.goal)) return result.goal;
-    if (result.data && result.data.goal && typeof result.data.goal === "object") return result.data.goal;
-    if (Array.isArray(result.goals) && result.goals.length) return result.goals[0];
-    if (result.data && Array.isArray(result.data.goals) && result.data.goals.length) return result.data.goals[0];
-    return null;
+function numberValue(value) {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : 0;
 }
 
 function getGoalId(goal) {
@@ -284,36 +258,106 @@ function getGoalText(goal) {
     return String(goal?.title ?? goal?.goal ?? goal?.name ?? goal?.text ?? "").trim();
 }
 
-function numberValue(value) {
-    const n = Number(value);
-    return Number.isFinite(n) ? n : 0;
+function isTrue(value) {
+    return value === true || value === "true" || value === 1 || value === "1";
 }
 
-function updateStats(streak, best, total) {
-    const s = numberValue(streak);
-    const b = numberValue(best);
-    const t = numberValue(total);
-
-    $("mainStreak").textContent = s;
-    $("mainBest").textContent = b;
-    $("goalStreak").textContent = s;
-    $("goalBest").textContent = b;
-    $("goalTotal").textContent = t;
-}
-
-function updateCompleteButton(goal) {
-    const completed = [
+function isCompletedToday(goal) {
+    return [
         goal.completedToday,
         goal.todayCompleted,
         goal.isCompletedToday,
         goal.completed_today,
         goal.today_completed
-    ].some(value => value === true || value === "true" || value === 1 || value === "1");
+    ].some(isTrue);
+}
 
-    const button = $("completeButton");
-    button.classList.toggle("done", completed);
-    button.textContent = completed ? "✅ امروز انجام شده" : "🔥 امروز انجامش دادم";
-    button.disabled = completed;
+function getStreak(goal) {
+    return numberValue(goal.streak ?? goal.currentStreak ?? goal.current_streak);
+}
+
+function getBest(goal) {
+    return numberValue(goal.bestStreak ?? goal.best_streak ?? goal.best ?? goal.maxStreak);
+}
+
+function getTotal(goal) {
+    return numberValue(goal.totalDays ?? goal.total_days ?? goal.days ?? goal.completedDays);
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function updateSummary() {
+    const streaks = goals.map(getStreak);
+    const bests = goals.map(getBest);
+    $("mainStreak").textContent = streaks.length ? Math.max(...streaks) : 0;
+    $("mainBest").textContent = bests.length ? Math.max(...bests) : 0;
+}
+
+function renderGoals() {
+    const list = $("goalsList");
+    list.replaceChildren();
+
+    goals.forEach((goal, index) => {
+        const id = getGoalId(goal);
+        const title = getGoalText(goal) || "هدف من";
+        const completed = isCompletedToday(goal);
+        const busy = busyGoals.has(id);
+
+        const card = document.createElement("section");
+        card.className = "card current-goal";
+        card.innerHTML = `
+            <div class="goal-title-row">
+                <div>
+                    <div class="goal-small-label">🎯 هدف ${index + 1}</div>
+                    <div class="goal-title">${escapeHTML(title)}</div>
+                </div>
+                <div class="goal-target-icon">🎯</div>
+            </div>
+
+            <div class="stats">
+                <div class="stat fire"><strong>${getStreak(goal)}</strong>🔥 Streak</div>
+                <div class="stat best"><strong>${getBest(goal)}</strong>🏆 رکورد</div>
+                <div class="stat days"><strong>${getTotal(goal)}</strong>روز انجام</div>
+            </div>
+
+            <button class="complete-button ${completed ? "done" : ""}"
+                    type="button" data-action="complete"
+                    ${completed || busy || !id ? "disabled" : ""}>
+                ${completed ? "✅ امروز انجام شده" : busy ? "در حال ثبت..." : "🔥 امروز انجامش دادم"}
+            </button>
+
+            <button class="delete-button" type="button" data-action="delete"
+                    ${busy || !id ? "disabled" : ""}>
+                ${busy ? "در حال انجام..." : "حذف این هدف"}
+            </button>
+        `;
+
+        card.querySelector('[data-action="complete"]').addEventListener("click", () => completeGoal(id));
+        card.querySelector('[data-action="delete"]').addEventListener("click", () => deleteGoal(id));
+
+        list.appendChild(card);
+    });
+
+    updateSummary();
+}
+
+function getGoalsFromResult(result) {
+    if (Array.isArray(result?.goals)) return result.goals;
+    if (Array.isArray(result?.data?.goals)) return result.data.goals;
+
+    if (Array.isArray(result?.goal)) return result.goal;
+    if (result?.goal && typeof result.goal === "object") return [result.goal];
+    if (result?.data?.goal && typeof result.data.goal === "object") return [result.data.goal];
+
+    return [];
 }
 
 async function loadGoal() {
@@ -322,17 +366,16 @@ async function loadGoal() {
     if (!email) {
         $("loginCard").classList.remove("hidden");
         $("createCard").classList.add("hidden");
-        $("goalCard").classList.add("hidden");
         $("emptyCard").classList.add("hidden");
         $("loadingCard").classList.add("hidden");
-        currentGoal = null;
-        updateStats(0, 0, 0);
+        $("goalsList").replaceChildren();
+        goals = [];
+        updateSummary();
         return;
     }
 
     $("loginCard").classList.add("hidden");
     $("createCard").classList.remove("hidden");
-    $("goalCard").classList.add("hidden");
     $("emptyCard").classList.add("hidden");
     $("loadingCard").classList.remove("hidden");
 
@@ -340,39 +383,21 @@ async function loadGoal() {
         const result = await callAPI({action: "getGoal", email});
 
         if (!apiSuccess(result)) {
-            throw new Error(apiMessage(result, "دریافت هدف ناموفق بود."));
+            throw new Error(apiMessage(result, "دریافت هدف‌ها ناموفق بود."));
         }
 
-        const goal = extractGoal(result);
+        goals = getGoalsFromResult(result);
         $("loadingCard").classList.add("hidden");
 
-        if (!goal) {
-            currentGoal = null;
-            $("goalCard").classList.add("hidden");
-            $("emptyCard").classList.remove("hidden");
-            updateStats(0, 0, 0);
-            return;
-        }
-
-        currentGoal = goal;
-        $("goalCard").classList.remove("hidden");
-        $("emptyCard").classList.add("hidden");
-        $("goalTitle").textContent = getGoalText(goal) || "هدف من";
-
-        updateStats(
-            goal.streak,
-            goal.bestStreak ?? goal.best_streak ?? goal.best ?? goal.maxStreak,
-            goal.totalDays ?? goal.total_days ?? goal.days ?? goal.completedDays
-        );
-
-        updateCompleteButton(goal);
+        renderGoals();
+        $("emptyCard").classList.toggle("hidden", goals.length !== 0);
 
     } catch (error) {
         $("loadingCard").classList.add("hidden");
         console.error("loadGoal:", error);
         showMessage(error.name === "AbortError"
             ? "اتصال به سرور طول کشید."
-            : error.message || "خطا در دریافت هدف.");
+            : error.message || "خطا در دریافت هدف‌ها.");
     }
 }
 
@@ -392,9 +417,9 @@ async function createGoal() {
         return;
     }
 
-    if (requestRunning) return;
+    if (creating) return;
 
-    requestRunning = true;
+    creating = true;
     $("createButton").disabled = true;
     $("createButton").textContent = "در حال ساخت...";
 
@@ -408,43 +433,40 @@ async function createGoal() {
         $("goalInput").value = "";
         showMessage("هدف ساخته شد.");
         await loadGoal();
+
     } catch (error) {
         console.error("createGoal:", error);
         showMessage(error.message || "خطا در ساخت هدف.");
     } finally {
-        requestRunning = false;
+        creating = false;
         $("createButton").disabled = false;
         $("createButton").textContent = "🚀 ساختن هدف";
     }
 }
 
-async function completeGoal() {
+async function completeGoal(goalId) {
     const email = getEmail();
-
     if (!email) {
         location.href = "login.html";
         return;
     }
 
-    if (!currentGoal) {
-        showMessage("هدف پیدا نشد.");
+    if (!goalId || busyGoals.has(goalId)) return;
+
+    const goal = goals.find(item => getGoalId(item) === goalId);
+    if (!goal) {
+        showMessage("این هدف پیدا نشد.");
         await loadGoal();
         return;
     }
 
-    const goalId = getGoalId(currentGoal);
-
-    if (!goalId) {
-        showMessage("شناسه هدف در پاسخ API وجود ندارد.");
-        console.error("Goal returned by API:", currentGoal);
+    if (isCompletedToday(goal)) {
+        showMessage("این هدف امروز قبلاً انجام شده است.");
         return;
     }
 
-    if (requestRunning) return;
-
-    requestRunning = true;
-    $("completeButton").disabled = true;
-    $("completeButton").textContent = "در حال ثبت...";
+    busyGoals.add(goalId);
+    renderGoals();
 
     try {
         const result = await callAPI({action: "completeGoal", email, goalId});
@@ -455,43 +477,29 @@ async function completeGoal() {
 
         showMessage(apiMessage(result, "انجام امروز ثبت شد."));
         await loadGoal();
+
     } catch (error) {
         console.error("completeGoal:", error);
         showMessage(error.message || "خطا در ثبت انجام هدف.");
-        await loadGoal();
     } finally {
-        requestRunning = false;
-        if (currentGoal) updateCompleteButton(currentGoal);
+        busyGoals.delete(goalId);
+        renderGoals();
     }
 }
 
-async function deleteGoal() {
+async function deleteGoal(goalId) {
     const email = getEmail();
-
     if (!email) {
         location.href = "login.html";
         return;
     }
 
-    if (!currentGoal) {
-        showMessage("هدف پیدا نشد.");
-        await loadGoal();
-        return;
-    }
-
-    const goalId = getGoalId(currentGoal);
-
-    if (!goalId) {
-        showMessage("شناسه هدف دریافت نشده.");
-        return;
-    }
+    if (!goalId || busyGoals.has(goalId)) return;
 
     if (!confirm("مطمئنی می‌خواهی این هدف را حذف کنی؟")) return;
-    if (requestRunning) return;
 
-    requestRunning = true;
-    $("deleteButton").disabled = true;
-    $("deleteButton").textContent = "در حال حذف...";
+    busyGoals.add(goalId);
+    renderGoals();
 
     try {
         const result = await callAPI({action: "deleteGoal", email, goalId});
@@ -500,16 +508,15 @@ async function deleteGoal() {
             throw new Error(apiMessage(result, "حذف هدف انجام نشد."));
         }
 
-        currentGoal = null;
         showMessage(apiMessage(result, "هدف حذف شد."));
         await loadGoal();
+
     } catch (error) {
         console.error("deleteGoal:", error);
         showMessage(error.message || "خطا در حذف هدف.");
     } finally {
-        requestRunning = false;
-        $("deleteButton").disabled = false;
-        $("deleteButton").textContent = "حذف این هدف";
+        busyGoals.delete(goalId);
+        renderGoals();
     }
 }
 
