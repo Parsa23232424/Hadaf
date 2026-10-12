@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -92,12 +93,10 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 .nav-item.active{color:white;background:rgba(103,88,255,.13)}
 .message{position:fixed;z-index:500;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);width:min(420px,88%);padding:13px 16px;text-align:center;border-radius:15px;color:white;background:rgba(20,24,36,.97);border:1px solid rgba(255,255,255,.08);box-shadow:0 15px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;font-size:11px}
 .message.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.hidden{display:none!important}
 @media(max-width:600px){.streak-card{padding:22px 19px}.best-box{min-width:78px}}
 @media(max-width:420px){.app{width:92%}.brand small{display:none}.top-account-name{max-width:95px;font-size:12px}.page-header h1{font-size:34px}.card{padding:17px}.goal-title{font-size:17px}.streak-number{font-size:37px}.fire-icon{width:58px;height:58px;font-size:29px}.stats{gap:6px}}
 </style>
 </head>
-
 <body>
 <main class="app">
 <header class="topbar">
@@ -168,7 +167,7 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 <footer>سایت هدف • هر روز یک قدم جلوتر</footer>
 </main>
 
-<div class="message" id="message"></div>
+<div class="message" id="message" role="status"></div>
 
 <nav class="bottom-nav">
     <button class="nav-item" type="button" onclick="location.href='index.html'"><span>⌂</span>خانه</button>
@@ -181,7 +180,7 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 <script>
 "use strict";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0PcukUBEiT0cb3joLPvbakKKkPND5z48gDcj7mcg6CnSb7RJ/exec"
+const API_URL = "https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0PcukUBEiT0cb3joLPvbakKKkPND5z48gDcj7mcg6CnSb7RJ/exec";
 
 let currentGoal = null;
 let requestRunning = false;
@@ -224,7 +223,7 @@ function showMessage(text) {
     box.textContent = String(text || "");
     box.classList.add("show");
     clearTimeout(messageTimer);
-    messageTimer = setTimeout(() => box.classList.remove("show"), 2800);
+    messageTimer = setTimeout(() => box.classList.remove("show"), 3500);
 }
 
 async function callAPI(data) {
@@ -251,7 +250,7 @@ async function callAPI(data) {
         try {
             result = JSON.parse(text);
         } catch {
-            throw new Error("پاسخ API، JSON معتبر نیست.");
+            throw new Error("پاسخ API معتبر نیست؛ انتشار API را بررسی کن.");
         }
 
         return result;
@@ -312,7 +311,6 @@ function updateCompleteButton(goal) {
     ].some(value => value === true || value === "true" || value === 1 || value === "1");
 
     const button = $("completeButton");
-
     button.classList.toggle("done", completed);
     button.textContent = completed ? "✅ امروز انجام شده" : "🔥 امروز انجامش دادم";
     button.disabled = completed;
@@ -346,7 +344,6 @@ async function loadGoal() {
         }
 
         const goal = extractGoal(result);
-
         $("loadingCard").classList.add("hidden");
 
         if (!goal) {
@@ -374,7 +371,7 @@ async function loadGoal() {
         $("loadingCard").classList.add("hidden");
         console.error("loadGoal:", error);
         showMessage(error.name === "AbortError"
-            ? "⏳ اتصال به سرور طول کشید."
+            ? "اتصال به سرور طول کشید."
             : error.message || "خطا در دریافت هدف.");
     }
 }
@@ -390,7 +387,7 @@ async function createGoal() {
     const goal = $("goalInput").value.trim();
 
     if (goal.length < 2) {
-        showMessage("🎯 هدفت رو بنویس.");
+        showMessage("هدفت رو بنویس.");
         $("goalInput").focus();
         return;
     }
@@ -399,7 +396,7 @@ async function createGoal() {
 
     requestRunning = true;
     $("createButton").disabled = true;
-    $("createButton").textContent = "⏳ در حال ساخت...";
+    $("createButton").textContent = "در حال ساخت...";
 
     try {
         const result = await callAPI({action: "createGoal", email, goal});
@@ -409,9 +406,8 @@ async function createGoal() {
         }
 
         $("goalInput").value = "";
-        showMessage("🎯 هدف ساخته شد.");
+        showMessage("هدف ساخته شد.");
         await loadGoal();
-
     } catch (error) {
         console.error("createGoal:", error);
         showMessage(error.message || "خطا در ساخت هدف.");
@@ -431,7 +427,7 @@ async function completeGoal() {
     }
 
     if (!currentGoal) {
-        showMessage("❌ هدف پیدا نشد.");
+        showMessage("هدف پیدا نشد.");
         await loadGoal();
         return;
     }
@@ -439,8 +435,8 @@ async function completeGoal() {
     const goalId = getGoalId(currentGoal);
 
     if (!goalId) {
+        showMessage("شناسه هدف در پاسخ API وجود ندارد.");
         console.error("Goal returned by API:", currentGoal);
-        showMessage("❌ شناسه هدف در پاسخ API وجود ندارد.");
         return;
     }
 
@@ -448,7 +444,7 @@ async function completeGoal() {
 
     requestRunning = true;
     $("completeButton").disabled = true;
-    $("completeButton").textContent = "⏳ در حال ثبت...";
+    $("completeButton").textContent = "در حال ثبت...";
 
     try {
         const result = await callAPI({action: "completeGoal", email, goalId});
@@ -457,9 +453,8 @@ async function completeGoal() {
             throw new Error(apiMessage(result, "ثبت انجام هدف ناموفق بود."));
         }
 
-        showMessage("🔥 انجام امروز ثبت شد.");
+        showMessage(apiMessage(result, "انجام امروز ثبت شد."));
         await loadGoal();
-
     } catch (error) {
         console.error("completeGoal:", error);
         showMessage(error.message || "خطا در ثبت انجام هدف.");
@@ -479,7 +474,7 @@ async function deleteGoal() {
     }
 
     if (!currentGoal) {
-        showMessage("❌ هدف پیدا نشد.");
+        showMessage("هدف پیدا نشد.");
         await loadGoal();
         return;
     }
@@ -487,7 +482,7 @@ async function deleteGoal() {
     const goalId = getGoalId(currentGoal);
 
     if (!goalId) {
-        showMessage("❌ شناسه هدف دریافت نشده.");
+        showMessage("شناسه هدف دریافت نشده.");
         return;
     }
 
@@ -496,7 +491,7 @@ async function deleteGoal() {
 
     requestRunning = true;
     $("deleteButton").disabled = true;
-    $("deleteButton").textContent = "⏳ در حال حذف...";
+    $("deleteButton").textContent = "در حال حذف...";
 
     try {
         const result = await callAPI({action: "deleteGoal", email, goalId});
@@ -506,9 +501,8 @@ async function deleteGoal() {
         }
 
         currentGoal = null;
-        showMessage("🗑️ هدف حذف شد.");
+        showMessage(apiMessage(result, "هدف حذف شد."));
         await loadGoal();
-
     } catch (error) {
         console.error("deleteGoal:", error);
         showMessage(error.message || "خطا در حذف هدف.");
@@ -540,7 +534,6 @@ if (document.readyState === "loading") {
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js")
-            .then(() => console.log("Hadaf PWA فعال شد"))
             .catch(error => console.error("خطای PWA:", error));
     });
 }
