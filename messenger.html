@@ -7,548 +7,799 @@
 <meta name="theme-color" content="#07090f">
 <meta name="description" content="پیام‌رسان هدف؛ گفت‌وگو، گروه و کانال">
 <title>پیام‌رسان هدف 💬</title>
+
 <style>
-:root{
-  --bg:#07090f;
-  --card:#121622;
-  --card2:#171c2a;
-  --border:rgba(255,255,255,.075);
-  --text:#f8fafc;
-  --muted:#8f98a9;
-  --primary:#6758ff;
-  --primary2:#5146da;
-  --blue:#60a5fa;
-  --green:#22c55e;
+:root {
+  color-scheme: dark;
+  --bg: #07090f;
+  --panel: #10131e;
+  --panel2: #171b29;
+  --line: #282d40;
+  --text: #f4f5ff;
+  --muted: #9ba2ba;
+  --purple: #7665ff;
+  --purple2: #5543df;
+  --green: #39dca0;
+  --red: #ff687c;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  margin:0;background:
-  radial-gradient(circle at 85% 0%,rgba(103,88,255,.13),transparent 28%),
-  var(--bg);color:var(--text);
-  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
-  min-height:100vh;padding-bottom:90px
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at top right, #211747 0, transparent 36%),
+    var(--bg);
+  color: var(--text);
+  font-family: Tahoma, Arial, sans-serif;
+  min-height: 100vh;
 }
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-button:disabled{cursor:not-allowed;opacity:.65}
-.app{width:min(1000px,96%);margin:auto;padding:18px 0}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{
-  width:48px;height:48px;border-radius:16px;
-  display:grid;place-items:center;font-size:25px;
-  background:#6758ff20;border:1px solid #6758ff40
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+.app {
+  width: min(1150px, 100%);
+  margin: auto;
+  padding: 14px;
 }
-.brand strong{font-size:18px;display:block}
-.brand small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
-.icon-btn{
-  width:44px;height:44px;border-radius:14px;
-  border:1px solid var(--border);color:white;
-  background:#ffffff08;font-size:19px
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
 }
-.heading{margin:20px 0}
-.heading h1{font-size:clamp(27px,6vw,38px);margin:0 0 9px}
-.heading h1 span{color:#8b80ff}
-.heading p{font-size:12px;line-height:1.9;color:var(--muted);margin:0}
-.verified{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:17px;height:17px;margin-right:3px;border-radius:50%;
-  color:white;background:#3188f5;font-size:11px;font-weight:bold;
-  vertical-align:middle
+.brand { display: flex; align-items: center; gap: 11px; }
+.logo {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #8674ff, #4430c8);
+  font-size: 25px;
+  box-shadow: 0 8px 28px #6758ff35;
 }
-.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:15px}
-.panel{
-  min-width:0;background:linear-gradient(145deg,#121622,#0c1019);
-  border:1px solid var(--border);border-radius:23px;overflow:hidden
+h1 { font-size: 19px; margin: 0 0 5px; }
+.subtitle { color: var(--muted); font-size: 12px; }
+.account {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  border-radius: 13px;
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 48%;
+  overflow-wrap: anywhere;
 }
-.panel-head{padding:17px;border-bottom:1px solid var(--border)}
-.panel-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.panel-title h2{font-size:16px;margin:0}
-.muted{color:var(--muted)}
-.small{font-size:10px}
-.search{position:relative;margin-top:15px}
-.search input{
-  width:100%;height:45px;border-radius:13px;padding:0 40px 0 12px;
-  border:1px solid var(--border);background:#ffffff06;color:white;outline:none
+.notice {
+  display: none;
+  background: #211d39;
+  border: 1px solid #5145a0;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  line-height: 1.9;
+  font-size: 13px;
 }
-.search:before{content:"⌕";position:absolute;right:14px;top:8px;font-size:24px;color:var(--muted)}
-.search input:focus{border-color:#6758ff88}
-.tabs{display:flex;gap:6px;margin-top:12px}
-.tab{
-  flex:1;border:1px solid transparent;border-radius:11px;
-  padding:10px 5px;background:transparent;color:var(--muted);font-size:11px
+.layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 14px;
+  min-height: 72vh;
 }
-.tab.active{background:#6758ff20;color:#c9c3ff;border-color:#6758ff35}
-.chat-list{padding:7px;max-height:570px;overflow:auto}
-.chat-item{
-  display:flex;align-items:center;gap:11px;padding:12px 10px;
-  width:100%;border:1px solid transparent;border-radius:15px;
-  background:transparent;color:white;text-align:right
+.sidebar, .conversation {
+  background: #0d1019eF;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  min-width: 0;
 }
-.chat-item:hover,.chat-item.active{background:#6758ff12;border-color:#6758ff20}
-.avatar{
-  width:48px;height:48px;flex-shrink:0;border-radius:17px;
-  display:grid;place-items:center;background:#6758ff20;font-size:22px
+.sidebar-head { padding: 16px; }
+.headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 13px;
 }
-.avatar.green{background:#22c55e18}
-.avatar.orange{background:#ff7a3218}
-.avatar.blue{background:#3b82f618}
-.chat-info{min-width:0;flex:1}
-.chat-name{font-size:12px;font-weight:bold;margin-bottom:7px}
-.chat-preview{font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chat-meta{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
-.chat-time{font-size:9px;color:var(--muted)}
-.badge{
-  padding:4px 7px;border-radius:8px;font-size:9px;
-  background:#6758ff20;color:#c9c3ff
+.headline h2 { font-size: 16px; margin: 0; }
+.primary, .secondary, .icon-btn {
+  border: 0;
+  border-radius: 11px;
+  padding: 10px 12px;
+  color: white;
+  background: var(--purple2);
 }
-.chat-area{display:flex;flex-direction:column;min-height:570px}
-.chat-header{
-  display:flex;align-items:center;gap:11px;padding:15px;
-  border-bottom:1px solid var(--border)
+.secondary { background: var(--panel2); border: 1px solid var(--line); }
+.icon-btn { padding: 9px 11px; background: var(--panel2); }
+.search {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #080a11;
+  border-radius: 12px;
+  color: var(--text);
+  padding: 12px;
+  outline: none;
 }
-.chat-header .avatar{width:43px;height:43px}
-.chat-heading{flex:1;min-width:0}
-.chat-heading strong{display:block;font-size:13px}
-.chat-heading small{display:block;margin-top:6px;color:var(--muted);font-size:10px}
-.call-actions{display:flex;gap:7px}
-.call-btn{
-  border:1px solid #6758ff35;border-radius:12px;
-  color:#c9c3ff;background:#6758ff14;padding:10px;font-size:17px
+.search:focus, input:focus, textarea:focus, select:focus {
+  border-color: var(--purple);
 }
-.call-btn span{font-size:9px;display:block;margin-top:4px}
-.test-note{
-  margin:12px 14px 0;padding:10px;border:1px solid #ffb45428;
-  background:#ffb4540b;border-radius:12px;color:#ffd08a;
-  text-align:center;font-size:10px;line-height:1.8
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 0 14px 12px;
 }
-.messages{
-  padding:17px;flex:1;min-height:270px;display:flex;
-  flex-direction:column;gap:12px;overflow:auto
+.tab {
+  white-space: nowrap;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 12px;
 }
-.day-label{
-  align-self:center;font-size:9px;color:var(--muted);
-  padding:7px 11px;background:#ffffff06;border-radius:20px
+.tab.active { background: #5143a8; color: white; border-color: #6758ff; }
+.chat-list { padding: 0 9px 12px; }
+.chat-item {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  width: 100%;
+  text-align: right;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  border-radius: 14px;
+  padding: 11px 9px;
+  margin-bottom: 4px;
 }
-.bubble{
-  max-width:85%;padding:12px 13px;border-radius:16px;
-  background:#1a2030;border:1px solid var(--border);
-  font-size:12px;line-height:1.9;overflow-wrap:anywhere
+.chat-item:hover, .chat-item.selected {
+  background: #19172b;
+  border-color: #38305f;
 }
-.bubble.mine{align-self:flex-start;background:#5146da25;border-color:#6758ff35;border-bottom-left-radius:5px}
-.bubble.theirs{align-self:flex-end;border-bottom-right-radius:5px}
-.bubble small{display:block;text-align:left;font-size:9px;color:var(--muted);margin-top:5px}
-.empty-chat{margin:auto;text-align:center;padding:30px 10px;color:var(--muted);font-size:12px;line-height:2}
-.empty-chat .emoji{font-size:35px;margin-bottom:10px}
-.composer{padding:12px;border-top:1px solid var(--border)}
-.composer-row{display:flex;align-items:flex-end;gap:8px}
-.composer textarea{
-  min-width:0;flex:1;resize:vertical;min-height:45px;max-height:120px;
-  border:1px solid var(--border);border-radius:14px;padding:13px;
-  color:white;background:#ffffff06;outline:none;font-size:12px
+.avatar {
+  width: 45px; height: 45px;
+  flex: 0 0 45px;
+  display: grid; place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #6f5cf2, #302568);
+  font-size: 22px;
 }
-.send-btn{
-  width:47px;height:45px;border:0;border-radius:14px;
-  color:white;background:linear-gradient(110deg,var(--primary),var(--primary2));
-  font-size:20px
+.chat-info { min-width: 0; flex: 1; }
+.chat-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 7px;
 }
-.composer-note{text-align:center;font-size:9px;color:var(--muted);margin-top:9px;line-height:1.8}
-.quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}
-.quick{
-  padding:14px 5px;border:1px solid var(--border);border-radius:17px;
-  color:white;background:#121622;text-align:center
+.chat-preview {
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.quick b{display:block;font-size:22px;margin-bottom:7px}
-.quick span{font-size:10px;color:var(--muted)}
-.notice{
-  position:fixed;z-index:20;bottom:92px;left:50%;transform:translateX(-50%);
-  width:min(420px,90%);padding:13px;border:1px solid var(--border);
-  border-radius:14px;background:#171c2a;color:white;text-align:center;
-  font-size:11px;line-height:1.8;display:none
+.verified { color: #69aaff; }
+.chat-kind { color: var(--muted); font-size: 10px; }
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px 14px;
+  line-height: 2;
+  font-size: 13px;
 }
-.notice.show{display:block}
-.bottom-nav{
-  position:fixed;z-index:10;bottom:max(10px,env(safe-area-inset-bottom));
-  right:50%;transform:translateX(50%);width:min(520px,94%);
-  display:grid;grid-template-columns:repeat(4,1fr);gap:5px;
-  padding:7px;border:1px solid var(--border);border-radius:20px;
-  background:#0d1019ed;backdrop-filter:blur(18px)
+.conversation {
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
 }
-.nav-item{border:0;border-radius:13px;background:transparent;color:var(--muted);padding:9px 3px;font-size:9px}
-.nav-item span{display:block;font-size:18px;margin-bottom:4px}
-.nav-item.active{background:#6758ff20;color:white}
-footer{text-align:center;color:#596171;font-size:10px;padding:25px 0}
-@media(max-width:700px){
-  .layout{grid-template-columns:1fr}
-  .chat-area{min-height:460px}
-  .chat-list{max-height:310px}
-  .call-btn{padding:8px}
-  .call-btn span{font-size:8px}
+.conversation-head {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
 }
-@media(min-width:701px){.chat-area{min-height:570px}}
+.person { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.person-info { min-width: 0; }
+.person-name { font-size: 14px; font-weight: bold; overflow-wrap: anywhere; }
+.person-status { color: var(--muted); font-size: 11px; margin-top: 5px; }
+.call-buttons { display: flex; gap: 6px; }
+.messages {
+  flex: 1;
+  padding: 18px;
+  overflow-y: auto;
+  min-height: 300px;
+  max-height: 58vh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-image: radial-gradient(#ffffff08 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.message-row { display: flex; flex-direction: column; max-width: 84%; align-self: flex-start; }
+.message-row.mine { align-self: flex-end; }
+.sender { font-size: 10px; color: var(--muted); margin: 0 7px 5px; }
+.bubble {
+  background: #1a1e2c;
+  border: 1px solid #2a3043;
+  padding: 11px 13px;
+  border-radius: 15px 15px 15px 4px;
+  font-size: 13px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.mine .bubble {
+  background: linear-gradient(135deg, #5c4be2, #4436a9);
+  border-color: #7465ff;
+  border-radius: 15px 15px 4px 15px;
+}
+.message-time { font-size: 9px; color: #a9afc8; margin: 5px 5px 0; }
+.composer {
+  padding: 12px;
+  display: flex;
+  gap: 9px;
+  border-top: 1px solid var(--line);
+}
+.composer textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  max-height: 120px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  background: #080a11;
+  border-radius: 13px;
+  padding: 12px;
+  color: white;
+  outline: none;
+}
+.send { min-width: 58px; }
+.disabled-note {
+  padding: 12px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 11px;
+  border-top: 1px solid var(--line);
+}
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: #000b;
+  padding: 18px;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  width: min(430px, 100%);
+  background: #111522;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 20px 80px #0008;
+}
+.modal h2 { font-size: 17px; margin: 0 0 18px; }
+.field { margin-bottom: 13px; }
+.field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.field input, .field select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 11px;
+  background: #080a11;
+  color: white;
+  border: 1px solid var(--line);
+  outline: none;
+}
+.modal-actions { display: flex; gap: 9px; margin-top: 18px; }
+.modal-actions button { flex: 1; }
+.small-help { font-size: 11px; color: var(--muted); line-height: 1.9; }
+.bottom { text-align: center; color: #727991; font-size: 11px; padding: 18px 0 6px; }
+
+@media (max-width: 720px) {
+  .app { padding: 9px; }
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { min-height: auto; }
+  .chat-list { max-height: 240px; overflow-y: auto; }
+  .conversation { min-height: 510px; }
+  .messages { max-height: 48vh; }
+  .conversation-head { padding: 11px; }
+  .call-buttons button { padding: 8px; font-size: 11px; }
+}
 </style>
 </head>
+
 <body>
-<main class="app">
+<div class="app">
   <header class="topbar">
-    <button class="icon-btn" id="profileBtn" aria-label="حساب کاربری">👤</button>
     <div class="brand">
       <div class="logo">💬</div>
       <div>
-        <strong>پیام‌رسان هدف</strong>
-        <small>هر روز، نزدیک‌تر به هم 💜</small>
+        <h1>پیام‌رسان هدف</h1>
+        <div class="subtitle">با هم، یک قدم جلوتر 🚀</div>
       </div>
     </div>
+    <div class="account" id="accountLabel">در حال بررسی حساب…</div>
   </header>
 
-  <section class="heading">
-    <h1>پیام‌رسان <span>هدف</span></h1>
-    <p>با دوستانت گفت‌وگو کن، گروه بساز و کانال‌های موردعلاقه‌ات را دنبال کن.</p>
-  </section>
+  <div class="notice" id="notice" role="status"></div>
 
-  <div class="layout">
-    <section class="panel">
-      <div class="panel-head">
-        <div class="panel-title">
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div class="headline">
           <h2>گفت‌وگوها</h2>
-          <span class="badge">نسخه آزمایشی</span>
+          <button class="primary" id="newChatBtn">＋ جدید</button>
         </div>
-        <div class="search">
-          <input id="searchInput" type="search" placeholder="جست‌وجوی گفت‌وگو..." autocomplete="off">
-        </div>
-        <div class="tabs" id="tabs">
-          <button class="tab active" data-filter="all">همه</button>
-          <button class="tab" data-filter="private">خصوصی</button>
-          <button class="tab" data-filter="group">گروه‌ها</button>
-          <button class="tab" data-filter="channel">کانال‌ها</button>
-        </div>
+        <input class="search" id="searchInput" type="search" placeholder="جست‌وجو در گفت‌وگوها…">
       </div>
-      <div class="chat-list" id="chatList"></div>
-    </section>
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-filter="all">همه</button>
+        <button class="tab" data-filter="private">خصوصی</button>
+        <button class="tab" data-filter="group">گروه‌ها</button>
+        <button class="tab" data-filter="channel">کانال‌ها</button>
+      </div>
+      <div class="chat-list" id="chatList">
+        <div class="empty">در حال دریافت گفت‌وگوها…</div>
+      </div>
+    </aside>
 
-    <section class="panel chat-area">
-      <header class="chat-header">
-        <div class="avatar" id="activeAvatar">🎯</div>
-        <div class="chat-heading">
-          <strong id="activeName">هدف رسمی <span class="verified">✓</span></strong>
-          <small id="activeStatus">حساب رسمی سایت هدف</small>
+    <section class="conversation">
+      <div class="conversation-head">
+        <div class="person">
+          <div class="avatar" id="activeAvatar">💬</div>
+          <div class="person-info">
+            <div class="person-name" id="activeName">یک گفت‌وگو انتخاب کن</div>
+            <div class="person-status" id="activeStatus">پیام‌رسان هدف</div>
+          </div>
         </div>
-        <div class="call-actions">
-          <button class="call-btn" id="audioCall" type="button" aria-label="تماس صوتی">
-            ☎️<span>در حال تست</span>
-          </button>
-          <button class="call-btn" id="videoCall" type="button" aria-label="تماس تصویری">
-            📹<span>در حال تست</span>
-          </button>
+        <div class="call-buttons">
+          <button class="icon-btn" id="audioCall" title="تماس صوتی">📞</button>
+          <button class="icon-btn" id="videoCall" title="تماس تصویری">📹</button>
         </div>
-      </header>
-
-      <div class="test-note">
-        🧪 تماس صوتی و تصویری: در حال تست؛ فعلاً غیرفعال هستند.
       </div>
 
       <div class="messages" id="messages">
-        <div class="day-label">شروع پیام‌رسان هدف</div>
-        <div class="bubble theirs">
-          سلام! 👋
-          <br>به پیام‌رسان هدف خوش آمدی.
-          <small>حساب رسمی هدف ✓</small>
-        </div>
-        <div class="empty-chat" id="demoNotice">
-          <div class="emoji">💜</div>
-          این صفحه فعلاً نمایشی است.<br>
-          پیام‌ها هنوز به کاربران دیگر ارسال نمی‌شوند.
-        </div>
+        <div class="empty">💜<br>برای شروع، یک گفت‌وگو بساز یا انتخاب کن.</div>
       </div>
 
       <form class="composer" id="messageForm">
-        <div class="composer-row">
-          <textarea id="messageInput" rows="1" maxlength="2000"
-            placeholder="پیامت را بنویس..." aria-label="متن پیام"></textarea>
-          <button class="send-btn" type="submit" aria-label="ثبت پیام نمایشی">➤</button>
-        </div>
-        <div class="composer-note">
-          نسخه نمایشی: پیام‌ها فقط در همین صفحه نمایش داده می‌شوند و به سرور ارسال نمی‌شوند.
-        </div>
+        <textarea id="messageInput" placeholder="اول یک گفت‌وگو انتخاب کن…" maxlength="2000" disabled></textarea>
+        <button class="primary send" id="sendBtn" type="submit" disabled>➤</button>
       </form>
+      <div class="disabled-note">تماس صوتی و تصویری فعلاً در حال تست است.</div>
     </section>
-  </div>
+  </main>
 
-  <section class="quick-actions">
-    <button class="quick" type="button" data-create="private">
-      <b>✉️</b><span>گفت‌وگوی جدید</span>
-    </button>
-    <button class="quick" type="button" data-create="group">
-      <b>👥</b><span>ساخت گروه</span>
-    </button>
-    <button class="quick" type="button" data-create="channel">
-      <b>📢</b><span>ساخت کانال</span>
-    </button>
-  </section>
+  <footer class="bottom">🏹 Hadaf © 2026</footer>
+</div>
 
-  <footer>🏹 Hadaf © 2026 • هر روز یک قدم جلوتر</footer>
-</main>
-
-<div class="notice" id="notice" role="status" aria-live="polite"></div>
-
-<nav class="bottom-nav">
-  <button class="nav-item" type="button" onclick="location.href='index.html'">
-    <span>⌂</span>خانه
-  </button>
-  <button class="nav-item" type="button" onclick="location.href='goals.html'">
-    <span>🎯</span>هدف من
-  </button>
-  <button class="nav-item active" type="button">
-    <span>💬</span>پیام‌ها
-  </button>
-  <button class="nav-item" type="button" onclick="location.href='pico.html'">
-    <span>🤖</span>پیکو
-  </button>
-</nav>
+<div class="modal-backdrop" id="createModal">
+  <form class="modal" id="createForm">
+    <h2>ساخت گفت‌وگوی جدید ✨</h2>
+    <div class="field">
+      <label for="chatType">نوع گفت‌وگو</label>
+      <select id="chatType">
+        <option value="private">گفت‌وگوی خصوصی</option>
+        <option value="group">گروه</option>
+        <option value="channel">کانال</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="chatTitle">نام گفت‌وگو</label>
+      <input id="chatTitle" maxlength="100" required placeholder="مثلاً گفت‌وگوی دوستان">
+    </div>
+    <div id="privateFields">
+      <div class="field">
+        <label for="memberEmail">ایمیل حساب طرف مقابل</label>
+        <input id="memberEmail" type="email" placeholder="friend@example.com">
+      </div>
+      <div class="field">
+        <label for="memberName">نام طرف مقابل</label>
+        <input id="memberName" maxlength="80" placeholder="نام دوستت">
+      </div>
+      <p class="small-help">برای گفت‌وگوی خصوصی، ایمیل حسابی را وارد کن که در سایت هدف ثبت‌نام کرده است.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="secondary" id="cancelCreate">لغو</button>
+      <button type="submit" class="primary" id="confirmCreate">ساختن</button>
+    </div>
+  </form>
+</div>
 
 <script>
-"use strict";
+(() => {
+  "use strict";
 
-/*
- * نسخه نمایشی رابط پیام‌رسان هدف
- * این نسخه هنوز به API پیام‌رسان وصل نیست.
- * کلید محرمانه Supabase را هرگز در این فایل قرار نده.
- */
+  const API_URL = "https://script.google.com/macros/s/AKfycbz4dz-jTt2Pj6FZ1d2f44VKGPuLpHFuHXWJ40eWSF8CGRp-HMDCISfPvC-rCMtP1C-geg/exec";
 
-const $ = id => document.getElementById(id);
+  const $ = id => document.getElementById(id);
 
-const chats = [
-  {
-    id:"official", type:"channel", name:"هدف رسمی", verified:true,
-    avatar:"🎯", color:"", status:"حساب رسمی سایت هدف",
-    preview:"به پیام‌رسان رسمی هدف خوش آمدی!",
-    messages:[
-      {mine:false,text:"سلام! 👋\nبه پیام‌رسان هدف خوش آمدی.",author:"حساب رسمی هدف ✓"}
-    ]
-  },
-  {
-    id:"friends", type:"group", name:"گروه دوستان",
-    avatar:"👥", color:"green", status:"گروه آزمایشی",
-    preview:"گفت‌وگو با دوستان",
-    messages:[]
-  },
-  {
-    id:"news", type:"channel", name:"خبرهای هدف",
-    avatar:"📢", color:"orange", status:"کانال آزمایشی",
-    preview:"خبرها و اطلاعیه‌های هدف",
-    messages:[]
-  },
-  {
-    id:"sample", type:"private", name:"گفت‌وگوی آزمایشی",
-    avatar:"🙂", color:"blue", status:"گفت‌وگوی نمایشی",
-    preview:"برای نمایش رابط کاربری",
-    messages:[]
-  }
-];
+  let user = null;
+  let chats = [];
+  let activeChat = null;
+  let filter = "all";
+  let loadingMessages = false;
+  let lastMessageCount = -1;
 
-let activeId = "official";
-let activeFilter = "all";
-let noticeTimer;
-
-function notify(text){
-  const box = $("notice");
-  box.textContent = text;
-  box.classList.add("show");
-  clearTimeout(noticeTimer);
-  noticeTimer = setTimeout(()=>box.classList.remove("show"),3000);
-}
-
-function activeChat(){
-  return chats.find(c=>c.id===activeId) || chats[0];
-}
-
-function safeText(value){
-  return String(value).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[c]);
-}
-
-function renderList(){
-  const list = $("chatList");
-  const query = $("searchInput").value.trim().toLowerCase();
-  list.replaceChildren();
-
-  const filtered = chats.filter(chat=>{
-    const matchesType = activeFilter==="all" || chat.type===activeFilter;
-    const matchesQuery = chat.name.toLowerCase().includes(query);
-    return matchesType && matchesQuery;
-  });
-
-  if(!filtered.length){
-    const empty = document.createElement("div");
-    empty.className = "empty-chat";
-    empty.textContent = "گفت‌وگویی پیدا نشد.";
-    list.appendChild(empty);
-    return;
+  try {
+    user = JSON.parse(localStorage.getItem("hadafUser") || "null");
+  } catch (_) {
+    user = null;
   }
 
-  filtered.forEach(chat=>{
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "chat-item" + (chat.id===activeId?" active":"");
+  const email = String(user?.email || "").trim().toLowerCase();
+  const username = String(user?.username || user?.name || "کاربر هدف").trim();
 
-    const avatar = document.createElement("div");
-    avatar.className = "avatar " + (chat.color||"");
-    avatar.textContent = chat.avatar;
+  function notify(message, isError = false) {
+    const box = $("notice");
+    box.textContent = message;
+    box.style.display = "block";
+    box.style.borderColor = isError ? "#a84458" : "#5145a0";
+    box.style.background = isError ? "#301722" : "#211d39";
+  }
 
-    const info = document.createElement("div");
-    info.className = "chat-info";
+  function clearNotice() {
+    $("notice").style.display = "none";
+  }
 
-    const name = document.createElement("div");
-    name.className = "chat-name";
-    name.textContent = chat.name;
-    if(chat.verified){
-      const tick = document.createElement("span");
-      tick.className = "verified";
-      tick.textContent = "✓";
-      tick.title = "حساب رسمی نمایشی";
-      name.appendChild(document.createTextNode(" "));
-      name.appendChild(tick);
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[char]));
+  }
+
+  function typeLabel(type) {
+    return type === "group" ? "گروه" :
+           type === "channel" ? "کانال" : "خصوصی";
+  }
+
+  function typeIcon(type) {
+    return type === "group" ? "👥" :
+           type === "channel" ? "📢" : "👤";
+  }
+
+  function formatTime(value) {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleTimeString("fa-IR", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
+
+  async function apiGet(params) {
+    const query = new URLSearchParams(params);
+    const response = await fetch(API_URL + "?" + query.toString(), {
+      method: "GET",
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error("ارتباط با API ناموفق بود.");
+    const data = await response.json();
+    if (data.ok === false) throw new Error(data.message || "خطای API");
+    return data;
+  }
+
+  async function apiPost(payload) {
+    // عمداً Content-Type تنظیم نشده تا درخواست سادهٔ مرورگر ارسال شود.
+    const response = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) throw new Error("ارتباط با API ناموفق بود.");
+    const data = await response.json();
+    if (data.ok === false) throw new Error(data.message || "خطای API");
+    return data;
+  }
+
+  function checkLogin() {
+    if (!email) {
+      $("accountLabel").textContent = "وارد حساب نشده‌ای";
+      notify("برای استفاده از پیام‌رسان، ابتدا در سایت هدف وارد حساب شو. سپس این صفحه را دوباره باز کن.", true);
+      $("chatList").innerHTML = '<div class="empty">ابتدا وارد حساب هدف شو.</div>';
+      $("messageInput").disabled = true;
+      $("sendBtn").disabled = true;
+      return false;
+    }
+    $("accountLabel").textContent = username + " · " + email;
+    return true;
+  }
+
+  function renderChats() {
+    const search = $("searchInput").value.trim().toLowerCase();
+    const filtered = chats.filter(chat => {
+      const typeMatch = filter === "all" || chat.type === filter;
+      const text = String(chat.title || "").toLowerCase();
+      return typeMatch && text.includes(search);
+    });
+
+    if (!filtered.length) {
+      $("chatList").innerHTML =
+        '<div class="empty">هنوز گفت‌وگویی نداری.<br>از دکمهٔ «＋ جدید» شروع کن.</div>';
+      return;
     }
 
-    const preview = document.createElement("div");
-    preview.className = "chat-preview";
-    preview.textContent = chat.preview || "هنوز پیامی نیست";
+    $("chatList").innerHTML = filtered.map(chat => {
+      const selected = activeChat && activeChat.id === chat.id;
+      const icon = typeIcon(chat.type);
+      const verified = chat.is_official
+        ? '<span class="verified" title="حساب رسمی">✓</span>' : "";
+      return `
+        <button class="chat-item ${selected ? "selected" : ""}" data-chat-id="${escapeHTML(chat.id)}">
+          <div class="avatar">${icon}</div>
+          <div class="chat-info">
+            <div class="chat-title">
+              <span>${escapeHTML(chat.title || "گفت‌وگو")}</span>
+              ${verified}
+            </div>
+            <div class="chat-preview">${escapeHTML(typeLabel(chat.type))}</div>
+          </div>
+        </button>`;
+    }).join("");
 
-    info.append(name,preview);
-    const meta = document.createElement("div");
-    meta.className = "chat-meta";
-    const tag = document.createElement("span");
-    tag.className = "badge";
-    tag.textContent = chat.type==="group"?"گروه":
-      chat.type==="channel"?"کانال":"خصوصی";
-    meta.appendChild(tag);
-
-    button.append(avatar,info,meta);
-    button.addEventListener("click",()=>{
-      activeId = chat.id;
-      renderList();
-      renderChat();
-    });
-    list.appendChild(button);
-  });
-}
-
-function renderChat(){
-  const chat = activeChat();
-  $("activeAvatar").textContent = chat.avatar;
-  $("activeAvatar").className = "avatar " + (chat.color||"");
-  $("activeName").textContent = chat.name;
-
-  if(chat.verified){
-    const tick = document.createElement("span");
-    tick.className = "verified";
-    tick.textContent = "✓";
-    tick.title = "حساب رسمی نمایشی";
-    $("activeName").appendChild(document.createTextNode(" "));
-    $("activeName").appendChild(tick);
-  }
-
-  $("activeStatus").textContent = chat.status;
-  const messages = $("messages");
-  messages.replaceChildren();
-
-  const day = document.createElement("div");
-  day.className = "day-label";
-  day.textContent = "گفت‌وگو";
-  messages.appendChild(day);
-
-  if(chat.id==="official" && chat.messages.length){
-    const officialNote = document.createElement("div");
-    officialNote.className = "test-note";
-    officialNote.textContent = "این گفت‌وگو نمایشی است؛ پیام واقعی از سرور دریافت نشده.";
-    messages.appendChild(officialNote);
-  }
-
-  if(!chat.messages.length){
-    const empty = document.createElement("div");
-    empty.className = "empty-chat";
-    empty.innerHTML = '<div class="emoji">💬</div>هنوز پیامی در این گفت‌وگو نیست.';
-    messages.appendChild(empty);
-  } else {
-    chat.messages.forEach(msg=>{
-      const bubble = document.createElement("div");
-      bubble.className = "bubble " + (msg.mine?"mine":"theirs");
-      bubble.appendChild(document.createTextNode(msg.text));
-
-      const time = document.createElement("small");
-      time.textContent = msg.mine?"پیام نمایشی":"نمایش آزمایشی";
-      bubble.appendChild(time);
-      messages.appendChild(bubble);
+    $("chatList").querySelectorAll("[data-chat-id]").forEach(button => {
+      button.addEventListener("click", () => {
+        const chat = chats.find(item => String(item.id) === button.dataset.chatId);
+        if (chat) selectChat(chat);
+      });
     });
   }
 
-  const note = document.createElement("div");
-  note.className = "composer-note";
-  note.textContent = "پیام‌ها فقط در همین صفحه آزمایشی هستند و به دیگران نمی‌رسند.";
-  messages.appendChild(note);
-  messages.scrollTop = messages.scrollHeight;
-}
+  async function loadChats(keepSelection = true) {
+    const data = await apiGet({ action: "chats", email });
+    chats = Array.isArray(data.chats) ? data.chats : [];
 
-$("tabs").addEventListener("click",event=>{
-  const button = event.target.closest("[data-filter]");
-  if(!button) return;
-  activeFilter = button.dataset.filter;
-  document.querySelectorAll(".tab").forEach(tab=>{
-    tab.classList.toggle("active",tab===button);
-  });
-  renderList();
-});
+    if (keepSelection && activeChat) {
+      activeChat = chats.find(chat => chat.id === activeChat.id) || null;
+    }
 
-$("searchInput").addEventListener("input",renderList);
+    renderChats();
 
-$("messageForm").addEventListener("submit",event=>{
-  event.preventDefault();
-  const text = $("messageInput").value.trim();
-  if(!text) return;
+    if (!activeChat && chats.length) {
+      selectChat(chats[0]);
+    } else if (!activeChat) {
+      $("activeName").textContent = "هنوز گفت‌وگویی نداری";
+      $("activeStatus").textContent = "از دکمهٔ «جدید» شروع کن";
+      $("activeAvatar").textContent = "💬";
+      $("messages").innerHTML = '<div class="empty">اولین گروه، کانال یا گفت‌وگوی خودت را بساز.</div>';
+      $("messageInput").disabled = true;
+      $("sendBtn").disabled = true;
+    }
+  }
 
-  const chat = activeChat();
-  chat.messages.push({mine:true,text});
-  chat.preview = text;
-  $("messageInput").value = "";
-  renderList();
-  renderChat();
-  notify("پیام فقط به‌صورت نمایشی اضافه شد؛ ارسال واقعی فعال نیست.");
-});
+  function selectChat(chat) {
+    activeChat = chat;
+    lastMessageCount = -1;
+    $("activeName").textContent = chat.title || "گفت‌وگو";
+    $("activeStatus").textContent = typeLabel(chat.type) + " · پیام‌ها از API";
+    $("activeAvatar").textContent = typeIcon(chat.type);
+    $("messageInput").disabled = false;
+    $("messageInput").placeholder = "پیامت را بنویس…";
+    $("sendBtn").disabled = false;
+    renderChats();
+    loadMessages(true);
+  }
 
-$("messageInput").addEventListener("keydown",event=>{
-  if(event.key==="Enter" && !event.shiftKey){
+  async function loadMessages(forceScroll = false) {
+    if (!activeChat || loadingMessages || !email) return;
+    loadingMessages = true;
+
+    try {
+      const data = await apiGet({
+        action: "messages",
+        email,
+        conversationId: activeChat.id
+      });
+
+      const list = Array.isArray(data.messages) ? data.messages : [];
+      const changed = list.length !== lastMessageCount;
+      if (!changed && !forceScroll) return;
+      lastMessageCount = list.length;
+
+      if (!list.length) {
+        $("messages").innerHTML =
+          '<div class="empty">هنوز پیامی ارسال نشده است.<br>تو اولین پیام را بفرست! 💜</div>';
+        return;
+      }
+
+      $("messages").innerHTML = list.map(message => {
+        const mine = String(message.sender_email || "").toLowerCase() === email;
+        return `
+          <div class="message-row ${mine ? "mine" : ""}">
+            ${mine ? "" : `<div class="sender">${escapeHTML(message.sender_name || "کاربر")}</div>`}
+            <div class="bubble">${escapeHTML(message.message)}</div>
+            <div class="message-time">${escapeHTML(formatTime(message.created_at))}</div>
+          </div>`;
+      }).join("");
+
+      if (forceScroll || changed) {
+        $("messages").scrollTop = $("messages").scrollHeight;
+      }
+    } catch (error) {
+      notify("دریافت پیام‌ها انجام نشد: " + error.message, true);
+    } finally {
+      loadingMessages = false;
+    }
+  }
+
+  $("messageForm").addEventListener("submit", async event => {
     event.preventDefault();
-    $("messageForm").requestSubmit();
-  }
-});
+    if (!activeChat || !email) {
+      notify("ابتدا یک گفت‌وگو انتخاب کن.", true);
+      return;
+    }
 
-$("audioCall").addEventListener("click",()=>{
-  notify("تماس صوتی: در حال تست؛ هنوز فعال نشده است.");
-});
+    const input = $("messageInput");
+    const message = input.value.trim();
+    if (!message) return;
 
-$("videoCall").addEventListener("click",()=>{
-  notify("تماس تصویری: در حال تست؛ هنوز فعال نشده است.");
-});
-
-document.querySelectorAll("[data-create]").forEach(button=>{
-  button.addEventListener("click",()=>{
-    const type = button.dataset.create;
-    const label = type==="group"?"گروه":type==="channel"?"کانال":"گفت‌وگوی خصوصی";
-    notify("ساخت " + label + " بعد از اتصال امن به API فعال می‌شود.");
+    $("sendBtn").disabled = true;
+    try {
+      await apiPost({
+        action: "sendMessage",
+        email,
+        username,
+        conversationId: activeChat.id,
+        message
+      });
+      input.value = "";
+      clearNotice();
+      await loadMessages(true);
+    } catch (error) {
+      notify("پیام ارسال نشد: " + error.message, true);
+    } finally {
+      $("sendBtn").disabled = false;
+      input.focus();
+    }
   });
-});
 
-$("profileBtn").addEventListener("click",()=>{
-  let user = null;
-  try{
-    user = JSON.parse(localStorage.getItem("hadafUser")||"null");
-  }catch(e){}
-  notify(user ? "سلام "+(user.username||user.name||"دوست هدف")+" 👋" : "برای استفاده از حساب، ابتدا وارد سایت هدف شو.");
-});
+  function updatePrivateFields() {
+    $("privateFields").style.display =
+      $("chatType").value === "private" ? "block" : "none";
+  }
 
-renderList();
-renderChat();
+  $("chatType").addEventListener("change", updatePrivateFields);
+  $("newChatBtn").addEventListener("click", () => {
+    if (!email) {
+      notify("ابتدا وارد حساب هدف شو.", true);
+      return;
+    }
+    $("chatTitle").value = "";
+    $("memberEmail").value = "";
+    $("memberName").value = "";
+    $("chatType").value = "private";
+    updatePrivateFields();
+    $("createModal").style.display = "flex";
+  });
+
+  $("cancelCreate").addEventListener("click", () => {
+    $("createModal").style.display = "none";
+  });
+
+  $("createModal").addEventListener("click", event => {
+    if (event.target === $("createModal")) {
+      $("createModal").style.display = "none";
+    }
+  });
+
+  $("createForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!email) return;
+
+    const type = $("chatType").value;
+    const title = $("chatTitle").value.trim();
+    const memberEmail = $("memberEmail").value.trim().toLowerCase();
+    const memberName = $("memberName").value.trim();
+
+    if (!title) {
+      notify("نام گفت‌وگو را وارد کن.", true);
+      return;
+    }
+    if (type === "private" && !memberEmail) {
+      notify("برای گفت‌وگوی خصوصی، ایمیل طرف مقابل را وارد کن.", true);
+      return;
+    }
+    if (type === "private" && memberEmail === email) {
+      notify("ایمیل خودت را وارد نکن؛ ایمیل دوستت را بنویس.", true);
+      return;
+    }
+
+    const button = $("confirmCreate");
+    button.disabled = true;
+    button.textContent = "در حال ساخت…";
+
+    try {
+      const created = await apiPost({
+        action: "createConversation",
+        email,
+        username,
+        type,
+        title
+      });
+
+      const chat = created.chat;
+      if (!chat || !chat.id) throw new Error("شناسهٔ گفت‌وگوی ساخته‌شده دریافت نشد.");
+
+      if (type === "private") {
+        await apiPost({
+          action: "addMember",
+          email,
+          conversationId: chat.id,
+          memberEmail,
+          memberName: memberName || memberEmail
+        });
+      }
+
+      $("createModal").style.display = "none";
+      clearNotice();
+      await loadChats(false);
+      const createdChat = chats.find(item => item.id === chat.id) || chat;
+      if (!chats.some(item => item.id === chat.id)) chats.unshift(createdChat);
+      selectChat(createdChat);
+      renderChats();
+      notify("گفت‌وگو ساخته شد. 💜");
+    } catch (error) {
+      notify("ساخت گفت‌وگو کامل نشد: " + error.message, true);
+      try { await loadChats(false); } catch (_) {}
+    } finally {
+      button.disabled = false;
+      button.textContent = "ساختن";
+    }
+  });
+
+  $("searchInput").addEventListener("input", renderChats);
+
+  $("tabs").querySelectorAll("[data-filter]").forEach(button => {
+    button.addEventListener("click", () => {
+      filter = button.dataset.filter;
+      $("tabs").querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+      button.classList.add("active");
+      renderChats();
+    });
+  });
+
+  $("audioCall").addEventListener("click", () => {
+    notify("📞 تماس صوتی در حال تست است و هنوز فعال نشده است.");
+  });
+  $("videoCall").addEventListener("click", () => {
+    notify("📹 تماس تصویری در حال تست است و هنوز فعال نشده است.");
+  });
+
+  async function start() {
+    if (!checkLogin()) return;
+
+    try {
+      const status = await apiGet({ action: "status" });
+      if (status.ok) {
+        await loadChats(false);
+        clearNotice();
+      }
+    } catch (error) {
+      notify("اتصال به API برقرار نشد. اینترنت، آدرس API و دسترسی وب‌اپ را بررسی کن. جزئیات: " + error.message, true);
+      $("chatList").innerHTML = '<div class="empty">ارتباط با سرور برقرار نشد.</div>';
+    }
+  }
+
+  start();
+
+  // پیام‌های جدید را به‌صورت دوره‌ای بررسی می‌کند.
+  setInterval(async () => {
+    if (!email) return;
+    try {
+      await loadChats(true);
+      if (activeChat) await loadMessages(false);
+    } catch (_) {
+      // خطاهای موقت در بررسی دوره‌ای نمایش داده نمی‌شوند.
+    }
+  }, 6000);
+})();
 </script>
 </body>
 </html>
