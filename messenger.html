@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07090f">
+<meta name="description" content="پیام‌رسان هدف؛ گفت‌وگو، گروه و کانال">
+<title>پیام‌رسان هدف 💬</title>
+<style>
+:root{
+  --bg:#07090f;
+  --card:#121622;
+  --card2:#171c2a;
+  --border:rgba(255,255,255,.075);
+  --text:#f8fafc;
+  --muted:#8f98a9;
+  --primary:#6758ff;
+  --primary2:#5146da;
+  --blue:#60a5fa;
+  --green:#22c55e;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;background:
+  radial-gradient(circle at 85% 0%,rgba(103,88,255,.13),transparent 28%),
+  var(--bg);color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  min-height:100vh;padding-bottom:90px
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.65}
+.app{width:min(1000px,96%);margin:auto;padding:18px 0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:48px;height:48px;border-radius:16px;
+  display:grid;place-items:center;font-size:25px;
+  background:#6758ff20;border:1px solid #6758ff40
+}
+.brand strong{font-size:18px;display:block}
+.brand small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.icon-btn{
+  width:44px;height:44px;border-radius:14px;
+  border:1px solid var(--border);color:white;
+  background:#ffffff08;font-size:19px
+}
+.heading{margin:20px 0}
+.heading h1{font-size:clamp(27px,6vw,38px);margin:0 0 9px}
+.heading h1 span{color:#8b80ff}
+.heading p{font-size:12px;line-height:1.9;color:var(--muted);margin:0}
+.verified{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:17px;height:17px;margin-right:3px;border-radius:50%;
+  color:white;background:#3188f5;font-size:11px;font-weight:bold;
+  vertical-align:middle
+}
+.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:15px}
+.panel{
+  min-width:0;background:linear-gradient(145deg,#121622,#0c1019);
+  border:1px solid var(--border);border-radius:23px;overflow:hidden
+}
+.panel-head{padding:17px;border-bottom:1px solid var(--border)}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.panel-title h2{font-size:16px;margin:0}
+.muted{color:var(--muted)}
+.small{font-size:10px}
+.search{position:relative;margin-top:15px}
+.search input{
+  width:100%;height:45px;border-radius:13px;padding:0 40px 0 12px;
+  border:1px solid var(--border);background:#ffffff06;color:white;outline:none
+}
+.search:before{content:"⌕";position:absolute;right:14px;top:8px;font-size:24px;color:var(--muted)}
+.search input:focus{border-color:#6758ff88}
+.tabs{display:flex;gap:6px;margin-top:12px}
+.tab{
+  flex:1;border:1px solid transparent;border-radius:11px;
+  padding:10px 5px;background:transparent;color:var(--muted);font-size:11px
+}
+.tab.active{background:#6758ff20;color:#c9c3ff;border-color:#6758ff35}
+.chat-list{padding:7px;max-height:570px;overflow:auto}
+.chat-item{
+  display:flex;align-items:center;gap:11px;padding:12px 10px;
+  width:100%;border:1px solid transparent;border-radius:15px;
+  background:transparent;color:white;text-align:right
+}
+.chat-item:hover,.chat-item.active{background:#6758ff12;border-color:#6758ff20}
+.avatar{
+  width:48px;height:48px;flex-shrink:0;border-radius:17px;
+  display:grid;place-items:center;background:#6758ff20;font-size:22px
+}
+.avatar.green{background:#22c55e18}
+.avatar.orange{background:#ff7a3218}
+.avatar.blue{background:#3b82f618}
+.chat-info{min-width:0;flex:1}
+.chat-name{font-size:12px;font-weight:bold;margin-bottom:7px}
+.chat-preview{font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-meta{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.chat-time{font-size:9px;color:var(--muted)}
+.badge{
+  padding:4px 7px;border-radius:8px;font-size:9px;
+  background:#6758ff20;color:#c9c3ff
+}
+.chat-area{display:flex;flex-direction:column;min-height:570px}
+.chat-header{
+  display:flex;align-items:center;gap:11px;padding:15px;
+  border-bottom:1px solid var(--border)
+}
+.chat-header .avatar{width:43px;height:43px}
+.chat-heading{flex:1;min-width:0}
+.chat-heading strong{display:block;font-size:13px}
+.chat-heading small{display:block;margin-top:6px;color:var(--muted);font-size:10px}
+.call-actions{display:flex;gap:7px}
+.call-btn{
+  border:1px solid #6758ff35;border-radius:12px;
+  color:#c9c3ff;background:#6758ff14;padding:10px;font-size:17px
+}
+.call-btn span{font-size:9px;display:block;margin-top:4px}
+.test-note{
+  margin:12px 14px 0;padding:10px;border:1px solid #ffb45428;
+  background:#ffb4540b;border-radius:12px;color:#ffd08a;
+  text-align:center;font-size:10px;line-height:1.8
+}
+.messages{
+  padding:17px;flex:1;min-height:270px;display:flex;
+  flex-direction:column;gap:12px;overflow:auto
+}
+.day-label{
+  align-self:center;font-size:9px;color:var(--muted);
+  padding:7px 11px;background:#ffffff06;border-radius:20px
+}
+.bubble{
+  max-width:85%;padding:12px 13px;border-radius:16px;
+  background:#1a2030;border:1px solid var(--border);
+  font-size:12px;line-height:1.9;overflow-wrap:anywhere
+}
+.bubble.mine{align-self:flex-start;background:#5146da25;border-color:#6758ff35;border-bottom-left-radius:5px}
+.bubble.theirs{align-self:flex-end;border-bottom-right-radius:5px}
+.bubble small{display:block;text-align:left;font-size:9px;color:var(--muted);margin-top:5px}
+.empty-chat{margin:auto;text-align:center;padding:30px 10px;color:var(--muted);font-size:12px;line-height:2}
+.empty-chat .emoji{font-size:35px;margin-bottom:10px}
+.composer{padding:12px;border-top:1px solid var(--border)}
+.composer-row{display:flex;align-items:flex-end;gap:8px}
+.composer textarea{
+  min-width:0;flex:1;resize:vertical;min-height:45px;max-height:120px;
+  border:1px solid var(--border);border-radius:14px;padding:13px;
+  color:white;background:#ffffff06;outline:none;font-size:12px
+}
+.send-btn{
+  width:47px;height:45px;border:0;border-radius:14px;
+  color:white;background:linear-gradient(110deg,var(--primary),var(--primary2));
+  font-size:20px
+}
+.composer-note{text-align:center;font-size:9px;color:var(--muted);margin-top:9px;line-height:1.8}
+.quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}
+.quick{
+  padding:14px 5px;border:1px solid var(--border);border-radius:17px;
+  color:white;background:#121622;text-align:center
+}
+.quick b{display:block;font-size:22px;margin-bottom:7px}
+.quick span{font-size:10px;color:var(--muted)}
+.notice{
+  position:fixed;z-index:20;bottom:92px;left:50%;transform:translateX(-50%);
+  width:min(420px,90%);padding:13px;border:1px solid var(--border);
+  border-radius:14px;background:#171c2a;color:white;text-align:center;
+  font-size:11px;line-height:1.8;display:none
+}
+.notice.show{display:block}
+.bottom-nav{
+  position:fixed;z-index:10;bottom:max(10px,env(safe-area-inset-bottom));
+  right:50%;transform:translateX(50%);width:min(520px,94%);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:5px;
+  padding:7px;border:1px solid var(--border);border-radius:20px;
+  background:#0d1019ed;backdrop-filter:blur(18px)
+}
+.nav-item{border:0;border-radius:13px;background:transparent;color:var(--muted);padding:9px 3px;font-size:9px}
+.nav-item span{display:block;font-size:18px;margin-bottom:4px}
+.nav-item.active{background:#6758ff20;color:white}
+footer{text-align:center;color:#596171;font-size:10px;padding:25px 0}
+@media(max-width:700px){
+  .layout{grid-template-columns:1fr}
+  .chat-area{min-height:460px}
+  .chat-list{max-height:310px}
+  .call-btn{padding:8px}
+  .call-btn span{font-size:8px}
+}
+@media(min-width:701px){.chat-area{min-height:570px}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="topbar">
+    <button class="icon-btn" id="profileBtn" aria-label="حساب کاربری">👤</button>
+    <div class="brand">
+      <div class="logo">💬</div>
+      <div>
+        <strong>پیام‌رسان هدف</strong>
+        <small>هر روز، نزدیک‌تر به هم 💜</small>
+      </div>
+    </div>
+  </header>
+
+  <section class="heading">
+    <h1>پیام‌رسان <span>هدف</span></h1>
+    <p>با دوستانت گفت‌وگو کن، گروه بساز و کانال‌های موردعلاقه‌ات را دنبال کن.</p>
+  </section>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <h2>گفت‌وگوها</h2>
+          <span class="badge">نسخه آزمایشی</span>
+        </div>
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="جست‌وجوی گفت‌وگو..." autocomplete="off">
+        </div>
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-filter="all">همه</button>
+          <button class="tab" data-filter="private">خصوصی</button>
+          <button class="tab" data-filter="group">گروه‌ها</button>
+          <button class="tab" data-filter="channel">کانال‌ها</button>
+        </div>
+      </div>
+      <div class="chat-list" id="chatList"></div>
+    </section>
+
+    <section class="panel chat-area">
+      <header class="chat-header">
+        <div class="avatar" id="activeAvatar">🎯</div>
+        <div class="chat-heading">
+          <strong id="activeName">هدف رسمی <span class="verified">✓</span></strong>
+          <small id="activeStatus">حساب رسمی سایت هدف</small>
+        </div>
+        <div class="call-actions">
+          <button class="call-btn" id="audioCall" type="button" aria-label="تماس صوتی">
+            ☎️<span>در حال تست</span>
+          </button>
+          <button class="call-btn" id="videoCall" type="button" aria-label="تماس تصویری">
+            📹<span>در حال تست</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="test-note">
+        🧪 تماس صوتی و تصویری: در حال تست؛ فعلاً غیرفعال هستند.
+      </div>
+
+      <div class="messages" id="messages">
+        <div class="day-label">شروع پیام‌رسان هدف</div>
+        <div class="bubble theirs">
+          سلام! 👋
+          <br>به پیام‌رسان هدف خوش آمدی.
+          <small>حساب رسمی هدف ✓</small>
+        </div>
+        <div class="empty-chat" id="demoNotice">
+          <div class="emoji">💜</div>
+          این صفحه فعلاً نمایشی است.<br>
+          پیام‌ها هنوز به کاربران دیگر ارسال نمی‌شوند.
+        </div>
+      </div>
+
+      <form class="composer" id="messageForm">
+        <div class="composer-row">
+          <textarea id="messageInput" rows="1" maxlength="2000"
+            placeholder="پیامت را بنویس..." aria-label="متن پیام"></textarea>
+          <button class="send-btn" type="submit" aria-label="ثبت پیام نمایشی">➤</button>
+        </div>
+        <div class="composer-note">
+          نسخه نمایشی: پیام‌ها فقط در همین صفحه نمایش داده می‌شوند و به سرور ارسال نمی‌شوند.
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <section class="quick-actions">
+    <button class="quick" type="button" data-create="private">
+      <b>✉️</b><span>گفت‌وگوی جدید</span>
+    </button>
+    <button class="quick" type="button" data-create="group">
+      <b>👥</b><span>ساخت گروه</span>
+    </button>
+    <button class="quick" type="button" data-create="channel">
+      <b>📢</b><span>ساخت کانال</span>
+    </button>
+  </section>
+
+  <footer>🏹 Hadaf © 2026 • هر روز یک قدم جلوتر</footer>
+</main>
+
+<div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+<nav class="bottom-nav">
+  <button class="nav-item" type="button" onclick="location.href='index.html'">
+    <span>⌂</span>خانه
+  </button>
+  <button class="nav-item" type="button" onclick="location.href='goals.html'">
+    <span>🎯</span>هدف من
+  </button>
+  <button class="nav-item active" type="button">
+    <span>💬</span>پیام‌ها
+  </button>
+  <button class="nav-item" type="button" onclick="location.href='pico.html'">
+    <span>🤖</span>پیکو
+  </button>
+</nav>
+
+<script>
+"use strict";
+
+/*
+ * نسخه نمایشی رابط پیام‌رسان هدف
+ * این نسخه هنوز به API پیام‌رسان وصل نیست.
+ * کلید محرمانه Supabase را هرگز در این فایل قرار نده.
+ */
+
+const $ = id => document.getElementById(id);
+
+const chats = [
+  {
+    id:"official", type:"channel", name:"هدف رسمی", verified:true,
+    avatar:"🎯", color:"", status:"حساب رسمی سایت هدف",
+    preview:"به پیام‌رسان رسمی هدف خوش آمدی!",
+    messages:[
+      {mine:false,text:"سلام! 👋\nبه پیام‌رسان هدف خوش آمدی.",author:"حساب رسمی هدف ✓"}
+    ]
+  },
+  {
+    id:"friends", type:"group", name:"گروه دوستان",
+    avatar:"👥", color:"green", status:"گروه آزمایشی",
+    preview:"گفت‌وگو با دوستان",
+    messages:[]
+  },
+  {
+    id:"news", type:"channel", name:"خبرهای هدف",
+    avatar:"📢", color:"orange", status:"کانال آزمایشی",
+    preview:"خبرها و اطلاعیه‌های هدف",
+    messages:[]
+  },
+  {
+    id:"sample", type:"private", name:"گفت‌وگوی آزمایشی",
+    avatar:"🙂", color:"blue", status:"گفت‌وگوی نمایشی",
+    preview:"برای نمایش رابط کاربری",
+    messages:[]
+  }
+];
+
+let activeId = "official";
+let activeFilter = "all";
+let noticeTimer;
+
+function notify(text){
+  const box = $("notice");
+  box.textContent = text;
+  box.classList.add("show");
+  clearTimeout(noticeTimer);
+  noticeTimer = setTimeout(()=>box.classList.remove("show"),3000);
+}
+
+function activeChat(){
+  return chats.find(c=>c.id===activeId) || chats[0];
+}
+
+function safeText(value){
+  return String(value).replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+function renderList(){
+  const list = $("chatList");
+  const query = $("searchInput").value.trim().toLowerCase();
+  list.replaceChildren();
+
+  const filtered = chats.filter(chat=>{
+    const matchesType = activeFilter==="all" || chat.type===activeFilter;
+    const matchesQuery = chat.name.toLowerCase().includes(query);
+    return matchesType && matchesQuery;
+  });
+
+  if(!filtered.length){
+    const empty = document.createElement("div");
+    empty.className = "empty-chat";
+    empty.textContent = "گفت‌وگویی پیدا نشد.";
+    list.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(chat=>{
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chat-item" + (chat.id===activeId?" active":"");
+
+    const avatar = document.createElement("div");
+    avatar.className = "avatar " + (chat.color||"");
+    avatar.textContent = chat.avatar;
+
+    const info = document.createElement("div");
+    info.className = "chat-info";
+
+    const name = document.createElement("div");
+    name.className = "chat-name";
+    name.textContent = chat.name;
+    if(chat.verified){
+      const tick = document.createElement("span");
+      tick.className = "verified";
+      tick.textContent = "✓";
+      tick.title = "حساب رسمی نمایشی";
+      name.appendChild(document.createTextNode(" "));
+      name.appendChild(tick);
+    }
+
+    const preview = document.createElement("div");
+    preview.className = "chat-preview";
+    preview.textContent = chat.preview || "هنوز پیامی نیست";
+
+    info.append(name,preview);
+    const meta = document.createElement("div");
+    meta.className = "chat-meta";
+    const tag = document.createElement("span");
+    tag.className = "badge";
+    tag.textContent = chat.type==="group"?"گروه":
+      chat.type==="channel"?"کانال":"خصوصی";
+    meta.appendChild(tag);
+
+    button.append(avatar,info,meta);
+    button.addEventListener("click",()=>{
+      activeId = chat.id;
+      renderList();
+      renderChat();
+    });
+    list.appendChild(button);
+  });
+}
+
+function renderChat(){
+  const chat = activeChat();
+  $("activeAvatar").textContent = chat.avatar;
+  $("activeAvatar").className = "avatar " + (chat.color||"");
+  $("activeName").textContent = chat.name;
+
+  if(chat.verified){
+    const tick = document.createElement("span");
+    tick.className = "verified";
+    tick.textContent = "✓";
+    tick.title = "حساب رسمی نمایشی";
+    $("activeName").appendChild(document.createTextNode(" "));
+    $("activeName").appendChild(tick);
+  }
+
+  $("activeStatus").textContent = chat.status;
+  const messages = $("messages");
+  messages.replaceChildren();
+
+  const day = document.createElement("div");
+  day.className = "day-label";
+  day.textContent = "گفت‌وگو";
+  messages.appendChild(day);
+
+  if(chat.id==="official" && chat.messages.length){
+    const officialNote = document.createElement("div");
+    officialNote.className = "test-note";
+    officialNote.textContent = "این گفت‌وگو نمایشی است؛ پیام واقعی از سرور دریافت نشده.";
+    messages.appendChild(officialNote);
+  }
+
+  if(!chat.messages.length){
+    const empty = document.createElement("div");
+    empty.className = "empty-chat";
+    empty.innerHTML = '<div class="emoji">💬</div>هنوز پیامی در این گفت‌وگو نیست.';
+    messages.appendChild(empty);
+  } else {
+    chat.messages.forEach(msg=>{
+      const bubble = document.createElement("div");
+      bubble.className = "bubble " + (msg.mine?"mine":"theirs");
+      bubble.appendChild(document.createTextNode(msg.text));
+
+      const time = document.createElement("small");
+      time.textContent = msg.mine?"پیام نمایشی":"نمایش آزمایشی";
+      bubble.appendChild(time);
+      messages.appendChild(bubble);
+    });
+  }
+
+  const note = document.createElement("div");
+  note.className = "composer-note";
+  note.textContent = "پیام‌ها فقط در همین صفحه آزمایشی هستند و به دیگران نمی‌رسند.";
+  messages.appendChild(note);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+$("tabs").addEventListener("click",event=>{
+  const button = event.target.closest("[data-filter]");
+  if(!button) return;
+  activeFilter = button.dataset.filter;
+  document.querySelectorAll(".tab").forEach(tab=>{
+    tab.classList.toggle("active",tab===button);
+  });
+  renderList();
+});
+
+$("searchInput").addEventListener("input",renderList);
+
+$("messageForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  const text = $("messageInput").value.trim();
+  if(!text) return;
+
+  const chat = activeChat();
+  chat.messages.push({mine:true,text});
+  chat.preview = text;
+  $("messageInput").value = "";
+  renderList();
+  renderChat();
+  notify("پیام فقط به‌صورت نمایشی اضافه شد؛ ارسال واقعی فعال نیست.");
+});
+
+$("messageInput").addEventListener("keydown",event=>{
+  if(event.key==="Enter" && !event.shiftKey){
+    event.preventDefault();
+    $("messageForm").requestSubmit();
+  }
+});
+
+$("audioCall").addEventListener("click",()=>{
+  notify("تماس صوتی: در حال تست؛ هنوز فعال نشده است.");
+});
+
+$("videoCall").addEventListener("click",()=>{
+  notify("تماس تصویری: در حال تست؛ هنوز فعال نشده است.");
+});
+
+document.querySelectorAll("[data-create]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const type = button.dataset.create;
+    const label = type==="group"?"گروه":type==="channel"?"کانال":"گفت‌وگوی خصوصی";
+    notify("ساخت " + label + " بعد از اتصال امن به API فعال می‌شود.");
+  });
+});
+
+$("profileBtn").addEventListener("click",()=>{
+  let user = null;
+  try{
+    user = JSON.parse(localStorage.getItem("hadafUser")||"null");
+  }catch(e){}
+  notify(user ? "سلام "+(user.username||user.name||"دوست هدف")+" 👋" : "برای استفاده از حساب، ابتدا وارد سایت هدف شو.");
+});
+
+renderList();
+renderChat();
+</script>
+</body>
+</html>
