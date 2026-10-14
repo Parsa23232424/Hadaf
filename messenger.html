@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
-<meta name="description" content="پیام‌رسان هدف؛ گفت‌وگو، گروه و کانال">
+<meta name="description" content="پیام‌رسان هدف؛ گفت‌وگو، گروه، کانال و ارسال عکس و فیلم">
 <title>پیام‌رسان هدف 💬</title>
 
 <style>
@@ -18,1570 +18,1683 @@
   --muted:#9ba2ba;
   --purple:#7665ff;
   --purple2:#5543df;
+  --green:#31d69a;
+  --red:#ff626f;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
 body{
   margin:0;
-  background:radial-gradient(ellipse at top right,#211747,transparent 38%),var(--bg);
+  background:var(--bg);
   color:var(--text);
   font-family:Tahoma,Arial,sans-serif;
-  min-height:100vh
+  min-height:100vh;
 }
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.55;cursor:not-allowed}
-.app{width:min(1150px,100%);margin:auto;padding:14px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{
-  width:46px;height:46px;display:grid;place-items:center;
-  border-radius:16px;background:linear-gradient(135deg,#8674ff,#4430c8);
-  font-size:25px
+.app{
+  width:min(1200px,100%);
+  margin:auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
-h1{font-size:19px;margin:0 0 5px}
-.subtitle{font-size:11px;color:var(--muted)}
+header{
+  padding:18px 16px;
+  background:linear-gradient(135deg,#17152c,#10131e);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-icon{
+  width:48px;height:48px;
+  border-radius:16px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  font-size:25px;
+}
+.brand h1{font-size:19px;margin:0 0 6px}
+.brand p{font-size:12px;color:var(--muted);margin:0}
 .account{
-  background:var(--panel);border:1px solid var(--line);
-  padding:10px;border-radius:12px;color:var(--muted);
-  font-size:11px;max-width:48%;overflow-wrap:anywhere
+  max-width:45%;
+  font-size:11px;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+  text-align:left;
 }
-.notice{
-  display:none;padding:12px;border:1px solid #5145a0;
-  background:#211d39;border-radius:12px;margin-bottom:12px;
-  line-height:1.9;font-size:12px;overflow-wrap:anywhere
+.main{
+  flex:1;
+  display:grid;
+  grid-template-columns:320px minmax(0,1fr);
+  min-height:600px;
 }
-.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:14px;min-height:70vh}
-.sidebar,.conversation{
-  background:#0d1019;border:1px solid var(--line);
-  border-radius:20px;overflow:hidden;min-width:0
+.sidebar{
+  padding:14px;
+  border-left:1px solid var(--line);
+  background:#0b0e17;
 }
-.sidebar-head{padding:15px}
-.headline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}
-.headline h2{font-size:16px;margin:0}
-.primary,.secondary,.icon-btn{
-  border:0;border-radius:11px;padding:10px 12px;color:white;
-  background:var(--purple2)
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
 }
-.secondary,.icon-btn{background:var(--panel2);border:1px solid var(--line)}
-.search,.field input,.field select{
-  width:100%;padding:12px;border:1px solid var(--line);
-  border-radius:12px;background:#080a11;color:white;outline:none
+.section-title h2{font-size:16px;margin:0}
+button,.button{
+  border:0;
+  border-radius:12px;
+  padding:10px 13px;
+  background:var(--purple);
+  color:white;
 }
-.search:focus,.field input:focus,.field select:focus,textarea:focus{border-color:var(--purple)}
-.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 12px 12px}
-.tab{
-  white-space:nowrap;padding:8px 11px;border:1px solid var(--line);
-  border-radius:20px;color:var(--muted);background:transparent;font-size:11px
+button.secondary{
+  background:var(--panel2);
+  border:1px solid var(--line);
 }
-.tab.active{background:#5143a8;color:white;border-color:var(--purple)}
-.chat-list{padding:0 8px 12px;max-height:350px;overflow:auto}
+button.small{padding:8px 10px;font-size:12px}
+.search{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+  outline:none;
+}
+.filters{
+  display:flex;
+  gap:6px;
+  margin-bottom:12px;
+}
+.filters button{
+  flex:1;
+  padding:9px 4px;
+  font-size:12px;
+  background:var(--panel2);
+  color:var(--muted);
+}
+.filters button.active{background:var(--purple);color:white}
+.chat-list{display:flex;flex-direction:column;gap:8px}
 .chat-item{
-  display:flex;gap:10px;align-items:center;width:100%;text-align:right;
-  border:1px solid transparent;background:transparent;color:var(--text);
-  border-radius:14px;padding:11px 9px;margin-bottom:4px
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-align:right;
+  background:transparent;
+  border:1px solid transparent;
+  padding:12px 10px;
+  border-radius:14px;
 }
-.chat-item.selected,.chat-item:hover{background:#19172b;border-color:#38305f}
+.chat-item:hover,.chat-item.selected{
+  background:var(--panel2);
+  border-color:var(--line);
+}
 .avatar{
-  width:45px;height:45px;flex:0 0 45px;display:grid;place-items:center;
-  border-radius:15px;background:linear-gradient(135deg,#6f5cf2,#302568);font-size:22px
+  flex-shrink:0;
+  width:42px;height:42px;
+  border-radius:15px;
+  display:grid;place-items:center;
+  background:#28234b;
+  font-size:21px;
 }
 .chat-info{min-width:0;flex:1}
-.chat-title{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:bold;margin-bottom:7px}
-.chat-preview{color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-name{
+  font-size:13px;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  overflow-wrap:anywhere;
+}
+.chat-preview{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:7px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
 .verified{
-  display:inline-grid;place-items:center;width:16px;height:16px;
-  border-radius:50%;background:#3188f5;color:white;font-size:11px;flex-shrink:0
+  display:inline-grid;
+  place-items:center;
+  width:16px;height:16px;
+  border-radius:50%;
+  background:#318bff;
+  color:white;
+  font-size:11px;
+  flex-shrink:0;
 }
-.empty{text-align:center;color:var(--muted);padding:30px 14px;line-height:2;font-size:12px}
-.conversation{display:flex;flex-direction:column;min-height:560px}
+.empty{
+  color:var(--muted);
+  text-align:center;
+  padding:28px 10px;
+  font-size:13px;
+  line-height:2;
+}
+.conversation{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  min-height:600px;
+}
 .conversation-head{
-  padding:13px;display:flex;align-items:center;justify-content:space-between;
-  gap:10px;border-bottom:1px solid var(--line)
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  background:var(--panel);
 }
-.person{display:flex;align-items:center;gap:10px;min-width:0}
-.person-info{min-width:0}
-.person-name{font-size:13px;font-weight:bold;overflow-wrap:anywhere}
-.person-status{color:var(--muted);font-size:10px;margin-top:5px}
-.call-buttons{display:flex;gap:6px;flex-wrap:wrap}
-.call-buttons button{padding:9px}
-#addMemberBtn{display:none}
+.conversation-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.conversation-title h2{
+  font-size:15px;
+  margin:0 0 5px;
+  overflow-wrap:anywhere;
+}
+.conversation-title p{margin:0;color:var(--muted);font-size:11px}
+.head-actions{display:flex;gap:7px;flex-wrap:wrap}
 .messages{
-  flex:1;padding:16px;overflow-y:auto;min-height:300px;
-  max-height:58vh;display:flex;flex-direction:column;gap:12px
+  flex:1;
+  min-height:280px;
+  max-height:calc(100vh - 300px);
+  overflow:auto;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  background:
+    radial-gradient(ellipse at top,#17152b55,transparent 55%),
+    var(--bg);
 }
 .message-row{display:flex;flex-direction:column;max-width:85%;align-self:flex-start}
 .message-row.mine{align-self:flex-end}
-.sender{font-size:10px;color:var(--muted);margin:0 7px 5px}
+.sender{
+  font-size:11px;
+  color:var(--muted);
+  margin:0 7px 5px;
+}
 .bubble{
-  background:#1a1e2c;border:1px solid #2a3043;padding:11px 13px;
-  border-radius:15px 15px 15px 4px;font-size:12px;line-height:1.9;
-  overflow-wrap:anywhere;white-space:pre-wrap
+  border:1px solid var(--line);
+  border-radius:16px 16px 16px 5px;
+  background:var(--panel);
+  padding:10px 12px;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+  line-height:1.8;
+  font-size:13px;
 }
 .mine .bubble{
-  background:linear-gradient(135deg,#5c4be2,#4436a9);
-  border-color:#7465ff;border-radius:15px 15px 4px 15px
+  background:#29234b;
+  border-color:#484078;
+  border-radius:16px 16px 5px 16px;
 }
-.message-time{font-size:9px;color:#a9afc8;margin:5px}
-.composer{padding:12px;display:flex;gap:9px;border-top:1px solid var(--line)}
-.composer textarea{
-  flex:1;min-width:0;min-height:44px;max-height:120px;resize:vertical;
-  border:1px solid var(--line);background:#080a11;border-radius:13px;
-  padding:12px;color:white;outline:none;font-size:12px
+.message-time{
+  color:var(--muted);
+  font-size:10px;
+  margin:4px 5px 0;
 }
-.send{min-width:52px}
-.disabled-note{
-  padding:11px;color:var(--muted);text-align:center;
-  font-size:10px;border-top:1px solid var(--line)
+.media-message{white-space:normal}
+.media-message img{
+  display:block;
+  max-width:min(100%,420px);
+  max-height:360px;
+  object-fit:contain;
+  border-radius:10px;
+  cursor:pointer;
 }
+.media-message video{
+  display:block;
+  width:min(100%,420px);
+  max-height:360px;
+  border-radius:10px;
+  background:#000;
+}
+.media-caption{
+  margin-top:8px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  line-height:1.7;
+}
+.media-name{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:6px;
+  overflow-wrap:anywhere;
+}
+.composer{
+  padding:12px;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+}
+.composer-tools{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+#messageInput{
+  min-width:0;
+  flex:1;
+  resize:none;
+  min-height:46px;
+  max-height:130px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--bg);
+  color:var(--text);
+  outline:none;
+}
+#messageInput:focus,.search:focus,input:focus,textarea:focus,select:focus{
+  border-color:var(--purple);
+}
+.attach-btn{
+  flex-shrink:0;
+  width:46px;height:46px;
+  padding:0;
+  font-size:21px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+}
+.send-btn{height:46px;min-width:64px}
+.composer-note{
+  font-size:10px;
+  color:var(--muted);
+  margin:9px 4px 0;
+  line-height:1.8;
+}
+.status{
+  display:none;
+  margin:10px 0 0;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--panel2);
+  font-size:12px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+}
+.status.show{display:block}
+.status.error{color:#ff9ca5;border-color:#66313a}
+.status.success{color:#8ef0c8;border-color:#285b4b}
+.status.info{color:#d2ccff}
 .modal-backdrop{
-  display:none;position:fixed;inset:0;z-index:20;background:#000b;
-  padding:15px;align-items:center;justify-content:center;overflow:auto
+  position:fixed;
+  inset:0;
+  z-index:20;
+  background:#000b;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
 }
+.modal-backdrop.show{display:flex}
 .modal{
-  width:min(430px,100%);background:#111522;border:1px solid var(--line);
-  border-radius:20px;padding:20px;margin:auto
+  width:min(480px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:20px;
+  padding:18px;
 }
-.modal h2{font-size:17px;margin:0 0 18px}
-.field{margin-bottom:13px}
-.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
-.modal-actions{display:flex;gap:9px;margin-top:18px}
-.modal-actions button{flex:1}
-.help{font-size:11px;color:var(--muted);line-height:1.9}
-.bottom{text-align:center;color:#727991;font-size:10px;padding:20px 0}
-.call-backdrop{
-  display:none;position:fixed;inset:0;z-index:50;
-  background:#050610f5;align-items:center;justify-content:center;padding:18px
+.modal h2{font-size:17px;margin:0 0 16px}
+.form-row{margin-bottom:13px}
+.form-row label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:7px;
 }
-.call-box{
-  width:min(440px,100%);padding:22px;border-radius:24px;
-  border:1px solid #393257;background:#111522;text-align:center
+.form-row input,.form-row select,.form-row textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--bg);
+  color:var(--text);
+  padding:12px;
+  outline:none;
 }
-.call-box h2{font-size:19px}
-.call-status{font-size:12px;color:var(--muted);line-height:2;margin:14px 0}
-.call-video{
-  display:none;width:100%;max-height:48vh;background:#050609;
-  border-radius:16px;object-fit:cover;margin:10px 0
+.form-actions{display:flex;gap:8px;margin-top:16px}
+.form-actions button{flex:1}
+footer{
+  text-align:center;
+  padding:14px;
+  color:var(--muted);
+  font-size:11px;
+  border-top:1px solid var(--line);
 }
-.call-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
-.call-actions button{padding:12px 15px}
-.danger{background:#a52843!important}
-#remoteAudio{display:none}
-@media(max-width:720px){
-  .app{padding:9px}
-  .layout{grid-template-columns:1fr}
-  .chat-list{max-height:230px}
-  .conversation{min-height:480px}
-  .messages{max-height:48vh}
-  .conversation-head{padding:10px}
-  .call-buttons{gap:4px}
-  .call-buttons button{padding:8px}
+#mediaInput{display:none}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr;min-height:0}
+  .sidebar{border-left:0;border-bottom:1px solid var(--line)}
+  .chat-list{
+    flex-direction:row;
+    overflow-x:auto;
+    padding-bottom:4px;
+  }
+  .chat-item{
+    min-width:175px;
+    max-width:230px;
+  }
+  .conversation{min-height:500px}
+  .messages{max-height:55vh;min-height:250px;padding:13px}
+  .message-row{max-width:92%}
+  header{padding:13px}
+  .brand h1{font-size:16px}
+  .brand p{font-size:10px}
+  .account{font-size:10px}
+  .conversation-head{padding:12px}
+  .head-actions button{font-size:11px;padding:8px}
 }
 </style>
 </head>
 
 <body>
 <div class="app">
-<header class="topbar">
+
+<header>
   <div class="brand">
-    <div class="logo">💬</div>
+    <div class="brand-icon">💬</div>
     <div>
       <h1>پیام‌رسان هدف</h1>
-      <div class="subtitle">با هم، یک قدم جلوتر 🚀</div>
+      <p>با هم، یک قدم جلوتر 🚀</p>
     </div>
   </div>
   <div class="account" id="accountLabel">در حال بررسی حساب...</div>
 </header>
 
-<div class="notice" id="notice" role="status" aria-live="polite"></div>
-
-<main class="layout">
-<aside class="sidebar">
-  <div class="sidebar-head">
-    <div class="headline">
+<main class="main">
+  <aside class="sidebar">
+    <div class="section-title">
       <h2>گفت‌وگوها</h2>
-      <button class="primary" id="newChatBtn" type="button">＋ جدید</button>
+      <button id="newChatBtn" class="small">＋ جدید</button>
     </div>
-    <input class="search" id="searchInput" type="search" placeholder="جست‌وجو...">
-  </div>
 
-  <div class="tabs" id="tabs">
-    <button class="tab active" data-filter="all" type="button">همه</button>
-    <button class="tab" data-filter="private" type="button">خصوصی</button>
-    <button class="tab" data-filter="group" type="button">گروه‌ها</button>
-    <button class="tab" data-filter="channel" type="button">کانال‌ها</button>
-  </div>
+    <input id="searchInput" class="search" type="search" placeholder="جست‌وجو...">
 
-  <div class="chat-list" id="chatList">
-    <div class="empty">در حال دریافت گفت‌وگوها...</div>
-  </div>
-</aside>
+    <div class="filters">
+      <button class="active" data-filter="all">همه</button>
+      <button data-filter="private">خصوصی</button>
+      <button data-filter="group">گروه‌ها</button>
+      <button data-filter="channel">کانال‌ها</button>
+    </div>
 
-<section class="conversation">
-  <div class="conversation-head">
-    <div class="person">
-      <div class="avatar" id="activeAvatar">💬</div>
-      <div class="person-info">
-        <div class="person-name" id="activeName">یک گفت‌وگو انتخاب کن</div>
-        <div class="person-status" id="activeStatus">پیام‌رسان هدف</div>
+    <div id="chatList" class="chat-list">
+      <div class="empty">در حال بارگذاری گفت‌وگوها...</div>
+    </div>
+    <div id="chatStatus" class="status"></div>
+  </aside>
+
+  <section class="conversation">
+    <div class="conversation-head">
+      <div class="conversation-title">
+        <div id="activeAvatar" class="avatar">💬</div>
+        <div>
+          <h2 id="activeTitle">یک گفت‌وگو انتخاب کن</h2>
+          <p id="activeSubtitle">پیام‌رسان هدف</p>
+        </div>
+      </div>
+      <div class="head-actions">
+        <button id="membersBtn" class="secondary small" hidden>＋ عضو</button>
+        <button id="refreshBtn" class="secondary small">↻ تازه‌سازی</button>
       </div>
     </div>
 
-    <div class="call-buttons">
-      <button class="icon-btn" id="addMemberBtn" type="button" title="افزودن عضو به گروه">👥＋</button>
-      <button class="icon-btn" id="audioCall" type="button" title="تماس صوتی">📞</button>
-      <button class="icon-btn" id="videoCall" type="button" title="تماس تصویری">📹</button>
+    <div id="messages" class="messages">
+      <div class="empty">برای شروع، یک گفت‌وگو را انتخاب کن 💬</div>
     </div>
-  </div>
 
-  <div class="messages" id="messages">
-    <div class="empty">💜<br>یک گفت‌وگو انتخاب کن.</div>
-  </div>
-
-  <form class="composer" id="messageForm">
-    <textarea id="messageInput" placeholder="پیامت را بنویس..." maxlength="2000" disabled></textarea>
-    <button class="primary send" id="sendBtn" type="submit" disabled>➤</button>
-  </form>
-
-  <div class="disabled-note">برای تماس، اجازهٔ میکروفون یا دوربین را بده.</div>
-</section>
+    <div class="composer">
+      <div class="composer-tools">
+        <button id="attachBtn" class="attach-btn" title="ارسال عکس یا فیلم" aria-label="ارسال عکس یا فیلم">📎</button>
+        <input id="mediaInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime">
+        <textarea id="messageInput" placeholder="پیامت را بنویس..." rows="1"></textarea>
+        <button id="sendBtn" class="send-btn">ارسال</button>
+      </div>
+      <div class="composer-note">
+        برای فرستادن عکس یا فیلم، روی 📎 بزن. حداکثر حجم هر فایل ۳۰ مگابایت است.
+      </div>
+      <div id="composerStatus" class="status"></div>
+    </div>
+  </section>
 </main>
 
-<footer class="bottom">🏹 Hadaf © 2026</footer>
+<footer>🏹 Hadaf © 2026</footer>
 </div>
 
-<div class="modal-backdrop" id="createModal">
-<form class="modal" id="createForm">
-  <h2>ساخت گفت‌وگوی جدید ✨</h2>
-  <div class="field">
-    <label for="chatType">نوع گفت‌وگو</label>
-    <select id="chatType">
-      <option value="private">گفت‌وگوی خصوصی</option>
-      <option value="group">گروه</option>
-      <option value="channel">کانال</option>
-    </select>
+<!-- پنجره ساخت گفت‌وگو -->
+<div id="newChatModal" class="modal-backdrop">
+  <div class="modal">
+    <h2>ساخت گفت‌وگوی جدید</h2>
+    <form id="newChatForm">
+      <div class="form-row">
+        <label for="chatType">نوع گفت‌وگو</label>
+        <select id="chatType">
+          <option value="private">گفت‌وگوی خصوصی</option>
+          <option value="group">گروه</option>
+          <option value="channel">کانال</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="chatName">نام گفت‌وگو</label>
+        <input id="chatName" maxlength="100" placeholder="مثلاً دوستان هدف">
+      </div>
+      <div class="form-row" id="privateEmailRow">
+        <label for="privateEmail">ایمیل طرف مقابل</label>
+        <input id="privateEmail" type="email" placeholder="example@email.com">
+      </div>
+      <div class="form-row" id="firstMemberRow">
+        <label for="firstMember">ایمیل عضو اول (اختیاری)</label>
+        <input id="firstMember" type="email" placeholder="example@email.com">
+      </div>
+      <div class="form-actions">
+        <button type="submit" id="createChatSubmit">ساختن</button>
+        <button type="button" class="secondary" data-close="newChatModal">انصراف</button>
+      </div>
+      <div id="newChatStatus" class="status"></div>
+    </form>
   </div>
-  <div class="field">
-    <label for="chatTitle">نام گفت‌وگو</label>
-    <input id="chatTitle" maxlength="100" required placeholder="مثلاً گروه دوستان">
-  </div>
-  <div id="privateFields">
-    <div class="field">
-      <label for="memberEmail">ایمیل دوستت</label>
-      <input id="memberEmail" type="email" placeholder="friend@example.com">
-    </div>
-    <div class="field">
-      <label for="memberName">نام دوستت</label>
-      <input id="memberName" maxlength="80" placeholder="نام دوستت">
-    </div>
-    <p class="help">دوستت باید در سایت هدف حساب داشته باشد.</p>
-  </div>
-  <div class="modal-actions">
-    <button type="button" class="secondary" id="cancelCreate">لغو</button>
-    <button type="submit" class="primary" id="confirmCreate">ساختن</button>
-  </div>
-</form>
 </div>
 
-<div class="modal-backdrop" id="addMemberModal">
-<form class="modal" id="addMemberForm">
-  <h2>👥 افزودن عضو به گروه</h2>
-  <p class="help" id="addMemberChatName">گروه انتخاب‌شده</p>
-  <div class="field">
-    <label for="newMemberEmail">ایمیل حساب عضو جدید</label>
-    <input id="newMemberEmail" type="email" required maxlength="200" placeholder="friend@example.com">
-  </div>
-  <div class="field">
-    <label for="newMemberName">نام عضو (اختیاری)</label>
-    <input id="newMemberName" maxlength="80" placeholder="نام دوستت">
-  </div>
-  <p class="help">عضو جدید باید در سایت هدف حساب داشته باشد.</p>
-  <div class="modal-actions">
-    <button type="button" class="secondary" id="cancelAddMember">لغو</button>
-    <button type="submit" class="primary" id="confirmAddMember">افزودن عضو</button>
-  </div>
-</form>
-</div>
-
-<div class="call-backdrop" id="callModal">
-  <div class="call-box">
-    <h2 id="callTitle">📞 تماس هدف</h2>
-    <div class="call-status" id="callStatus">در حال آماده‌سازی تماس...</div>
-    <video id="localVideo" class="call-video" autoplay muted playsinline></video>
-    <video id="remoteVideo" class="call-video" autoplay playsinline></video>
-    <audio id="remoteAudio" autoplay></audio>
-    <div class="call-actions">
-      <button id="muteCallBtn" class="secondary" type="button">🎙️ قطع میکروفون</button>
-      <button id="cameraCallBtn" class="secondary" type="button" style="display:none">📷 قطع دوربین</button>
-      <button id="answerCallBtn" class="primary" type="button" style="display:none">✅ پاسخ</button>
-      <button id="rejectCallBtn" class="danger" type="button" style="display:none">❌ رد تماس</button>
-      <button id="endCallBtn" class="danger" type="button">☎️ پایان تماس</button>
-    </div>
+<!-- پنجره افزودن عضو -->
+<div id="memberModal" class="modal-backdrop">
+  <div class="modal">
+    <h2>افزودن عضو</h2>
+    <form id="memberForm">
+      <div class="form-row">
+        <label for="memberEmail">ایمیل عضو جدید</label>
+        <input id="memberEmail" type="email" required placeholder="example@email.com">
+      </div>
+      <div class="form-actions">
+        <button type="submit" id="addMemberSubmit">افزودن</button>
+        <button type="button" class="secondary" data-close="memberModal">انصراف</button>
+      </div>
+      <div id="memberStatus" class="status"></div>
+    </form>
   </div>
 </div>
 
 <script>
-(() => {
 "use strict";
 
+/* ===============================
+   تنظیمات پیام‌رسان هدف
+================================ */
 const API_URL =
-"https://script.google.com/macros/s/AKfycbz4dz-jTt2Pj6FZ1d2f44VKGPuLpHFuHXWJ40eWSF8CGRp-HMDCISfPvC-rCMtP1C-geg/exec";
+  "https://script.google.com/macros/s/AKfycbz4dz-jTt2Pj6FZ1d2f44VKGPuLpHFuHXWJ40eWSF8CGRp-HMDCISfPvC-rCMtP1C-geg/exec";
 
-const CALLS_API =
-"https://script.google.com/macros/s/AKfycbxS8ovZyYizLupT2aoPFlMHNwb_M9SXkTE-so512Dd9Cg6-b8DGt1timOBxsLcXHcsY/exec";
+const SUPABASE_URL =
+  "https://nzwgyvkbsznmpcilkpig.supabase.co";
 
-const $ = id => document.getElementById(id);
+const SUPABASE_BUCKET = "hadaf-media";
 
-let user = null;
+/*
+  این کلید عمومی Supabase است.
+  کلید secret یا service_role را هرگز در HTML قرار نده.
+*/
+const SUPABASE_PUBLIC_KEY =
+  "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
+
+const MAX_FILE_SIZE = 30 * 1024 * 1024;
+const MEDIA_PREFIX = "HADAF_MEDIA::";
+
+const ALLOWED_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "video/mp4",
+  "video/webm",
+  "video/quicktime"
+]);
+
+/* ===============================
+   وضعیت برنامه
+================================ */
+let currentUser = null;
 let chats = [];
 let activeChat = null;
-let filter = "all";
+let currentFilter = "all";
 let loadingMessages = false;
+let sendingMessage = false;
+let uploadingMedia = false;
 let lastMessageSignature = "";
-let noticeTimer = null;
-let callPollTimer = null;
-let incomingPollTimer = null;
-let chatRefreshBusy = false;
+let chatRefreshTimer = null;
+let messageRefreshTimer = null;
 
-let pc = null;
-let localStream = null;
-let activeCallId = null;
-let currentCallType = "audio";
-let currentCall = null;
-let callMode = "";
-let isMuted = false;
-let isCameraOff = false;
+/* ===============================
+   ابزارهای عمومی
+================================ */
+const $ = id => document.getElementById(id);
 
-let seenIncoming = new Set();
-let sentCandidates = new Set();
-let receivedSignals = new Set();
-let pendingCandidates = [];
-
-try {
-  user = JSON.parse(localStorage.getItem("hadafUser") || "null");
-} catch (_) {
-  user = null;
+function getUser() {
+  try {
+    const raw = localStorage.getItem("hadafUser");
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (error) {
+    console.error("خواندن حساب ناموفق بود:", error);
+    return null;
+  }
 }
 
-const email = String(user?.email || "").trim().toLowerCase();
-const username = String(user?.username || user?.name || "کاربر هدف").trim();
-
-function notify(message, error = false) {
-  const box = $("notice");
-  box.textContent = String(message || "خطای نامشخص");
-  box.style.display = "block";
-  box.style.borderColor = error ? "#a84458" : "#5145a0";
-  box.style.background = error ? "#301722" : "#211d39";
-  clearTimeout(noticeTimer);
-  noticeTimer = setTimeout(() => box.style.display = "none", 8000);
+function getEmail() {
+  return String(currentUser?.email || "").trim().toLowerCase();
 }
 
-function clearNotice() {
-  $("notice").style.display = "none";
-  clearTimeout(noticeTimer);
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
-  })[c]);
-}
-
-function requireEmail() {
-  if (!email) throw new Error("ابتدا وارد حساب سایت هدف شو.");
-  return email;
-}
-
-function typeLabel(type) {
-  return type === "group" ? "گروه" : type === "channel" ? "کانال" : "خصوصی";
-}
-
-function typeIcon(type) {
-  return type === "group" ? "👥" : type === "channel" ? "📢" : "👤";
+function getUsername() {
+  return String(
+    currentUser?.username ||
+    currentUser?.name ||
+    currentUser?.email ||
+    "کاربر"
+  );
 }
 
 function getChatId(chat) {
-  return String(chat?.id ?? chat?.conversation_id ?? chat?.conversationId ?? "");
+  if (!chat) return "";
+  return String(
+    chat.id ??
+    chat.conversation_id ??
+    chat.conversationId ??
+    chat.chat_id ??
+    ""
+  );
+}
+
+function getChatType(chat) {
+  return String(
+    chat?.type ??
+    chat?.conversation_type ??
+    chat?.conversationType ??
+    "private"
+  ).toLowerCase();
+}
+
+function getChatName(chat) {
+  return String(
+    chat?.name ??
+    chat?.title ??
+    chat?.conversation_name ??
+    chat?.conversationName ??
+    chat?.username ??
+    "گفت‌وگو"
+  );
+}
+
+function isOfficial(chat) {
+  return Boolean(
+    chat?.is_official ||
+    chat?.isOfficial ||
+    chat?.official ||
+    chat?.verified
+  );
+}
+
+function showStatus(element, message, type = "info") {
+  if (!element) return;
+  element.textContent = message;
+  element.className = "status show " + type;
+}
+
+function hideStatus(element) {
+  if (!element) return;
+  element.textContent = "";
+  element.className = "status";
+}
+
+function openModal(id) {
+  $(id)?.classList.add("show");
+}
+
+function closeModal(id) {
+  $(id)?.classList.remove("show");
 }
 
 function formatTime(value) {
   if (!value) return "";
-  const d = new Date(value);
-  return Number.isNaN(d.getTime()) ? "" : d.toLocaleTimeString("fa-IR", {
-    hour:"2-digit", minute:"2-digit"
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleString("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    month: "numeric",
+    day: "numeric"
   });
 }
 
-async function readResponse(response, label) {
-  const text = await response.text();
+function escapeText(value) {
+  return String(value ?? "");
+}
+
+function getMessageText(message) {
+  return String(
+    message?.message ??
+    message?.content ??
+    message?.text ??
+    ""
+  );
+}
+
+function getSenderEmail(message) {
+  return String(
+    message?.sender_email ??
+    message?.senderEmail ??
+    message?.user_email ??
+    message?.userEmail ??
+    message?.email ??
+    ""
+  ).toLowerCase();
+}
+
+function getSenderName(message) {
+  return String(
+    message?.sender_username ??
+    message?.senderUsername ??
+    message?.username ??
+    message?.sender_name ??
+    message?.senderName ??
+    getSenderEmail(message) ??
+    "کاربر"
+  );
+}
+
+function getMessageTime(message) {
+  return (
+    message?.created_at ??
+    message?.createdAt ??
+    message?.timestamp ??
+    message?.sent_at ??
+    ""
+  );
+}
+
+/* ===============================
+   ارتباط با Apps Script
+================================ */
+async function apiGet(params = {}) {
+  if (!getEmail()) {
+    throw new Error("ابتدا وارد حساب هدف شو.");
+  }
+
+  const query = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== null) {
+      query.set(key, String(value));
+    }
+  }
+
+  query.set("email", getEmail());
+  query.set("user_email", getEmail());
+  query.set("userEmail", getEmail());
+
+  const response = await fetch(API_URL + "?" + query.toString(), {
+    method: "GET",
+    cache: "no-store"
+  });
+
+  const raw = await response.text();
   let data;
 
   try {
-    data = JSON.parse(text);
-  } catch (_) {
-    throw new Error(
-      label + ": پاسخ سرور JSON معتبر نیست." +
-      (text ? " پاسخ: " + text.slice(0, 220) : "")
-    );
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error("پاسخ سرور معتبر نیست. API پیام‌رسان را بررسی کن.");
   }
 
-  if (!response.ok) {
+  if (!response.ok || data?.ok === false || data?.success === false) {
     throw new Error(
-      label + " (HTTP " + response.status + "): " +
-      extractError(data)
+      data?.message ||
+      data?.error ||
+      "دریافت اطلاعات از سرور ناموفق بود."
     );
-  }
-
-  if (data?.ok === false || data?.success === false) {
-    throw new Error(label + ": " + extractError(data));
   }
 
   return data;
 }
 
-function extractError(data) {
-  if (typeof data === "string") return data;
-  const parts = [
-    data?.message,
-    data?.error,
-    data?.details,
-    data?.hint,
-    data?.data?.message,
-    data?.data?.error,
-    data?.data?.details
-  ].filter(Boolean);
+async function apiPost(payload = {}) {
+  if (!getEmail()) {
+    throw new Error("ابتدا وارد حساب هدف شو.");
+  }
 
-  return parts.length ? parts.join(" | ") : "خطای نامشخص سرور";
-}
-
-/* API پیام‌رسان */
-
-async function apiGet(params) {
-  requireEmail();
-
-  const p = {...params};
-  if (!p.email) p.email = email;
-  if (!p.user_email) p.user_email = email;
-  if (!p.userEmail) p.userEmail = email;
-
-  const response = await fetch(API_URL + "?" + new URLSearchParams(p), {
-    method:"GET",
-    cache:"no-store"
-  });
-
-  return readResponse(response, "API پیام‌رسان");
-}
-
-async function apiPost(payload) {
-  requireEmail();
-
-  const p = {
+  const body = {
     ...payload,
-    email:payload.email || email,
-    user_email:payload.user_email || payload.email || email,
-    userEmail:payload.userEmail || payload.email || email
+    email: getEmail(),
+    user_email: getEmail(),
+    userEmail: getEmail(),
+    username: payload.username || getUsername()
   };
 
   const response = await fetch(API_URL, {
-    method:"POST",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(p)
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify(body)
   });
 
-  return readResponse(response, "API پیام‌رسان");
+  const raw = await response.text();
+  let data;
+
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error("پاسخ سرور معتبر نیست. API پیام‌رسان را بررسی کن.");
+  }
+
+  if (!response.ok || data?.ok === false || data?.success === false) {
+    throw new Error(
+      data?.message ||
+      data?.error ||
+      "انجام عملیات ناموفق بود."
+    );
+  }
+
+  return data;
 }
 
-/* API تماس */
+function unwrapList(data, keys = []) {
+  if (Array.isArray(data)) return data;
 
-function callParams(params = {}) {
-  const result = {...params};
-
-  if (result.userId === undefined) result.userId = email;
-  if (result.user_id === undefined) result.user_id = result.userId;
-  if (result.userEmail === undefined) result.userEmail = email;
-  if (result.user_email === undefined) result.user_email = result.userEmail;
-  if (result.email === undefined) result.email = email;
-
-  if (result.conversationId !== undefined && result.conversation_id === undefined) {
-    result.conversation_id = result.conversationId;
-  }
-  if (result.callId !== undefined && result.call_id === undefined) {
-    result.call_id = result.callId;
-  }
-  if (result.receiverEmail !== undefined && result.receiver_email === undefined) {
-    result.receiver_email = result.receiverEmail;
-  }
-  if (result.receiverId !== undefined && result.receiver_id === undefined) {
-    result.receiver_id = result.receiverId;
-  }
-  if (result.callerEmail !== undefined && result.caller_email === undefined) {
-    result.caller_email = result.callerEmail;
-  }
-  if (result.callerId !== undefined && result.caller_id === undefined) {
-    result.caller_id = result.callerId;
-  }
-  if (result.signalType !== undefined && result.signal_type === undefined) {
-    result.signal_type = result.signalType;
-  }
-  if (result.senderId !== undefined && result.sender_id === undefined) {
-    result.sender_id = result.senderId;
-  }
-  if (result.callType !== undefined && result.call_type === undefined) {
-    result.call_type = result.callType;
+  for (const key of keys) {
+    if (Array.isArray(data?.[key])) return data[key];
+    if (Array.isArray(data?.data?.[key])) return data.data[key];
   }
 
-  return result;
+  if (Array.isArray(data?.data)) return data.data;
+  if (Array.isArray(data?.results)) return data.results;
+
+  return [];
 }
 
-async function callGet(action, params = {}) {
-  requireEmail();
+/* ===============================
+   گفت‌وگوها
+================================ */
+async function loadChats(options = {}) {
+  const quiet = Boolean(options.quiet);
 
-  const query = new URLSearchParams({
-    action,
-    ...callParams(params)
-  });
+  try {
+    const data = await apiGet({ action: "chats" });
 
-  const response = await fetch(CALLS_API + "?" + query.toString(), {
-    method:"GET",
-    cache:"no-store"
-  });
+    chats = unwrapList(data, [
+      "chats",
+      "conversations",
+      "items"
+    ]);
 
-  return readResponse(response, "API تماس");
-}
+    renderChats();
 
-async function callPost(action, params = {}) {
-  requireEmail();
+    if (activeChat) {
+      const id = getChatId(activeChat);
+      const updated = chats.find(c => getChatId(c) === id);
+      if (updated) activeChat = updated;
+      updateConversationHeader();
+    }
 
-  const body = callParams({
-    action,
-    ...params
-  });
+    hideStatus($("chatStatus"));
+  } catch (error) {
+    console.error("بارگذاری گفت‌وگوها ناموفق بود:", error);
 
-  const response = await fetch(CALLS_API, {
-    method:"POST",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(body)
-  });
-
-  return readResponse(response, "API تماس");
-}
-
-function checkLogin() {
-  if (!email) {
-    $("accountLabel").textContent = "وارد حساب نشده‌ای";
-    $("chatList").innerHTML = '<div class="empty">ابتدا وارد حساب سایت هدف شو.</div>';
-    notify("ابتدا در سایت هدف وارد حساب شو.", true);
-    return false;
+    if (!quiet) {
+      showStatus(
+        $("chatStatus"),
+        error.message || "بارگذاری گفت‌وگوها ناموفق بود.",
+        "error"
+      );
+    }
   }
-
-  $("accountLabel").textContent = username + " · " + email;
-  return true;
 }
-
-/* گفت‌وگوها */
 
 function renderChats() {
+  const list = $("chatList");
   const search = $("searchInput").value.trim().toLowerCase();
 
+  list.replaceChildren();
+
   const filtered = chats.filter(chat => {
-    const type = chat.type || chat.conversation_type || "private";
-    const title = String(chat.title || chat.name || "");
-    return (filter === "all" || type === filter) &&
-      title.toLowerCase().includes(search);
+    const type = getChatType(chat);
+    const name = getChatName(chat).toLowerCase();
+
+    const typeMatches =
+      currentFilter === "all" ||
+      type === currentFilter ||
+      (currentFilter === "private" && type === "direct");
+
+    return typeMatches && name.includes(search);
   });
 
   if (!filtered.length) {
-    $("chatList").innerHTML =
-      '<div class="empty">گفت‌وگویی پیدا نشد.<br>از دکمهٔ «＋ جدید» شروع کن.</div>';
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = chats.length
+      ? "گفت‌وگویی پیدا نشد."
+      : "هنوز گفت‌وگویی نداری. روی «＋ جدید» بزن.";
+    list.appendChild(empty);
     return;
   }
 
-  $("chatList").innerHTML = filtered.map(chat => {
-    const selected = activeChat && getChatId(activeChat) === getChatId(chat);
-    const title = chat.title || chat.name || "گفت‌وگو";
-    const type = chat.type || chat.conversation_type || "private";
-    const verified = chat.is_official
-      ? '<span class="verified" title="حساب رسمی">✓</span>' : "";
+  for (const chat of filtered) {
+    const id = getChatId(chat);
+    const type = getChatType(chat);
+    const selected = activeChat && getChatId(activeChat) === id;
 
-    return `
-      <button type="button" class="chat-item ${selected ? "selected" : ""}"
-        data-chat-id="${escapeHTML(getChatId(chat))}">
-        <div class="avatar">${typeIcon(type)}</div>
-        <div class="chat-info">
-          <div class="chat-title">
-            <span>${escapeHTML(title)}</span>${verified}
-          </div>
-          <div class="chat-preview">${escapeHTML(typeLabel(type))}</div>
-        </div>
-      </button>`;
-  }).join("");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chat-item" + (selected ? " selected" : "");
 
-  $("chatList").querySelectorAll("[data-chat-id]").forEach(button => {
-    button.addEventListener("click", () => {
-      const chat = chats.find(c => getChatId(c) === button.dataset.chatId);
-      if (chat) selectChat(chat);
-    });
-  });
-}
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.textContent =
+      type === "group" ? "👥" :
+      type === "channel" ? "📢" :
+      "👤";
 
-async function loadChats(keepSelection = true) {
-  requireEmail();
+    const info = document.createElement("div");
+    info.className = "chat-info";
 
-  const oldId = activeChat ? getChatId(activeChat) : "";
-  const data = await apiGet({action:"chats"});
+    const name = document.createElement("div");
+    name.className = "chat-name";
+    name.textContent = getChatName(chat);
 
-  const list = data.chats || data.data?.chats || data.conversations || [];
-  chats = Array.isArray(list) ? list : [];
+    if (isOfficial(chat)) {
+      const tick = document.createElement("span");
+      tick.className = "verified";
+      tick.title = "حساب رسمی هدف";
+      tick.textContent = "✓";
+      name.appendChild(tick);
+    }
 
-  if (keepSelection && oldId) {
-    activeChat = chats.find(c => getChatId(c) === oldId) || activeChat;
-  } else if (!keepSelection) {
-    activeChat = null;
-  }
+    const preview = document.createElement("div");
+    preview.className = "chat-preview";
+    preview.textContent =
+      chat?.last_message ??
+      chat?.lastMessage ??
+      (type === "group" ? "گروه" :
+       type === "channel" ? "کانال" : "گفت‌وگوی خصوصی");
 
-  if (activeChat && oldId && !chats.some(c => getChatId(c) === oldId)) {
-    // اگر API در پاسخ موقتاً گفت‌وگوی انتخاب‌شده را نداد،
-    // گفت‌وگوی فعلی را پاک نمی‌کنیم.
-    activeChat = activeChat;
-  }
+    info.append(name, preview);
+    button.append(avatar, info);
 
-  renderChats();
+    button.addEventListener("click", () => selectChat(chat));
 
-  if (!activeChat && chats.length) {
-    selectChat(chats[0]);
-  } else if (!activeChat) {
-    $("activeName").textContent = "هنوز گفت‌وگویی نداری";
-    $("activeStatus").textContent = "از دکمهٔ «جدید» شروع کن";
-    $("activeAvatar").textContent = "💬";
-    $("messages").innerHTML = '<div class="empty">اولین گفت‌وگو را بساز. 💜</div>';
-    $("messageInput").disabled = true;
-    $("sendBtn").disabled = true;
-    $("addMemberBtn").style.display = "none";
+    list.appendChild(button);
   }
 }
 
-function selectChat(chat) {
-  const oldId = activeChat ? getChatId(activeChat) : "";
+async function selectChat(chat) {
   activeChat = chat;
-
-  if (oldId !== getChatId(chat)) lastMessageSignature = "";
-
-  const title = chat.title || chat.name || "گفت‌وگو";
-  const type = chat.type || chat.conversation_type || "private";
-
-  $("activeName").textContent = title;
-
-  if (chat.is_official) {
-    const tick = document.createElement("span");
-    tick.className = "verified";
-    tick.textContent = "✓";
-    tick.title = "حساب رسمی";
-    $("activeName").append(" ", tick);
-  }
-
-  $("activeStatus").textContent = typeLabel(type);
-  $("activeAvatar").textContent = typeIcon(type);
-  $("addMemberBtn").style.display = type === "group" ? "inline-block" : "none";
-  $("messageInput").disabled = false;
-  $("sendBtn").disabled = false;
+  lastMessageSignature = "";
 
   renderChats();
-  loadMessages(true);
+  updateConversationHeader();
+
+  $("messages").replaceChildren();
+
+  const loading = document.createElement("div");
+  loading.className = "empty";
+  loading.textContent = "در حال دریافت پیام‌ها...";
+  $("messages").appendChild(loading);
+
+  await loadMessages();
+
+  if (messageRefreshTimer) {
+    clearInterval(messageRefreshTimer);
+  }
+
+  messageRefreshTimer = setInterval(() => {
+    if (activeChat) loadMessages({ quiet: true });
+  }, 5000);
 }
 
-async function loadMessages(forceScroll = false) {
-  if (!activeChat || loadingMessages || !email) return;
+function updateConversationHeader() {
+  if (!activeChat) {
+    $("activeTitle").textContent = "یک گفت‌وگو انتخاب کن";
+    $("activeSubtitle").textContent = "پیام‌رسان هدف";
+    $("activeAvatar").textContent = "💬";
+    $("membersBtn").hidden = true;
+    return;
+  }
+
+  const type = getChatType(activeChat);
+
+  $("activeTitle").textContent = getChatName(activeChat);
+  $("activeSubtitle").textContent =
+    type === "group" ? "گروه" :
+    type === "channel" ? "کانال" :
+    "گفت‌وگوی خصوصی";
+
+  $("activeAvatar").textContent =
+    type === "group" ? "👥" :
+    type === "channel" ? "📢" :
+    "👤";
+
+  $("membersBtn").hidden = !(
+    type === "group" ||
+    type === "channel"
+  );
+}
+
+/* ===============================
+   پیام‌ها
+================================ */
+async function loadMessages(options = {}) {
+  if (!activeChat || loadingMessages) return;
 
   loadingMessages = true;
-  const id = getChatId(activeChat);
+
+  const quiet = Boolean(options.quiet);
+  const chatId = getChatId(activeChat);
 
   try {
     const data = await apiGet({
-      action:"messages",
-      conversationId:id,
-      conversation_id:id
+      action: "messages",
+      conversationId: chatId,
+      conversation_id: chatId,
+      chatId: chatId
     });
 
-    if (!activeChat || getChatId(activeChat) !== id) return;
+    const messages = unwrapList(data, [
+      "messages",
+      "items"
+    ]);
 
-    const list = data.messages || data.data?.messages || [];
-    const messages = Array.isArray(list) ? list : [];
-    const signature = JSON.stringify(messages);
+    const signature = JSON.stringify(
+      messages.map(m => ({
+        id: m.id ?? m.message_id ?? "",
+        message: getMessageText(m),
+        time: getMessageTime(m),
+        sender: getSenderEmail(m)
+      }))
+    );
 
-    if (signature === lastMessageSignature && !forceScroll) return;
-    lastMessageSignature = signature;
+    if (signature !== lastMessageSignature) {
+      const shouldScroll =
+        $("messages").scrollHeight -
+        $("messages").scrollTop -
+        $("messages").clientHeight < 130;
 
-    if (!messages.length) {
-      $("messages").innerHTML =
-        '<div class="empty">هنوز پیامی نیست.<br>تو اولین پیام را بفرست! 💜</div>';
-      return;
+      renderMessages(messages);
+      lastMessageSignature = signature;
+
+      if (shouldScroll) {
+        $("messages").scrollTop = $("messages").scrollHeight;
+      }
     }
+  } catch (error) {
+    console.error("بارگذاری پیام‌ها ناموفق بود:", error);
 
-    $("messages").innerHTML = messages.map(m => {
-      const senderEmail = String(
-        m.sender_email || m.senderEmail || m.email || ""
-      ).trim().toLowerCase();
+    if (!quiet) {
+      $("messages").replaceChildren();
 
-      const mine = senderEmail === email;
-      const body = m.message ?? m.content ?? m.text ?? "";
-
-      return `
-        <div class="message-row ${mine ? "mine" : ""}">
-          ${mine ? "" : `<div class="sender">${escapeHTML(m.sender_name || m.senderName || "کاربر")}</div>`}
-          <div class="bubble">${escapeHTML(body)}</div>
-          <div class="message-time">${escapeHTML(formatTime(m.created_at || m.createdAt))}</div>
-        </div>`;
-    }).join("");
-
-    if (forceScroll) $("messages").scrollTop = $("messages").scrollHeight;
-  } catch (e) {
-    notify("دریافت پیام‌ها ناموفق بود: " + e.message, true);
+      const err = document.createElement("div");
+      err.className = "empty";
+      err.textContent = error.message || "بارگذاری پیام‌ها ناموفق بود.";
+      $("messages").appendChild(err);
+    }
   } finally {
     loadingMessages = false;
   }
 }
 
-$("messageForm").addEventListener("submit", async event => {
-  event.preventDefault();
+function parseMediaMessage(text) {
+  if (!text.startsWith(MEDIA_PREFIX)) return null;
 
-  if (!activeChat || !email) return notify("ابتدا یک گفت‌وگو انتخاب کن.", true);
+  try {
+    const media = JSON.parse(text.slice(MEDIA_PREFIX.length));
+
+    if (
+      media?.version !== 1 ||
+      !["image", "video"].includes(media.kind) ||
+      !isSafeMediaUrl(media.url)
+    ) {
+      return null;
+    }
+
+    return media;
+  } catch {
+    return null;
+  }
+}
+
+function isSafeMediaUrl(value) {
+  try {
+    const url = new URL(value);
+
+    return (
+      url.protocol === "https:" &&
+      url.hostname === "nzwgyvkbsznmpcilkpig.supabase.co" &&
+      url.pathname.startsWith(
+        "/storage/v1/object/public/" + SUPABASE_BUCKET + "/"
+      )
+    );
+  } catch {
+    return false;
+  }
+}
+
+function renderMessages(messages) {
+  const container = $("messages");
+  container.replaceChildren();
+
+  if (!messages.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "هنوز پیامی ارسال نشده. اولین پیام را تو بفرست! ✨";
+    container.appendChild(empty);
+    return;
+  }
+
+  for (const message of messages) {
+    const row = document.createElement("div");
+    const senderEmail = getSenderEmail(message);
+    const mine = senderEmail && senderEmail === getEmail();
+
+    row.className = "message-row" + (mine ? " mine" : "");
+
+    if (!mine) {
+      const sender = document.createElement("div");
+      sender.className = "sender";
+      sender.textContent = getSenderName(message);
+      row.appendChild(sender);
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+
+    const text = getMessageText(message);
+    const media = parseMediaMessage(text);
+
+    if (media) {
+      bubble.classList.add("media-message");
+
+      if (media.kind === "image") {
+        const img = document.createElement("img");
+        img.src = media.url;
+        img.alt = media.name || "عکس ارسال‌شده";
+        img.loading = "lazy";
+        img.referrerPolicy = "no-referrer";
+
+        img.addEventListener("click", () => {
+          const opened = window.open(media.url, "_blank", "noopener");
+          if (opened) opened.opener = null;
+        });
+
+        img.addEventListener("error", () => {
+          img.alt = "نمایش عکس ممکن نیست";
+        });
+
+        bubble.appendChild(img);
+      } else {
+        const video = document.createElement("video");
+        video.src = media.url;
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = "metadata";
+        video.setAttribute("controlsList", "nodownload");
+
+        bubble.appendChild(video);
+      }
+
+      if (media.caption) {
+        const caption = document.createElement("div");
+        caption.className = "media-caption";
+        caption.textContent = media.caption;
+        bubble.appendChild(caption);
+      }
+
+      if (media.name) {
+        const name = document.createElement("div");
+        name.className = "media-name";
+        name.textContent = media.name;
+        bubble.appendChild(name);
+      }
+    } else {
+      bubble.textContent = text;
+    }
+
+    row.appendChild(bubble);
+
+    const timeValue = getMessageTime(message);
+    if (timeValue) {
+      const time = document.createElement("div");
+      time.className = "message-time";
+      time.textContent = formatTime(timeValue);
+      row.appendChild(time);
+    }
+
+    container.appendChild(row);
+  }
+}
+
+/* ===============================
+   ارسال پیام متنی
+================================ */
+async function sendTextMessage() {
+  if (!activeChat) {
+    showStatus($("composerStatus"), "ابتدا یک گفت‌وگو انتخاب کن.", "error");
+    return;
+  }
 
   const input = $("messageInput");
   const message = input.value.trim();
-  if (!message) return;
 
+  if (!message) return;
+  if (sendingMessage || uploadingMedia) return;
+
+  sendingMessage = true;
   $("sendBtn").disabled = true;
 
   try {
+    hideStatus($("composerStatus"));
+
+    const id = getChatId(activeChat);
+
     await apiPost({
-      action:"sendMessage",
-      username,
-      conversationId:getChatId(activeChat),
-      conversation_id:getChatId(activeChat),
+      action: "sendMessage",
+      username: getUsername(),
+      conversationId: id,
+      conversation_id: id,
       message
     });
 
     input.value = "";
-    lastMessageSignature = "";
-    clearNotice();
-    await loadMessages(true);
-  } catch (e) {
-    notify("پیام ارسال نشد: " + e.message, true);
+    input.style.height = "auto";
+
+    await loadMessages({ quiet: true });
+    await loadChats({ quiet: true });
+  } catch (error) {
+    showStatus(
+      $("composerStatus"),
+      error.message || "ارسال پیام ناموفق بود.",
+      "error"
+    );
   } finally {
+    sendingMessage = false;
     $("sendBtn").disabled = false;
     input.focus();
   }
-});
-
-/* ساخت گفت‌وگو */
-
-function updatePrivateFields() {
-  $("privateFields").style.display =
-    $("chatType").value === "private" ? "block" : "none";
-  $("memberEmail").required = $("chatType").value === "private";
 }
 
-$("chatType").addEventListener("change", updatePrivateFields);
+/* ===============================
+   ارسال عکس و فیلم با Supabase
+================================ */
+function encodeObjectPath(path) {
+  return path
+    .split("/")
+    .map(segment => encodeURIComponent(segment))
+    .join("/");
+}
 
-$("newChatBtn").addEventListener("click", () => {
-  if (!email) return notify("ابتدا وارد حساب هدف شو.", true);
-  $("createForm").reset();
-  updatePrivateFields();
-  $("createModal").style.display = "flex";
-});
+function getFileExtension(file) {
+  const name = String(file.name || "");
+  const dot = name.lastIndexOf(".");
 
-$("cancelCreate").addEventListener("click", () => {
-  $("createModal").style.display = "none";
-});
+  if (dot >= 0) {
+    const ext = name.slice(dot + 1).toLowerCase();
+    if (/^[a-z0-9]{1,10}$/.test(ext)) return ext;
+  }
 
-$("createModal").addEventListener("click", e => {
-  if (e.target === $("createModal")) $("createModal").style.display = "none";
-});
+  const mimeExtensions = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+    "video/mp4": "mp4",
+    "video/webm": "webm",
+    "video/quicktime": "mov"
+  };
 
-$("createForm").addEventListener("submit", async event => {
+  return mimeExtensions[file.type] || "bin";
+}
+
+function safeFileName(name) {
+  const base = String(name || "media")
+    .split(/[\\/]/)
+    .pop()
+    .replace(/[^\p{L}\p{N}._-]/gu, "_")
+    .slice(0, 90);
+
+  return base || "media";
+}
+
+async function uploadMedia(file) {
+  if (!ALLOWED_TYPES.has(file.type)) {
+    throw new Error(
+      "این نوع فایل پشتیبانی نمی‌شود. عکس JPG، PNG، WEBP، GIF یا فیلم MP4، WEBM و MOV انتخاب کن."
+    );
+  }
+
+  if (file.size <= 0) {
+    throw new Error("فایل انتخاب‌شده خالی است.");
+  }
+
+  if (file.size > MAX_FILE_SIZE) {
+    throw new Error("حجم فایل باید حداکثر ۳۰ مگابایت باشد.");
+  }
+
+  const extension = getFileExtension(file);
+  const random = Math.random().toString(36).slice(2, 10);
+  const objectName =
+    Date.now() + "-" + random + "." + extension;
+
+  const objectPath = "uploads/" + objectName;
+
+  const uploadUrl =
+    SUPABASE_URL +
+    "/storage/v1/object/" +
+    SUPABASE_BUCKET +
+    "/" +
+    encodeObjectPath(objectPath);
+
+  const response = await fetch(uploadUrl, {
+    method: "POST",
+    headers: {
+      "apikey": SUPABASE_PUBLIC_KEY,
+      "Authorization": "Bearer " + SUPABASE_PUBLIC_KEY,
+      "Content-Type": file.type,
+      "x-upsert": "false"
+    },
+    body: file
+  });
+
+  const raw = await response.text();
+
+  if (!response.ok) {
+    let reason = raw;
+
+    try {
+      const data = JSON.parse(raw);
+      reason =
+        data.message ||
+        data.error ||
+        data.error_description ||
+        raw;
+    } catch {}
+
+    if (response.status === 401 || response.status === 403) {
+      throw new Error(
+        "اجازه آپلود صادر نشد. سیاست‌های INSERT باکت hadaf-media را بررسی کن."
+      );
+    }
+
+    throw new Error("آپلود فایل ناموفق بود: " + reason);
+  }
+
+  const publicUrl =
+    SUPABASE_URL +
+    "/storage/v1/object/public/" +
+    SUPABASE_BUCKET +
+    "/" +
+    encodeObjectPath(objectPath);
+
+  return {
+    url: publicUrl,
+    name: safeFileName(file.name),
+    mime: file.type,
+    size: file.size,
+    kind: file.type.startsWith("image/") ? "image" : "video"
+  };
+}
+
+async function sendMediaFile(file) {
+  if (!activeChat) {
+    showStatus($("composerStatus"), "ابتدا یک گفت‌وگو انتخاب کن.", "error");
+    return;
+  }
+
+  if (uploadingMedia || sendingMessage) return;
+
+  uploadingMedia = true;
+  $("attachBtn").disabled = true;
+  $("sendBtn").disabled = true;
+
+  const captionInput = $("messageInput");
+  const caption = captionInput.value.trim();
+
+  try {
+    showStatus(
+      $("composerStatus"),
+      "در حال آپلود فایل... لطفاً صفحه را نبند.",
+      "info"
+    );
+
+    const media = await uploadMedia(file);
+
+    showStatus(
+      $("composerStatus"),
+      "فایل آپلود شد؛ در حال ارسال پیام...",
+      "info"
+    );
+
+    const mediaMessage = MEDIA_PREFIX + JSON.stringify({
+      version: 1,
+      kind: media.kind,
+      url: media.url,
+      name: media.name,
+      mime: media.mime,
+      size: media.size,
+      caption
+    });
+
+    const id = getChatId(activeChat);
+
+    await apiPost({
+      action: "sendMessage",
+      username: getUsername(),
+      conversationId: id,
+      conversation_id: id,
+      message: mediaMessage
+    });
+
+    captionInput.value = "";
+    captionInput.style.height = "auto";
+
+    showStatus(
+      $("composerStatus"),
+      media.kind === "image"
+        ? "عکس با موفقیت ارسال شد! 🖼️"
+        : "فیلم با موفقیت ارسال شد! 🎬",
+      "success"
+    );
+
+    await loadMessages({ quiet: true });
+    await loadChats({ quiet: true });
+  } catch (error) {
+    console.error("ارسال فایل ناموفق بود:", error);
+
+    showStatus(
+      $("composerStatus"),
+      error.message || "ارسال فایل ناموفق بود.",
+      "error"
+    );
+  } finally {
+    uploadingMedia = false;
+    $("attachBtn").disabled = false;
+    $("sendBtn").disabled = false;
+    $("mediaInput").value = "";
+  }
+}
+
+/* ===============================
+   ساخت گفت‌وگو
+================================ */
+function updateNewChatForm() {
+  const type = $("chatType").value;
+  $("privateEmailRow").hidden = type !== "private";
+  $("firstMemberRow").hidden = type === "private";
+  $("chatName").placeholder =
+    type === "private"
+      ? "اختیاری"
+      : type === "group"
+        ? "مثلاً دوستان هدف"
+        : "مثلاً اخبار هدف";
+}
+
+async function createChat(event) {
   event.preventDefault();
 
   const type = $("chatType").value;
-  const title = $("chatTitle").value.trim();
-  const memberEmail = $("memberEmail").value.trim().toLowerCase();
-  const memberName = $("memberName").value.trim();
+  const name = $("chatName").value.trim();
+  const privateEmail = $("privateEmail").value.trim().toLowerCase();
+  const firstMember = $("firstMember").value.trim().toLowerCase();
 
-  if (!title) return notify("نام گفت‌وگو را وارد کن.", true);
-  if (type === "private" && !memberEmail) return notify("ایمیل حساب دوستت را وارد کن.", true);
-  if (type === "private" && memberEmail === email) return notify("ایمیل خودت را وارد نکن.", true);
+  if (type === "private") {
+    if (!privateEmail) {
+      showStatus($("newChatStatus"), "ایمیل طرف مقابل را وارد کن.", "error");
+      return;
+    }
 
-  const button = $("confirmCreate");
-  button.disabled = true;
-  button.textContent = "در حال ساخت...";
+    if (privateEmail === getEmail()) {
+      showStatus($("newChatStatus"), "نمی‌توانی با خودت گفت‌وگو بسازی.", "error");
+      return;
+    }
+  } else if (!name) {
+    showStatus($("newChatStatus"), "نام گروه یا کانال را وارد کن.", "error");
+    return;
+  }
+
+  const submit = $("createChatSubmit");
+  submit.disabled = true;
 
   try {
-    const result = await apiPost({
-      action:"createConversation",
-      username,
+    hideStatus($("newChatStatus"));
+
+    const data = await apiPost({
+      action: "createConversation",
       type,
-      title,
-      memberEmail,
-      member_email:memberEmail,
-      memberName:memberName || memberEmail,
-      member_name:memberName || memberEmail
+      conversationType: type,
+      conversation_type: type,
+      name,
+      title: name,
+      recipientEmail: privateEmail,
+      recipient_email: privateEmail,
+      email: getEmail(),
+      memberEmail: firstMember,
+      member_email: firstMember
     });
 
-    let chat = result.chat || result.conversation ||
-      result.data?.chat || result.data?.conversation;
+    await loadChats();
 
-    if (!chat) {
-      const id = result.id || result.conversationId ||
-        result.conversation_id || result.data?.id ||
-        result.data?.conversationId || result.data?.conversation_id;
+    const newId =
+      data?.conversationId ??
+      data?.conversation_id ??
+      data?.chatId ??
+      data?.chat?.id ??
+      data?.conversation?.id ??
+      data?.id;
 
-      if (id) chat = {id, title, type};
+    const created = chats.find(c => getChatId(c) === String(newId));
+
+    if (created) {
+      await selectChat(created);
     }
 
-    if (!chat || !getChatId(chat)) {
-      throw new Error("شناسهٔ گفت‌وگو از API دریافت نشد.");
-    }
+    closeModal("newChatModal");
+    $("newChatForm").reset();
+    updateNewChatForm();
 
-    if (type === "private") {
-      await apiPost({
-        action:"addMember",
-        conversationId:getChatId(chat),
-        conversation_id:getChatId(chat),
-        memberEmail,
-        member_email:memberEmail,
-        memberName:memberName || memberEmail,
-        member_name:memberName || memberEmail
-      });
-    }
-
-    $("createModal").style.display = "none";
-    activeChat = null;
-    await loadChats(false);
-
-    const found = chats.find(c => getChatId(c) === getChatId(chat));
-    if (found) {
-      selectChat(found);
-    } else {
-      chats.unshift({
-        ...chat,
-        title:chat.title || title,
-        type:chat.type || type
-      });
-      selectChat(chats[0]);
-    }
-
-    notify("گفت‌وگو ساخته شد. 💜");
-  } catch (e) {
-    notify("ساخت گفت‌وگو ناموفق بود: " + e.message, true);
+    showStatus(
+      $("chatStatus"),
+      data?.message || "گفت‌وگو ساخته شد.",
+      "success"
+    );
+  } catch (error) {
+    showStatus(
+      $("newChatStatus"),
+      error.message || "ساخت گفت‌وگو ناموفق بود.",
+      "error"
+    );
   } finally {
-    button.disabled = false;
-    button.textContent = "ساختن";
+    submit.disabled = false;
   }
-});
+}
 
-/* افزودن عضو به گروه */
-
-$("addMemberBtn").addEventListener("click", () => {
-  if (!activeChat || (activeChat.type || activeChat.conversation_type) !== "group") {
-    return notify("ابتدا یک گروه انتخاب کن.", true);
-  }
-
-  $("addMemberForm").reset();
-  $("addMemberChatName").textContent = "گروه: " + (activeChat.title || activeChat.name || "");
-  $("addMemberModal").style.display = "flex";
-});
-
-$("cancelAddMember").addEventListener("click", () => {
-  $("addMemberModal").style.display = "none";
-});
-
-$("addMemberModal").addEventListener("click", e => {
-  if (e.target === $("addMemberModal")) $("addMemberModal").style.display = "none";
-});
-
-$("addMemberForm").addEventListener("submit", async event => {
+/* ===============================
+   افزودن عضو به گروه/کانال
+================================ */
+async function addMember(event) {
   event.preventDefault();
 
-  if (!activeChat || (activeChat.type || activeChat.conversation_type) !== "group") {
-    return notify("این گفت‌وگو گروه نیست.", true);
+  if (!activeChat) return;
+
+  const email = $("memberEmail").value.trim().toLowerCase();
+
+  if (!email) {
+    showStatus($("memberStatus"), "ایمیل عضو را وارد کن.", "error");
+    return;
   }
 
-  const memberEmail = $("newMemberEmail").value.trim().toLowerCase();
-  const memberName = $("newMemberName").value.trim();
-
-  if (!memberEmail) return notify("ایمیل عضو را وارد کن.", true);
-  if (memberEmail === email) return notify("ایمیل خودت را وارد نکن.", true);
-
-  const button = $("confirmAddMember");
-  button.disabled = true;
-  button.textContent = "در حال افزودن...";
+  const submit = $("addMemberSubmit");
+  submit.disabled = true;
 
   try {
-    await apiPost({
-      action:"addMember",
-      conversationId:getChatId(activeChat),
-      conversation_id:getChatId(activeChat),
-      memberEmail,
-      member_email:memberEmail,
-      memberName:memberName || memberEmail,
-      member_name:memberName || memberEmail
+    const id = getChatId(activeChat);
+
+    const data = await apiPost({
+      action: "addMember",
+      conversationId: id,
+      conversation_id: id,
+      memberEmail: email,
+      member_email: email,
+      emailToAdd: email
     });
 
-    $("addMemberModal").style.display = "none";
-    notify("درخواست افزودن عضو ارسال شد. 💜");
-    await loadChats(true);
-  } catch (e) {
-    notify("افزودن عضو ناموفق بود: " + e.message, true);
+    showStatus(
+      $("memberStatus"),
+      data?.message || "درخواست افزودن عضو ارسال شد.",
+      "success"
+    );
+
+    $("memberEmail").value = "";
+    await loadChats({ quiet: true });
+  } catch (error) {
+    showStatus(
+      $("memberStatus"),
+      error.message || "افزودن عضو ناموفق بود.",
+      "error"
+    );
   } finally {
-    button.disabled = false;
-    button.textContent = "افزودن عضو";
+    submit.disabled = false;
   }
+}
+
+/* ===============================
+   رویدادها
+================================ */
+$("sendBtn").addEventListener("click", sendTextMessage);
+
+$("messageInput").addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    sendTextMessage();
+  }
+});
+
+$("messageInput").addEventListener("input", () => {
+  const input = $("messageInput");
+  input.style.height = "auto";
+  input.style.height = Math.min(input.scrollHeight, 130) + "px";
+});
+
+$("attachBtn").addEventListener("click", () => {
+  if (!activeChat) {
+    showStatus($("composerStatus"), "اول یک گفت‌وگو انتخاب کن.", "error");
+    return;
+  }
+
+  $("mediaInput").click();
+});
+
+$("mediaInput").addEventListener("change", async event => {
+  const file = event.target.files?.[0];
+  if (file) await sendMediaFile(file);
+});
+
+$("newChatBtn").addEventListener("click", () => {
+  hideStatus($("newChatStatus"));
+  openModal("newChatModal");
+});
+
+$("chatType").addEventListener("change", updateNewChatForm);
+
+$("newChatForm").addEventListener("submit", createChat);
+$("memberForm").addEventListener("submit", addMember);
+
+$("membersBtn").addEventListener("click", () => {
+  hideStatus($("memberStatus"));
+  openModal("memberModal");
+});
+
+$("refreshBtn").addEventListener("click", async () => {
+  await loadChats();
+  await loadMessages({ quiet: true });
 });
 
 $("searchInput").addEventListener("input", renderChats);
 
-$("tabs").querySelectorAll("[data-filter]").forEach(button => {
+document.querySelectorAll("[data-filter]").forEach(button => {
   button.addEventListener("click", () => {
-    filter = button.dataset.filter;
-    $("tabs").querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
+    currentFilter = button.dataset.filter;
+
+    document.querySelectorAll("[data-filter]").forEach(item => {
+      item.classList.toggle("active", item === button);
+    });
+
     renderChats();
   });
 });
 
-/* تماس WebRTC */
-
-function setCallStatus(text) {
-  $("callStatus").textContent = text;
-}
-
-function showCallModal(title, status) {
-  $("callTitle").textContent = title;
-  setCallStatus(status);
-  $("callModal").style.display = "flex";
-}
-
-function showVideoControls(video) {
-  $("localVideo").style.display = video ? "block" : "none";
-  $("remoteVideo").style.display = video ? "block" : "none";
-  $("cameraCallBtn").style.display = video ? "inline-block" : "none";
-}
-
-function unwrapData(data) {
-  let result = data;
-  for (let i = 0; i < 3; i++) {
-    if (result?.data && typeof result.data === "object" && !Array.isArray(result.data)) {
-      result = result.data;
-    } else {
-      break;
-    }
-  }
-  return result;
-}
-
-function normalizeCall(data) {
-  let result = data;
-
-  for (let i = 0; i < 4; i++) {
-    if (result?.call) result = result.call;
-    else if (result?.data?.call) result = result.data.call;
-    else if (result?.result && typeof result.result === "object") result = result.result;
-    else if (result?.data && typeof result.data === "object" && !Array.isArray(result.data)) result = result.data;
-    else break;
-  }
-
-  return result || null;
-}
-
-function callIdOf(call) {
-  const c = normalizeCall(call);
-  return String(c?.id ?? c?.callId ?? c?.call_id ?? c?.call?.id ?? "");
-}
-
-function signalList(data) {
-  const d = unwrapData(data);
-  const list = d?.signals || d?.data?.signals || d?.result?.signals || [];
-  return Array.isArray(list) ? list : [];
-}
-
-function createPeer() {
-  if (pc) {
-    try { pc.close(); } catch (_) {}
-  }
-
-  pc = new RTCPeerConnection({
-    iceServers:[
-      {urls:"stun:stun.l.google.com:19302"},
-      {urls:"stun:stun.cloudflare.com:3478"}
-    ]
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click", () => {
+    closeModal(button.dataset.close);
   });
+});
 
-  pc.onicecandidate = async event => {
-    if (!event.candidate || !activeCallId) return;
-
-    const candidate = event.candidate.toJSON();
-    const key = JSON.stringify(candidate);
-    if (sentCandidates.has(key)) return;
-    sentCandidates.add(key);
-
-    try {
-      await callPost("sendSignal", {
-        callId:activeCallId,
-        signalType:"ice",
-        type:"ice",
-        signal:candidate,
-        data:candidate,
-        candidate,
-        senderId:email,
-        senderEmail:email,
-        userId:email,
-        userEmail:email
-      });
-    } catch (e) {
-      console.warn("ارسال ICE ناموفق بود:", e);
-      setCallStatus("ارسال اطلاعات اتصال ناموفق بود: " + e.message);
+document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+  backdrop.addEventListener("click", event => {
+    if (event.target === backdrop) {
+      backdrop.classList.remove("show");
     }
-  };
-
-  pc.ontrack = event => {
-    const stream = event.streams?.[0];
-    if (!stream) return;
-
-    if (currentCallType === "video") {
-      $("remoteVideo").srcObject = stream;
-      $("remoteVideo").play().catch(() => {});
-    } else {
-      $("remoteAudio").srcObject = stream;
-      $("remoteAudio").play().catch(() => {});
-    }
-
-    setCallStatus("تماس برقرار شد 💜");
-  };
-
-  pc.onconnectionstatechange = () => {
-    if (!pc) return;
-
-    if (pc.connectionState === "connected") setCallStatus("تماس برقرار است 💜");
-    if (pc.connectionState === "failed") {
-      setCallStatus("اتصال برقرار نشد؛ ممکن است سرور TURN لازم باشد.");
-    }
-    if (pc.connectionState === "disconnected") {
-      setCallStatus("اتصال قطع شده؛ در حال تلاش برای وصل‌شدن...");
-    }
-  };
-}
-
-async function getLocalMedia(type) {
-  if (!navigator.mediaDevices?.getUserMedia) {
-    throw new Error("دسترسی به میکروفون یا دوربین ممکن نیست. صفحه باید HTTPS باشد.");
-  }
-
-  localStream = await navigator.mediaDevices.getUserMedia({
-    audio:true,
-    video:type === "video"
   });
+});
 
-  if (type === "video") {
-    $("localVideo").srcObject = localStream;
-    $("localVideo").play().catch(() => {});
-  }
+/* ===============================
+   شروع برنامه
+================================ */
+async function startApp() {
+  currentUser = getUser();
 
-  return localStream;
-}
+  if (!currentUser || !currentUser.email) {
+    $("accountLabel").textContent = "وارد حساب هدف نشده‌ای";
+    $("chatList").replaceChildren();
 
-async function sendDescription(description, signalType) {
-  await callPost("sendSignal", {
-    callId:activeCallId,
-    signalType,
-    type:signalType,
-    signal:description,
-    data:description,
-    description,
-    senderId:email,
-    senderEmail:email,
-    userId:email,
-    userEmail:email
-  });
-}
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "برای استفاده از پیام‌رسان، ابتدا وارد حساب هدف شو.";
+    $("chatList").appendChild(empty);
 
-async function readSignal(signal) {
-  if (!signal || !pc) return;
+    $("messages").replaceChildren();
 
-  let raw = signal.signal ?? signal.data ?? signal.candidate ?? signal.description;
+    const message = document.createElement("div");
+    message.className = "empty";
+    message.textContent = "ابتدا وارد حساب کاربری‌ات شو.";
+    $("messages").appendChild(message);
 
-  if (typeof raw === "string") {
-    try { raw = JSON.parse(raw); } catch (_) {}
-  }
-
-  const kind = String(
-    signal.signalType || signal.signal_type || signal.type || raw?.type || ""
-  ).toLowerCase();
-
-  if (!raw) return;
-
-  const sid = String(
-    signal.id ?? signal.signal_id ??
-    (signal.signal_type || signal.signalType || kind) + ":" + JSON.stringify(raw)
-  );
-
-  if (receivedSignals.has(sid)) return;
-
-  // سیگنال را فقط بعد از پردازش موفق علامت‌گذاری می‌کنیم.
-  if (kind.includes("offer") || raw.type === "offer") {
-    if (!pc.currentRemoteDescription) {
-      await pc.setRemoteDescription(new RTCSessionDescription(raw));
-
-      const pending = pendingCandidates.splice(0);
-      for (const candidate of pending) {
-        try { await pc.addIceCandidate(new RTCIceCandidate(candidate)); }
-        catch (e) { console.warn("افزودن ICE ناموفق بود:", e); }
-      }
-
-      const answer = await pc.createAnswer();
-      await pc.setLocalDescription(answer);
-      await sendDescription(pc.localDescription, "answer");
-      setCallStatus("پاسخ تماس ارسال شد؛ در حال اتصال...");
-    }
-
-    receivedSignals.add(sid);
+    $("sendBtn").disabled = true;
+    $("attachBtn").disabled = true;
+    $("newChatBtn").disabled = true;
     return;
   }
 
-  if (kind.includes("answer") || raw.type === "answer") {
-    if (!pc.currentRemoteDescription) {
-      await pc.setRemoteDescription(new RTCSessionDescription(raw));
+  $("accountLabel").textContent =
+    getUsername() + " · " + getEmail();
 
-      const pending = pendingCandidates.splice(0);
-      for (const candidate of pending) {
-        try { await pc.addIceCandidate(new RTCIceCandidate(candidate)); }
-        catch (e) { console.warn("افزودن ICE ناموفق بود:", e); }
-      }
-    }
+  updateNewChatForm();
 
-    receivedSignals.add(sid);
-    return;
-  }
+  await loadChats();
 
-  if (kind.includes("ice") || raw.candidate) {
-    if (!pc.currentRemoteDescription) {
-      pendingCandidates.push(raw);
-      receivedSignals.add(sid);
-      return;
-    }
+  if (chatRefreshTimer) clearInterval(chatRefreshTimer);
 
-    await pc.addIceCandidate(new RTCIceCandidate(raw));
-    receivedSignals.add(sid);
-  }
+  chatRefreshTimer = setInterval(() => {
+    loadChats({ quiet: true });
+  }, 10000);
 }
 
-async function pollSignals() {
-  if (!activeCallId || !pc) return;
-
-  try {
-    const data = await callGet("getSignals", {
-      callId:activeCallId,
-      call_id:activeCallId
-    });
-
-    for (const signal of signalList(data)) {
-      const sender = String(
-        signal.senderId || signal.sender_id ||
-        signal.userId || signal.user_id ||
-        signal.sender_email || signal.senderEmail || ""
-      ).trim().toLowerCase();
-
-      if (sender && sender === email) continue;
-
-      try {
-        await readSignal(signal);
-      } catch (e) {
-        console.warn("پردازش سیگنال ناموفق بود:", e);
-      }
-    }
-  } catch (e) {
-    console.warn("بررسی سیگنال تماس ناموفق بود:", e);
-  }
-}
-
-function startSignalPolling() {
-  clearInterval(callPollTimer);
-  callPollTimer = setInterval(pollSignals, 1500);
-  pollSignals();
-}
-
-async function getOtherMember() {
-  const conversationId = getChatId(activeChat);
-
-  const result = await callGet("getConversationMember", {
-    conversationId,
-    conversation_id:conversationId,
-    userEmail:email,
-    user_email:email,
-    excludeEmail:email,
-    exclude_email:email
-  });
-
-  const d = unwrapData(result);
-  const member = d?.member || d?.otherMember || d?.other_member || d?.receiver || d;
-
-  const receiverEmail = String(
-    member?.receiverEmail ||
-    member?.receiver_email ||
-    member?.email ||
-    member?.memberEmail ||
-    member?.member_email ||
-    d?.receiverEmail ||
-    d?.receiver_email ||
-    ""
-  ).trim().toLowerCase();
-
-  if (!receiverEmail) {
-    throw new Error(
-      "ایمیل طرف مقابل از API دریافت نشد. پاسخ API باید شامل receiver_email یا receiverEmail باشد."
-    );
-  }
-
-  if (receiverEmail === email) {
-    throw new Error("API ایمیل حساب خودت را به‌عنوان گیرنده برگرداند.");
-  }
-
-  return {
-    email:receiverEmail,
-    id:String(member?.userId || member?.user_id || member?.id || receiverEmail)
-  };
-}
-
-async function startOutgoingCall(type) {
-  if (!activeChat) return notify("ابتدا گفت‌وگوی موردنظر را انتخاب کن.", true);
-  if ((activeChat.type || activeChat.conversation_type) !== "private") {
-    return notify("تماس فعلاً فقط در گفت‌وگوی خصوصی فعال است.", true);
-  }
-  if (activeCallId || callMode === "outgoing" || callMode === "incoming") {
-    return notify("یک تماس در حال انجام است.", true);
-  }
-
-  currentCallType = type;
-  callMode = "outgoing";
-  currentCall = null;
-  sentCandidates.clear();
-  receivedSignals.clear();
-  pendingCandidates = [];
-  isMuted = false;
-  isCameraOff = false;
-
-  showCallModal(
-    type === "video" ? "📹 تماس تصویری" : "📞 تماس صوتی",
-    "در حال پیدا کردن طرف مقابل..."
-  );
-
-  $("answerCallBtn").style.display = "none";
-  $("rejectCallBtn").style.display = "none";
-  $("endCallBtn").style.display = "inline-block";
-  $("muteCallBtn").style.display = "inline-block";
-  $("muteCallBtn").textContent = "🎙️ قطع میکروفون";
-  $("cameraCallBtn").textContent = "📷 قطع دوربین";
-  showVideoControls(type === "video");
-
-  try {
-    const receiver = await getOtherMember();
-
-    setCallStatus("در انتظار اجازهٔ میکروفون یا دوربین...");
-    await getLocalMedia(type);
-
-    createPeer();
-    localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
-
-    const result = await callPost("createCall", {
-      callerId:email,
-      callerEmail:email,
-      receiverId:receiver.id,
-      receiverEmail:receiver.email,
-      conversationId:getChatId(activeChat),
-      type,
-      callType:type,
-      status:"ringing"
-    });
-
-    currentCall = normalizeCall(result);
-    activeCallId = callIdOf(currentCall);
-
-    if (!activeCallId) {
-      throw new Error("شناسهٔ تماس از سرور دریافت نشد. پاسخ سرور: " +
-        JSON.stringify(result).slice(0, 300));
-    }
-
-    const offer = await pc.createOffer();
-    await pc.setLocalDescription(offer);
-    await sendDescription(pc.localDescription, "offer");
-
-    setCallStatus("در حال زنگ‌زدن به طرف مقابل... 📞");
-    startSignalPolling();
-  } catch (e) {
-    console.error("شروع تماس ناموفق بود:", e);
-    await endCall(false);
-    notify("شروع تماس ناموفق بود: " + e.message, true);
-  }
-}
-
-async function answerIncomingCall(call) {
-  currentCall = call;
-  activeCallId = callIdOf(call);
-
-  if (!activeCallId) throw new Error("شناسهٔ تماس ورودی موجود نیست.");
-
-  currentCallType = String(call.type || call.callType || call.call_type || "audio");
-  if (currentCallType !== "video") currentCallType = "audio";
-
-  callMode = "incoming";
-  sentCandidates.clear();
-  receivedSignals.clear();
-  pendingCandidates = [];
-
-  showCallModal(
-    currentCallType === "video" ? "📹 تماس تصویری ورودی" : "📞 تماس صوتی ورودی",
-    "در حال پاسخ‌دادن به تماس..."
-  );
-
-  $("answerCallBtn").style.display = "none";
-  $("rejectCallBtn").style.display = "none";
-  $("endCallBtn").style.display = "inline-block";
-  $("muteCallBtn").style.display = "inline-block";
-  $("muteCallBtn").textContent = "🎙️ قطع میکروفون";
-  $("cameraCallBtn").textContent = "📷 قطع دوربین";
-  showVideoControls(currentCallType === "video");
-
-  try {
-    await getLocalMedia(currentCallType);
-    createPeer();
-    localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
-
-    await callPost("answerCall", {
-      callId:activeCallId,
-      userId:email,
-      userEmail:email,
-      type:currentCallType
-    });
-
-    setCallStatus("در حال اتصال به تماس...");
-    startSignalPolling();
-  } catch (e) {
-    console.error("پاسخ تماس ناموفق بود:", e);
-    await endCall(false);
-    notify("پاسخ تماس ناموفق بود: " + e.message, true);
-  }
-}
-
-async function rejectIncomingCall(call) {
-  const id = callIdOf(call);
-  if (!id) return;
-
-  try {
-    await callPost("rejectCall", {
-      callId:id,
-      userId:email,
-      userEmail:email
-    });
-  } catch (e) {
-    notify("رد تماس در سرور ثبت نشد: " + e.message, true);
-  }
-
-  $("callModal").style.display = "none";
-  currentCall = null;
-  callMode = "";
-}
-
-async function pollIncomingCalls() {
-  if (!email || document.visibilityState !== "visible" || activeCallId) return;
-
-  try {
-    const data = await callGet("getIncomingCalls", {
-      userId:email,
-      userEmail:email,
-      receiverId:email,
-      receiverEmail:email
-    });
-
-    const d = unwrapData(data);
-    let list = d?.calls || d?.incomingCalls || d?.incoming_calls ||
-      d?.data?.calls || d?.result?.calls || [];
-
-    if (!Array.isArray(list)) list = [];
-
-    for (const call of list) {
-      const id = callIdOf(call);
-      if (!id || seenIncoming.has(id)) continue;
-
-      const status = String(call.status || "ringing").toLowerCase();
-      if (!["ringing","pending","calling","created"].includes(status)) continue;
-
-      seenIncoming.add(id);
-      showIncomingPrompt(call);
-      break;
-    }
-  } catch (e) {
-    console.warn("بررسی تماس‌های ورودی ناموفق بود:", e);
-  }
-}
-
-function showIncomingPrompt(call) {
-  currentCall = call;
-  currentCallType = String(call.type || call.callType || call.call_type || "audio") === "video"
-    ? "video" : "audio";
-  callMode = "incoming-prompt";
-
-  showCallModal(
-    currentCallType === "video" ? "📹 تماس تصویری ورودی" : "📞 تماس صوتی ورودی",
-    "یک تماس ورودی داری. می‌خواهی پاسخ بدهی؟"
-  );
-
-  $("localVideo").style.display = "none";
-  $("remoteVideo").style.display = "none";
-  $("answerCallBtn").style.display = "inline-block";
-  $("rejectCallBtn").style.display = "inline-block";
-  $("endCallBtn").style.display = "none";
-  $("muteCallBtn").style.display = "none";
-  $("cameraCallBtn").style.display = "none";
-}
-
-$("audioCall").addEventListener("click", () => startOutgoingCall("audio"));
-$("videoCall").addEventListener("click", () => startOutgoingCall("video"));
-
-$("answerCallBtn").addEventListener("click", async () => {
-  if (!currentCall) return;
-  $("answerCallBtn").disabled = true;
-  try {
-    await answerIncomingCall(currentCall);
-  } finally {
-    $("answerCallBtn").disabled = false;
-  }
-});
-
-$("rejectCallBtn").addEventListener("click", async () => {
-  if (currentCall) await rejectIncomingCall(currentCall);
-});
-
-$("endCallBtn").addEventListener("click", () => endCall(true));
-
-$("muteCallBtn").addEventListener("click", () => {
-  if (!localStream) return;
-  isMuted = !isMuted;
-  localStream.getAudioTracks().forEach(track => track.enabled = !isMuted);
-  $("muteCallBtn").textContent = isMuted
-    ? "🎙️ روشن‌کردن میکروفون" : "🎙️ قطع میکروفون";
-});
-
-$("cameraCallBtn").addEventListener("click", () => {
-  if (!localStream) return;
-  isCameraOff = !isCameraOff;
-  localStream.getVideoTracks().forEach(track => track.enabled = !isCameraOff);
-  $("cameraCallBtn").textContent = isCameraOff
-    ? "📷 روشن‌کردن دوربین" : "📷 قطع دوربین";
-});
-
-async function endCall(notifyServer = true) {
-  const oldId = activeCallId;
-
-  clearInterval(callPollTimer);
-  callPollTimer = null;
-
-  if (notifyServer && oldId) {
-    try {
-      await callPost("endCall", {
-        callId:oldId,
-        userId:email,
-        userEmail:email
-      });
-    } catch (e) {
-      console.warn("پایان تماس در سرور ثبت نشد:", e);
-    }
-  }
-
-  if (pc) {
-    try {
-      pc.ontrack = null;
-      pc.onicecandidate = null;
-      pc.close();
-    } catch (_) {}
-  }
-
-  pc = null;
-
-  if (localStream) localStream.getTracks().forEach(track => track.stop());
-  localStream = null;
-
-  $("localVideo").srcObject = null;
-  $("remoteVideo").srcObject = null;
-  $("remoteAudio").srcObject = null;
-  $("callModal").style.display = "none";
-
-  activeCallId = null;
-  currentCall = null;
-  callMode = "";
-  isMuted = false;
-  isCameraOff = false;
-
-  sentCandidates.clear();
-  receivedSignals.clear();
-  pendingCandidates = [];
-
-  $("muteCallBtn").textContent = "🎙️ قطع میکروفون";
-  $("cameraCallBtn").textContent = "📷 قطع دوربین";
-  $("answerCallBtn").style.display = "none";
-  $("rejectCallBtn").style.display = "none";
-  $("endCallBtn").style.display = "inline-block";
-  $("muteCallBtn").style.display = "inline-block";
-}
-
-/* راه‌اندازی */
-
-async function start() {
-  if (!checkLogin()) return;
-
-  try {
-    const status = await apiGet({action:"status"});
-    const d = unwrapData(status);
-
-    if (status.ok || status.success || d?.ok || d?.success) {
-      await loadChats(false);
-      clearNotice();
-    } else {
-      throw new Error("API پیام‌رسان آماده نیست.");
-    }
-  } catch (e) {
-    notify("اتصال به API پیام‌رسان برقرار نشد: " + e.message, true);
-    $("chatList").innerHTML = '<div class="empty">ارتباط با سرور برقرار نشد.</div>';
-  }
-
-  try {
-    await callGet("health");
-  } catch (e) {
-    notify("سرویس تماس پاسخ نداد: " + e.message, true);
-  }
-}
-
-start();
-
-setInterval(async () => {
-  if (!email || document.visibilityState !== "visible" || chatRefreshBusy) return;
-
-  chatRefreshBusy = true;
-  try {
-    await loadChats(true);
-    if (activeChat) await loadMessages(false);
-  } catch (e) {
-    console.warn("تازه‌سازی گفت‌وگوها ناموفق بود:", e);
-  } finally {
-    chatRefreshBusy = false;
-  }
-}, 6000);
-
-incomingPollTimer = setInterval(pollIncomingCalls, 3000);
-setTimeout(pollIncomingCalls, 1000);
-
-window.addEventListener("beforeunload", () => {
-  clearInterval(callPollTimer);
-  clearInterval(incomingPollTimer);
-});
-
-})();
+startApp();
 </script>
 </body>
 </html>
