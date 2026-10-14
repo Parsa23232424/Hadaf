@@ -148,6 +148,26 @@ h1{font-size:19px;margin:0 0 5px}
 .modal-actions button{flex:1}
 .help{font-size:11px;color:var(--muted);line-height:1.9}
 .bottom{text-align:center;color:#727991;font-size:10px;padding:20px 0}
+
+/* پنجره تماس */
+.call-backdrop{
+  display:none;position:fixed;inset:0;z-index:50;
+  background:#050610f5;align-items:center;justify-content:center;padding:18px
+}
+.call-box{
+  width:min(440px,100%);padding:22px;border-radius:24px;
+  border:1px solid #393257;background:#111522;text-align:center
+}
+.call-box h2{font-size:19px}
+.call-status{font-size:12px;color:var(--muted);line-height:2;margin:14px 0}
+.call-video{
+  display:none;width:100%;max-height:48vh;background:#050609;
+  border-radius:16px;object-fit:cover;margin:10px 0
+}
+.call-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.call-actions button{padding:12px 15px}
+.danger{background:#a52843!important}
+#remoteAudio{display:none}
 @media(max-width:720px){
   .app{padding:9px}
   .layout{grid-template-columns:1fr}
@@ -163,7 +183,6 @@ h1{font-size:19px;margin:0 0 5px}
 
 <body>
 <div class="app">
-
 <header class="topbar">
   <div class="brand">
     <div class="logo">💬</div>
@@ -225,18 +244,16 @@ h1{font-size:19px;margin:0 0 5px}
     <button class="primary send" id="sendBtn" type="submit" disabled>➤</button>
   </form>
 
-  <div class="disabled-note">تماس صوتی و تصویری هنوز در حال تست است.</div>
+  <div class="disabled-note">برای تماس، اجازهٔ میکروفون یا دوربین را بده.</div>
 </section>
 </main>
 
 <footer class="bottom">🏹 Hadaf © 2026</footer>
 </div>
 
-<!-- پنجره ساخت گفت‌وگو -->
 <div class="modal-backdrop" id="createModal">
 <form class="modal" id="createForm">
   <h2>ساخت گفت‌وگوی جدید ✨</h2>
-
   <div class="field">
     <label for="chatType">نوع گفت‌وگو</label>
     <select id="chatType">
@@ -245,12 +262,10 @@ h1{font-size:19px;margin:0 0 5px}
       <option value="channel">کانال</option>
     </select>
   </div>
-
   <div class="field">
     <label for="chatTitle">نام گفت‌وگو</label>
     <input id="chatTitle" maxlength="100" required placeholder="مثلاً گروه دوستان">
   </div>
-
   <div id="privateFields">
     <div class="field">
       <label for="memberEmail">ایمیل دوستت</label>
@@ -262,7 +277,6 @@ h1{font-size:19px;margin:0 0 5px}
     </div>
     <p class="help">دوستت باید در سایت هدف حساب داشته باشد.</p>
   </div>
-
   <div class="modal-actions">
     <button type="button" class="secondary" id="cancelCreate">لغو</button>
     <button type="submit" class="primary" id="confirmCreate">ساختن</button>
@@ -270,24 +284,19 @@ h1{font-size:19px;margin:0 0 5px}
 </form>
 </div>
 
-<!-- پنجره افزودن عضو به گروه -->
 <div class="modal-backdrop" id="addMemberModal">
 <form class="modal" id="addMemberForm">
   <h2>👥 افزودن عضو به گروه</h2>
   <p class="help" id="addMemberChatName">گروه انتخاب‌شده</p>
-
   <div class="field">
     <label for="newMemberEmail">ایمیل حساب عضو جدید</label>
     <input id="newMemberEmail" type="email" required maxlength="200" placeholder="friend@example.com">
   </div>
-
   <div class="field">
     <label for="newMemberName">نام عضو (اختیاری)</label>
     <input id="newMemberName" maxlength="80" placeholder="نام دوستت">
   </div>
-
   <p class="help">عضو جدید باید در سایت هدف حساب داشته باشد.</p>
-
   <div class="modal-actions">
     <button type="button" class="secondary" id="cancelAddMember">لغو</button>
     <button type="submit" class="primary" id="confirmAddMember">افزودن عضو</button>
@@ -295,29 +304,47 @@ h1{font-size:19px;margin:0 0 5px}
 </form>
 </div>
 
+<!-- پنجرهٔ تماس -->
+<div class="call-backdrop" id="callModal">
+  <div class="call-box">
+    <h2 id="callTitle">📞 تماس هدف</h2>
+    <div class="call-status" id="callStatus">در حال آماده‌سازی تماس...</div>
+    <video id="localVideo" class="call-video" autoplay muted playsinline></video>
+    <video id="remoteVideo" class="call-video" autoplay playsinline></video>
+    <audio id="remoteAudio" autoplay></audio>
+    <div class="call-actions">
+      <button id="muteCallBtn" class="secondary" type="button">🎙️ قطع میکروفون</button>
+      <button id="cameraCallBtn" class="secondary" type="button" style="display:none">📷 قطع دوربین</button>
+      <button id="answerCallBtn" class="primary" type="button" style="display:none">✅ پاسخ</button>
+      <button id="rejectCallBtn" class="danger" type="button" style="display:none">❌ رد تماس</button>
+      <button id="endCallBtn" class="danger" type="button">☎️ پایان تماس</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (() => {
 "use strict";
 
-/* تنظیمات API */
+/* API پیام‌رسان */
 const API_URL =
 "https://script.google.com/macros/s/AKfycbz4dz-jTt2Pj6FZ1d2f44VKGPuLpHFuHXWJ40eWSF8CGRp-HMDCISfPvC-rCMtP1C-geg/exec";
 
+/* API جداگانهٔ تماس؛ آدرس ارسالی تو */
+const CALLS_API =
+"https://script.google.com/macros/s/AKfycbxS8ovZyYizLupT2aoPFlMHNwb_M9SXkTE-so512Dd9Cg6-b8DGt1timOBxsLcXHcsY/exec";
+
 const $ = id => document.getElementById(id);
+let user = null, chats = [], activeChat = null, filter = "all";
+let loadingMessages = false, lastMessageSignature = "", noticeTimer = null;
+let callPollTimer = null, incomingPollTimer = null;
+let pc = null, localStream = null, activeCallId = null;
+let currentCallType = "audio", currentCall = null;
+let callMode = "", isMuted = false, isCameraOff = false;
+let seenIncoming = new Set(), sentCandidates = new Set(), receivedSignals = new Set();
 
-let user = null;
-let chats = [];
-let activeChat = null;
-let filter = "all";
-let loadingMessages = false;
-let lastMessageSignature = "";
-let noticeTimer = null;
-
-try {
-  user = JSON.parse(localStorage.getItem("hadafUser") || "null");
-} catch (_) {
-  user = null;
-}
+try { user = JSON.parse(localStorage.getItem("hadafUser") || "null"); }
+catch (_) { user = null; }
 
 const email = String(user?.email || "").trim().toLowerCase();
 const username = String(user?.username || user?.name || "کاربر هدف").trim();
@@ -326,7 +353,6 @@ function requireEmail() {
   if (!email) throw new Error("ابتدا وارد حساب سایت هدف شو.");
   return email;
 }
-
 function notify(message, error = false) {
   const box = $("notice");
   box.textContent = message;
@@ -336,82 +362,98 @@ function notify(message, error = false) {
   clearTimeout(noticeTimer);
   noticeTimer = setTimeout(() => box.style.display = "none", 6000);
 }
-
 function clearNotice() {
   $("notice").style.display = "none";
   clearTimeout(noticeTimer);
 }
-
 function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[char]);
+  })[c]);
 }
-
 function typeLabel(type) {
   return type === "group" ? "گروه" : type === "channel" ? "کانال" : "خصوصی";
 }
-
 function typeIcon(type) {
   return type === "group" ? "👥" : type === "channel" ? "📢" : "👤";
 }
-
 function getChatId(chat) {
   return String(chat?.id ?? chat?.conversation_id ?? "");
 }
-
 function formatTime(value) {
   if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleTimeString("fa-IR", {
-    hour:"2-digit",
-    minute:"2-digit"
-  });
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? "" :
+    d.toLocaleTimeString("fa-IR", {hour:"2-digit",minute:"2-digit"});
 }
 
-/* درخواست GET */
+/* درخواست‌های پیام‌رسان */
 async function apiGet(params) {
-  const finalParams = {...params};
-  if (!finalParams.email) finalParams.email = email;
-  if (!finalParams.user_email) finalParams.user_email = email;
-
-  const url = API_URL + "?" + new URLSearchParams(finalParams).toString();
-  const response = await fetch(url, {method:"GET", cache:"no-store"});
-
+  const p = {...params};
+  if (!p.email) p.email = email;
+  if (!p.user_email) p.user_email = email;
+  const response = await fetch(API_URL + "?" + new URLSearchParams(p), {
+    method:"GET", cache:"no-store"
+  });
   if (!response.ok) throw new Error("خطای ارتباط با سرور: " + response.status);
-
   const data = await response.json();
-
-  if (data.ok === false || data.success === false) {
-    throw new Error(data.message || data.error || "خطای API");
-  }
-
+  if (data.ok === false || data.success === false)
+    throw new Error(data.message || data.error || "خطای API پیام‌رسان");
   return data;
 }
-
-/* درخواست POST */
 async function apiPost(payload) {
-  const finalPayload = {
+  const p = {
     ...payload,
     email:payload.email || email,
     user_email:payload.user_email || payload.email || email
   };
-
   const response = await fetch(API_URL, {
     method:"POST",
     headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(finalPayload)
+    body:JSON.stringify(p)
   });
-
   if (!response.ok) throw new Error("خطای ارتباط با سرور: " + response.status);
-
   const data = await response.json();
+  if (data.ok === false || data.success === false)
+    throw new Error(data.message || data.error || "خطای API پیام‌رسان");
+  return data;
+}
 
-  if (data.ok === false || data.success === false) {
-    throw new Error(data.message || data.error || "خطای API");
-  }
-
+/* درخواست‌های API تماس */
+async function callGet(action, params = {}) {
+  const query = new URLSearchParams({
+    action,
+    userId:email,
+    userEmail:email,
+    email,
+    ...params
+  });
+  const response = await fetch(CALLS_API + "?" + query.toString(), {
+    method:"GET", cache:"no-store"
+  });
+  if (!response.ok) throw new Error("خطای سرور تماس: " + response.status);
+  const data = await response.json();
+  if (data.ok === false || data.success === false)
+    throw new Error(data.message || data.error || "درخواست تماس ناموفق بود.");
+  return data;
+}
+async function callPost(action, params = {}) {
+  const body = {
+    action,
+    userId:email,
+    userEmail:email,
+    email,
+    ...params
+  };
+  const response = await fetch(CALLS_API, {
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(body)
+  });
+  if (!response.ok) throw new Error("خطای سرور تماس: " + response.status);
+  const data = await response.json();
+  if (data.ok === false || data.success === false)
+    throw new Error(data.message || data.error || "درخواست تماس ناموفق بود.");
   return data;
 }
 
@@ -422,19 +464,16 @@ function checkLogin() {
     notify("ابتدا در سایت هدف وارد حساب شو.", true);
     return false;
   }
-
   $("accountLabel").textContent = username + " · " + email;
   return true;
 }
 
-/* نمایش گفت‌وگوها */
+/* فهرست گفت‌وگوها */
 function renderChats() {
   const search = $("searchInput").value.trim().toLowerCase();
-
   const filtered = chats.filter(chat => {
     const typeMatch = filter === "all" || chat.type === filter;
-    const title = String(chat.title || "").toLowerCase();
-    return typeMatch && title.includes(search);
+    return typeMatch && String(chat.title || "").toLowerCase().includes(search);
   });
 
   if (!filtered.length) {
@@ -445,110 +484,76 @@ function renderChats() {
 
   $("chatList").innerHTML = filtered.map(chat => {
     const selected = activeChat && getChatId(activeChat) === getChatId(chat);
-    const verified = chat.is_official
-      ? '<span class="verified" title="حساب رسمی">✓</span>'
-      : "";
-
-    return `
-      <button type="button"
-        class="chat-item ${selected ? "selected" : ""}"
-        data-chat-id="${escapeHTML(getChatId(chat))}">
-        <div class="avatar">${typeIcon(chat.type)}</div>
-        <div class="chat-info">
-          <div class="chat-title">
-            <span>${escapeHTML(chat.title || "گفت‌وگو")}</span>
-            ${verified}
-          </div>
-          <div class="chat-preview">${escapeHTML(typeLabel(chat.type))}</div>
-        </div>
-      </button>`;
+    const verified = chat.is_official ?
+      '<span class="verified" title="حساب رسمی">✓</span>' : "";
+    return `<button type="button" class="chat-item ${selected ? "selected" : ""}"
+      data-chat-id="${escapeHTML(getChatId(chat))}">
+      <div class="avatar">${typeIcon(chat.type)}</div>
+      <div class="chat-info">
+        <div class="chat-title"><span>${escapeHTML(chat.title || "گفت‌وگو")}</span>${verified}</div>
+        <div class="chat-preview">${escapeHTML(typeLabel(chat.type))}</div>
+      </div>
+    </button>`;
   }).join("");
 
   $("chatList").querySelectorAll("[data-chat-id]").forEach(button => {
     button.addEventListener("click", () => {
-      const chat = chats.find(item => getChatId(item) === button.dataset.chatId);
+      const chat = chats.find(c => getChatId(c) === button.dataset.chatId);
       if (chat) selectChat(chat);
     });
   });
 }
 
-/* دریافت گفت‌وگوها */
 async function loadChats(keepSelection = true) {
   requireEmail();
-
   const data = await apiGet({action:"chats"});
   chats = Array.isArray(data.chats) ? data.chats : [];
 
   if (keepSelection && activeChat) {
-    activeChat = chats.find(chat =>
-      getChatId(chat) === getChatId(activeChat)
-    ) || null;
+    activeChat = chats.find(c => getChatId(c) === getChatId(activeChat)) || null;
   }
-
   renderChats();
 
-  if (!activeChat && chats.length) {
-    selectChat(chats[0]);
-  } else if (!activeChat) {
+  if (!activeChat && chats.length) selectChat(chats[0]);
+  else if (!activeChat) {
     $("activeName").textContent = "هنوز گفت‌وگویی نداری";
     $("activeStatus").textContent = "از دکمهٔ «جدید» شروع کن";
     $("activeAvatar").textContent = "💬";
-    $("messages").innerHTML =
-      '<div class="empty">اولین گروه، کانال یا گفت‌وگوی خصوصی خودت را بساز. 💜</div>';
+    $("messages").innerHTML = '<div class="empty">اولین گفت‌وگو را بساز. 💜</div>';
     $("messageInput").disabled = true;
     $("sendBtn").disabled = true;
     $("addMemberBtn").style.display = "none";
   }
 }
 
-/* انتخاب گفت‌وگو */
 function selectChat(chat) {
   activeChat = chat;
   lastMessageSignature = "";
-
   $("activeName").textContent = chat.title || "گفت‌وگو";
-
   if (chat.is_official) {
     const tick = document.createElement("span");
     tick.className = "verified";
     tick.textContent = "✓";
-    $("activeName").appendChild(document.createTextNode(" "));
-    $("activeName").appendChild(tick);
+    $("activeName").append(" ", tick);
   }
-
   $("activeStatus").textContent = typeLabel(chat.type);
   $("activeAvatar").textContent = typeIcon(chat.type);
-
-  /* دکمه افزودن عضو فقط برای گروه‌ها نمایش داده می‌شود. */
-  $("addMemberBtn").style.display =
-    chat.type === "group" ? "inline-block" : "none";
-
+  $("addMemberBtn").style.display = chat.type === "group" ? "inline-block" : "none";
   $("messageInput").disabled = false;
   $("sendBtn").disabled = false;
-
   renderChats();
   loadMessages(true);
 }
 
-/* دریافت پیام‌ها */
 async function loadMessages(forceScroll = false) {
   if (!activeChat || loadingMessages || !email) return;
-
   loadingMessages = true;
-
   try {
-    const requestedChatId = getChatId(activeChat);
-
-    const data = await apiGet({
-      action:"messages",
-      conversationId:requestedChatId
-    });
-
-    if (!activeChat || getChatId(activeChat) !== requestedChatId) return;
-
+    const id = getChatId(activeChat);
+    const data = await apiGet({action:"messages", conversationId:id});
+    if (!activeChat || getChatId(activeChat) !== id) return;
     const list = Array.isArray(data.messages) ? data.messages : [];
     const signature = JSON.stringify(list);
-
     if (signature === lastMessageSignature && !forceScroll) return;
     lastMessageSignature = signature;
 
@@ -558,140 +563,106 @@ async function loadMessages(forceScroll = false) {
       return;
     }
 
-    $("messages").innerHTML = list.map(message => {
-      const mine = String(message.sender_email || "")
-        .trim().toLowerCase() === email;
-
-      return `
-        <div class="message-row ${mine ? "mine" : ""}">
-          ${mine ? "" : `<div class="sender">${escapeHTML(message.sender_name || "کاربر")}</div>`}
-          <div class="bubble">${escapeHTML(message.message || "")}</div>
-          <div class="message-time">${escapeHTML(formatTime(message.created_at))}</div>
-        </div>`;
+    $("messages").innerHTML = list.map(m => {
+      const mine = String(m.sender_email || "").trim().toLowerCase() === email;
+      return `<div class="message-row ${mine ? "mine" : ""}">
+        ${mine ? "" : `<div class="sender">${escapeHTML(m.sender_name || "کاربر")}</div>`}
+        <div class="bubble">${escapeHTML(m.message || "")}</div>
+        <div class="message-time">${escapeHTML(formatTime(m.created_at))}</div>
+      </div>`;
     }).join("");
-
-    if (forceScroll) {
-      $("messages").scrollTop = $("messages").scrollHeight;
-    }
-  } catch (error) {
-    notify("دریافت پیام‌ها ناموفق بود: " + error.message, true);
+    if (forceScroll) $("messages").scrollTop = $("messages").scrollHeight;
+  } catch (e) {
+    notify("دریافت پیام‌ها ناموفق بود: " + e.message, true);
   } finally {
     loadingMessages = false;
   }
 }
 
-/* ارسال پیام */
 $("messageForm").addEventListener("submit", async event => {
   event.preventDefault();
-
-  if (!activeChat || !email) {
-    notify("ابتدا یک گفت‌وگو انتخاب کن.", true);
-    return;
-  }
-
+  if (!activeChat || !email) return notify("ابتدا یک گفت‌وگو انتخاب کن.", true);
   const input = $("messageInput");
   const message = input.value.trim();
   if (!message) return;
-
   $("sendBtn").disabled = true;
-
   try {
     await apiPost({
       action:"sendMessage",
-      username:username,
+      username,
       conversationId:getChatId(activeChat),
-      message:message
+      message
     });
-
     input.value = "";
     lastMessageSignature = "";
     clearNotice();
     await loadMessages(true);
-  } catch (error) {
-    notify("پیام ارسال نشد: " + error.message, true);
+  } catch (e) {
+    notify("پیام ارسال نشد: " + e.message, true);
   } finally {
     $("sendBtn").disabled = false;
     input.focus();
   }
 });
 
-/* نمایش فیلد ایمیل در ساخت گفت‌وگوی خصوصی */
+/* ساخت گفت‌وگو */
 function updatePrivateFields() {
   $("privateFields").style.display =
     $("chatType").value === "private" ? "block" : "none";
 }
-
 $("chatType").addEventListener("change", updatePrivateFields);
-
 $("newChatBtn").addEventListener("click", () => {
-  if (!email) {
-    notify("ابتدا وارد حساب هدف شو.", true);
-    return;
-  }
-
+  if (!email) return notify("ابتدا وارد حساب هدف شو.", true);
   $("createForm").reset();
   updatePrivateFields();
   $("createModal").style.display = "flex";
 });
-
-$("cancelCreate").addEventListener("click", () => {
-  $("createModal").style.display = "none";
+$("cancelCreate").addEventListener("click", () => $("createModal").style.display = "none");
+$("createModal").addEventListener("click", e => {
+  if (e.target === $("createModal")) $("createModal").style.display = "none";
 });
 
-$("createModal").addEventListener("click", event => {
-  if (event.target === $("createModal")) {
-    $("createModal").style.display = "none";
-  }
-});
-
-/* ساخت گفت‌وگوی جدید */
 $("createForm").addEventListener("submit", async event => {
   event.preventDefault();
-  if (!email) return;
-
   const type = $("chatType").value;
   const title = $("chatTitle").value.trim();
   const memberEmail = $("memberEmail").value.trim().toLowerCase();
   const memberName = $("memberName").value.trim();
 
-  if (!title) {
-    notify("نام گفت‌وگو را وارد کن.", true);
-    return;
-  }
-
-  if (type === "private" && !memberEmail) {
-    notify("ایمیل حساب دوستت را وارد کن.", true);
-    return;
-  }
-
-  if (type === "private" && memberEmail === email) {
-    notify("ایمیل خودت را وارد نکن.", true);
-    return;
-  }
+  if (!title) return notify("نام گفت‌وگو را وارد کن.", true);
+  if (type === "private" && !memberEmail)
+    return notify("ایمیل حساب دوستت را وارد کن.", true);
+  if (type === "private" && memberEmail === email)
+    return notify("ایمیل خودت را وارد نکن.", true);
 
   const button = $("confirmCreate");
   button.disabled = true;
   button.textContent = "در حال ساخت...";
-
   try {
-    const created = await apiPost({
+    const result = await apiPost({
       action:"createConversation",
-      username:username,
-      type:type,
-      title:title
+      username,
+      type,
+      title,
+      memberEmail,
+      memberName:memberName || memberEmail
     });
 
-    const chat = created.chat;
-
-    if (!chat || !getChatId(chat)) {
-      throw new Error("شناسهٔ گفت‌وگو از API دریافت نشد.");
+    let chat = result.chat || result.conversation;
+    if (!chat && (result.id || result.conversationId || result.conversation_id)) {
+      chat = {
+        id:result.id || result.conversationId || result.conversation_id,
+        title,type
+      };
     }
+    if (!chat || !getChatId(chat))
+      throw new Error("شناسهٔ گفت‌وگو از API دریافت نشد.");
 
     if (type === "private") {
       await apiPost({
         action:"addMember",
         conversationId:getChatId(chat),
-        memberEmail:memberEmail,
+        memberEmail,
         memberName:memberName || memberEmail
       });
     }
@@ -699,176 +670,534 @@ $("createForm").addEventListener("submit", async event => {
     $("createModal").style.display = "none";
     activeChat = null;
     await loadChats(false);
-
-    let newChat = chats.find(item => getChatId(item) === getChatId(chat));
-
-    if (!newChat) {
-      newChat = chat;
-      chats.unshift(newChat);
+    const found = chats.find(c => getChatId(c) === getChatId(chat));
+    if (found) selectChat(found);
+    else {
+      chats.unshift(chat);
+      selectChat(chat);
     }
-
-    selectChat(newChat);
-    renderChats();
     notify("گفت‌وگو ساخته شد. 💜");
-  } catch (error) {
-    notify("ساخت گفت‌وگو ناموفق بود: " + error.message, true);
+  } catch (e) {
+    notify("ساخت گفت‌وگو ناموفق بود: " + e.message, true);
   } finally {
     button.disabled = false;
     button.textContent = "ساختن";
   }
 });
 
-/* ============================
-   افزودن عضو به گروه
-============================ */
-
-/* باز کردن پنجره */
+/* افزودن عضو */
 $("addMemberBtn").addEventListener("click", () => {
-  if (!activeChat || activeChat.type !== "group") {
-    notify("ابتدا یک گروه انتخاب کن.", true);
-    return;
-  }
-
+  if (!activeChat || activeChat.type !== "group")
+    return notify("ابتدا یک گروه انتخاب کن.", true);
   $("addMemberForm").reset();
-  $("addMemberChatName").textContent =
-    "افزودن عضو به گروه «" + (activeChat.title || "بدون نام") + "»";
-
+  $("addMemberChatName").textContent = "گروه: " + (activeChat.title || "");
   $("addMemberModal").style.display = "flex";
 });
-
-$("cancelAddMember").addEventListener("click", () => {
-  $("addMemberModal").style.display = "none";
+$("cancelAddMember").addEventListener("click", () => $("addMemberModal").style.display = "none");
+$("addMemberModal").addEventListener("click", e => {
+  if (e.target === $("addMemberModal")) $("addMemberModal").style.display = "none";
 });
-
-$("addMemberModal").addEventListener("click", event => {
-  if (event.target === $("addMemberModal")) {
-    $("addMemberModal").style.display = "none";
-  }
-});
-
-/* ارسال درخواست افزودن عضو به API */
 $("addMemberForm").addEventListener("submit", async event => {
   event.preventDefault();
-
-  if (!email || !activeChat) {
-    notify("ابتدا وارد حساب شو و یک گروه انتخاب کن.", true);
-    return;
-  }
-
-  if (activeChat.type !== "group") {
-    notify("این گفت‌وگو گروه نیست.", true);
-    return;
-  }
+  if (!activeChat || activeChat.type !== "group")
+    return notify("این گفت‌وگو گروه نیست.", true);
 
   const memberEmail = $("newMemberEmail").value.trim().toLowerCase();
   const memberName = $("newMemberName").value.trim();
-
-  if (!memberEmail) {
-    notify("ایمیل عضو جدید را وارد کن.", true);
-    return;
-  }
-
-  if (memberEmail === email) {
-    notify("ایمیل خودت را نمی‌توانی دوباره اضافه کنی.", true);
-    return;
-  }
+  if (!memberEmail) return notify("ایمیل عضو را وارد کن.", true);
+  if (memberEmail === email) return notify("ایمیل خودت را وارد نکن.", true);
 
   const button = $("confirmAddMember");
-  const originalText = button.textContent;
   button.disabled = true;
   button.textContent = "در حال افزودن...";
-
   try {
-    const conversationId = getChatId(activeChat);
-
-    const result = await apiPost({
+    await apiPost({
       action:"addMember",
-      conversationId:conversationId,
-      memberEmail:memberEmail,
+      conversationId:getChatId(activeChat),
+      memberEmail,
       memberName:memberName || memberEmail
     });
-
-    if (result.ok === false || result.success === false) {
-      throw new Error(result.message || result.error || "افزودن عضو ناموفق بود.");
-    }
-
     $("addMemberModal").style.display = "none";
-
-    notify("درخواست افزودن عضو با موفقیت انجام شد. 💜");
-
-    /*
-      گفت‌وگوها را تازه می‌کنیم تا تغییرات احتمالی سرور دریافت شوند.
-    */
+    notify("درخواست افزودن عضو ارسال شد. 💜");
     await loadChats(true);
-  } catch (error) {
-    notify("افزودن عضو ناموفق بود: " + error.message, true);
+  } catch (e) {
+    notify("افزودن عضو ناموفق بود: " + e.message, true);
   } finally {
     button.disabled = false;
-    button.textContent = originalText;
+    button.textContent = "افزودن عضو";
   }
 });
 
-/* جست‌وجو */
 $("searchInput").addEventListener("input", renderChats);
-
-/* فیلتر گفت‌وگوها */
 $("tabs").querySelectorAll("[data-filter]").forEach(button => {
   button.addEventListener("click", () => {
     filter = button.dataset.filter;
-
-    $("tabs").querySelectorAll(".tab").forEach(tab => {
-      tab.classList.remove("active");
-    });
-
+    $("tabs").querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
     button.classList.add("active");
     renderChats();
   });
 });
 
-/* تماس‌ها فعلاً آزمایشی هستند */
-$("audioCall").addEventListener("click", () => {
-  notify("📞 تماس صوتی هنوز فعال نشده است.");
-});
+/* ==========================
+   WebRTC - تماس صوتی و تصویری
+   ========================== */
 
-$("videoCall").addEventListener("click", () => {
-  notify("📹 تماس تصویری هنوز فعال نشده است.");
-});
+function setCallStatus(text) {
+  $("callStatus").textContent = text;
+}
+function showCallModal(title, status) {
+  $("callTitle").textContent = title;
+  setCallStatus(status);
+  $("callModal").style.display = "flex";
+}
+function showVideoControls(video) {
+  $("localVideo").style.display = video ? "block" : "none";
+  $("remoteVideo").style.display = video ? "block" : "none";
+  $("cameraCallBtn").style.display = video ? "inline-block" : "none";
+}
+function getReceiverFromChat(chat) {
+  /*
+    برای تماس خصوصی، API پیام‌رسان باید ایمیل/شناسهٔ طرف مقابل
+    را در یکی از این فیلدها برگرداند.
+  */
+  const possible = [
+    chat?.other_user_id,
+    chat?.receiver_id,
+    chat?.recipient_id,
+    chat?.member_user_id,
+    chat?.other_user_email,
+    chat?.receiver_email,
+    chat?.recipient_email,
+    chat?.member_email
+  ];
+  return String(possible.find(v => v && String(v).trim()) || "").trim();
+}
+function normalizeCall(data) {
+  if (!data) return null;
+  if (data.call) return data.call;
+  if (data.data?.call) return data.data.call;
+  return data;
+}
+function callIdOf(call) {
+  return String(call?.id ?? call?.callId ?? call?.call_id ?? "");
+}
+function signalList(data) {
+  if (Array.isArray(data.signals)) return data.signals;
+  if (Array.isArray(data.data?.signals)) return data.data.signals;
+  return [];
+}
+function createPeer() {
+  pc = new RTCPeerConnection({
+    iceServers:[
+      {urls:"stun:stun.l.google.com:19302"},
+      {urls:"stun:stun.cloudflare.com:3478"}
+    ]
+  });
 
-/* شروع پیام‌رسان */
-async function start() {
-  if (!checkLogin()) return;
+  pc.onicecandidate = async event => {
+    if (!event.candidate || !activeCallId) return;
+    const candidate = event.candidate.toJSON();
+    const key = JSON.stringify(candidate);
+    if (sentCandidates.has(key)) return;
+    sentCandidates.add(key);
+    try {
+      await callPost("sendSignal", {
+        callId:activeCallId,
+        signalType:"ice",
+        type:"ice",
+        signal:candidate,
+        data:candidate,
+        candidate,
+        senderId:email,
+        userId:email
+      });
+    } catch (e) {
+      console.warn("ارسال ICE ناموفق بود:", e);
+    }
+  };
+
+  pc.ontrack = event => {
+    const stream = event.streams && event.streams[0];
+    if (!stream) return;
+    if (currentCallType === "video") {
+      $("remoteVideo").srcObject = stream;
+      $("remoteVideo").play().catch(() => {});
+    } else {
+      $("remoteAudio").srcObject = stream;
+      $("remoteAudio").play().catch(() => {});
+    }
+    setCallStatus("تماس برقرار شد 💜");
+  };
+
+  pc.onconnectionstatechange = () => {
+    if (!pc) return;
+    if (pc.connectionState === "connected") setCallStatus("تماس برقرار است 💜");
+    if (pc.connectionState === "failed")
+      setCallStatus("اتصال برقرار نشد؛ ممکن است سرور TURN لازم باشد.");
+    if (pc.connectionState === "disconnected")
+      setCallStatus("اتصال قطع شده؛ در حال تلاش برای وصل‌شدن...");
+  };
+}
+
+async function getLocalMedia(type) {
+  if (!navigator.mediaDevices?.getUserMedia)
+    throw new Error("مرورگر اجازهٔ دسترسی به میکروفون/دوربین را نمی‌دهد. صفحه باید HTTPS باشد.");
+
+  localStream = await navigator.mediaDevices.getUserMedia({
+    audio:true,
+    video:type === "video"
+  });
+
+  if (type === "video") {
+    $("localVideo").srcObject = localStream;
+    $("localVideo").play().catch(() => {});
+  }
+  return localStream;
+}
+
+async function sendDescription(description, signalType) {
+  const payload = {
+    callId:activeCallId,
+    signalType,
+    type:signalType,
+    signal:description,
+    data:description,
+    description,
+    senderId:email,
+    userId:email
+  };
+  await callPost("sendSignal", payload);
+}
+
+async function readSignal(signal) {
+  if (!signal) return;
+  const sid = String(signal.id ?? signal.signal_id ??
+    JSON.stringify(signal.signal || signal.data || signal));
+  if (receivedSignals.has(sid)) return;
+  receivedSignals.add(sid);
+
+  const kind = String(signal.signalType || signal.signal_type ||
+    signal.type || "").toLowerCase();
+
+  let raw = signal.signal ?? signal.data ?? signal.candidate ?? signal.description;
+  if (typeof raw === "string") {
+    try { raw = JSON.parse(raw); } catch (_) {}
+  }
+
+  if (kind.includes("offer") || raw?.type === "offer") {
+    if (pc && !pc.currentRemoteDescription) {
+      await pc.setRemoteDescription(new RTCSessionDescription(raw));
+      const answer = await pc.createAnswer();
+      await pc.setLocalDescription(answer);
+      await sendDescription(pc.localDescription, "answer");
+    }
+    return;
+  }
+
+  if (kind.includes("answer") || raw?.type === "answer") {
+    if (pc && !pc.currentRemoteDescription)
+      await pc.setRemoteDescription(new RTCSessionDescription(raw));
+    return;
+  }
+
+  if (kind.includes("ice") || raw?.candidate) {
+    if (pc && raw) {
+      try {
+        await pc.addIceCandidate(new RTCIceCandidate(raw));
+      } catch (e) {
+        console.warn("ICE هنوز قابل افزودن نیست:", e);
+      }
+    }
+  }
+}
+
+async function pollSignals() {
+  if (!activeCallId) return;
+  try {
+    const data = await callGet("getSignals", {callId:activeCallId});
+    const signals = signalList(data);
+    for (const signal of signals) {
+      const sender = String(signal.senderId || signal.sender_id ||
+        signal.userId || signal.user_id || signal.sender_email || "").toLowerCase();
+      if (sender && sender === email) continue;
+      await readSignal(signal);
+    }
+  } catch (e) {
+    console.warn("بررسی سیگنال تماس ناموفق بود:", e);
+  }
+}
+
+function startSignalPolling() {
+  clearInterval(callPollTimer);
+  callPollTimer = setInterval(pollSignals, 1500);
+  pollSignals();
+}
+
+async function startOutgoingCall(type) {
+  if (!activeChat) return notify("ابتدا گفت‌وگوی موردنظر را انتخاب کن.", true);
+  if (activeChat.type !== "private")
+    return notify("تماس فعلاً فقط در گفت‌وگوی خصوصی فعال است.", true);
+  if (activeCallId) return notify("یک تماس در حال انجام است.", true);
+
+  const receiverId = getReceiverFromChat(activeChat);
+  if (!receiverId) {
+    return notify(
+      "شناسه یا ایمیل طرف مقابل در اطلاعات گفت‌وگو نیست. API پیام‌رسان باید receiver_email یا other_user_id را برگرداند.",
+      true
+    );
+  }
+
+  currentCallType = type;
+  callMode = "outgoing";
+  currentCall = null;
+  sentCandidates.clear();
+  receivedSignals.clear();
+  showCallModal(type === "video" ? "📹 تماس تصویری" : "📞 تماس صوتی",
+    "در حال آماده‌سازی میکروفون و اتصال...");
+
+  $("answerCallBtn").style.display = "none";
+  $("rejectCallBtn").style.display = "none";
+  $("endCallBtn").style.display = "inline-block";
+  $("muteCallBtn").style.display = "inline-block";
+  $("muteCallBtn").textContent = "🎙️ قطع میکروفون";
+  $("cameraCallBtn").style.display = type === "video" ? "inline-block" : "none";
+  showVideoControls(type === "video");
 
   try {
-    const status = await apiGet({action:"status"});
+    await getLocalMedia(type);
+    createPeer();
+    localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
 
+    const result = await callPost("createCall", {
+      callerId:email,
+      callerEmail:email,
+      receiverId,
+      receiverEmail:receiverId,
+      conversationId:getChatId(activeChat),
+      type,
+      callType:type,
+      status:"ringing"
+    });
+
+    currentCall = normalizeCall(result);
+    activeCallId = callIdOf(currentCall);
+    if (!activeCallId) throw new Error("شناسهٔ تماس از API دریافت نشد.");
+
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+    await sendDescription(pc.localDescription, "offer");
+
+    setCallStatus("در انتظار پاسخ طرف مقابل...");
+    startSignalPolling();
+  } catch (e) {
+    await endCall(false);
+    notify("شروع تماس ناموفق بود: " + e.message, true);
+  }
+}
+
+async function answerIncomingCall(call) {
+  currentCall = call;
+  activeCallId = callIdOf(call);
+  if (!activeCallId) throw new Error("شناسهٔ تماس ورودی موجود نیست.");
+
+  currentCallType = String(call.type || call.callType || call.call_type || "audio");
+  if (currentCallType !== "video") currentCallType = "audio";
+  callMode = "incoming";
+  sentCandidates.clear();
+  receivedSignals.clear();
+
+  showCallModal(currentCallType === "video" ? "📹 تماس تصویری ورودی" : "📞 تماس صوتی ورودی",
+    "در حال پاسخ‌دادن به تماس...");
+  $("answerCallBtn").style.display = "none";
+  $("rejectCallBtn").style.display = "none";
+  $("endCallBtn").style.display = "inline-block";
+  $("muteCallBtn").style.display = "inline-block";
+  $("muteCallBtn").textContent = "🎙️ قطع میکروفون";
+  showVideoControls(currentCallType === "video");
+
+  try {
+    await callPost("answerCall", {
+      callId:activeCallId,
+      userId:email,
+      userEmail:email,
+      type:currentCallType
+    });
+    await getLocalMedia(currentCallType);
+    createPeer();
+    localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
+    startSignalPolling();
+  } catch (e) {
+    await endCall(false);
+    notify("پاسخ تماس ناموفق بود: " + e.message, true);
+  }
+}
+
+async function rejectIncomingCall(call) {
+  const id = callIdOf(call);
+  if (!id) return;
+  try {
+    await callPost("rejectCall", {
+      callId:id,
+      userId:email,
+      userEmail:email
+    });
+  } catch (e) {
+    notify("رد تماس در سرور ثبت نشد: " + e.message, true);
+  }
+  $("callModal").style.display = "none";
+}
+
+async function pollIncomingCalls() {
+  if (!email || document.visibilityState !== "visible" || activeCallId) return;
+  try {
+    const data = await callGet("getIncomingCalls", {
+      userId:email,
+      userEmail:email,
+      receiverId:email,
+      receiverEmail:email
+    });
+    let list = data.calls || data.incomingCalls || data.incoming_calls || data.data?.calls || [];
+    if (!Array.isArray(list)) list = [];
+
+    for (const call of list) {
+      const id = callIdOf(call);
+      if (!id || seenIncoming.has(id)) continue;
+      const status = String(call.status || "ringing").toLowerCase();
+      if (!["ringing","pending","calling","created"].includes(status)) continue;
+      seenIncoming.add(id);
+      showIncomingPrompt(call);
+      break;
+    }
+  } catch (e) {
+    console.warn("بررسی تماس‌های ورودی ناموفق بود:", e);
+  }
+}
+
+function showIncomingPrompt(call) {
+  currentCall = call;
+  const type = String(call.type || call.callType || call.call_type || "audio");
+  currentCallType = type === "video" ? "video" : "audio";
+  callMode = "incoming-prompt";
+
+  showCallModal(currentCallType === "video" ? "📹 تماس تصویری ورودی" : "📞 تماس صوتی ورودی",
+    "یک تماس ورودی داری. می‌خواهی پاسخ بدهی؟");
+
+  $("localVideo").style.display = "none";
+  $("remoteVideo").style.display = "none";
+  $("answerCallBtn").style.display = "inline-block";
+  $("rejectCallBtn").style.display = "inline-block";
+  $("endCallBtn").style.display = "none";
+  $("muteCallBtn").style.display = "none";
+  $("cameraCallBtn").style.display = "none";
+}
+
+$("audioCall").addEventListener("click", () => startOutgoingCall("audio"));
+$("videoCall").addEventListener("click", () => startOutgoingCall("video"));
+
+$("answerCallBtn").addEventListener("click", async () => {
+  if (!currentCall) return;
+  $("answerCallBtn").disabled = true;
+  try {
+    await answerIncomingCall(currentCall);
+  } finally {
+    $("answerCallBtn").disabled = false;
+  }
+});
+$("rejectCallBtn").addEventListener("click", async () => {
+  if (currentCall) await rejectIncomingCall(currentCall);
+});
+$("endCallBtn").addEventListener("click", () => endCall(true));
+
+$("muteCallBtn").addEventListener("click", () => {
+  if (!localStream) return;
+  isMuted = !isMuted;
+  localStream.getAudioTracks().forEach(t => t.enabled = !isMuted);
+  $("muteCallBtn").textContent = isMuted ? "🎙️ روشن‌کردن میکروفون" : "🎙️ قطع میکروفون";
+});
+$("cameraCallBtn").addEventListener("click", () => {
+  if (!localStream) return;
+  isCameraOff = !isCameraOff;
+  localStream.getVideoTracks().forEach(t => t.enabled = !isCameraOff);
+  $("cameraCallBtn").textContent = isCameraOff ? "📷 روشن‌کردن دوربین" : "📷 قطع دوربین";
+});
+
+async function endCall(notifyServer = true) {
+  const oldId = activeCallId;
+  clearInterval(callPollTimer);
+  callPollTimer = null;
+
+  if (notifyServer && oldId) {
+    try {
+      await callPost("endCall", {
+        callId:oldId,
+        userId:email,
+        userEmail:email
+      });
+    } catch (e) {
+      console.warn("پایان تماس در سرور ثبت نشد:", e);
+    }
+  }
+
+  if (pc) {
+    try { pc.ontrack = null; pc.onicecandidate = null; pc.close(); } catch (_) {}
+  }
+  pc = null;
+
+  if (localStream) {
+    localStream.getTracks().forEach(track => track.stop());
+  }
+  localStream = null;
+  $("localVideo").srcObject = null;
+  $("remoteVideo").srcObject = null;
+  $("remoteAudio").srcObject = null;
+  $("callModal").style.display = "none";
+  activeCallId = null;
+  currentCall = null;
+  callMode = "";
+  isMuted = false;
+  isCameraOff = false;
+  sentCandidates.clear();
+  receivedSignals.clear();
+}
+
+/* راه‌اندازی */
+async function start() {
+  if (!checkLogin()) return;
+  try {
+    const status = await apiGet({action:"status"});
     if (status.ok || status.success) {
       await loadChats(false);
       clearNotice();
     } else {
-      throw new Error("API وضعیت آماده‌بودن را تأیید نکرد.");
+      throw new Error("API پیام‌رسان آماده نیست.");
     }
-  } catch (error) {
-    notify("اتصال به API برقرار نشد: " + error.message, true);
-    $("chatList").innerHTML =
-      '<div class="empty">ارتباط با سرور برقرار نشد.</div>';
+  } catch (e) {
+    notify("اتصال به API پیام‌رسان برقرار نشد: " + e.message, true);
+    $("chatList").innerHTML = '<div class="empty">ارتباط با سرور برقرار نشد.</div>';
+  }
+
+  /* بررسی اولیهٔ سرویس تماس */
+  try {
+    await callGet("health");
+  } catch (e) {
+    notify("سرویس تماس پاسخ نداد: " + e.message, true);
   }
 }
 
 start();
 
-/* تازه‌سازی دوره‌ای */
 setInterval(async () => {
   if (!email || document.visibilityState !== "visible") return;
-
   try {
     await loadChats(true);
     if (activeChat) await loadMessages(false);
-  } catch (_) {
-    // خطای موقت شبکه در بررسی دوره‌ای نادیده گرفته می‌شود.
-  }
+  } catch (_) {}
 }, 6000);
+
+incomingPollTimer = setInterval(pollIncomingCalls, 3000);
+setTimeout(pollIncomingCalls, 1000);
 
 })();
 </script>
 </body>
-  </html>
+</html>
