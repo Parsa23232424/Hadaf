@@ -11,9 +11,15 @@ window.HadafCall = (() => {
   let peerConnection = null;
   let currentCallId = null;
   let currentUserId = null;
+  let currentUserEmail = null;
+  let currentReceiverId = null;
+  let currentReceiverEmail = null;
+  let currentConversationId = null;
+  let currentCallType = "audio";
   let pollingTimer = null;
   let seenSignals = new Set();
-  let makingOffer = false;
+  let receivedCandidates = [];
+  let remoteDescriptionReady = false;
 
   const rtcConfig = {
     iceServers: [
@@ -21,6 +27,8 @@ window.HadafCall = (() => {
       { urls: "stun:stun1.l.google.com:19302" }
     ]
   };
+
+  /* ---------- API ---------- */
 
   async function api(action, data = {}) {
     const response = await fetch(HADAF_CALLS_API, {
@@ -34,14 +42,29 @@ window.HadafCall = (() => {
       })
     });
 
-    const result = await response.json();
+    const text = await response.text();
 
-    if (!result.ok) {
-      throw new Error(result.error || result.message || "خطا در سرویس تماس");
+    let result;
+
+    try {
+      result = JSON.parse(text);
+    } catch (error) {
+      throw new Error(
+        "پاسخ API معتبر نیست. وضعیت HTTP: " + response.status
+      );
+    }
+
+    if (!response.ok || result.ok === false || result.success === false) {
+      const details = result.details || result.message || result.error || "";
+      throw new Error(
+        String(details || "خطا در سرویس تماس") .slice(0, 700)
+      );
     }
 
     return result;
   }
+
+  /* ---------- رابط تماس ---------- */
 
   function createVideoElements() {
     let box = document.getElementById("hadafCallBox");
@@ -61,6 +84,7 @@ window.HadafCall = (() => {
         align-items:center;
         justify-content:center;
         padding:16px;
+        box-sizing:border-box;
         font-family:Arial,sans-serif;
       `;
 
@@ -69,30 +93,30 @@ window.HadafCall = (() => {
 
         <video id="hadafRemoteVideo"
           autoplay playsinline
-          style="width:100%;max-width:600px;max-height:55vh;
+          style="width:100%;max-width:600px;max-height:50vh;
           background:#171923;border-radius:16px;"></video>
 
         <video id="hadafLocalVideo"
           autoplay playsinline muted
-          style="width:120px;height:160px;object-fit:cover;
-          position:absolute;top:90px;right:24px;
+          style="width:110px;height:145px;object-fit:cover;
+          position:absolute;top:80px;right:20px;
           background:#252735;border-radius:12px;"></video>
 
         <p id="hadafCallStatus">در حال آماده‌سازی تماس...</p>
 
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
           <button id="hadafMuteButton"
-            style="padding:14px;border:0;border-radius:12px;">
+            style="padding:12px;border:0;border-radius:12px;">
             🎙️ قطع میکروفون
           </button>
 
           <button id="hadafCameraButton"
-            style="padding:14px;border:0;border-radius:12px;">
+            style="padding:12px;border:0;border-radius:12px;">
             📷 خاموش کردن دوربین
           </button>
 
           <button id="hadafHangupButton"
-            style="padding:14px 24px;background:#e53935;color:white;
+            style="padding:12px 20px;background:#e53935;color:white;
             border:0;border-radius:12px;">
             📵 پایان تماس
           </button>
@@ -101,35 +125,60 @@ window.HadafCall = (() => {
 
       document.body.appendChild(box);
 
-      document.getElementById("hadafMuteButton").onclick = toggleMicrophone;
-      document.getElementById("hadafCameraButton").onclick = toggleCamera;
-      document.getElementById("hadafHangupButton").onclick = endCall;
+      document.getElementById("hadafMuteButton").onclick =
+        toggleMicrophone;
+
+      document.getElementById("hadafCameraButton").onclick =
+        toggleCamera;
+
+      document.getElementById("hadafHangupButton").onclick =
+        endCall;
     }
 
     return box;
   }
 
-  function showCall(message) {
+  function showCall(message, type) {
     createVideoElements();
 
     document.getElementById("hadafCallBox").style.display = "flex";
     document.getElementById("hadafCallStatus").textContent = message;
+
+    const audioOnly = type === "audio";
+
+    document.getElementById("hadafLocalVideo").style.display =
+      audioOnly ? "none" : "block";
+
+    document.getElementById("hadafRemoteVideo").style.display =
+      audioOnly ? "none" : "block";
+
+    document.getElementById("hadafCameraButton").style.display =
+      audioOnly ? "none" : "inline-block";
   }
 
   function setStatus(message) {
     const element = document.getElementById("hadafCallStatus");
-
-    if (element) {
-      element.textContent = message;
-    }
+    if (element) element.textContent = message;
   }
 
-  async function startMedia(type) {
-    if (localStream) return;
+  /* ---------- میکروفون و دوربین ---------- */
 
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+  async function startMedia(type) {
+    if (localStream) {
+      const hasVideo = localStream.getVideoTracks().length > 0;
+
+      if (type === "video" && !hasVideo) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+      } else {
+        return;
+      }
+    }
+
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia) {
       throw new Error(
-        "مرورگر اجازه دسترسی به میکروفون یا دوربین را نمی‌دهد. سایت باید HTTPS باشد."
+        "دسترسی میکروفون فراهم نیست. سایت باید HTTPS باشد."
       );
     }
 
@@ -141,42 +190,45 @@ window.HadafCall = (() => {
     createVideoElements();
 
     document.getElementById("hadafLocalVideo").srcObject = localStream;
-
-    if (type === "audio") {
-      document.getElementById("hadafLocalVideo").style.display = "none";
-      document.getElementById("hadafRemoteVideo").style.display = "none";
-    } else {
-      document.getElementById("hadafLocalVideo").style.display = "block";
-      document.getElementById("hadafRemoteVideo").style.display = "block";
-    }
   }
+
+  /* ---------- WebRTC ---------- */
 
   function createPeerConnection() {
     if (peerConnection) {
       peerConnection.close();
     }
 
+    remoteDescriptionReady = false;
+    receivedCandidates = [];
+
     peerConnection = new RTCPeerConnection(rtcConfig);
 
-    localStream.getTracks().forEach(track => {
-      peerConnection.addTrack(track, localStream);
-    });
+    if (localStream) {
+      localStream.getTracks().forEach(track => {
+        peerConnection.addTrack(track, localStream);
+      });
+    }
 
     peerConnection.ontrack = event => {
       const video = document.getElementById("hadafRemoteVideo");
 
-      if (video) {
+      if (video && event.streams && event.streams[0]) {
         video.srcObject = event.streams[0];
         video.play().catch(() => {});
       }
 
-      setStatus("تماس برقرار است ✅");
+      setStatus("صدای طرف مقابل دریافت شد ✅");
     };
 
     peerConnection.onicecandidate = event => {
       if (event.candidate && currentCallId) {
-        sendSignal("ice-candidate", event.candidate.toJSON())
-          .catch(error => console.error("ICE error:", error));
+        sendSignal(
+          "ice-candidate",
+          event.candidate.toJSON()
+        ).catch(error => {
+          console.error("ICE send error:", error);
+        });
       }
     };
 
@@ -192,12 +244,44 @@ window.HadafCall = (() => {
       } else if (state === "disconnected") {
         setStatus("اتصال قطع شده؛ در حال بررسی...");
       } else if (state === "failed") {
-        setStatus("اتصال برقرار نشد. ممکن است به سرور TURN نیاز باشد.");
+        setStatus("اتصال برقرار نشد؛ ممکن است سرور TURN لازم باشد.");
+      } else if (state === "closed") {
+        setStatus("تماس پایان یافت.");
       }
     };
 
     return peerConnection;
   }
+
+  async function addCandidate(candidate) {
+    if (!peerConnection || !candidate) return;
+
+    if (!remoteDescriptionReady) {
+      receivedCandidates.push(candidate);
+      return;
+    }
+
+    try {
+      await peerConnection.addIceCandidate(
+        new RTCIceCandidate(candidate)
+      );
+    } catch (error) {
+      console.warn("ICE candidate:", error);
+    }
+  }
+
+  async function flushCandidates() {
+    remoteDescriptionReady = true;
+
+    const candidates = receivedCandidates.slice();
+    receivedCandidates = [];
+
+    for (const candidate of candidates) {
+      await addCandidate(candidate);
+    }
+  }
+
+  /* ---------- سیگنال‌ها ---------- */
 
   async function sendSignal(signalType, signalData) {
     if (!currentCallId || !currentUserId) {
@@ -206,74 +290,88 @@ window.HadafCall = (() => {
 
     return api("sendSignal", {
       call_id: currentCallId,
-      sender_id: currentUserId,
+      sender_id: String(currentUserId),
       signal_type: signalType,
-      signal_data: signalData
+      signal: signalData
     });
   }
 
   async function pollSignals() {
-    if (!currentCallId || !currentUserId || !peerConnection) return;
+    if (!currentCallId || !currentUserId || !peerConnection) {
+      return;
+    }
 
     try {
       const result = await api("getSignals", {
         call_id: currentCallId,
-        user_id: currentUserId
+        sender_id: String(currentUserId)
       });
 
-      const signals = result.signals || result.data || [];
+      const signals = result.signals || [];
 
       for (const signal of signals) {
-        if (!signal.id || seenSignals.has(signal.id)) continue;
-        seenSignals.add(signal.id);
+        if (!signal.id || seenSignals.has(String(signal.id))) {
+          continue;
+        }
 
-        if (signal.sender_id === currentUserId) continue;
+        seenSignals.add(String(signal.id));
+
+        if (String(signal.sender_id) === String(currentUserId)) {
+          continue;
+        }
+
+        const data = signal.signal || signal.signal_data;
 
         if (signal.signal_type === "offer") {
-          if (peerConnection.signalingState !== "stable") continue;
+          if (peerConnection.signalingState !== "stable") {
+            continue;
+          }
 
           await peerConnection.setRemoteDescription(
-            new RTCSessionDescription(signal.signal_data)
+            new RTCSessionDescription(data)
           );
 
+          await flushCandidates();
+
           const answer = await peerConnection.createAnswer();
+
           await peerConnection.setLocalDescription(answer);
 
-          await sendSignal("answer", peerConnection.localDescription.toJSON());
+          await sendSignal(
+            "answer",
+            peerConnection.localDescription.toJSON()
+          );
 
-          setStatus("پاسخ تماس ارسال شد؛ در حال اتصال...");
+          setStatus("پاسخ ارسال شد؛ در حال اتصال...");
         }
 
         else if (signal.signal_type === "answer") {
           if (peerConnection.signalingState === "have-local-offer") {
             await peerConnection.setRemoteDescription(
-              new RTCSessionDescription(signal.signal_data)
+              new RTCSessionDescription(data)
             );
+
+            await flushCandidates();
 
             setStatus("پاسخ دریافت شد؛ در حال اتصال...");
           }
         }
 
         else if (signal.signal_type === "ice-candidate") {
-          try {
-            await peerConnection.addIceCandidate(
-              new RTCIceCandidate(signal.signal_data)
-            );
-          } catch (error) {
-            console.warn("ICE candidate:", error);
-          }
+          await addCandidate(data);
         }
       }
     } catch (error) {
-      console.error("خطا در دریافت پیام‌های تماس:", error);
+      console.error("خطا در دریافت سیگنال:", error);
     }
   }
 
   function startPolling() {
     stopPolling();
 
-    pollingTimer = setInterval(pollSignals, 1500);
     pollSignals();
+
+    pollingTimer = setInterval(pollSignals, 1500);
   }
 
   function stopPolling() {
@@ -283,48 +381,72 @@ window.HadafCall = (() => {
     }
   }
 
-  async function call(receiverId, conversationId, type = "audio", userId) {
+  /* ---------- شروع تماس ---------- */
+
+  async function call(
+    receiverId,
+    conversationId,
+    type = "audio",
+    userId,
+    userEmail,
+    receiverEmail
+  ) {
     try {
       if (!receiverId || !conversationId || !userId) {
-        throw new Error("شناسه تماس‌گیرنده، گفت‌وگو و کاربر لازم است.");
+        throw new Error(
+          "شناسه گیرنده، گفت‌وگو و کاربر لازم است."
+        );
+      }
+
+      if (!userEmail || !receiverEmail) {
+        throw new Error(
+          "ایمیل تماس‌گیرنده یا گیرنده موجود نیست. باید ایمیل هر دو کاربر را به call() بدهی."
+        );
       }
 
       if (type !== "audio" && type !== "video") {
         throw new Error("نوع تماس باید audio یا video باشد.");
       }
 
-      currentUserId = userId;
+      currentUserId = String(userId);
+      currentUserEmail = String(userEmail).trim().toLowerCase();
+      currentReceiverId = String(receiverId);
+      currentReceiverEmail = String(receiverEmail).trim().toLowerCase();
+      currentConversationId = String(conversationId);
+      currentCallType = type;
+
       seenSignals.clear();
 
-      showCall("در حال شروع تماس...");
+      showCall("در حال شروع تماس...", type);
 
       await startMedia(type);
 
       const result = await api("createCall", {
-        caller_id: userId,
-        receiver_id: receiverId,
-        conversation_id: conversationId,
-        call_type: type
+        caller_id: currentUserId,
+        caller_email: currentUserEmail,
+        receiver_id: currentReceiverId,
+        receiver_email: currentReceiverEmail,
+        conversation_id: currentConversationId,
+        type: type
       });
 
       const callData = result.call || result.data || result;
-
       currentCallId = callData.id || callData.call_id;
 
       if (!currentCallId) {
-        throw new Error("سرویس تماس شناسه تماس را برنگرداند.");
+        throw new Error("API شناسه تماس را برنگرداند.");
       }
 
       createPeerConnection();
 
-      makingOffer = true;
-
       const offer = await peerConnection.createOffer();
+
       await peerConnection.setLocalDescription(offer);
 
-      await sendSignal("offer", peerConnection.localDescription.toJSON());
-
-      makingOffer = false;
+      await sendSignal(
+        "offer",
+        peerConnection.localDescription.toJSON()
+      );
 
       setStatus("در انتظار پاسخ طرف مقابل...");
 
@@ -336,55 +458,73 @@ window.HadafCall = (() => {
       };
 
     } catch (error) {
-      makingOffer = false;
+      console.error("Hadaf call error:", error);
+
+      const message = error.message || String(error);
+
       await cleanup();
 
-      console.error(error);
-      alert("شروع تماس ناموفق بود: " + error.message);
+      alert("شروع تماس ناموفق بود: " + message);
 
       return {
         ok: false,
-        error: error.message
+        error: message
       };
     }
   }
 
-  async function answer(callId, userId, type = "audio") {
+  /* ---------- پاسخ به تماس ---------- */
+
+  async function answer(
+    callId,
+    userId,
+    type = "audio",
+    userEmail
+  ) {
     try {
       if (!callId || !userId) {
         throw new Error("شناسه تماس و کاربر لازم است.");
       }
 
-      currentCallId = callId;
-      currentUserId = userId;
+      currentCallId = String(callId);
+      currentUserId = String(userId);
+      currentUserEmail = userEmail || "";
+      currentCallType = type;
+
       seenSignals.clear();
 
-      showCall("در حال پاسخ به تماس...");
+      showCall("در حال پاسخ به تماس...", type);
 
       await startMedia(type);
 
+      createPeerConnection();
+
       await api("answerCall", {
-        call_id: callId,
-        user_id: userId
+        call_id: currentCallId,
+        user_id: currentUserId
       });
 
-      createPeerConnection();
       startPolling();
 
       return { ok: true };
 
     } catch (error) {
+      console.error("Hadaf answer error:", error);
+
+      const message = error.message || String(error);
+
       await cleanup();
 
-      console.error(error);
-      alert("پاسخ به تماس ناموفق بود: " + error.message);
+      alert("پاسخ به تماس ناموفق بود: " + message);
 
       return {
         ok: false,
-        error: error.message
+        error: message
       };
     }
   }
+
+  /* ---------- پایان تماس ---------- */
 
   async function endCall() {
     const callId = currentCallId;
@@ -429,8 +569,17 @@ window.HadafCall = (() => {
 
     currentCallId = null;
     currentUserId = null;
+    currentUserEmail = null;
+    currentReceiverId = null;
+    currentReceiverEmail = null;
+    currentConversationId = null;
+
     seenSignals.clear();
+    receivedCandidates = [];
+    remoteDescriptionReady = false;
   }
+
+  /* ---------- کنترل میکروفون ---------- */
 
   function toggleMicrophone() {
     if (!localStream) return;
@@ -447,6 +596,8 @@ window.HadafCall = (() => {
     document.getElementById("hadafMuteButton").textContent =
       enabled ? "🎙️ قطع میکروفون" : "🔇 روشن کردن میکروفون";
   }
+
+  /* ---------- کنترل دوربین ---------- */
 
   function toggleCamera() {
     if (!localStream) return;
