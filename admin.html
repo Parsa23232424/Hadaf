@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07090f">
+<title>مدیریت پیکو چلنج | هدف</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#07090f;color:#f5f5ff;
+  font-family:Tahoma,Arial,sans-serif;
+}
+header{
+  padding:22px 16px;background:#10121e;
+  border-bottom:1px solid #282a3b;
+}
+header h1{margin:0 0 8px;font-size:23px}
+header p{margin:0;color:#a5a8c0;font-size:13px}
+main{max-width:850px;margin:24px auto;padding:0 14px}
+.card{
+  background:#111421;border:1px solid #292c40;
+  border-radius:18px;padding:18px;margin-bottom:18px;
+}
+h2{font-size:18px;margin-top:0}
+label{display:block;margin:15px 0 8px;font-size:14px}
+input,textarea,select{
+  display:block;width:100%;padding:13px;
+  border:1px solid #353950;border-radius:11px;
+  background:#090c16;color:white;font:inherit;
+  outline:none;
+}
+textarea{min-height:100px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:#8175ff}
+button{
+  padding:12px 15px;border:0;border-radius:11px;
+  background:#6d5cff;color:white;font:inherit;
+  font-weight:bold;cursor:pointer;margin-top:12px;
+}
+button:disabled{opacity:.5;cursor:wait}
+.secondary{background:#292d42}
+.danger{background:#a93649}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row button{flex:1}
+.notice{
+  padding:12px;border-radius:10px;background:#1b2032;
+  color:#d6d8ee;font-size:13px;line-height:1.9;
+  overflow-wrap:anywhere;
+}
+#message{margin:12px 0;line-height:1.9;font-size:14px}
+.item{
+  border:1px solid #30344b;border-radius:13px;
+  padding:14px;margin-top:12px;
+}
+.item h3{margin:0 0 8px;font-size:16px}
+.muted{color:#a5a8c0;font-size:13px;line-height:1.9}
+.tag{color:#b7adff;font-size:12px}
+.hidden{display:none!important}
+footer{text-align:center;color:#81859e;padding:20px;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🤖 مدیریت پیکو چلنج</h1>
+  <p>پنل مدیریت مجموعه پیکو در سایت هدف 🎯</p>
+</header>
+
+<main>
+  <section class="card" id="loginBox">
+    <h2>🔐 ورود مدیر</h2>
+    <p class="muted">برای ورود، رمز مدیر را وارد کن.</p>
+    <label for="password">رمز مدیر</label>
+    <input id="password" type="password"
+      autocomplete="current-password" placeholder="رمز محرمانه">
+    <button id="loginBtn" onclick="login()">ورود به پنل</button>
+    <div id="loginMessage" role="status"></div>
+  </section>
+
+  <section id="panel" class="hidden">
+    <div class="card">
+      <div class="row" style="align-items:center">
+        <h2 style="flex:1">🎯 چالش‌ها</h2>
+        <button class="secondary" onclick="loadChallenges()">🔄 تازه‌سازی</button>
+        <button class="secondary" onclick="logout()">خروج</button>
+      </div>
+      <p class="muted">چالش‌ها را بساز، ویرایش کن یا منتشر کن.</p>
+      <div id="message" role="status"></div>
+      <div id="challengeList">برای دیدن چالش‌ها، کمی صبر کن...</div>
+    </div>
+
+    <div class="card">
+      <h2 id="formTitle">➕ ساخت چالش جدید</h2>
+      <form id="challengeForm">
+        <input type="hidden" id="challengeId">
+
+        <label for="title">عنوان چالش</label>
+        <input id="title" maxlength="150" required
+          placeholder="مثلاً چالش ۷ روز لبخند">
+
+        <label for="episode">شماره قسمت</label>
+        <input id="episode" type="number" min="1" step="1"
+          value="1" required>
+
+        <label for="description">توضیحات چالش</label>
+        <textarea id="description" maxlength="5000" required
+          placeholder="پیکو این هفته چه چالشی معرفی می‌کند؟"></textarea>
+
+        <label for="instructions">روش انجام چالش</label>
+        <textarea id="instructions" maxlength="5000"
+          placeholder="مراحل انجام چالش را بنویس..."></textarea>
+
+        <label for="status">وضعیت</label>
+        <select id="status">
+          <option value="draft">پیش‌نویس؛ هنوز منتشر نشده</option>
+          <option value="published">منتشرشده</option>
+        </select>
+
+        <div class="row">
+          <button type="submit" id="saveBtn">💾 ذخیره چالش</button>
+          <button type="button" class="secondary"
+            onclick="resetForm()">چالش جدید</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>🏹 Hadaf © 2026 — پیکو چلنج</footer>
+
+<script>
+"use strict";
+
+/* آدرس تابع مدیریت */
+const API_URL =
+  "https://nzwgyvkbsznmpcilkpig.supabase.co/functions/v1/pico-admin";
+
+/*
+  بعداً کلید عمومی (anon / publishable) سوپابیس را
+  در این قسمت قرار می‌دهیم.
+  هرگز کلید service_role را اینجا قرار نده!
+*/
+const SUPABASE_PUBLIC_KEY = "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
+
+let adminPassword = "";
+let busy = false;
+
+const $ = id => document.getElementById(id);
+
+function showMessage(id, text, error = false) {
+  const el = $(id);
+  el.textContent = text;
+  el.style.color = error ? "#ff8796" : "#b8ffcf";
+}
+
+async function api(action, extra = {}) {
+  if (SUPABASE_PUBLIC_KEY === "PUBLIC_KEY_HERE") {
+    throw new Error("ابتدا کلید عمومی سوپابیس را تنظیم می‌کنیم.");
+  }
+
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_PUBLIC_KEY
+    },
+    body: JSON.stringify({
+      action,
+      password: adminPassword,
+      ...extra
+    })
+  });
+
+  let data;
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error("پاسخ سرور قابل خواندن نیست.");
+  }
+
+  if (!response.ok || data.error || data.success === false) {
+    throw new Error(data.error || "درخواست انجام نشد.");
+  }
+
+  return data;
+}
+
+async function login() {
+  if (busy) return;
+
+  const password = $("password").value;
+  if (!password) {
+    showMessage("loginMessage", "رمز را وارد کن.", true);
+    return;
+  }
+
+  busy = true;
+  $("loginBtn").disabled = true;
+  showMessage("loginMessage", "در حال بررسی...");
+
+  adminPassword = password;
+
+  try {
+    await api("login");
+    $("loginBox").classList.add("hidden");
+    $("panel").classList.remove("hidden");
+    $("password").value = "";
+    await loadChallenges();
+  } catch (error) {
+    adminPassword = "";
+    showMessage("loginMessage", error.message, true);
+  } finally {
+    busy = false;
+    $("loginBtn").disabled = false;
+  }
+}
+
+function logout() {
+  adminPassword = "";
+  $("panel").classList.add("hidden");
+  $("loginBox").classList.remove("hidden");
+  $("challengeList").replaceChildren();
+  resetForm();
+  showMessage("loginMessage", "از پنل خارج شدی.");
+}
+
+async function loadChallenges() {
+  if (busy) return;
+
+  busy = true;
+  $("challengeList").textContent = "در حال دریافت چالش‌ها...";
+  try {
+    const data = await api("list");
+    renderChallenges(data.challenges || []);
+    showMessage("message", "چالش‌ها دریافت شدند.");
+  } catch (error) {
+    $("challengeList").textContent = error.message;
+    showMessage("message", error.message, true);
+  } finally {
+    busy = false;
+  }
+}
+
+function renderChallenges(challenges) {
+  const list = $("challengeList");
+  list.replaceChildren();
+
+  if (!challenges.length) {
+    list.textContent = "هنوز چالشی ثبت نشده است.";
+    return;
+  }
+
+  challenges.forEach(challenge => {
+    const item = document.createElement("article");
+    item.className = "item";
+
+    const title = document.createElement("h3");
+    title.textContent = "قسمت " + challenge.episode_number +
+      " — " + challenge.title;
+
+    const status = document.createElement("div");
+    status.className = "tag";
+    status.textContent =
+      challenge.status === "published" ? "🚀 منتشرشده" : "📝 پیش‌نویس";
+
+    const desc = document.createElement("p");
+    desc.className = "muted";
+    desc.textContent = challenge.description;
+
+    const buttons = document.createElement("div");
+    buttons.className = "row";
+
+    const edit = document.createElement("button");
+    edit.className = "secondary";
+    edit.textContent = "✏️ ویرایش";
+    edit.onclick = () => editChallenge(challenge);
+
+    const del = document.createElement("button");
+    del.className = "danger";
+    del.textContent = "🗑️ حذف";
+    del.onclick = () => deleteChallenge(challenge.id);
+
+    buttons.append(edit, del);
+    item.append(title, status, desc, buttons);
+    list.append(item);
+  });
+}
+
+function editChallenge(challenge) {
+  $("challengeId").value = challenge.id;
+  $("title").value = challenge.title || "";
+  $("episode").value = challenge.episode_number || 1;
+  $("description").value = challenge.description || "";
+  $("instructions").value = challenge.instructions || "";
+  $("status").value = challenge.status || "draft";
+  $("formTitle").textContent = "✏️ ویرایش چالش";
+  $("challengeForm").scrollIntoView({ behavior: "smooth" });
+}
+
+function resetForm() {
+  $("challengeForm").reset();
+  $("challengeId").value = "";
+  $("episode").value = 1;
+  $("status").value = "draft";
+  $("formTitle").textContent = "➕ ساخت چالش جدید";
+}
+
+$("challengeForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (busy) return;
+
+  const id = $("challengeId").value;
+  const episode = Number($("episode").value);
+
+  if (!Number.isSafeInteger(episode) || episode < 1) {
+    showMessage("message", "شماره قسمت باید عدد صحیح مثبت باشد.", true);
+    return;
+  }
+
+  const payload = {
+    title: $("title").value.trim(),
+    episode_number: episode,
+    description: $("description").value.trim(),
+    instructions: $("instructions").value.trim(),
+    status: $("status").value
+  };
+
+  if (!payload.title || !payload.description) {
+    showMessage("message", "عنوان و توضیحات را بنویس.", true);
+    return;
+  }
+
+  busy = true;
+  $("saveBtn").disabled = true;
+
+  try {
+    await api(id ? "update" : "create", {
+      ...payload,
+      ...(id ? { id: Number(id) } : {})
+    });
+
+    showMessage("message", "چالش با موفقیت ذخیره شد.");
+    resetForm();
+    await loadChallenges();
+  } catch (error) {
+    showMessage("message", error.message, true);
+  } finally {
+    busy = false;
+    $("saveBtn").disabled = false;
+  }
+});
+
+async function deleteChallenge(id) {
+  if (busy) return;
+  if (!confirm("از حذف این چالش مطمئنی؟")) return;
+
+  busy = true;
+  try {
+    await api("delete", { id: Number(id) });
+    showMessage("message", "چالش حذف شد.");
+    await loadChallenges();
+  } catch (error) {
+    showMessage("message", error.message, true);
+  } finally {
+    busy = false;
+  }
+}
+</script>
+</body>
+</html>
