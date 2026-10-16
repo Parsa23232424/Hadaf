@@ -24,7 +24,9 @@
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html { scroll-behavior:smooth; }
 body {
-    margin:0; min-height:100vh; padding-bottom:30px;
+    margin:0;
+    min-height:100vh;
+    padding-bottom:30px;
     color:var(--text);
     font-family:Tahoma,"Segoe UI",Arial,sans-serif;
     background:
@@ -167,6 +169,7 @@ h1 span { color:#938aff; }
     margin-top:12px; padding:11px 12px; border-radius:12px;
     background:rgba(255,255,255,.035); border:1px solid var(--border);
     font-size:11px; line-height:1.9; color:var(--muted);
+    overflow-wrap:anywhere;
 }
 .status.error { color:#ffc49e; border-color:rgba(255,122,50,.25); }
 .status.success { color:#a7f3d0; border-color:rgba(34,197,94,.25); }
@@ -284,7 +287,7 @@ footer { padding:25px 0 5px; color:#596171; text-align:center; font-size:10px; }
         </div>
 
         <div class="login-notice" id="loginNotice">
-            برای ذخیرهٔ پیشرفت با حساب کاربری، ابتدا وارد سایت هدف شو.
+            برای استفاده از امکانات حساب کاربری، ابتدا وارد سایت هدف شو.
             <br>
             <a href="login.html">ورود به حساب کاربری ←</a>
         </div>
@@ -308,20 +311,17 @@ footer { padding:25px 0 5px; color:#596171; text-align:center; font-size:10px; }
 <script>
 "use strict";
 
-/*
-  تنظیمات اتصال عمومی پیکو چلنج
-  آدرس تابع: pico-public
-
-  کلید عمومی پروژه را از Supabase > Project Settings > API Keys بردار.
-  کلید anon قدیمی یا publishable key عمومی قابل استفاده است.
-  هرگز service_role یا کلید محرمانه را در این فایل قرار نده.
-*/
+/* تنظیمات اتصال عمومی */
 const SUPABASE_URL = "https://nzwgyvkbsznmpcilkpig.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
-const PUBLIC_FUNCTION_URL = SUPABASE_URL + "/functions/v1/pico-public";
 
-const DEFAULT_VIDEO =
-    "https://www.aparat.com/video/video/embed/videohash/wzqmx08/vt/frame?isamp";
+/*
+  کلید عمومی پروژه را از Supabase > Project Settings > API Keys بگذار.
+  فقط anon یا publishable key عمومی؛ هرگز service_role را اینجا نگذار.
+*/
+const SUPABASE_ANON_KEY = "کلید_عمومی_پروژه_را_اینجا_قرار_بده";
+
+const PUBLIC_FUNCTION_URL =
+    SUPABASE_URL + "/functions/v1/pico-public";
 
 const EMOJIS = [
     "🍎","🍎","🍕","🍕",
@@ -479,6 +479,8 @@ function flipCard(card) {
             secondCard.classList.remove("open");
             firstCard.textContent = "❔";
             secondCard.textContent = "❔";
+            firstCard.setAttribute("aria-label", "کارت بسته");
+            secondCard.setAttribute("aria-label", "کارت بسته");
         }
 
         mismatchTimer = null;
@@ -501,7 +503,7 @@ function finishGame() {
         try {
             localStorage.setItem(getBestMovesKey(), String(bestMoves));
         } catch {
-            // اگر ذخیره‌سازی مرورگر در دسترس نبود، بازی همچنان تمام می‌شود.
+            // بازی بدون ذخیره محلی هم قابل اجراست.
         }
     }
 
@@ -516,18 +518,15 @@ function finishGame() {
     }
 
     $("progressNote").textContent =
-        "این بازی تمام شد؛ برای افزایش پیشرفت مأموریت باید سرور پایان بازی را تأیید و ثبت کند.";
+        "این بازی تمام شد؛ پیشرفت مأموریت فقط پس از ثبت و تأیید سرور افزایش پیدا می‌کند.";
 
     setApiStatus(
-        "بازی کامل شد؛ این نسخه هنوز تأییدیهٔ ثبت پایان بازی را از سرور دریافت نکرده است.",
+        "بازی کامل شد؛ پایان بازی هنوز در سرور ثبت نشده است.",
         ""
     );
 }
 
-/*
-  دریافت چالش‌های عمومی منتشرشده از تابع pico-public.
-  تابع باید درخواست POST با action=list را پشتیبانی کند.
-*/
+/* تابع pico-public فقط GET را قبول می‌کند. */
 async function loadChallenges() {
     if (
         !SUPABASE_ANON_KEY ||
@@ -535,9 +534,10 @@ async function loadChallenges() {
     ) {
         $("challengeStatus").textContent = "نیازمند تنظیم";
         $("challengeDescription").textContent =
-            "برای دریافت چالش‌های منتشرشده، کلید عمومی Supabase را در تنظیمات ابتدای کد قرار بده.";
+            "برای دریافت چالش‌های منتشرشده، کلید عمومی Supabase را در تنظیمات کد قرار بده.";
+
         setApiStatus(
-            "کلید عمومی پروژه هنوز تنظیم نشده است. بازی حافظه قابل استفاده است.",
+            "کلید عمومی پروژه تنظیم نشده است؛ بازی حافظه همچنان قابل استفاده است.",
             "error"
         );
         return;
@@ -545,69 +545,75 @@ async function loadChallenges() {
 
     try {
         const response = await fetch(PUBLIC_FUNCTION_URL, {
-            method: "POST",
+            method: "GET",
             headers: {
-                "Content-Type": "application/json",
                 "apikey": SUPABASE_ANON_KEY,
                 "Authorization": "Bearer " + SUPABASE_ANON_KEY
-            },
-            body: JSON.stringify({ action: "list" })
+            }
         });
 
-        const rawText = await response.text();
+        const raw = await response.text();
         let data;
 
         try {
-            data = JSON.parse(rawText);
+            data = JSON.parse(raw);
         } catch {
-            throw new Error("پاسخ تابع، JSON معتبر نیست.");
+            throw new Error("پاسخ سرور JSON معتبر نیست.");
         }
 
         if (!response.ok) {
             throw new Error(
-                data.message ||
                 data.error ||
-                "خطای سرور با کد " + response.status
+                data.message ||
+                "خطای سرور: " + response.status
             );
         }
 
-        if (data.success === false) {
-            throw new Error(data.message || data.error || "دریافت چالش ناموفق بود.");
+        if (data.success !== true) {
+            throw new Error(
+                data.error ||
+                data.message ||
+                "سرور دریافت چالش‌ها را تأیید نکرد."
+            );
         }
 
         const challenges = Array.isArray(data.challenges)
             ? data.challenges
-            : Array.isArray(data.data)
-                ? data.data
-                : [];
+            : [];
 
-        const published = challenges.filter(challenge => {
-            const status = String(challenge.status || "").toLowerCase();
-            return !status || status === "published";
-        });
-
-        if (!published.length) {
+        if (challenges.length === 0) {
             $("challengeStatus").textContent = "چالشی موجود نیست";
-            $("challengeTitle").textContent = "هنوز چالش منتشرشده‌ای نداریم";
+            $("challengeTitle").textContent =
+                "هنوز چالش منتشرشده‌ای نداریم";
             $("challengeDescription").textContent =
-                "به‌زودی با مأموریت جدید پیکو برمی‌گردیم! فعلاً می‌توانی بازی حافظه را انجام بدهی.";
-            setApiStatus("اتصال به تابع برقرار شد، اما چالش منتشرشده‌ای برنگشت.", "");
+                "به‌زودی چالش جدید پیکو منتشر می‌شود. فعلاً می‌توانی بازی حافظه را انجام بدهی.";
+
+            $("progressText").textContent = "۰ از ۴";
+            $("progressFill").style.width = "0%";
+
+            setApiStatus(
+                "اتصال موفق بود، اما چالش منتشرشده‌ای وجود ندارد.",
+                ""
+            );
             return;
         }
 
-        currentChallenge = published[0];
+        currentChallenge = challenges[0];
         renderChallenge(currentChallenge);
 
         $("challengeStatus").textContent = "متصل";
-        setApiStatus("چالش از سرور دریافت شد. ✅", "success");
+        setApiStatus("چالش با موفقیت از سرور دریافت شد. ✅", "success");
+
     } catch (error) {
         console.error("Pico public error:", error);
 
         $("challengeStatus").textContent = "خطا در دریافت";
         $("challengeDescription").textContent =
-            "اطلاعات چالش از سرور دریافت نشد. تنظیمات تابع pico-public و کلید عمومی را بررسی کن.";
+            "دریافت چالش ناموفق بود. تنظیمات تابع و کلید عمومی را بررسی کن.";
+
         setApiStatus(
-            "ارتباط با سرور برقرار نشد: " + (error.message || "خطای ناشناخته"),
+            "ارتباط با سرور برقرار نشد: " +
+            (error.message || "خطای ناشناخته"),
             "error"
         );
     }
@@ -615,30 +621,27 @@ async function loadChallenges() {
 
 function renderChallenge(challenge) {
     const title = challenge.title || "چالش پیکو";
-    const description = challenge.description || challenge.instructions || "برای این چالش آماده شو!";
-    const required = Number(challenge.required_completions);
+    const description =
+        challenge.description ||
+        challenge.instructions ||
+        "برای این چالش آماده شو!";
 
     $("challengeTitle").textContent = title;
     $("challengeDescription").textContent = description;
     $("challengeBadge").textContent = "⚡ " + title;
-    $("heroDescription").textContent =
-        description + " آماده‌ای که شروع کنی؟";
+    $("heroDescription").textContent = description + " آماده‌ای که شروع کنی؟";
+
+    const required = Number(challenge.required_completions);
 
     if (Number.isFinite(required) && required > 0) {
         $("progressText").textContent = "۰ از " + toFaNumber(required);
     }
 
-    /*
-      اگر ویدیوی چالش از سرور آمده باشد و لینک آن قابل استفاده باشد،
-      آن را نمایش بده؛ در غیر این صورت ویدیوی پیش‌فرض باقی می‌ماند.
-    */
-    const videoUrl = challenge.video_url;
+    if (typeof challenge.video_url === "string" && challenge.video_url.trim()) {
+        const videoUrl = getAparatEmbedUrl(challenge.video_url.trim());
 
-    if (typeof videoUrl === "string" && videoUrl.trim()) {
-        const safeUrl = getAparatEmbedUrl(videoUrl.trim());
-
-        if (safeUrl) {
-            $("picoVideo").src = safeUrl;
+        if (videoUrl) {
+            $("picoVideo").src = videoUrl;
         }
     }
 
@@ -646,12 +649,12 @@ function renderChallenge(challenge) {
 
     if (gameType !== "memory") {
         $("videoNote").textContent =
-            "این چالش از نوع «" + gameType +
-            "» است؛ بازی قابل اجرا در این صفحه فعلاً بازی حافظه است.";
+            "نوع بازی این چالش «" + gameType +
+            "» است؛ در این نسخه فقط بازی حافظه اجرا می‌شود.";
     }
 
     $("progressNote").textContent =
-        "چالش از سرور دریافت شده است؛ پیشرفت بازیکن تا زمان ثبت و تأیید سرور نمایش داده نمی‌شود.";
+        "اطلاعات چالش از سرور دریافت شده؛ پیشرفت بازیکن هنوز از سرور دریافت یا ثبت نشده است.";
 }
 
 function getAparatEmbedUrl(url) {
