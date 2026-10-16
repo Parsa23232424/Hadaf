@@ -2,168 +2,287 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
 <title>مدیریت پیکو چلنج | هدف</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;background:#07090f;color:#f5f5ff;
-  font-family:Tahoma,Arial,sans-serif;
+:root {
+  --bg:#07090f;
+  --card:#121622;
+  --card2:#191e2d;
+  --border:rgba(255,255,255,.09);
+  --text:#f8fafc;
+  --muted:#929bad;
+  --purple:#6758ff;
+  --orange:#ff7a32;
+  --green:#22c55e;
+  --red:#ef4444;
 }
-header{
-  padding:22px 16px;background:#10121e;
-  border-bottom:1px solid #282a3b;
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  margin:0; min-height:100vh; color:var(--text);
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 85% 0%,rgba(103,88,255,.15),transparent 30%),
+    var(--bg);
 }
-header h1{margin:0 0 8px;font-size:23px}
-header p{margin:0;color:#a5a8c0;font-size:13px}
-main{max-width:850px;margin:24px auto;padding:0 14px}
-.card{
-  background:#111421;border:1px solid #292c40;
-  border-radius:18px;padding:18px;margin-bottom:18px;
+button,input,textarea,select { font:inherit; }
+button { cursor:pointer; }
+button:disabled { opacity:.5; cursor:not-allowed; }
+.app { width:min(900px,94%); margin:auto; padding:22px 0 60px; }
+header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:24px; }
+.brand { display:flex; align-items:center; gap:12px; }
+.logo {
+  width:48px;height:48px;display:grid;place-items:center;
+  border-radius:16px;background:rgba(103,88,255,.15);
+  border:1px solid var(--border);font-size:25px;
 }
-h2{font-size:18px;margin-top:0}
-label{display:block;margin:15px 0 8px;font-size:14px}
-input,textarea,select{
-  display:block;width:100%;padding:13px;
-  border:1px solid #353950;border-radius:11px;
-  background:#090c16;color:white;font:inherit;
-  outline:none;
+h1 { font-size:21px; margin:0 0 6px; }
+.subtitle { color:var(--muted); font-size:12px; line-height:1.9; }
+.panel {
+  background:rgba(18,22,34,.94);border:1px solid var(--border);
+  border-radius:22px;padding:20px;margin-bottom:18px;
+  box-shadow:0 20px 55px rgba(0,0,0,.15);
 }
-textarea{min-height:100px;resize:vertical}
-input:focus,textarea:focus,select:focus{border-color:#8175ff}
-button{
-  padding:12px 15px;border:0;border-radius:11px;
-  background:#6d5cff;color:white;font:inherit;
-  font-weight:bold;cursor:pointer;margin-top:12px;
+h2 { font-size:17px;margin:0 0 18px; }
+h3 { font-size:14px;margin:0 0 12px; }
+label { display:block;font-size:13px;margin-bottom:8px;color:#e2e8f0; }
+.field { margin-bottom:16px; min-width:0; }
+input,textarea,select {
+  display:block;width:100%;color:var(--text);
+  background:#0b0e17;border:1px solid var(--border);
+  border-radius:12px;padding:13px;outline:none;
 }
-button:disabled{opacity:.5;cursor:wait}
-.secondary{background:#292d42}
-.danger{background:#a93649}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.row button{flex:1}
-.notice{
-  padding:12px;border-radius:10px;background:#1b2032;
-  color:#d6d8ee;font-size:13px;line-height:1.9;
-  overflow-wrap:anywhere;
+input:focus,textarea:focus,select:focus { border-color:var(--purple); }
+textarea { min-height:100px;resize:vertical;line-height:1.9; }
+select option { background:#121622;color:white; }
+.grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px; }
+.actions { display:flex;flex-wrap:wrap;gap:10px; }
+.btn {
+  border:1px solid var(--border);border-radius:12px;
+  padding:12px 16px;color:white;background:var(--card2);
 }
-#message{margin:12px 0;line-height:1.9;font-size:14px}
-.item{
-  border:1px solid #30344b;border-radius:13px;
-  padding:14px;margin-top:12px;
+.btn.primary { background:var(--purple);border-color:transparent; }
+.btn.orange { background:var(--orange);border-color:transparent;color:#17100b; }
+.btn.danger { background:rgba(239,68,68,.12);color:#fca5a5;border-color:rgba(239,68,68,.3); }
+.btn.success { background:rgba(34,197,94,.12);color:#86efac;border-color:rgba(34,197,94,.3); }
+.btn.small { padding:8px 10px;font-size:12px; }
+.hidden { display:none!important; }
+.notice { padding:12px 14px;border-radius:12px;margin-bottom:16px;font-size:13px;line-height:1.8; }
+.notice.error { background:rgba(239,68,68,.12);color:#fca5a5; }
+.notice.ok { background:rgba(34,197,94,.12);color:#86efac; }
+.notice.info { background:rgba(103,88,255,.12);color:#c4bfff; }
+.game-options { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px; }
+.game-option {
+  padding:15px 8px;border-radius:15px;border:1px solid var(--border);
+  background:#0b0e17;color:white;text-align:center;cursor:pointer;
 }
-.item h3{margin:0 0 8px;font-size:16px}
-.muted{color:#a5a8c0;font-size:13px;line-height:1.9}
-.tag{color:#b7adff;font-size:12px}
-.hidden{display:none!important}
-footer{text-align:center;color:#81859e;padding:20px;font-size:12px}
+.game-option .emoji { display:block;font-size:27px;margin-bottom:8px; }
+.game-option .game-name { font-size:13px; }
+.game-option.active { border-color:var(--purple);background:rgba(103,88,255,.16);box-shadow:inset 0 0 0 1px var(--purple); }
+.config-box { background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:18px; }
+.card-item { padding:16px 0;border-bottom:1px solid var(--border); }
+.card-item:last-child { border-bottom:0; }
+.card-top { display:flex;justify-content:space-between;align-items:flex-start;gap:12px; }
+.card-title { font-weight:bold;font-size:14px;line-height:1.9;overflow-wrap:anywhere; }
+.meta { color:var(--muted);font-size:12px;line-height:2;margin-top:5px; }
+.pill { display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;white-space:nowrap; }
+.pill.draft { background:rgba(255,122,50,.12);color:#ffb17f; }
+.pill.published { background:rgba(34,197,94,.12);color:#86efac; }
+.item-actions { display:flex;gap:7px;flex-wrap:wrap;margin-top:12px; }
+.empty { text-align:center;padding:25px 10px;color:var(--muted);font-size:13px;line-height:2; }
+.small-note { color:var(--muted);font-size:12px;line-height:1.9;margin-top:8px; }
+#loginPanel { max-width:480px;margin:65px auto; }
+footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
+@media(max-width:560px) {
+  .app { width:92%;padding-top:15px; }
+  .panel { padding:15px;border-radius:18px; }
+  .grid { grid-template-columns:1fr;gap:0; }
+  .game-options { gap:7px; }
+  .game-option { padding:13px 4px; }
+  .game-option .game-name { font-size:11px; }
+  h1 { font-size:17px; }
+  .card-top { flex-direction:column; }
+  header { align-items:flex-start; }
+}
 </style>
 </head>
+
 <body>
+<div class="app">
 
-<header>
-  <h1>🤖 مدیریت پیکو چلنج</h1>
-  <p>پنل مدیریت مجموعه پیکو در سایت هدف 🎯</p>
-</header>
+  <header>
+    <div class="brand">
+      <div class="logo">🤖</div>
+      <div>
+        <h1>مدیریت پیکو چلنج</h1>
+        <div class="subtitle">پنل مدیریت چالش‌های هفتگی سایت هدف</div>
+      </div>
+    </div>
+    <button id="logoutBtn" class="btn small hidden" type="button">خروج</button>
+  </header>
 
-<main>
-  <section class="card" id="loginBox">
+  <div id="message" class="notice hidden" role="status"></div>
+
+  <!-- ورود مدیر -->
+  <section id="loginPanel" class="panel">
     <h2>🔐 ورود مدیر</h2>
-    <p class="muted">برای ورود، رمز مدیر را وارد کن.</p>
-    <label for="password">رمز مدیر</label>
-    <input id="password" type="password"
-      autocomplete="current-password" placeholder="رمز محرمانه">
-    <button id="loginBtn" onclick="login()">ورود به پنل</button>
-    <div id="loginMessage" role="status"></div>
+    <p class="subtitle">برای مدیریت چالش‌ها، رمز مدیر را وارد کن.</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="adminPassword">رمز مدیر</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required maxlength="200" placeholder="رمز مدیر را وارد کن">
+      </div>
+      <button class="btn primary" style="width:100%" type="submit">ورود به پنل</button>
+    </form>
   </section>
 
-  <section id="panel" class="hidden">
-    <div class="card">
-      <div class="row" style="align-items:center">
-        <h2 style="flex:1">🎯 چالش‌ها</h2>
-        <button class="secondary" onclick="loadChallenges()">🔄 تازه‌سازی</button>
-        <button class="secondary" onclick="logout()">خروج</button>
-      </div>
-      <p class="muted">چالش‌ها را بساز، ویرایش کن یا منتشر کن.</p>
-      <div id="message" role="status"></div>
-      <div id="challengeList">برای دیدن چالش‌ها، کمی صبر کن...</div>
-    </div>
+  <!-- پنل اصلی -->
+  <main id="adminPanel" class="hidden">
 
-    <div class="card">
-      <h2 id="formTitle">➕ ساخت چالش جدید</h2>
+    <section class="panel">
+      <h2 id="formHeading">✨ ساخت چالش جدید</h2>
+
       <form id="challengeForm">
-        <input type="hidden" id="challengeId">
+        <input id="challengeId" type="hidden">
 
-        <label for="title">عنوان چالش</label>
-        <input id="title" maxlength="150" required
-          placeholder="مثلاً چالش ۷ روز لبخند">
+        <div class="grid">
+          <div class="field">
+            <label for="title">عنوان چالش</label>
+            <input id="title" maxlength="150" required placeholder="مثلاً چالش حافظه پیکو">
+          </div>
 
-        <label for="episode">شماره قسمت</label>
-        <input id="episode" type="number" min="1" step="1"
-          value="1" required>
+          <div class="field">
+            <label for="episode">شماره قسمت</label>
+            <input id="episode" type="number" min="1" step="1" required value="1">
+          </div>
+        </div>
 
-        <label for="description">توضیحات چالش</label>
-        <textarea id="description" maxlength="5000" required
-          placeholder="پیکو این هفته چه چالشی معرفی می‌کند؟"></textarea>
+        <div class="field">
+          <label for="description">توضیحات چالش</label>
+          <textarea id="description" maxlength="5000" required placeholder="داستان و توضیح چالش را بنویس..."></textarea>
+        </div>
 
-        <label for="instructions">روش انجام چالش</label>
-        <textarea id="instructions" maxlength="5000"
-          placeholder="مراحل انجام چالش را بنویس..."></textarea>
+        <div class="field">
+          <label for="instructions">قوانین و راهنمای بازی</label>
+          <textarea id="instructions" maxlength="5000" placeholder="مثلاً باید قبل از تمام شدن زمان، امتیاز لازم را کسب کنی."></textarea>
+        </div>
 
-        <label for="status">وضعیت</label>
-        <select id="status">
-          <option value="draft">پیش‌نویس؛ هنوز منتشر نشده</option>
-          <option value="published">منتشرشده</option>
-        </select>
+        <div class="field">
+          <label for="videoUrl">لینک ویدیوی چالش (اختیاری)</label>
+          <input id="videoUrl" type="url" maxlength="2000" placeholder="https://...">
+          <div class="small-note">لینک مستقیم یا لینک صفحه ویدیو را وارد کن.</div>
+        </div>
 
-        <div class="row">
-          <button type="submit" id="saveBtn">💾 ذخیره چالش</button>
-          <button type="button" class="secondary"
-            onclick="resetForm()">چالش جدید</button>
+        <h3>🎮 انتخاب بازی</h3>
+        <div class="game-options">
+          <button class="game-option active" type="button" data-game="memory" aria-pressed="true">
+            <span class="emoji">🧠</span>
+            <span class="game-name">بازی حافظه</span>
+          </button>
+          <button class="game-option" type="button" data-game="snake" aria-pressed="false">
+            <span class="emoji">🐍</span>
+            <span class="game-name">بازی مار</span>
+          </button>
+          <button class="game-option" type="button" data-game="car" aria-pressed="false">
+            <span class="emoji">🚗</span>
+            <span class="game-name">بازی ماشین</span>
+          </button>
+        </div>
+
+        <div class="config-box">
+          <div id="memoryConfig">
+            <h3>🧠 تنظیمات بازی حافظه</h3>
+            <div class="field">
+              <label for="pairCount">تعداد جفت کارت‌ها</label>
+              <select id="pairCount">
+                <option value="4">۴ جفت (۸ کارت)</option>
+                <option value="6">۶ جفت (۱۲ کارت)</option>
+                <option value="8" selected>۸ جفت (۱۶ کارت)</option>
+                <option value="10">۱۰ جفت (۲۰ کارت)</option>
+                <option value="12">۱۲ جفت (۲۴ کارت)</option>
+              </select>
+            </div>
+            <div class="small-note">این گزینه زمانی اثر می‌کند که صفحه بازی حافظه از تنظیم pairCount پشتیبانی کند.</div>
+          </div>
+
+          <div id="scoreConfig" class="hidden">
+            <h3 id="scoreHeading">🏆 تنظیمات امتیاز</h3>
+            <div class="field">
+              <label for="minScore">حداقل امتیاز لازم برای قبولی</label>
+              <input id="minScore" type="number" min="0" max="10000" step="1" value="5">
+            </div>
+            <div class="small-note">صفحه بازی باید امتیاز نهایی را بررسی کند تا قبولی چالش ثبت شود.</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="field">
+            <label for="requiredCompletions">تعداد دفعات لازم برای تکمیل چالش</label>
+            <input id="requiredCompletions" type="number" min="1" max="1000" step="1" value="4" required>
+          </div>
+          <div class="field">
+            <label for="status">وضعیت چالش</label>
+            <select id="status">
+              <option value="draft">پیش‌نویس — منتشر نشده</option>
+              <option value="published">منتشر شده</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="saveBtn" class="btn primary" type="submit">💾 ذخیره چالش</button>
+          <button id="resetBtn" class="btn" type="button">چالش جدید</button>
         </div>
       </form>
-    </div>
-  </section>
-</main>
+    </section>
 
-<footer>🏹 Hadaf © 2026 — پیکو چلنج</footer>
+    <section class="panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <h2 style="margin:0">📋 چالش‌های ذخیره‌شده</h2>
+        <button id="refreshBtn" class="btn small" type="button">🔄 تازه‌سازی</button>
+      </div>
+      <div class="small-note">برای نمایش عمومی، چالش را منتشر کن. برای تغییر آن از دکمه ویرایش استفاده کن.</div>
+      <div id="challengeList">
+        <div class="empty">در حال دریافت چالش‌ها...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>🏹 Hadaf © 2026 — Pico Challenge</footer>
+</div>
 
 <script>
 "use strict";
 
-/* آدرس تابع مدیریت */
 const API_URL =
   "https://nzwgyvkbsznmpcilkpig.supabase.co/functions/v1/pico-admin";
 
-/*
-  بعداً کلید عمومی (anon / publishable) سوپابیس را
-  در این قسمت قرار می‌دهیم.
-  هرگز کلید service_role را اینجا قرار نده!
-*/
-const SUPABASE_PUBLIC_KEY = "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
+const $ = (id) => document.getElementById(id);
 
 let adminPassword = "";
+let selectedGame = "memory";
+let challenges = [];
 let busy = false;
 
-const $ = id => document.getElementById(id);
-
-function showMessage(id, text, error = false) {
-  const el = $(id);
+function showMessage(text, type = "info") {
+  const el = $("message");
   el.textContent = text;
-  el.style.color = error ? "#ff8796" : "#b8ffcf";
+  el.className = "notice " + type;
+  el.classList.remove("hidden");
+  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function hideMessage() {
+  $("message").classList.add("hidden");
 }
 
 async function api(action, extra = {}) {
-  if (SUPABASE_PUBLIC_KEY === "PUBLIC_KEY_HERE") {
-    throw new Error("ابتدا کلید عمومی سوپابیس را تنظیم می‌کنیم.");
-  }
-
   const response = await fetch(API_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": SUPABASE_PUBLIC_KEY
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       action,
       password: adminPassword,
@@ -171,200 +290,443 @@ async function api(action, extra = {}) {
     })
   });
 
-  let data;
+  let result;
   try {
-    data = await response.json();
+    result = await response.json();
   } catch {
     throw new Error("پاسخ سرور قابل خواندن نیست.");
   }
 
-  if (!response.ok || data.error || data.success === false) {
-    throw new Error(data.error || "درخواست انجام نشد.");
+  if (!response.ok || result.success === false) {
+    throw new Error(result.error || "درخواست انجام نشد.");
   }
 
-  return data;
+  return result;
 }
 
-async function login() {
-  if (busy) return;
+function setBusy(value) {
+  busy = value;
+  $("saveBtn").disabled = value;
+  $("refreshBtn").disabled = value;
+}
 
-  const password = $("password").value;
-  if (!password) {
-    showMessage("loginMessage", "رمز را وارد کن.", true);
+function showAdmin() {
+  $("loginPanel").classList.add("hidden");
+  $("adminPanel").classList.remove("hidden");
+  $("logoutBtn").classList.remove("hidden");
+}
+
+function showLogin() {
+  $("adminPanel").classList.add("hidden");
+  $("logoutBtn").classList.add("hidden");
+  $("loginPanel").classList.remove("hidden");
+}
+
+$("loginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  hideMessage();
+
+  const entered = $("adminPassword").value;
+
+  if (!entered) {
+    showMessage("رمز مدیر را وارد کن.", "error");
     return;
   }
 
-  busy = true;
-  $("loginBtn").disabled = true;
-  showMessage("loginMessage", "در حال بررسی...");
-
-  adminPassword = password;
+  adminPassword = entered;
 
   try {
-    await api("login");
-    $("loginBox").classList.add("hidden");
-    $("panel").classList.remove("hidden");
-    $("password").value = "";
+    const result = await api("login");
+
+    if (!result.success) {
+      throw new Error("ورود انجام نشد.");
+    }
+
+    $("adminPassword").value = "";
+    showAdmin();
+    showMessage("با موفقیت وارد پنل شدی 🎉", "ok");
     await loadChallenges();
   } catch (error) {
     adminPassword = "";
-    showMessage("loginMessage", error.message, true);
-  } finally {
-    busy = false;
-    $("loginBtn").disabled = false;
+    showMessage(error.message || "ورود انجام نشد.", "error");
+  }
+});
+
+$("logoutBtn").addEventListener("click", () => {
+  adminPassword = "";
+  challenges = [];
+  resetForm();
+  showLogin();
+  $("challengeList").replaceChildren();
+  showMessage("از پنل خارج شدی.", "info");
+});
+
+function chooseGame(game) {
+  if (!["memory", "snake", "car"].includes(game)) return;
+
+  selectedGame = game;
+
+  document.querySelectorAll(".game-option").forEach((button) => {
+    const active = button.dataset.game === game;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
+  $("memoryConfig").classList.toggle("hidden", game !== "memory");
+  $("scoreConfig").classList.toggle("hidden", game === "memory");
+
+  if (game === "snake") {
+    $("scoreHeading").textContent = "🐍 تنظیمات بازی مار";
+  } else if (game === "car") {
+    $("scoreHeading").textContent = "🚗 تنظیمات بازی ماشین";
   }
 }
 
-function logout() {
-  adminPassword = "";
-  $("panel").classList.add("hidden");
-  $("loginBox").classList.remove("hidden");
-  $("challengeList").replaceChildren();
-  resetForm();
-  showMessage("loginMessage", "از پنل خارج شدی.");
+document.querySelectorAll(".game-option").forEach((button) => {
+  button.addEventListener("click", () => chooseGame(button.dataset.game));
+});
+
+function getGameConfig() {
+  if (selectedGame === "memory") {
+    return {
+      pairCount: Number($("pairCount").value)
+    };
+  }
+
+  return {
+    minScore: Number($("minScore").value)
+  };
 }
 
-async function loadChallenges() {
+function getFormData() {
+  const title = $("title").value.trim();
+  const description = $("description").value.trim();
+  const instructions = $("instructions").value.trim();
+  const videoUrl = $("videoUrl").value.trim();
+  const episode = Number($("episode").value);
+  const required = Number($("requiredCompletions").value);
+  const minScore = Number($("minScore").value);
+
+  if (!title) throw new Error("عنوان چالش را بنویس.");
+  if (!description) throw new Error("توضیحات چالش را بنویس.");
+
+  if (!Number.isSafeInteger(episode) || episode < 1) {
+    throw new Error("شماره قسمت باید عدد صحیح مثبت باشد.");
+  }
+
+  if (!Number.isSafeInteger(required) || required < 1 || required > 1000) {
+    throw new Error("تعداد دفعات تکمیل باید بین ۱ تا ۱۰۰۰ باشد.");
+  }
+
+  if (selectedGame !== "memory" &&
+      (!Number.isSafeInteger(minScore) || minScore < 0 || minScore > 10000)) {
+    throw new Error("امتیاز لازم باید بین صفر تا ۱۰۰۰۰ باشد.");
+  }
+
+  if (videoUrl) {
+    try {
+      const url = new URL(videoUrl);
+      if (!["https:", "http:"].includes(url.protocol)) throw new Error();
+    } catch {
+      throw new Error("لینک ویدیو معتبر نیست.");
+    }
+  }
+
+  return {
+    title,
+    description,
+    instructions,
+    episode_number: episode,
+    status: $("status").value,
+    game_type: selectedGame,
+    game_config: getGameConfig(),
+    required_completions: required,
+    video_url: videoUrl
+  };
+}
+
+$("challengeForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
   if (busy) return;
 
-  busy = true;
-  $("challengeList").textContent = "در حال دریافت چالش‌ها...";
+  hideMessage();
+
+  let payload;
+
   try {
-    const data = await api("list");
-    renderChallenges(data.challenges || []);
-    showMessage("message", "چالش‌ها دریافت شدند.");
+    payload = getFormData();
   } catch (error) {
-    $("challengeList").textContent = error.message;
-    showMessage("message", error.message, true);
+    showMessage(error.message, "error");
+    return;
+  }
+
+  const id = $("challengeId").value;
+  const action = id ? "update" : "create";
+
+  if (id) payload.id = Number(id);
+
+  setBusy(true);
+  $("saveBtn").textContent = "در حال ذخیره...";
+
+  try {
+    await api(action, payload);
+    showMessage(id ? "چالش ویرایش شد ✅" : "چالش ذخیره شد ✅", "ok");
+    resetForm();
+    await loadChallenges();
+  } catch (error) {
+    showMessage(error.message || "ذخیره چالش انجام نشد.", "error");
   } finally {
-    busy = false;
+    setBusy(false);
+    $("saveBtn").textContent = "💾 ذخیره چالش";
+  }
+});
+
+function resetForm() {
+  $("challengeForm").reset();
+  $("challengeId").value = "";
+  $("formHeading").textContent = "✨ ساخت چالش جدید";
+  $("episode").value = String(nextEpisode());
+  $("pairCount").value = "8";
+  $("minScore").value = "5";
+  $("requiredCompletions").value = "4";
+  $("status").value = "draft";
+  $("saveBtn").textContent = "💾 ذخیره چالش";
+  chooseGame("memory");
+}
+
+function nextEpisode() {
+  return challenges.reduce((max, item) => {
+    return Math.max(max, Number(item.episode_number) || 0);
+  }, 0) + 1;
+}
+
+$("resetBtn").addEventListener("click", () => {
+  resetForm();
+  hideMessage();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+$("refreshBtn").addEventListener("click", loadChallenges);
+
+async function loadChallenges() {
+  if (!adminPassword) return;
+
+  $("challengeList").innerHTML =
+    '<div class="empty">در حال دریافت چالش‌ها...</div>';
+
+  try {
+    const result = await api("list");
+    challenges = Array.isArray(result.challenges) ? result.challenges : [];
+    renderChallenges();
+  } catch (error) {
+    $("challengeList").innerHTML =
+      '<div class="empty">دریافت چالش‌ها ناموفق بود.</div>';
+    showMessage(error.message || "دریافت چالش‌ها ناموفق بود.", "error");
   }
 }
 
-function renderChallenges(challenges) {
+function gameName(type) {
+  return {
+    memory: "🧠 بازی حافظه",
+    snake: "🐍 بازی مار",
+    car: "🚗 بازی ماشین"
+  }[type] || "🎮 بازی";
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function renderChallenges() {
   const list = $("challengeList");
   list.replaceChildren();
 
   if (!challenges.length) {
-    list.textContent = "هنوز چالشی ثبت نشده است.";
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "هنوز چالشی ساخته نشده است. اولین چالش پیکو را بساز! ✨";
+    list.appendChild(empty);
     return;
   }
 
-  challenges.forEach(challenge => {
+  challenges.forEach((challenge) => {
     const item = document.createElement("article");
-    item.className = "item";
+    item.className = "card-item";
 
-    const title = document.createElement("h3");
-    title.textContent = "قسمت " + challenge.episode_number +
-      " — " + challenge.title;
+    const top = document.createElement("div");
+    top.className = "card-top";
 
-    const status = document.createElement("div");
-    status.className = "tag";
-    status.textContent =
-      challenge.status === "published" ? "🚀 منتشرشده" : "📝 پیش‌نویس";
+    const info = document.createElement("div");
 
-    const desc = document.createElement("p");
-    desc.className = "muted";
-    desc.textContent = challenge.description;
+    const title = document.createElement("div");
+    title.className = "card-title";
+    title.textContent =
+      `قسمت ${challenge.episode_number || "؟"} — ${challenge.title || "بدون عنوان"}`;
 
-    const buttons = document.createElement("div");
-    buttons.className = "row";
+    const meta = document.createElement("div");
+    meta.className = "meta";
 
-    const edit = document.createElement("button");
-    edit.className = "secondary";
-    edit.textContent = "✏️ ویرایش";
-    edit.onclick = () => editChallenge(challenge);
+    const statusText = challenge.status === "published"
+      ? "منتشر شده"
+      : "پیش‌نویس";
 
-    const del = document.createElement("button");
-    del.className = "danger";
-    del.textContent = "🗑️ حذف";
-    del.onclick = () => deleteChallenge(challenge.id);
+    meta.textContent =
+      `${gameName(challenge.game_type)} · ${statusText} · دفعات لازم: ${challenge.required_completions ?? 4}`;
 
-    buttons.append(edit, del);
-    item.append(title, status, desc, buttons);
-    list.append(item);
+    info.append(title, meta);
+
+    const pill = document.createElement("span");
+    pill.className = "pill " +
+      (challenge.status === "published" ? "published" : "draft");
+    pill.textContent = challenge.status === "published"
+      ? "منتشر شده"
+      : "پیش‌نویس";
+
+    top.append(info, pill);
+
+    const actions = document.createElement("div");
+    actions.className = "item-actions";
+
+    const editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.className = "btn small";
+    editButton.textContent = "✏️ ویرایش";
+    editButton.addEventListener("click", () => editChallenge(challenge.id));
+
+    const publishButton = document.createElement("button");
+    publishButton.type = "button";
+    publishButton.className = "btn small " +
+      (challenge.status === "published" ? "" : "success");
+    publishButton.textContent = challenge.status === "published"
+      ? "↩️ تبدیل به پیش‌نویس"
+      : "🚀 انتشار";
+    publishButton.addEventListener("click", () => toggleStatus(challenge.id));
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "btn small danger";
+    deleteButton.textContent = "🗑️ حذف";
+    deleteButton.addEventListener("click", () => deleteChallenge(challenge.id));
+
+    actions.append(editButton, publishButton, deleteButton);
+    item.append(top, actions);
+    list.appendChild(item);
   });
 }
 
-function editChallenge(challenge) {
+function editChallenge(id) {
+  const challenge = challenges.find((item) => String(item.id) === String(id));
+  if (!challenge) {
+    showMessage("چالش پیدا نشد.", "error");
+    return;
+  }
+
   $("challengeId").value = challenge.id;
   $("title").value = challenge.title || "";
   $("episode").value = challenge.episode_number || 1;
   $("description").value = challenge.description || "";
   $("instructions").value = challenge.instructions || "";
+  $("videoUrl").value = challenge.video_url || "";
+  $("requiredCompletions").value = challenge.required_completions ?? 4;
   $("status").value = challenge.status || "draft";
-  $("formTitle").textContent = "✏️ ویرایش چالش";
-  $("challengeForm").scrollIntoView({ behavior: "smooth" });
+
+  const config = challenge.game_config || {};
+  const type = ["memory", "snake", "car"].includes(challenge.game_type)
+    ? challenge.game_type
+    : "memory";
+
+  chooseGame(type);
+  $("pairCount").value = String(config.pairCount ?? 8);
+  $("minScore").value = String(config.minScore ?? 5);
+
+  $("formHeading").textContent = "✏️ ویرایش چالش";
+  $("saveBtn").textContent = "💾 ذخیره تغییرات";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function resetForm() {
-  $("challengeForm").reset();
-  $("challengeId").value = "";
-  $("episode").value = 1;
-  $("status").value = "draft";
-  $("formTitle").textContent = "➕ ساخت چالش جدید";
-}
-
-$("challengeForm").addEventListener("submit", async event => {
-  event.preventDefault();
+async function toggleStatus(id) {
   if (busy) return;
 
-  const id = $("challengeId").value;
-  const episode = Number($("episode").value);
+  const challenge = challenges.find((item) => String(item.id) === String(id));
+  if (!challenge) return;
 
-  if (!Number.isSafeInteger(episode) || episode < 1) {
-    showMessage("message", "شماره قسمت باید عدد صحیح مثبت باشد.", true);
-    return;
-  }
+  const nextStatus =
+    challenge.status === "published" ? "draft" : "published";
 
-  const payload = {
-    title: $("title").value.trim(),
-    episode_number: episode,
-    description: $("description").value.trim(),
-    instructions: $("instructions").value.trim(),
-    status: $("status").value
-  };
+  const message = nextStatus === "published"
+    ? "این چالش منتشر شود؟"
+    : "این چالش به پیش‌نویس تبدیل شود؟";
 
-  if (!payload.title || !payload.description) {
-    showMessage("message", "عنوان و توضیحات را بنویس.", true);
-    return;
-  }
+  if (!confirm(message)) return;
 
-  busy = true;
-  $("saveBtn").disabled = true;
+  setBusy(true);
 
   try {
-    await api(id ? "update" : "create", {
-      ...payload,
-      ...(id ? { id: Number(id) } : {})
+    await api("update", {
+      id: challenge.id,
+      title: challenge.title,
+      description: challenge.description || "",
+      instructions: challenge.instructions || "",
+      episode_number: Number(challenge.episode_number),
+      status: nextStatus,
+      game_type: challenge.game_type || "memory",
+      game_config: challenge.game_config || { pairCount: 8 },
+      required_completions: Number(challenge.required_completions ?? 4),
+      video_url: challenge.video_url || ""
     });
 
-    showMessage("message", "چالش با موفقیت ذخیره شد.");
-    resetForm();
+    showMessage(
+      nextStatus === "published"
+        ? "چالش منتشر شد 🚀"
+        : "چالش به پیش‌نویس تبدیل شد.",
+      "ok"
+    );
+
     await loadChallenges();
   } catch (error) {
-    showMessage("message", error.message, true);
+    showMessage(error.message || "تغییر وضعیت انجام نشد.", "error");
   } finally {
-    busy = false;
-    $("saveBtn").disabled = false;
+    setBusy(false);
   }
-});
+}
 
 async function deleteChallenge(id) {
   if (busy) return;
-  if (!confirm("از حذف این چالش مطمئنی؟")) return;
 
-  busy = true;
+  const challenge = challenges.find((item) => String(item.id) === String(id));
+  if (!challenge) return;
+
+  if (!confirm(`چالش «${challenge.title}» حذف شود؟ این کار قابل برگشت نیست.`)) {
+    return;
+  }
+
+  setBusy(true);
+
   try {
-    await api("delete", { id: Number(id) });
-    showMessage("message", "چالش حذف شد.");
+    await api("delete", { id: challenge.id });
+    showMessage("چالش حذف شد.", "ok");
+
+    if (String($("challengeId").value) === String(id)) {
+      resetForm();
+    }
+
     await loadChallenges();
   } catch (error) {
-    showMessage("message", error.message, true);
+    showMessage(error.message || "حذف چالش انجام نشد.", "error");
   } finally {
-    busy = false;
+    setBusy(false);
   }
 }
+
+resetForm();
+showLogin();
 </script>
 </body>
 </html>
