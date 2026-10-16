@@ -297,8 +297,14 @@ async function api(action, extra = {}) {
     throw new Error("پاسخ سرور قابل خواندن نیست.");
   }
 
-  if (!response.ok || result.success === false) {
-    throw new Error(result.error || "درخواست انجام نشد.");
+  if (!response.ok || data.error || data.success === false) {
+  console.error("Pico Admin API:", response.status, data);
+
+  throw new Error(
+    data.error ||
+    "خطای سرور با کد " + response.status
+  );
+  }
   }
 
   return result;
