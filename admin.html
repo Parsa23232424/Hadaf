@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
+<meta name="robots" content="noindex,nofollow">
 <title>مدیریت پیکو چلنج | هدف</title>
 
 <style>
@@ -23,9 +24,7 @@
 body {
   margin:0; min-height:100vh; color:var(--text);
   font-family:Tahoma,"Segoe UI",Arial,sans-serif;
-  background:
-    radial-gradient(circle at 85% 0%,rgba(103,88,255,.15),transparent 30%),
-    var(--bg);
+  background:radial-gradient(circle at 85% 0%,rgba(103,88,255,.15),transparent 30%),var(--bg);
 }
 button,input,textarea,select { font:inherit; }
 button { cursor:pointer; }
@@ -69,14 +68,14 @@ select option { background:#121622;color:white; }
 .btn.success { background:rgba(34,197,94,.12);color:#86efac;border-color:rgba(34,197,94,.3); }
 .btn.small { padding:8px 10px;font-size:12px; }
 .hidden { display:none!important; }
-.notice { padding:12px 14px;border-radius:12px;margin-bottom:16px;font-size:13px;line-height:1.8; }
+.notice { padding:12px 14px;border-radius:12px;margin-bottom:16px;font-size:13px;line-height:1.8;overflow-wrap:anywhere; }
 .notice.error { background:rgba(239,68,68,.12);color:#fca5a5; }
 .notice.ok { background:rgba(34,197,94,.12);color:#86efac; }
 .notice.info { background:rgba(103,88,255,.12);color:#c4bfff; }
 .game-options { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px; }
 .game-option {
   padding:15px 8px;border-radius:15px;border:1px solid var(--border);
-  background:#0b0e17;color:white;text-align:center;cursor:pointer;
+  background:#0b0e17;color:white;text-align:center;
 }
 .game-option .emoji { display:block;font-size:27px;margin-bottom:8px; }
 .game-option .game-name { font-size:13px; }
@@ -86,12 +85,12 @@ select option { background:#121622;color:white; }
 .card-item:last-child { border-bottom:0; }
 .card-top { display:flex;justify-content:space-between;align-items:flex-start;gap:12px; }
 .card-title { font-weight:bold;font-size:14px;line-height:1.9;overflow-wrap:anywhere; }
-.meta { color:var(--muted);font-size:12px;line-height:2;margin-top:5px; }
+.meta { color:var(--muted);font-size:12px;line-height:2;margin-top:5px;overflow-wrap:anywhere; }
 .pill { display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;white-space:nowrap; }
 .pill.draft { background:rgba(255,122,50,.12);color:#ffb17f; }
 .pill.published { background:rgba(34,197,94,.12);color:#86efac; }
 .item-actions { display:flex;gap:7px;flex-wrap:wrap;margin-top:12px; }
-.empty { text-align:center;padding:25px 10px;color:var(--muted);font-size:13px;line-height:2; }
+.empty { text-align:center;padding:25px 10px;color:var(--muted);font-size:13px;line-height:2;overflow-wrap:anywhere; }
 .small-note { color:var(--muted);font-size:12px;line-height:1.9;margin-top:8px; }
 #loginPanel { max-width:480px;margin:65px auto; }
 footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
@@ -123,22 +122,24 @@ footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
     <button id="logoutBtn" class="btn small hidden" type="button">خروج</button>
   </header>
 
-  <div id="message" class="notice hidden" role="status"></div>
+  <div id="message" class="notice hidden" role="status" aria-live="polite"></div>
 
-  <!-- ورود مدیر -->
   <section id="loginPanel" class="panel">
     <h2>🔐 ورود مدیر</h2>
     <p class="subtitle">برای مدیریت چالش‌ها، رمز مدیر را وارد کن.</p>
     <form id="loginForm">
       <div class="field">
         <label for="adminPassword">رمز مدیر</label>
-        <input id="adminPassword" type="password" autocomplete="current-password" required maxlength="200" placeholder="رمز مدیر را وارد کن">
+        <input id="adminPassword" type="password"
+          autocomplete="current-password" required maxlength="200"
+          placeholder="رمز مدیر را وارد کن">
       </div>
-      <button class="btn primary" style="width:100%" type="submit">ورود به پنل</button>
+      <button id="loginBtn" class="btn primary" style="width:100%" type="submit">
+        ورود به پنل
+      </button>
     </form>
   </section>
 
-  <!-- پنل اصلی -->
   <main id="adminPanel" class="hidden">
 
     <section class="panel">
@@ -150,42 +151,50 @@ footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
         <div class="grid">
           <div class="field">
             <label for="title">عنوان چالش</label>
-            <input id="title" maxlength="150" required placeholder="مثلاً چالش حافظه پیکو">
+            <input id="title" maxlength="150" required
+              placeholder="مثلاً چالش حافظه پیکو">
           </div>
 
           <div class="field">
             <label for="episode">شماره قسمت</label>
-            <input id="episode" type="number" min="1" step="1" required value="1">
+            <input id="episode" type="number" min="1" step="1"
+              required value="1">
           </div>
         </div>
 
         <div class="field">
           <label for="description">توضیحات چالش</label>
-          <textarea id="description" maxlength="5000" required placeholder="داستان و توضیح چالش را بنویس..."></textarea>
+          <textarea id="description" maxlength="5000" required
+            placeholder="داستان و توضیح چالش را بنویس..."></textarea>
         </div>
 
         <div class="field">
           <label for="instructions">قوانین و راهنمای بازی</label>
-          <textarea id="instructions" maxlength="5000" placeholder="مثلاً باید قبل از تمام شدن زمان، امتیاز لازم را کسب کنی."></textarea>
+          <textarea id="instructions" maxlength="5000"
+            placeholder="مثلاً باید قبل از تمام شدن زمان، امتیاز لازم را کسب کنی."></textarea>
         </div>
 
         <div class="field">
           <label for="videoUrl">لینک ویدیوی چالش (اختیاری)</label>
-          <input id="videoUrl" type="url" maxlength="2000" placeholder="https://...">
-          <div class="small-note">لینک مستقیم یا لینک صفحه ویدیو را وارد کن.</div>
+          <input id="videoUrl" type="url" maxlength="2000"
+            placeholder="https://...">
+          <div class="small-note">لینک صفحه ویدیو یا لینک مستقیم آن را وارد کن.</div>
         </div>
 
         <h3>🎮 انتخاب بازی</h3>
         <div class="game-options">
-          <button class="game-option active" type="button" data-game="memory" aria-pressed="true">
+          <button class="game-option active" type="button"
+            data-game="memory" aria-pressed="true">
             <span class="emoji">🧠</span>
             <span class="game-name">بازی حافظه</span>
           </button>
-          <button class="game-option" type="button" data-game="snake" aria-pressed="false">
+          <button class="game-option" type="button"
+            data-game="snake" aria-pressed="false">
             <span class="emoji">🐍</span>
             <span class="game-name">بازی مار</span>
           </button>
-          <button class="game-option" type="button" data-game="car" aria-pressed="false">
+          <button class="game-option" type="button"
+            data-game="car" aria-pressed="false">
             <span class="emoji">🚗</span>
             <span class="game-name">بازی ماشین</span>
           </button>
@@ -204,24 +213,31 @@ footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
                 <option value="12">۱۲ جفت (۲۴ کارت)</option>
               </select>
             </div>
-            <div class="small-note">این گزینه زمانی اثر می‌کند که صفحه بازی حافظه از تنظیم pairCount پشتیبانی کند.</div>
+            <div class="small-note">
+              صفحه بازی حافظه باید از تنظیم pairCount پشتیبانی کند.
+            </div>
           </div>
 
           <div id="scoreConfig" class="hidden">
             <h3 id="scoreHeading">🏆 تنظیمات امتیاز</h3>
             <div class="field">
               <label for="minScore">حداقل امتیاز لازم برای قبولی</label>
-              <input id="minScore" type="number" min="0" max="10000" step="1" value="5">
+              <input id="minScore" type="number" min="0" max="10000"
+                step="1" value="5">
             </div>
-            <div class="small-note">صفحه بازی باید امتیاز نهایی را بررسی کند تا قبولی چالش ثبت شود.</div>
+            <div class="small-note">
+              ثبت قبولی به پشتیبانی صفحه بازی و سرور نیاز دارد.
+            </div>
           </div>
         </div>
 
         <div class="grid">
           <div class="field">
             <label for="requiredCompletions">تعداد دفعات لازم برای تکمیل چالش</label>
-            <input id="requiredCompletions" type="number" min="1" max="1000" step="1" value="4" required>
+            <input id="requiredCompletions" type="number"
+              min="1" max="1000" step="1" value="4" required>
           </div>
+
           <div class="field">
             <label for="status">وضعیت چالش</label>
             <select id="status">
@@ -243,9 +259,13 @@ footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
         <h2 style="margin:0">📋 چالش‌های ذخیره‌شده</h2>
         <button id="refreshBtn" class="btn small" type="button">🔄 تازه‌سازی</button>
       </div>
-      <div class="small-note">برای نمایش عمومی، چالش را منتشر کن. برای تغییر آن از دکمه ویرایش استفاده کن.</div>
+
+      <div class="small-note">
+        برای نمایش عمومی، چالش را منتشر کن. برای تغییر آن از دکمه ویرایش استفاده کن.
+      </div>
+
       <div id="challengeList">
-        <div class="empty">در حال دریافت چالش‌ها...</div>
+        <div class="empty">هنوز چالش‌ها دریافت نشده‌اند.</div>
       </div>
     </section>
 
@@ -260,6 +280,9 @@ footer { text-align:center;color:var(--muted);font-size:12px;padding:25px 0; }
 const API_URL =
   "https://nzwgyvkbsznmpcilkpig.supabase.co/functions/v1/pico-admin";
 
+const SUPABASE_PUBLIC_KEY =
+  "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
+
 const $ = (id) => document.getElementById(id);
 
 let adminPassword = "";
@@ -269,10 +292,9 @@ let busy = false;
 
 function showMessage(text, type = "info") {
   const el = $("message");
-  el.textContent = text;
+  el.textContent = String(text);
   el.className = "notice " + type;
   el.classList.remove("hidden");
-  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function hideMessage() {
@@ -280,31 +302,46 @@ function hideMessage() {
 }
 
 async function api(action, extra = {}) {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action,
-      password: adminPassword,
-      ...extra
-    })
-  });
+  let response;
+
+  try {
+    response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_PUBLIC_KEY
+      },
+      body: JSON.stringify({
+        action,
+        password: adminPassword,
+        ...extra
+      })
+    });
+  } catch (error) {
+    console.error("Pico Admin Network Error:", error);
+    throw new Error(
+      "اتصال به سرور برقرار نشد. اینترنت، آدرس تابع و تنظیمات CORS را بررسی کن."
+    );
+  }
 
   let result;
+
   try {
     result = await response.json();
-  } catch {
-    throw new Error("پاسخ سرور قابل خواندن نیست.");
+  } catch (error) {
+    console.error("Pico Admin Invalid Response:", response.status);
+    throw new Error(
+      "پاسخ سرور قابل خواندن نیست. کد خطا: " + response.status
+    );
   }
 
-  if (!response.ok || data.error || data.success === false) {
-  console.error("Pico Admin API:", response.status, data);
+  if (!response.ok || result.error || result.success === false) {
+    console.error("Pico Admin API:", response.status, result);
 
-  throw new Error(
-    data.error ||
-    "خطای سرور با کد " + response.status
-  );
-  }
+    throw new Error(
+      result.error ||
+      "خطای سرور با کد " + response.status
+    );
   }
 
   return result;
@@ -314,6 +351,7 @@ function setBusy(value) {
   busy = value;
   $("saveBtn").disabled = value;
   $("refreshBtn").disabled = value;
+  $("loginBtn").disabled = value;
 }
 
 function showAdmin() {
@@ -330,6 +368,8 @@ function showLogin() {
 
 $("loginForm").addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (busy) return;
+
   hideMessage();
 
   const entered = $("adminPassword").value;
@@ -340,11 +380,13 @@ $("loginForm").addEventListener("submit", async (event) => {
   }
 
   adminPassword = entered;
+  $("loginBtn").disabled = true;
+  $("loginBtn").textContent = "در حال بررسی...";
 
   try {
     const result = await api("login");
 
-    if (!result.success) {
+    if (result.success !== true) {
       throw new Error("ورود انجام نشد.");
     }
 
@@ -355,6 +397,9 @@ $("loginForm").addEventListener("submit", async (event) => {
   } catch (error) {
     adminPassword = "";
     showMessage(error.message || "ورود انجام نشد.", "error");
+  } finally {
+    $("loginBtn").disabled = false;
+    $("loginBtn").textContent = "ورود به پنل";
   }
 });
 
@@ -364,6 +409,7 @@ $("logoutBtn").addEventListener("click", () => {
   resetForm();
   showLogin();
   $("challengeList").replaceChildren();
+  hideMessage();
   showMessage("از پنل خارج شدی.", "info");
 });
 
@@ -385,6 +431,8 @@ function chooseGame(game) {
     $("scoreHeading").textContent = "🐍 تنظیمات بازی مار";
   } else if (game === "car") {
     $("scoreHeading").textContent = "🚗 تنظیمات بازی ماشین";
+  } else {
+    $("scoreHeading").textContent = "🏆 تنظیمات امتیاز";
   }
 }
 
@@ -414,7 +462,11 @@ function getFormData() {
   const minScore = Number($("minScore").value);
 
   if (!title) throw new Error("عنوان چالش را بنویس.");
+  if (title.length > 150) throw new Error("عنوان بیش از حد طولانی است.");
   if (!description) throw new Error("توضیحات چالش را بنویس.");
+  if (description.length > 5000 || instructions.length > 5000) {
+    throw new Error("توضیحات یا قوانین بیش از حد طولانی است.");
+  }
 
   if (!Number.isSafeInteger(episode) || episode < 1) {
     throw new Error("شماره قسمت باید عدد صحیح مثبت باشد.");
@@ -483,9 +535,17 @@ $("challengeForm").addEventListener("submit", async (event) => {
     showMessage(error.message || "ذخیره چالش انجام نشد.", "error");
   } finally {
     setBusy(false);
-    $("saveBtn").textContent = "💾 ذخیره چالش";
+    $("saveBtn").textContent = $("challengeId").value
+      ? "💾 ذخیره تغییرات"
+      : "💾 ذخیره چالش";
   }
 });
+
+function nextEpisode() {
+  return challenges.reduce((max, item) => {
+    return Math.max(max, Number(item.episode_number) || 0);
+  }, 0) + 1;
+}
 
 function resetForm() {
   $("challengeForm").reset();
@@ -500,12 +560,6 @@ function resetForm() {
   chooseGame("memory");
 }
 
-function nextEpisode() {
-  return challenges.reduce((max, item) => {
-    return Math.max(max, Number(item.episode_number) || 0);
-  }, 0) + 1;
-}
-
 $("resetBtn").addEventListener("click", () => {
   resetForm();
   hideMessage();
@@ -515,18 +569,27 @@ $("resetBtn").addEventListener("click", () => {
 $("refreshBtn").addEventListener("click", loadChallenges);
 
 async function loadChallenges() {
-  if (!adminPassword) return;
+  if (!adminPassword || busy) return;
 
-  $("challengeList").innerHTML =
-    '<div class="empty">در حال دریافت چالش‌ها...</div>';
+  $("challengeList").replaceChildren();
+
+  const loading = document.createElement("div");
+  loading.className = "empty";
+  loading.textContent = "در حال دریافت چالش‌ها...";
+  $("challengeList").appendChild(loading);
 
   try {
     const result = await api("list");
     challenges = Array.isArray(result.challenges) ? result.challenges : [];
     renderChallenges();
   } catch (error) {
-    $("challengeList").innerHTML =
-      '<div class="empty">دریافت چالش‌ها ناموفق بود.</div>';
+    $("challengeList").replaceChildren();
+
+    const failed = document.createElement("div");
+    failed.className = "empty";
+    failed.textContent = error.message || "دریافت چالش‌ها ناموفق بود.";
+    $("challengeList").appendChild(failed);
+
     showMessage(error.message || "دریافت چالش‌ها ناموفق بود.", "error");
   }
 }
@@ -536,17 +599,7 @@ function gameName(type) {
     memory: "🧠 بازی حافظه",
     snake: "🐍 بازی مار",
     car: "🚗 بازی ماشین"
-  }[type] || "🎮 بازی";
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
+  }[type] || "🎮 بازی تعریف‌نشده";
 }
 
 function renderChallenges() {
@@ -556,7 +609,8 @@ function renderChallenges() {
   if (!challenges.length) {
     const empty = document.createElement("div");
     empty.className = "empty";
-    empty.textContent = "هنوز چالشی ساخته نشده است. اولین چالش پیکو را بساز! ✨";
+    empty.textContent =
+      "هنوز چالشی ساخته نشده است. اولین چالش پیکو را بساز! ✨";
     list.appendChild(empty);
     return;
   }
@@ -585,14 +639,16 @@ function renderChallenges() {
     meta.textContent =
       `${gameName(challenge.game_type)} · ${statusText} · دفعات لازم: ${challenge.required_completions ?? 4}`;
 
+    if (challenge.video_url) {
+      meta.textContent += " · ویدیو دارد";
+    }
+
     info.append(title, meta);
 
     const pill = document.createElement("span");
     pill.className = "pill " +
       (challenge.status === "published" ? "published" : "draft");
-    pill.textContent = challenge.status === "published"
-      ? "منتشر شده"
-      : "پیش‌نویس";
+    pill.textContent = statusText;
 
     top.append(info, pill);
 
@@ -628,6 +684,7 @@ function renderChallenges() {
 
 function editChallenge(id) {
   const challenge = challenges.find((item) => String(item.id) === String(id));
+
   if (!challenge) {
     showMessage("چالش پیدا نشد.", "error");
     return;
@@ -654,6 +711,7 @@ function editChallenge(id) {
   $("formHeading").textContent = "✏️ ویرایش چالش";
   $("saveBtn").textContent = "💾 ذخیره تغییرات";
 
+  hideMessage();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -666,11 +724,11 @@ async function toggleStatus(id) {
   const nextStatus =
     challenge.status === "published" ? "draft" : "published";
 
-  const message = nextStatus === "published"
+  const question = nextStatus === "published"
     ? "این چالش منتشر شود؟"
     : "این چالش به پیش‌نویس تبدیل شود؟";
 
-  if (!confirm(message)) return;
+  if (!confirm(question)) return;
 
   setBusy(true);
 
@@ -709,7 +767,9 @@ async function deleteChallenge(id) {
   const challenge = challenges.find((item) => String(item.id) === String(id));
   if (!challenge) return;
 
-  if (!confirm(`چالش «${challenge.title}» حذف شود؟ این کار قابل برگشت نیست.`)) {
+  if (!confirm(
+    `چالش «${challenge.title}» حذف شود؟ این کار قابل برگشت نیست.`
+  )) {
     return;
   }
 
