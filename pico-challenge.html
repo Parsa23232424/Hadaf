@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#07090f">
+<meta name="description" content="چالش حافظه پیکو در سایت هدف؛ حافظه‌ات را به چالش بکش!">
+<title>پیکو چلنج 🤖 | سایت هدف</title>
+
+<style>
+:root {
+    --bg:#07090f;
+    --card:rgba(18,22,34,.96);
+    --border:rgba(255,255,255,.08);
+    --text:#f8fafc;
+    --muted:#8f98a9;
+    --primary:#6758ff;
+    --primary2:#5146da;
+    --cyan:#49ddff;
+    --green:#22c55e;
+    --orange:#ff7a32;
+}
+
+* {
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body {
+    margin:0;
+    min-height:100vh;
+    padding-bottom:35px;
+    color:var(--text);
+    font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+    background:
+        radial-gradient(circle at 90% 0%,rgba(103,88,255,.18),transparent 32%),
+        radial-gradient(circle at 0% 40%,rgba(37,99,235,.08),transparent 30%),
+        var(--bg);
+}
+
+button {font-family:inherit}
+
+.app {
+    width:min(600px,92%);
+    margin:auto;
+    padding:20px 0 35px;
+}
+
+.topbar {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo {
+    width:45px;
+    height:45px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    display:grid;
+    place-items:center;
+    background:rgba(103,88,255,.12);
+    font-size:25px;
+}
+
+.brand strong {
+    display:block;
+    font-size:17px;
+}
+
+.brand small {
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+    font-size:10px;
+}
+
+.back {
+    color:#d5d1ff;
+    text-decoration:none;
+    padding:11px 13px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:rgba(255,255,255,.03);
+    font-size:11px;
+}
+
+.hero {
+    text-align:center;
+    padding:22px 12px 25px;
+    border:1px solid var(--border);
+    border-radius:26px;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(103,88,255,.19),transparent 65%),
+        var(--card);
+    box-shadow:0 16px 45px #0004;
+}
+
+.robot {
+    width:94px;
+    height:94px;
+    margin:0 auto 14px;
+    border-radius:28px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(145deg,#282052,#101a2b);
+    border:1px solid rgba(103,88,255,.35);
+    box-shadow:0 0 35px rgba(103,88,255,.15);
+    font-size:57px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% {transform:translateY(0)}
+    50% {transform:translateY(-7px)}
+}
+
+.badge {
+    display:inline-block;
+    color:#c9c3ff;
+    background:rgba(103,88,255,.12);
+    border:1px solid rgba(103,88,255,.25);
+    border-radius:999px;
+    padding:7px 12px;
+    font-size:10px;
+}
+
+h1 {
+    margin:14px 0 8px;
+    font-size:clamp(25px,6vw,34px);
+    line-height:1.5;
+}
+
+h1 span {color:#938aff}
+
+.hero p {
+    color:var(--muted);
+    font-size:12px;
+    line-height:2;
+    max-width:420px;
+    margin:0 auto;
+}
+
+.panel {
+    margin-top:15px;
+    padding:19px;
+    border-radius:23px;
+    border:1px solid var(--border);
+    background:var(--card);
+}
+
+.panel-title {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.panel-title h2 {
+    margin:0;
+    font-size:16px;
+}
+
+.panel-title small {
+    color:var(--muted);
+    font-size:10px;
+}
+
+.progress-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+}
+
+.progress-number {
+    color:#b7b0ff;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.progress-track {
+    height:9px;
+    margin-top:12px;
+    border-radius:99px;
+    overflow:hidden;
+    background:#25283a;
+}
+
+.progress-fill {
+    height:100%;
+    width:0%;
+    border-radius:99px;
+    background:linear-gradient(90deg,var(--primary),var(--cyan));
+    transition:width .35s ease;
+}
+
+.progress-note {
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.9;
+    margin:11px 0 0;
+}
+
+.stats {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:16px;
+}
+
+.stat {
+    text-align:center;
+    padding:12px 4px;
+    border-radius:15px;
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.045);
+    color:var(--muted);
+    font-size:10px;
+}
+
+.stat strong {
+    display:block;
+    color:white;
+    font-size:21px;
+    margin-bottom:6px;
+}
+
+.stat:nth-child(2) strong {color:var(--cyan)}
+.stat:nth-child(3) strong {color:#ffb36c}
+
+#message {
+    min-height:24px;
+    margin:12px 0;
+    text-align:center;
+    color:#c9c3ff;
+    font-size:12px;
+    line-height:1.9;
+}
+
+#game {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:9px;
+    direction:ltr;
+}
+
+.memory-card {
+    position:relative;
+    aspect-ratio:1;
+    min-width:0;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:15px;
+    background:linear-gradient(145deg,#20253a,#121623);
+    color:white;
+    font-size:clamp(23px,7vw,37px);
+    cursor:pointer;
+    box-shadow:0 5px 12px #0003;
+    transition:transform .18s,background .18s,border-color .18s;
+    touch-action:manipulation;
+    user-select:none;
+}
+
+.memory-card:active {transform:scale(.94)}
+
+.memory-card.open {
+    background:linear-gradient(145deg,#35305f,#20294a);
+    border-color:rgba(103,88,255,.8);
+    box-shadow:0 0 16px rgba(103,88,255,.12);
+}
+
+.memory-card.matched {
+    background:linear-gradient(145deg,#12513e,#10332d);
+    border-color:rgba(34,197,94,.45);
+    cursor:default;
+    animation:match .25s ease;
+}
+
+@keyframes match {
+    50% {transform:scale(1.06)}
+}
+
+.actions {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:16px;
+}
+
+.btn {
+    min-height:47px;
+    border:0;
+    border-radius:14px;
+    padding:12px 10px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+    transition:transform .15s;
+}
+
+.btn:active {transform:scale(.97)}
+
+.btn-primary {
+    color:white;
+    background:linear-gradient(100deg,var(--primary),var(--primary2));
+    box-shadow:0 7px 20px rgba(103,88,255,.17);
+}
+
+.btn-secondary {
+    color:#ddd9ff;
+    border:1px solid rgba(103,88,255,.22);
+    background:rgba(103,88,255,.08);
+}
+
+.login-notice {
+    display:none;
+    padding:13px;
+    margin-top:13px;
+    border:1px solid rgba(255,122,50,.2);
+    border-radius:14px;
+    background:rgba(255,122,50,.06);
+    color:#ffc49e;
+    font-size:11px;
+    line-height:2;
+    text-align:center;
+}
+
+.login-notice a {
+    color:#fff;
+    font-weight:bold;
+}
+
+.rules {
+    color:var(--muted);
+    font-size:11px;
+    line-height:2.1;
+}
+
+.rules strong {color:#ddd9ff}
+
+footer {
+    padding:25px 0 5px;
+    color:#596171;
+    text-align:center;
+    font-size:10px;
+}
+
+@media(max-width:360px) {
+    .panel {padding:13px}
+    #game {gap:6px}
+    .memory-card {border-radius:11px}
+    .actions {grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<main class="app">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">🤖</div>
+            <div>
+                <strong>پیکو چلنج</strong>
+                <small>چالش هفتگی سایت هدف</small>
+            </div>
+        </div>
+        <a class="back" href="../../index.html">⌂ بازگشت به هدف</a>
+    </header>
+
+    <section class="hero">
+        <div class="robot">🤖</div>
+        <span class="badge">⚡ چالش حافظه</span>
+        <h1>آماده‌ای، <span>قهرمان؟</span></h1>
+        <p>
+            پیکو یک مأموریت مخصوص تو دارد!
+            کارت‌های مشابه را پیدا کن و حافظه‌ات را به چالش بکش.
+            برای تکمیل مأموریت هفتگی باید بازی را ۴ بار کامل کنی.
+        </p>
+    </section>
+
+    <section class="panel">
+        <div class="panel-title">
+            <h2>🎯 مأموریت این هفته</h2>
+            <small>پیکو چلنج</small>
+        </div>
+
+        <div class="progress-row">
+            <span>پیشرفت مأموریت</span>
+            <span class="progress-number" id="progressText">۰ از ۴</span>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <p class="progress-note" id="progressNote">
+            برای ثبت پیشرفت، وارد حساب کاربری هدف شو.
+        </p>
+    </section>
+
+    <section class="panel">
+        <div class="panel-title">
+            <h2>🧠 بازی حافظه</h2>
+            <small>۸ جفت کارت</small>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <strong id="moves">۰</strong>
+                حرکت
+            </div>
+            <div class="stat">
+                <strong id="pairs">۰/۸</strong>
+                جفت پیدا شده
+            </div>
+            <div class="stat">
+                <strong id="best">—</strong>
+                رکورد این بازی
+            </div>
+        </div>
+
+        <p id="message" aria-live="polite">کارت‌ها را باز کن و جفت‌ها را پیدا کن! 🚀</p>
+
+        <div id="game"></div>
+
+        <div class="actions">
+            <button class="btn btn-primary" id="restartButton">
+                🔄 شروع دوباره
+            </button>
+            <button class="btn btn-secondary" id="backButton">
+                🏠 بازگشت به سایت هدف
+            </button>
+        </div>
+
+        <div class="login-notice" id="loginNotice">
+            برای ثبت مأموریت هفتگی باید وارد حساب هدف شوی.
+            <br>
+            <a href="../../login.html">ورود به حساب کاربری ←</a>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-title">
+            <h2>📜 قوانین چالش</h2>
+        </div>
+        <div class="rules">
+            <strong>۱.</strong> دو کارت را باز کن و شکل‌های یکسان را پیدا کن.<br>
+            <strong>۲.</strong> وقتی همهٔ ۸ جفت را پیدا کردی، یک بازی کامل می‌شود.<br>
+            <strong>۳.</strong> برای مأموریت هفتگی باید ۴ بازی کامل انجام بدهی.<br>
+            <strong>۴.</strong> پیشرفت نهایی باید توسط سرور هدف تأیید شود.
+        </div>
+    </section>
+
+    <footer>🏹 Hadaf © 2026 • هر روز یک قدم جلوتر</footer>
+</main>
+
+<script>
+"use strict";
+
+const EMOJIS = [
+    "🍎","🍎","🍕","🍕",
+    "🚗","🚗","🐱","🐱",
+    "⚽","⚽","🚀","🚀",
+    "🎮","🎮","⭐","⭐"
+];
+
+const $ = id => document.getElementById(id);
+
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+let moves = 0;
+let matchedPairs = 0;
+let gameFinished = false;
+let bestMoves = null;
+let mismatchTimer = null;
+
+function getUser() {
+    try {
+        const raw = localStorage.getItem("hadafUser");
+        if (!raw) return null;
+
+        const user = JSON.parse(raw);
+        if (!user || !user.email) return null;
+
+        return user;
+    } catch {
+        return null;
+    }
+}
+
+function toFaNumber(value) {
+    return String(value).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
+}
+
+function shuffle(items) {
+    const array = [...items];
+
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
+}
+
+function updateStats() {
+    $("moves").textContent = toFaNumber(moves);
+    $("pairs").textContent = toFaNumber(matchedPairs) + "/۸";
+    $("best").textContent = bestMoves === null
+        ? "—"
+        : toFaNumber(bestMoves);
+}
+
+function startGame() {
+    if (mismatchTimer !== null) {
+        clearTimeout(mismatchTimer);
+        mismatchTimer = null;
+    }
+
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+    moves = 0;
+    matchedPairs = 0;
+    gameFinished = false;
+
+    $("game").innerHTML = "";
+    $("message").textContent = "کارت‌ها را باز کن و جفت‌ها را پیدا کن! 🚀";
+
+    const cards = shuffle(EMOJIS);
+
+    cards.forEach((emoji, index) => {
+        const card = document.createElement("button");
+
+        card.type = "button";
+        card.className = "memory-card";
+        card.textContent = "❔";
+        card.dataset.emoji = emoji;
+        card.setAttribute("aria-label", "کارت " + toFaNumber(index + 1));
+
+        card.addEventListener("click", () => flipCard(card));
+
+        $("game").appendChild(card);
+    });
+
+    updateStats();
+}
+
+function flipCard(card) {
+    if (
+        lockBoard ||
+        gameFinished ||
+        card === firstCard ||
+        card.classList.contains("matched") ||
+        card.classList.contains("open")
+    ) {
+        return;
+    }
+
+    card.classList.add("open");
+    card.textContent = card.dataset.emoji;
+
+    if (!firstCard) {
+        firstCard = card;
+        return;
+    }
+
+    secondCard = card;
+    moves++;
+    updateStats();
+
+    if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+
+        firstCard.disabled = true;
+        secondCard.disabled = true;
+
+        matchedPairs++;
+        resetSelection();
+        updateStats();
+
+        if (matchedPairs === 8) {
+            finishGame();
+        } else {
+            $("message").textContent = "آفرین! یک جفت دیگر پیدا کردی ✨";
+        }
+
+        return;
+    }
+
+    lockBoard = true;
+    $("message").textContent = "این دو تا شبیه نیستند؛ دوباره امتحان کن!";
+
+    mismatchTimer = setTimeout(() => {
+        if (firstCard && secondCard) {
+            firstCard.classList.remove("open");
+            secondCard.classList.remove("open");
+            firstCard.textContent = "❔";
+            secondCard.textContent = "❔";
+        }
+
+        mismatchTimer = null;
+        resetSelection();
+    }, 800);
+}
+
+function resetSelection() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+}
+
+function finishGame() {
+    gameFinished = true;
+
+    if (bestMoves === null || moves < bestMoves) {
+        bestMoves = moves;
+    }
+
+    updateStats();
+    $("message").textContent =
+        "🎉 عالی بود! همهٔ کارت‌ها را پیدا کردی. تعداد حرکت‌ها: " +
+        toFaNumber(moves) +
+        " — یک بازی کامل شد!";
+
+    const user = getUser();
+
+    if (!user) {
+        $("loginNotice").style.display = "block";
+        $("progressNote").textContent =
+            "بازی را کامل کردی؛ برای ادامهٔ مأموریت وارد حساب هدف شو.";
+    } else {
+        $("loginNotice").style.display = "none";
+        $("progressNote").textContent =
+            "بازی کامل شد؛ ثبت نهایی پیشرفت نیازمند تأیید سرور هدف است.";
+    }
+
+    /*
+      نکته امنیتی:
+      این صفحه به‌تنهایی پیشرفت را در Supabase ثبت نمی‌کند.
+      پس از آماده شدن API امن ثبت تکمیل بازی، باید اینجا درخواست ارسال شود.
+      اطلاعات localStorage به‌تنهایی برای تأیید تکمیل بازی قابل اعتماد نیست.
+    */
+}
+
+$("restartButton").addEventListener("click", startGame);
+
+$("backButton").addEventListener("click", () => {
+    location.href = "../../index.html";
+});
+
+startGame();
+</script>
+</body>
+  </html>
