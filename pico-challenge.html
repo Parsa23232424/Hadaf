@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -9,193 +10,328 @@
 
 <style>
 :root {
-  --bg:#07090f;
-  --card:rgba(18,22,34,.96);
-  --border:rgba(255,255,255,.08);
-  --text:#f8fafc;
-  --muted:#8f98a9;
-  --primary:#6758ff;
-  --primary2:#5146da;
-  --cyan:#49ddff;
-  --green:#22c55e;
-  --orange:#ff7a32;
+    --bg:#07090f;
+    --card:rgba(18,22,34,.96);
+    --border:rgba(255,255,255,.08);
+    --text:#f8fafc;
+    --muted:#8f98a9;
+    --primary:#6758ff;
+    --primary2:#5146da;
+    --cyan:#49ddff;
+    --green:#22c55e;
+    --orange:#ff7a32;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{
-  margin:0;min-height:100vh;padding-bottom:30px;color:var(--text);
-  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
-  background:radial-gradient(circle at 90% 0%,rgba(103,88,255,.18),transparent 32%),var(--bg)
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+body {
+    margin:0; min-height:100vh; padding-bottom:30px;
+    color:var(--text);
+    font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+    background:
+        radial-gradient(circle at 90% 0%,rgba(103,88,255,.18),transparent 32%),
+        radial-gradient(circle at 0% 40%,rgba(37,99,235,.08),transparent 30%),
+        var(--bg);
 }
-button,a{font-family:inherit}
-button{cursor:pointer}
-.app{width:min(600px,92%);margin:auto;padding:20px 0 35px}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{width:45px;height:45px;border:1px solid var(--border);border-radius:15px;display:grid;place-items:center;background:#6758ff20;font-size:25px}
-.brand strong{display:block;font-size:17px}
-.brand small{display:block;color:var(--muted);margin-top:4px;font-size:10px}
-.back{color:#d5d1ff;text-decoration:none;padding:11px 13px;border:1px solid var(--border);border-radius:13px;background:#ffffff08;font-size:11px}
-.hero{text-align:center;padding:22px 12px 25px;border:1px solid var(--border);border-radius:26px;background:radial-gradient(circle at 50% 0%,#6758ff30,transparent 65%),var(--card);box-shadow:0 16px 45px #0004}
-.robot{width:94px;height:94px;margin:0 auto 14px;border-radius:28px;display:grid;place-items:center;background:linear-gradient(145deg,#282052,#101a2b);border:1px solid #6758ff59;box-shadow:0 0 35px #6758ff26;font-size:57px;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.badge{display:inline-block;color:#c9c3ff;background:#6758ff20;border:1px solid #6758ff40;border-radius:999px;padding:7px 12px;font-size:10px}
-h1{margin:14px 0 8px;font-size:clamp(25px,6vw,34px);line-height:1.5}
-h1 span{color:#938aff}
-.hero p{color:var(--muted);font-size:12px;line-height:2;max-width:420px;margin:0 auto}
-.panel{margin-top:15px;padding:19px;border-radius:23px;border:1px solid var(--border);background:var(--card)}
-.panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
-.panel-title h2{margin:0;font-size:16px}
-.panel-title small{color:var(--muted);font-size:10px}
-.video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:16px;background:#000}
-.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.video-note,.progress-note{color:var(--muted);font-size:10px;line-height:1.9;margin:12px 0 0}
-.progress-row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px}
-.progress-number{color:#b7b0ff;font-weight:bold;font-size:15px}
-.progress-track{height:9px;margin-top:12px;border-radius:99px;overflow:hidden;background:#25283a}
-.progress-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--cyan));transition:width .35s}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
-.stat{text-align:center;padding:12px 4px;border-radius:15px;background:#ffffff06;border:1px solid #ffffff0b;color:var(--muted);font-size:10px}
-.stat strong{display:block;color:white;font-size:21px;margin-bottom:6px}
-.stat:nth-child(2) strong{color:var(--cyan)}
-.stat:nth-child(3) strong{color:#ffb36c}
-#message{min-height:24px;margin:12px 0;text-align:center;color:#c9c3ff;font-size:12px;line-height:1.9}
-#game{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;direction:ltr}
-.memory-card{aspect-ratio:1;min-width:0;border:1px solid #ffffff12;border-radius:15px;background:linear-gradient(145deg,#20253a,#121623);color:white;font-size:clamp(23px,7vw,37px);box-shadow:0 5px 12px #0003;transition:transform .18s,background .18s;touch-action:manipulation;user-select:none}
-.memory-card:active{transform:scale(.94)}
-.memory-card.open{background:linear-gradient(145deg,#35305f,#20294a);border-color:#6758ff}
-.memory-card.matched{background:linear-gradient(145deg,#12513e,#10332d);border-color:#22c55e70;cursor:default}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
-.btn{min-height:45px;border:0;border-radius:14px;padding:12px 10px;font-size:12px;font-weight:bold}
-.btn-primary{color:white;background:linear-gradient(100deg,var(--primary),var(--primary2))}
-.btn-secondary{color:#ddd9ff;border:1px solid #6758ff40;background:#6758ff15}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.notice{display:none;padding:13px;margin-top:13px;border-radius:14px;font-size:11px;line-height:2;text-align:center}
-.notice.error{display:block;border:1px solid #ef444440;background:#ef444415;color:#fca5a5}
-.notice.ok{display:block;border:1px solid #22c55e40;background:#22c55e15;color:#86efac}
-.notice.info{display:block;border:1px solid #6758ff40;background:#6758ff15;color:#c9c3ff}
-.notice a{color:white;font-weight:bold}
-.rules{color:var(--muted);font-size:11px;line-height:2.1}
-.rules strong{color:#ddd9ff}
-footer{padding:25px 0 5px;color:#596171;text-align:center;font-size:10px}
-@media(max-width:360px){.panel{padding:13px}#game{gap:6px}.memory-card{border-radius:11px}.actions{grid-template-columns:1fr}}
+button { font-family:inherit; }
+.app { width:min(600px,92%); margin:auto; padding:20px 0 35px; }
+.topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; margin-bottom:22px;
+}
+.brand { display:flex; align-items:center; gap:10px; }
+.logo {
+    width:45px; height:45px; border:1px solid var(--border);
+    border-radius:15px; display:grid; place-items:center;
+    background:rgba(103,88,255,.12); font-size:25px;
+}
+.brand strong { display:block; font-size:17px; }
+.brand small { display:block; color:var(--muted); margin-top:4px; font-size:10px; }
+.back {
+    color:#d5d1ff; text-decoration:none; padding:11px 13px;
+    border:1px solid var(--border); border-radius:13px;
+    background:rgba(255,255,255,.03); font-size:11px;
+}
+.hero {
+    text-align:center; padding:22px 12px 25px;
+    border:1px solid var(--border); border-radius:26px;
+    background:radial-gradient(circle at 50% 0%,rgba(103,88,255,.19),transparent 65%),var(--card);
+    box-shadow:0 16px 45px #0004;
+}
+.robot {
+    width:94px; height:94px; margin:0 auto 14px; border-radius:28px;
+    display:grid; place-items:center; background:linear-gradient(145deg,#282052,#101a2b);
+    border:1px solid rgba(103,88,255,.35);
+    box-shadow:0 0 35px rgba(103,88,255,.15);
+    font-size:57px; animation:float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0%,100% {transform:translateY(0)}
+    50% {transform:translateY(-7px)}
+}
+.badge {
+    display:inline-block; color:#c9c3ff; background:rgba(103,88,255,.12);
+    border:1px solid rgba(103,88,255,.25); border-radius:999px;
+    padding:7px 12px; font-size:10px;
+}
+h1 { margin:14px 0 8px; font-size:clamp(25px,6vw,34px); line-height:1.5; }
+h1 span { color:#938aff; }
+.hero p {
+    color:var(--muted); font-size:12px; line-height:2;
+    max-width:420px; margin:0 auto;
+}
+.panel {
+    margin-top:15px; padding:19px; border-radius:23px;
+    border:1px solid var(--border); background:var(--card);
+}
+.panel-title {
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; margin-bottom:15px;
+}
+.panel-title h2 { margin:0; font-size:16px; }
+.panel-title small { color:var(--muted); font-size:10px; }
+.video-frame {
+    position:relative; width:100%; aspect-ratio:100 / 57;
+    overflow:hidden; border-radius:16px; background:#000;
+}
+.video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video-note { color:var(--muted); font-size:10px; line-height:1.9; margin:12px 0 0; }
+.progress-row { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:12px; }
+.progress-number { color:#b7b0ff; font-weight:bold; font-size:15px; }
+.progress-track { height:9px; margin-top:12px; border-radius:99px; overflow:hidden; background:#25283a; }
+.progress-fill {
+    height:100%; width:0%; border-radius:99px;
+    background:linear-gradient(90deg,var(--primary),var(--cyan));
+    transition:width .35s ease;
+}
+.progress-note { color:var(--muted); font-size:10px; line-height:1.9; margin:11px 0 0; }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:16px; }
+.stat {
+    text-align:center; padding:12px 4px; border-radius:15px;
+    background:rgba(255,255,255,.025); border:1px solid rgba(255,255,255,.045);
+    color:var(--muted); font-size:10px;
+}
+.stat strong { display:block; color:white; font-size:21px; margin-bottom:6px; }
+.stat:nth-child(2) strong { color:var(--cyan); }
+.stat:nth-child(3) strong { color:#ffb36c; }
+#message {
+    min-height:24px; margin:12px 0; text-align:center;
+    color:#c9c3ff; font-size:12px; line-height:1.9;
+}
+#game { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:9px; direction:ltr; }
+.memory-card {
+    position:relative; aspect-ratio:1; min-width:0;
+    border:1px solid rgba(255,255,255,.07); border-radius:15px;
+    background:linear-gradient(145deg,#20253a,#121623); color:white;
+    font-size:clamp(23px,7vw,37px); cursor:pointer;
+    box-shadow:0 5px 12px #0003;
+    transition:transform .18s,background .18s,border-color .18s;
+    touch-action:manipulation; user-select:none;
+}
+.memory-card:active { transform:scale(.94); }
+.memory-card.open {
+    background:linear-gradient(145deg,#35305f,#20294a);
+    border-color:rgba(103,88,255,.8);
+}
+.memory-card.matched {
+    background:linear-gradient(145deg,#12513e,#10332d);
+    border-color:rgba(34,197,94,.45); cursor:default;
+    animation:match .25s ease;
+}
+@keyframes match { 50% {transform:scale(1.06)} }
+.actions { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:16px; }
+.btn {
+    min-height:47px; border:0; border-radius:14px; padding:12px 10px;
+    cursor:pointer; font-size:12px; font-weight:bold;
+}
+.btn:active { transform:scale(.97); }
+.btn-primary {
+    color:white; background:linear-gradient(100deg,var(--primary),var(--primary2));
+    box-shadow:0 7px 20px rgba(103,88,255,.17);
+}
+.btn-secondary {
+    color:#ddd9ff; border:1px solid rgba(103,88,255,.22);
+    background:rgba(103,88,255,.08);
+}
+.login-notice {
+    display:none; padding:13px; margin-top:13px;
+    border:1px solid rgba(255,122,50,.2); border-radius:14px;
+    background:rgba(255,122,50,.06); color:#ffc49e;
+    font-size:11px; line-height:2; text-align:center;
+}
+.login-notice a { color:#fff; font-weight:bold; }
+.challenge-description {
+    color:var(--muted); font-size:12px; line-height:2;
+    white-space:pre-wrap; overflow-wrap:anywhere;
+}
+.status {
+    margin-top:12px; padding:11px 12px; border-radius:12px;
+    background:rgba(255,255,255,.035); border:1px solid var(--border);
+    font-size:11px; line-height:1.9; color:var(--muted);
+}
+.status.error { color:#ffc49e; border-color:rgba(255,122,50,.25); }
+.status.success { color:#a7f3d0; border-color:rgba(34,197,94,.25); }
+.rules { color:var(--muted); font-size:11px; line-height:2.1; }
+.rules strong { color:#ddd9ff; }
+footer { padding:25px 0 5px; color:#596171; text-align:center; font-size:10px; }
+@media(max-width:360px) {
+    .panel { padding:13px; }
+    #game { gap:6px; }
+    .memory-card { border-radius:11px; }
+    .actions { grid-template-columns:1fr; }
+}
 </style>
 </head>
 
 <body>
 <main class="app">
 
-<header class="topbar">
-  <div class="brand">
-    <div class="logo">🤖</div>
-    <div>
-      <strong>پیکو چلنج</strong>
-      <small>چالش هفتگی سایت هدف</small>
-    </div>
-  </div>
-  <a class="back" href="index.html">⌂ بازگشت به هدف</a>
-</header>
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">🤖</div>
+            <div>
+                <strong>پیکو چلنج</strong>
+                <small>چالش هفتگی سایت هدف</small>
+            </div>
+        </div>
+        <a class="back" href="index.html">⌂ بازگشت به هدف</a>
+    </header>
 
-<section class="hero">
-  <div class="robot">🤖</div>
-  <span class="badge" id="gameBadge">⚡ چالش حافظه</span>
-  <h1>آماده‌ای، <span>قهرمان؟</span></h1>
-  <p id="challengeDescription">پیکو یک مأموریت مخصوص تو دارد! آماده‌ای مهارت‌هایت را امتحان کنی؟</p>
-</section>
+    <section class="hero">
+        <div class="robot">🤖</div>
+        <span class="badge" id="challengeBadge">⚡ چالش حافظه</span>
+        <h1>آماده‌ای، <span>قهرمان؟</span></h1>
+        <p id="heroDescription">
+            پیکو یک مأموریت مخصوص تو دارد! کارت‌های مشابه را پیدا کن و حافظه‌ات را به چالش بکش.
+        </p>
+    </section>
 
-<section class="panel">
-  <div class="panel-title">
-    <h2>🎬 ویدیوی پیکو</h2>
-    <small>ویدیوی معرفی چالش</small>
-  </div>
-  <div class="video-frame">
-    <iframe
-      id="challengeVideo"
-      src="https://www.aparat.com/video/video/embed/videohash/wzqmx08/vt/frame?isamp"
-      title="ویدیوی معرفی پیکو چلنج"
-      allow="autoplay; fullscreen; picture-in-picture"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="strict-origin-when-cross-origin">
-    </iframe>
-  </div>
-  <p class="video-note">ویدیوی پیکو را تماشا کن و بعد وارد چالش شو! 🚀</p>
-</section>
+    <section class="panel">
+        <div class="panel-title">
+            <h2>🎬 ویدیوی پیکو</h2>
+            <small>معرفی چالش</small>
+        </div>
+        <div class="video-frame">
+            <iframe
+                id="picoVideo"
+                src="https://www.aparat.com/video/video/embed/videohash/wzqmx08/vt/frame?isamp"
+                title="ویدیوی معرفی پیکو چلنج"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+        </div>
+        <p class="video-note" id="videoNote">
+            ویدیوی معرفی پیکو را تماشا کن و بعد وارد چالش شو! 🚀
+        </p>
+    </section>
 
-<section class="panel">
-  <div class="panel-title">
-    <h2>🎯 مأموریت این هفته</h2>
-    <small id="episodeText">پیکو چلنج</small>
-  </div>
-  <div class="progress-row">
-    <span>پیشرفت مأموریت</span>
-    <span class="progress-number" id="progressText">۰ از ۴</span>
-  </div>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  <p class="progress-note" id="progressNote">در حال بررسی چالش‌های منتشرشده...</p>
-  <div id="statusMessage" class="notice info">در حال اتصال به سرور...</div>
-</section>
+    <section class="panel">
+        <div class="panel-title">
+            <h2>🎯 مأموریت این هفته</h2>
+            <small id="challengeStatus">در حال بررسی...</small>
+        </div>
 
-<section class="panel" id="gamePanel">
-  <div class="panel-title">
-    <h2 id="gameTitle">🧠 بازی حافظه</h2>
-    <small id="pairLabel">۸ جفت کارت</small>
-  </div>
+        <h3 id="challengeTitle" style="font-size:14px;line-height:1.9;margin:0 0 8px">
+            چالش حافظه پیکو
+        </h3>
+        <div id="challengeDescription" class="challenge-description">
+            در حال دریافت اطلاعات چالش...
+        </div>
 
-  <div class="stats">
-    <div class="stat"><strong id="moves">۰</strong>حرکت</div>
-    <div class="stat"><strong id="pairs">۰/۸</strong>جفت پیدا شده</div>
-    <div class="stat"><strong id="best">—</strong>بهترین حرکت</div>
-  </div>
+        <div class="progress-row" style="margin-top:18px">
+            <span>پیشرفت ثبت‌شده در سرور</span>
+            <span class="progress-number" id="progressText">۰ از ۴</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-note" id="progressNote">
+            پیشرفت زمانی واقعی است که سرور آن را ثبت و تأیید کند.
+        </p>
 
-  <p id="message" aria-live="polite">کارت‌ها را باز کن و جفت‌ها را پیدا کن! 🚀</p>
-  <div id="game"></div>
+        <div id="apiStatus" class="status" role="status" aria-live="polite">
+            در حال اتصال به سرور چالش‌ها...
+        </div>
+    </section>
 
-  <div class="actions">
-    <button class="btn btn-primary" id="restartButton">🔄 شروع دوباره</button>
-    <button class="btn btn-secondary" id="backButton">🏠 بازگشت به هدف</button>
-  </div>
+    <section class="panel">
+        <div class="panel-title">
+            <h2>🧠 بازی حافظه</h2>
+            <small>۸ جفت کارت</small>
+        </div>
 
-  <div id="loginNotice" class="notice info">
-    برای ثبت پیشرفت، ابتدا وارد حساب هدف شو.
-    <br><a href="login.html">ورود به حساب کاربری ←</a>
-  </div>
-</section>
+        <div class="stats">
+            <div class="stat">
+                <strong id="moves">۰</strong>
+                حرکت
+            </div>
+            <div class="stat">
+                <strong id="pairs">۰/۸</strong>
+                جفت پیدا شده
+            </div>
+            <div class="stat">
+                <strong id="best">—</strong>
+                بهترین حرکت
+            </div>
+        </div>
 
-<section class="panel">
-  <div class="panel-title"><h2>📜 قوانین چالش</h2></div>
-  <div class="rules" id="rules">
-    <strong>۱.</strong> کارت‌ها را باز کن و شکل‌های مشابه را پیدا کن.<br>
-    <strong>۲.</strong> با پیدا کردن همه جفت‌ها، یک بازی کامل می‌شود.<br>
-    <strong>۳.</strong> پیشرفت نهایی باید توسط سرور تأیید شود.
-  </div>
-</section>
+        <p id="message" aria-live="polite">کارت‌ها را باز کن و جفت‌ها را پیدا کن! 🚀</p>
+        <div id="game"></div>
 
-<footer>🏹 Hadaf © 2026 • هر روز یک قدم جلوتر</footer>
+        <div class="actions">
+            <button class="btn btn-primary" id="restartButton" type="button">🔄 شروع دوباره</button>
+            <button class="btn btn-secondary" id="backButton" type="button">🏠 بازگشت به هدف</button>
+        </div>
+
+        <div class="login-notice" id="loginNotice">
+            برای ذخیرهٔ پیشرفت با حساب کاربری، ابتدا وارد سایت هدف شو.
+            <br>
+            <a href="login.html">ورود به حساب کاربری ←</a>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-title">
+            <h2>📜 قوانین چالش</h2>
+        </div>
+        <div class="rules">
+            <strong>۱.</strong> دو کارت را باز کن و شکل‌های یکسان را پیدا کن.<br>
+            <strong>۲.</strong> وقتی همهٔ ۸ جفت را پیدا کردی، یک بازی کامل می‌شود.<br>
+            <strong>۳.</strong> تعداد بازی لازم را از توضیحات مأموریت بخوان.<br>
+            <strong>۴.</strong> تکمیل بازی روی این صفحه به‌تنهایی به معنی ثبت در سرور نیست.
+        </div>
+    </section>
+
+    <footer>🏹 Hadaf © 2026 • هر روز یک قدم جلوتر</footer>
 </main>
 
 <script>
 "use strict";
 
-/* تنظیمات اتصال */
-const API_URL =
-  "https://nzwgyvkbsznmpcilkpig.supabase.co/functions/v1/pico-public";
+/*
+  تنظیمات اتصال عمومی پیکو چلنج
+  آدرس تابع: pico-public
 
-/* کلید عمومی پروژه را اینجا قرار بده؛ هرگز service_role نگذار. */
-const SUPABASE_ANON_KEY = "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
+  کلید عمومی پروژه را از Supabase > Project Settings > API Keys بردار.
+  کلید anon قدیمی یا publishable key عمومی قابل استفاده است.
+  هرگز service_role یا کلید محرمانه را در این فایل قرار نده.
+*/
+const SUPABASE_URL = "https://nzwgyvkbsznmpcilkpig.supabase.co";
+const SUPABASE_ANON_KEY = "کلید_عمومی_پروژه_را_اینجا_قرار_بده";
+const PUBLIC_FUNCTION_URL = SUPABASE_URL + "/functions/v1/pico-public";
 
 const DEFAULT_VIDEO =
-  "https://www.aparat.com/video/video/embed/videohash/wzqmx08/vt/frame?isamp";
+    "https://www.aparat.com/video/video/embed/videohash/wzqmx08/vt/frame?isamp";
 
 const EMOJIS = [
-  "🍎","🍕","🚗","🐱","⚽","🚀",
-  "🎮","⭐","🌈","🐼","🎯","🍉"
+    "🍎","🍎","🍕","🍕",
+    "🚗","🚗","🐱","🐱",
+    "⚽","⚽","🚀","🚀",
+    "🎮","🎮","⭐","⭐"
 ];
 
 const $ = id => document.getElementById(id);
 
-let challenge = null;
-let challenges = [];
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
@@ -204,419 +340,360 @@ let matchedPairs = 0;
 let gameFinished = false;
 let bestMoves = null;
 let mismatchTimer = null;
-let pairCount = 8;
-let requiredCompletions = 4;
-let completedGames = 0;
-let gameSessionId = 0;
-
-function toFaNumber(value) {
-  return String(value).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
-}
-
-function showStatus(text, type = "info") {
-  const el = $("statusMessage");
-  el.textContent = text;
-  el.className = "notice " + type;
-}
+let currentChallenge = null;
 
 function getUser() {
-  try {
-    const user = JSON.parse(localStorage.getItem("hadafUser") || "null");
-    return user && user.email ? user : null;
-  } catch {
-    return null;
-  }
-}
-
-/*
-  نکته: این درخواست فقط زمانی کار می‌کند که quick-endpoint
-  عملیات عمومی دریافت چالش‌ها را با action=list پشتیبانی کند.
-*/
-async function api(action, extra = {}) {
-  if (!SUPABASE_ANON_KEY ||
-      SUPABASE_ANON_KEY === "کلید_عمومی_پروژه_را_اینجا_قرار_بده") {
-    throw new Error("ابتدا کلید عمومی Supabase را در تنظیمات فایل قرار بده.");
-  }
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
-
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY
-      },
-      body: JSON.stringify({ action, ...extra }),
-      signal: controller.signal
-    });
-
-    let data;
     try {
-      data = await response.json();
+        const raw = localStorage.getItem("hadafUser");
+        if (!raw) return null;
+
+        const user = JSON.parse(raw);
+        if (!user || !user.email) return null;
+
+        return user;
     } catch {
-      throw new Error("پاسخ سرور JSON معتبر نیست.");
+        return null;
     }
-
-    if (!response.ok || data.error || data.success === false) {
-      throw new Error(
-        data.error ||
-        "خطای سرور: " + response.status
-      );
-    }
-
-    return data;
-  } catch (error) {
-    if (error.name === "AbortError") {
-      throw new Error("زمان اتصال به سرور تمام شد. دوباره تلاش کن.");
-    }
-    throw error;
-  } finally {
-    clearTimeout(timeout);
-  }
 }
 
-function validVideoUrl(value) {
-  if (typeof value !== "string" || !value.trim()) return DEFAULT_VIDEO;
-
-  try {
-    const url = new URL(value.trim());
-    if (url.protocol !== "https:") return DEFAULT_VIDEO;
-
-    /* فقط دامنه‌های شناخته‌شده برای ویدیوی این صفحه */
-    if (
-      url.hostname === "www.aparat.com" ||
-      url.hostname === "aparat.com"
-    ) {
-      return url.href;
-    }
-  } catch {}
-
-  return DEFAULT_VIDEO;
-}
-
-function readConfig(item) {
-  let config = item && item.game_config;
-
-  if (typeof config === "string") {
-    try {
-      config = JSON.parse(config);
-    } catch {
-      config = {};
-    }
-  }
-
-  return config && typeof config === "object" ? config : {};
-}
-
-function applyChallenge(item) {
-  challenge = item || null;
-
-  const config = readConfig(item);
-  const type = item && item.game_type ? item.game_type : "memory";
-
-  requiredCompletions = Math.max(
-    1,
-    Math.min(1000, Number(item && item.required_completions) || 4)
-  );
-
-  pairCount = Math.max(
-    2,
-    Math.min(12, Number(config.pairCount) || 8)
-  );
-
-  $("episodeText").textContent =
-    item && item.episode_number
-      ? "قسمت " + toFaNumber(item.episode_number)
-      : "پیکو چلنج";
-
-  $("challengeDescription").textContent =
-    item && item.description
-      ? item.description
-      : "پیکو یک مأموریت مخصوص تو دارد! آماده‌ای مهارت‌هایت را امتحان کنی؟";
-
-  $("challengeVideo").src = validVideoUrl(item && item.video_url);
-
-  const names = {
-    memory: "🧠 بازی حافظه",
-    snake: "🐍 بازی مار",
-    car: "🚗 بازی ماشین"
-  };
-
-  $("gameTitle").textContent = names[type] || names.memory;
-  $("gameBadge").textContent =
-    type === "snake" ? "⚡ چالش مار" :
-    type === "car" ? "⚡ چالش ماشین" : "⚡ چالش حافظه";
-
-  $("pairLabel").textContent =
-    toFaNumber(pairCount) + " جفت کارت";
-
-  $("rules").innerHTML =
-    "<strong>۱.</strong> بازی را طبق دستور چالش انجام بده.<br>" +
-    "<strong>۲.</strong> برای حافظه، همه جفت کارت‌ها را پیدا کن.<br>" +
-    "<strong>۳.</strong> تعداد بازی‌های لازم: " +
-    escapeHTML(toFaNumber(requiredCompletions)) +
-    "<br><strong>۴.</strong> ثبت رسمی پیشرفت باید از سرور تأیید شود.";
-
-  updateProgress();
-  startGame();
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  })[c]);
-}
-
-async function loadChallenge() {
-  showStatus("در حال دریافت چالش‌های منتشرشده...", "info");
-
-  try {
-    const result = await api("list");
-
-    challenges = Array.isArray(result.challenges)
-      ? result.challenges
-      : [];
-
-    challenges = challenges.filter(item =>
-      item && item.status === "published"
-    );
-
-    challenges.sort((a, b) =>
-      Number(b.episode_number || 0) -
-      Number(a.episode_number || 0)
-    );
-
-    if (!challenges.length) {
-      challenge = null;
-      $("challengeDescription").textContent =
-        "هنوز چالش منتشرشده‌ای وجود ندارد. به‌زودی پیکو با یک مأموریت جدید برمی‌گردد! 🤖";
-      $("episodeText").textContent = "چالش جدید به‌زودی";
-      showStatus("چالش منتشرشده‌ای در سرور پیدا نشد.", "info");
-      $("progressNote").textContent =
-        "بعد از انتشار چالش توسط مدیر، اطلاعات آن نمایش داده می‌شود.";
-      startGame();
-      return;
-    }
-
-    applyChallenge(challenges[0]);
-    showStatus("چالش با موفقیت دریافت شد 🎉", "ok");
-
-    /*
-      این مقدار نمایشی و محلی است؛ پیشرفت رسمی باید از API
-      مخصوص ثبت و دریافت پیشرفت کاربر خوانده شود.
-    */
-    const user = getUser();
-    if (!user) {
-      $("loginNotice").style.display = "block";
-      $("progressNote").textContent =
-        "برای ثبت پیشرفت، وارد حساب هدف شو.";
-    } else {
-      $("loginNotice").style.display = "none";
-      $("progressNote").textContent =
-        "چالش بارگذاری شد. برای ثبت رسمی پیشرفت باید عملیات ثبت تکمیل در سرور پیاده‌سازی شود.";
-    }
-  } catch (error) {
-    showStatus(error.message || "دریافت چالش ناموفق بود.", "error");
-    $("progressNote").textContent =
-      "اتصال برقرار نشد. کلید عمومی و تنظیمات تابع quick-endpoint را بررسی کن.";
-  }
+function toFaNumber(value) {
+    return String(value).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
 }
 
 function shuffle(items) {
-  const array = [...items];
+    const array = [...items];
 
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 
-  return array;
+    return array;
+}
+
+function setApiStatus(message, type = "") {
+    const element = $("apiStatus");
+    element.textContent = message;
+    element.className = "status" + (type ? " " + type : "");
 }
 
 function updateStats() {
-  $("moves").textContent = toFaNumber(moves);
-  $("pairs").textContent =
-    toFaNumber(matchedPairs) + "/" + toFaNumber(pairCount);
-  $("best").textContent =
-    bestMoves === null ? "—" : toFaNumber(bestMoves);
+    $("moves").textContent = toFaNumber(moves);
+    $("pairs").textContent = toFaNumber(matchedPairs) + "/۸";
+    $("best").textContent = bestMoves === null ? "—" : toFaNumber(bestMoves);
 }
 
-function updateProgress() {
-  const percent = Math.min(
-    100,
-    (completedGames / requiredCompletions) * 100
-  );
+function getBestMovesKey() {
+    const user = getUser();
+    const identity = user ? String(user.email).toLowerCase() : "guest";
+    return "hadaf_pico_best_" + identity;
+}
 
-  $("progressText").textContent =
-    toFaNumber(completedGames) + " از " +
-    toFaNumber(requiredCompletions);
-
-  $("progressFill").style.width = percent + "%";
+function loadBestMoves() {
+    try {
+        const value = Number(localStorage.getItem(getBestMovesKey()));
+        bestMoves = Number.isFinite(value) && value > 0 ? value : null;
+    } catch {
+        bestMoves = null;
+    }
 }
 
 function startGame() {
-  gameSessionId++;
+    if (mismatchTimer !== null) {
+        clearTimeout(mismatchTimer);
+        mismatchTimer = null;
+    }
 
-  if (mismatchTimer !== null) {
-    clearTimeout(mismatchTimer);
-    mismatchTimer = null;
-  }
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+    moves = 0;
+    matchedPairs = 0;
+    gameFinished = false;
 
-  firstCard = null;
-  secondCard = null;
-  lockBoard = false;
-  moves = 0;
-  matchedPairs = 0;
-  gameFinished = false;
+    $("loginNotice").style.display = "none";
+    $("game").innerHTML = "";
+    $("message").textContent = "کارت‌ها را باز کن و جفت‌ها را پیدا کن! 🚀";
 
-  $("game").replaceChildren();
-  $("message").textContent =
-    "کارت‌ها را باز کن و جفت‌ها را پیدا کن! 🚀";
+    shuffle(EMOJIS).forEach((emoji, index) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "memory-card";
+        card.textContent = "❔";
+        card.dataset.emoji = emoji;
+        card.setAttribute("aria-label", "کارت " + toFaNumber(index + 1));
 
-  const cards = shuffle(
-    shuffle(EMOJIS).slice(0, pairCount).flatMap(emoji => [emoji, emoji])
-  );
+        card.addEventListener("click", () => flipCard(card));
+        $("game").appendChild(card);
+    });
 
-  cards.forEach((emoji, index) => {
-    const card = document.createElement("button");
-    card.type = "button";
-    card.className = "memory-card";
-    card.textContent = "❔";
-    card.dataset.emoji = emoji;
-    card.setAttribute("aria-label", "کارت " + toFaNumber(index + 1));
-    card.addEventListener("click", () => flipCard(card));
-    $("game").appendChild(card);
-  });
-
-  updateStats();
+    updateStats();
 }
 
 function flipCard(card) {
-  if (
-    lockBoard ||
-    gameFinished ||
-    card === firstCard ||
-    card.classList.contains("matched") ||
-    card.classList.contains("open")
-  ) return;
+    if (
+        lockBoard ||
+        gameFinished ||
+        card === firstCard ||
+        card.classList.contains("matched") ||
+        card.classList.contains("open")
+    ) return;
 
-  card.classList.add("open");
-  card.textContent = card.dataset.emoji;
+    card.classList.add("open");
+    card.textContent = card.dataset.emoji;
+    card.setAttribute("aria-label", card.dataset.emoji);
 
-  if (!firstCard) {
-    firstCard = card;
-    return;
-  }
+    if (!firstCard) {
+        firstCard = card;
+        return;
+    }
 
-  secondCard = card;
-  moves++;
-  updateStats();
-
-  if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
-    firstCard.classList.add("matched");
-    secondCard.classList.add("matched");
-    firstCard.disabled = true;
-    secondCard.disabled = true;
-
-    matchedPairs++;
-    resetSelection();
+    secondCard = card;
+    moves++;
     updateStats();
 
-    if (matchedPairs === pairCount) {
-      finishGame();
-    } else {
-      $("message").textContent = "آفرین! یک جفت دیگر پیدا کردی ✨";
-    }
-    return;
-  }
+    if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        firstCard.disabled = true;
+        secondCard.disabled = true;
 
-  lockBoard = true;
-  $("message").textContent = "این دو تا شبیه نیستند؛ دوباره امتحان کن!";
+        matchedPairs++;
+        resetSelection();
+        updateStats();
 
-  const session = gameSessionId;
-
-  mismatchTimer = setTimeout(() => {
-    if (session !== gameSessionId) return;
-
-    if (firstCard && secondCard) {
-      firstCard.classList.remove("open");
-      secondCard.classList.remove("open");
-      firstCard.textContent = "❔";
-      secondCard.textContent = "❔";
+        if (matchedPairs === 8) {
+            finishGame();
+        } else {
+            $("message").textContent = "آفرین! یک جفت دیگر پیدا کردی ✨";
+        }
+        return;
     }
 
-    mismatchTimer = null;
-    resetSelection();
-  }, 800);
+    lockBoard = true;
+    $("message").textContent = "این دو تا شبیه نیستند؛ دوباره امتحان کن!";
+
+    mismatchTimer = setTimeout(() => {
+        if (firstCard && secondCard) {
+            firstCard.classList.remove("open");
+            secondCard.classList.remove("open");
+            firstCard.textContent = "❔";
+            secondCard.textContent = "❔";
+        }
+
+        mismatchTimer = null;
+        resetSelection();
+    }, 800);
 }
 
 function resetSelection() {
-  firstCard = null;
-  secondCard = null;
-  lockBoard = false;
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
 }
 
 function finishGame() {
-  gameFinished = true;
+    gameFinished = true;
 
-  if (bestMoves === null || moves < bestMoves) {
-    bestMoves = moves;
-  }
+    if (bestMoves === null || moves < bestMoves) {
+        bestMoves = moves;
 
-  updateStats();
+        try {
+            localStorage.setItem(getBestMovesKey(), String(bestMoves));
+        } catch {
+            // اگر ذخیره‌سازی مرورگر در دسترس نبود، بازی همچنان تمام می‌شود.
+        }
+    }
 
-  $("message").textContent =
-    "🎉 عالی بود! همه جفت‌ها را پیدا کردی. تعداد حرکت‌ها: " +
-    toFaNumber(moves);
+    updateStats();
 
-  const user = getUser();
+    $("message").textContent =
+        "🎉 عالی بود! همهٔ کارت‌ها را پیدا کردی. تعداد حرکت‌ها: " +
+        toFaNumber(moves) + " — یک بازی کامل شد!";
 
-  if (!user) {
-    $("loginNotice").style.display = "block";
+    if (!getUser()) {
+        $("loginNotice").style.display = "block";
+    }
+
     $("progressNote").textContent =
-      "بازی کامل شد؛ برای ثبت پیشرفت وارد حساب هدف شو.";
-    return;
-  }
+        "این بازی تمام شد؛ برای افزایش پیشرفت مأموریت باید سرور پایان بازی را تأیید و ثبت کند.";
 
-  $("loginNotice").style.display = "none";
+    setApiStatus(
+        "بازی کامل شد؛ این نسخه هنوز تأییدیهٔ ثبت پایان بازی را از سرور دریافت نکرده است.",
+        ""
+    );
+}
 
-  /*
-    این شمارنده فقط در همین صفحه و همین بارگذاری معتبر است.
-    برای شمارش رسمی و جلوگیری از تقلب باید تابع سرور ثبت تکمیل
-    ساخته شود و نتیجه از دیتابیس دریافت شود.
-  */
-  completedGames = Math.min(
-    requiredCompletions,
-    completedGames + 1
-  );
+/*
+  دریافت چالش‌های عمومی منتشرشده از تابع pico-public.
+  تابع باید درخواست POST با action=list را پشتیبانی کند.
+*/
+async function loadChallenges() {
+    if (
+        !SUPABASE_ANON_KEY ||
+        SUPABASE_ANON_KEY === "کلید_عمومی_پروژه_را_اینجا_قرار_بده"
+    ) {
+        $("challengeStatus").textContent = "نیازمند تنظیم";
+        $("challengeDescription").textContent =
+            "برای دریافت چالش‌های منتشرشده، کلید عمومی Supabase را در تنظیمات ابتدای کد قرار بده.";
+        setApiStatus(
+            "کلید عمومی پروژه هنوز تنظیم نشده است. بازی حافظه قابل استفاده است.",
+            "error"
+        );
+        return;
+    }
 
-  updateProgress();
+    try {
+        const response = await fetch(PUBLIC_FUNCTION_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "apikey": SUPABASE_ANON_KEY,
+                "Authorization": "Bearer " + SUPABASE_ANON_KEY
+            },
+            body: JSON.stringify({ action: "list" })
+        });
 
-  if (completedGames >= requiredCompletions) {
-    $("message").textContent += " 🏆";
+        const rawText = await response.text();
+        let data;
+
+        try {
+            data = JSON.parse(rawText);
+        } catch {
+            throw new Error("پاسخ تابع، JSON معتبر نیست.");
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.message ||
+                data.error ||
+                "خطای سرور با کد " + response.status
+            );
+        }
+
+        if (data.success === false) {
+            throw new Error(data.message || data.error || "دریافت چالش ناموفق بود.");
+        }
+
+        const challenges = Array.isArray(data.challenges)
+            ? data.challenges
+            : Array.isArray(data.data)
+                ? data.data
+                : [];
+
+        const published = challenges.filter(challenge => {
+            const status = String(challenge.status || "").toLowerCase();
+            return !status || status === "published";
+        });
+
+        if (!published.length) {
+            $("challengeStatus").textContent = "چالشی موجود نیست";
+            $("challengeTitle").textContent = "هنوز چالش منتشرشده‌ای نداریم";
+            $("challengeDescription").textContent =
+                "به‌زودی با مأموریت جدید پیکو برمی‌گردیم! فعلاً می‌توانی بازی حافظه را انجام بدهی.";
+            setApiStatus("اتصال به تابع برقرار شد، اما چالش منتشرشده‌ای برنگشت.", "");
+            return;
+        }
+
+        currentChallenge = published[0];
+        renderChallenge(currentChallenge);
+
+        $("challengeStatus").textContent = "متصل";
+        setApiStatus("چالش از سرور دریافت شد. ✅", "success");
+    } catch (error) {
+        console.error("Pico public error:", error);
+
+        $("challengeStatus").textContent = "خطا در دریافت";
+        $("challengeDescription").textContent =
+            "اطلاعات چالش از سرور دریافت نشد. تنظیمات تابع pico-public و کلید عمومی را بررسی کن.";
+        setApiStatus(
+            "ارتباط با سرور برقرار نشد: " + (error.message || "خطای ناشناخته"),
+            "error"
+        );
+    }
+}
+
+function renderChallenge(challenge) {
+    const title = challenge.title || "چالش پیکو";
+    const description = challenge.description || challenge.instructions || "برای این چالش آماده شو!";
+    const required = Number(challenge.required_completions);
+
+    $("challengeTitle").textContent = title;
+    $("challengeDescription").textContent = description;
+    $("challengeBadge").textContent = "⚡ " + title;
+    $("heroDescription").textContent =
+        description + " آماده‌ای که شروع کنی؟";
+
+    if (Number.isFinite(required) && required > 0) {
+        $("progressText").textContent = "۰ از " + toFaNumber(required);
+    }
+
+    /*
+      اگر ویدیوی چالش از سرور آمده باشد و لینک آن قابل استفاده باشد،
+      آن را نمایش بده؛ در غیر این صورت ویدیوی پیش‌فرض باقی می‌ماند.
+    */
+    const videoUrl = challenge.video_url;
+
+    if (typeof videoUrl === "string" && videoUrl.trim()) {
+        const safeUrl = getAparatEmbedUrl(videoUrl.trim());
+
+        if (safeUrl) {
+            $("picoVideo").src = safeUrl;
+        }
+    }
+
+    const gameType = String(challenge.game_type || "memory").toLowerCase();
+
+    if (gameType !== "memory") {
+        $("videoNote").textContent =
+            "این چالش از نوع «" + gameType +
+            "» است؛ بازی قابل اجرا در این صفحه فعلاً بازی حافظه است.";
+    }
+
     $("progressNote").textContent =
-      "بازی‌های لازم را در این نشست انجام دادی؛ برای تأیید رسمی، ثبت سمت سرور لازم است.";
-  } else {
-    $("message").textContent +=
-      " یک بازی کامل شد! بازی " +
-      toFaNumber(completedGames) + " از " +
-      toFaNumber(requiredCompletions) + ".";
-  }
+        "چالش از سرور دریافت شده است؛ پیشرفت بازیکن تا زمان ثبت و تأیید سرور نمایش داده نمی‌شود.";
+}
+
+function getAparatEmbedUrl(url) {
+    try {
+        const parsed = new URL(url);
+
+        if (
+            parsed.protocol !== "https:" ||
+            !(
+                parsed.hostname === "aparat.com" ||
+                parsed.hostname.endsWith(".aparat.com")
+            )
+        ) {
+            return null;
+        }
+
+        if (parsed.pathname.includes("/video/video/embed/")) {
+            return parsed.href;
+        }
+
+        const match = parsed.pathname.match(/\/v\/([a-zA-Z0-9]+)/);
+
+        if (match) {
+            return "https://www.aparat.com/video/video/embed/videohash/" +
+                encodeURIComponent(match[1]) + "/vt/frame?isamp";
+        }
+
+        return null;
+    } catch {
+        return null;
+    }
 }
 
 $("restartButton").addEventListener("click", startGame);
+
 $("backButton").addEventListener("click", () => {
-  location.href = "index.html";
+    location.href = "index.html";
 });
 
-loadChallenge();
+loadBestMoves();
+startGame();
+loadChallenges();
 </script>
 </body>
 </html>
