@@ -1,862 +1,1133 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8">
 
-<head>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
-    <meta charset="UTF-8">
+<title>
+    سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی
+</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
+<meta
+    name="description"
+    content="سایت هدف؛ جایی برای ساخت هدف‌های روزانه، حفظ Streak، بازی‌های آنلاین و استفاده از ابزارهای کاربردی مثل ماشین حساب و ساخت کیو آر کد."
+>
 
-    <title>
-        سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی
-    </title>
+<meta
+    name="keywords"
+    content="سایت هدف, هدف من, هدف روزانه, استریک, بازی آنلاین, ابزار آنلاین, کیو آر کد"
+>
 
-    <meta
-        name="description"
-        content="سایت هدف؛ جایی برای ساخت هدف‌های روزانه، حفظ Streak، بازی‌های آنلاین و استفاده از ابزارهای کاربردی مثل ماشین حساب و ساخت کیو آر کد."
-    >
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#07090f">
 
-    <meta
-        name="keywords"
-        content="سایت هدف, هدف من, هدف روزانه, استریک, بازی آنلاین, ابزار آنلاین, کیو آر کد"
-    >
+<link
+    rel="canonical"
+    href="https://hadaf.site/"
+>
 
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#07090f">
+<meta
+    property="og:title"
+    content="سایت هدف | هر روز یک قدم جلوتر"
+>
 
-    <link
-        rel="canonical"
-        href="https://hadaf.site/"
-    >
+<meta
+    property="og:description"
+    content="هدف روزانه بساز، Streak خودت رو حفظ کن، بازی کن و از ابزارهای کاربردی استفاده کن."
+>
 
-    <meta
-        property="og:title"
-        content="سایت هدف | هر روز یک قدم جلوتر"
-    >
+<meta
+    property="og:image"
+    content="https://hadaf.site/logo.png"
+>
 
-    <meta
-        property="og:description"
-        content="هدف روزانه بساز، Streak خودت رو حفظ کن، بازی کن و از ابزارهای کاربردی استفاده کن."
-    >
+<meta
+    property="og:url"
+    content="https://hadaf.site/"
+>
 
-    <meta
-        property="og:image"
-        content="https://hadaf.site/logo.png"
-    >
+<meta
+    property="og:type"
+    content="website"
+>
 
-    <meta
-        property="og:url"
-        content="https://hadaf.site/"
-    >
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "سایت هدف",
+    "alternateName": "هدف",
+    "url": "https://hadaf.site/",
+    "description": "هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی"
+}
+</script>
 
-    <meta
-        property="og:type"
-        content="website"
-    >
+<link rel="manifest" href="./manifest.json">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "سایت هدف",
-        "alternateName": "هدف",
-        "url": "https://hadaf.site/",
-        "description": "هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی"
+<style>
+
+    :root {
+        --bg: #07090f;
+        --card: rgba(18,22,34,.95);
+        --border: rgba(255,255,255,.075);
+        --text: #f8fafc;
+        --muted: #8f98a9;
+        --primary: #6758ff;
+        --primary-2: #5146da;
+        --orange: #ff7a32;
+        --green: #22c55e;
+        --red: #ef4444;
     }
-    </script>
-
-    <link rel="manifest" href="./manifest.json">
-
-    <style>
-
-        :root {
-            --bg: #07090f;
-            --card: rgba(18,22,34,.95);
-            --border: rgba(255,255,255,.075);
-            --text: #f8fafc;
-            --muted: #8f98a9;
-            --primary: #6758ff;
-            --primary-2: #5146da;
-            --orange: #ff7a32;
-            --green: #22c55e;
-            --red: #ef4444;
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            padding-bottom: 100px;
-            color: var(--text);
-
-            font-family:
-                Tahoma,
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
-            background:
-                radial-gradient(
-                    circle at 85% -5%,
-                    rgba(103,88,255,.16),
-                    transparent 28%
-                ),
-                radial-gradient(
-                    circle at 0% 35%,
-                    rgba(37,99,235,.07),
-                    transparent 30%
-                ),
-                var(--bg);
-        }
-
-        button {
-            font-family: inherit;
-        }
-
-        .app {
-            width: min(760px, 94%);
-            margin: auto;
-            padding: 18px 0 50px;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 32px;
-            direction: ltr;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            direction: rtl;
-        }
-
-        .logo {
-            width: 48px;
-            height: 48px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            overflow: hidden;
-            border-radius: 16px;
-
-            background: rgba(103,88,255,.08);
-            border: 1px solid var(--border);
-        }
-
-        .logo img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-
-        .brand strong {
-            display: block;
-            font-size: 18px;
-        }
-
-        .brand small {
-            display: block;
-            margin-top: 3px;
-            color: var(--muted);
-            font-size: 10px;
-        }
-
-        .top-account {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            direction: rtl;
-            cursor: pointer;
-        }
-
-        .account-button {
-            width: 44px;
-            height: 44px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            flex-shrink: 0;
-
-            border: 1px solid var(--border);
-            border-radius: 14px;
-
-            color: white;
-            background: rgba(255,255,255,.035);
-
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .top-account-name {
-            max-width: 135px;
-
-            color: var(--text);
-
-            font-size: 13px;
-            font-weight: 700;
-
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .hero {
-            margin-bottom: 23px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-
-            padding: 7px 11px;
-            margin-bottom: 12px;
-
-            border-radius: 999px;
-
-            color: #c9c3ff;
-            background: rgba(103,88,255,.10);
-            border: 1px solid rgba(103,88,255,.20);
-
-            font-size: 11px;
-        }
-
-        .hero h1 {
-            margin: 0;
-            max-width: 600px;
-            font-size: clamp(32px,7vw,49px);
-            line-height: 1.35;
-        }
-
-        .hero h1 span {
-            color: #8b80ff;
-        }
-
-        .hero p {
-            margin: 10px 0 0;
-            max-width: 570px;
-            color: var(--muted);
-            line-height: 1.9;
-            font-size: 13px;
-        }
-
-        .banner {
-            width: 100%;
-            margin: 0 0 16px;
-            overflow: hidden;
-            border-radius: 22px;
-            border: 1px solid var(--border);
-            background: var(--card);
-
-            box-shadow:
-                0 16px 45px
-                rgba(0,0,0,.25);
-        }
-
-        .banner img {
-            display: block;
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .card {
-            padding: 20px;
-            margin-bottom: 14px;
-
-            border-radius: 24px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(18,22,34,.98),
-                    rgba(11,14,22,.98)
-                );
-
-            border: 1px solid var(--border);
-
-            box-shadow:
-                0 16px 50px
-                rgba(0,0,0,.22);
-        }
-
-        .goal-card {
-            position: relative;
-            overflow: hidden;
-            background:
-                radial-gradient(
-                    circle at 95% 0%,
-                    rgba(103,88,255,.16),
-                    transparent 35%
-                ),
-                linear-gradient(
-                    145deg,
-                    rgba(18,22,34,.98),
-                    rgba(11,14,22,.98)
-                );
-
-            cursor: pointer;
-        }
-
-        .goal-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .goal-label {
-            color: var(--muted);
-            font-size: 10px;
-        }
-
-        .goal-name {
-            margin-top: 7px;
-            font-size: 18px;
-            font-weight: 800;
-            line-height: 1.7;
-        }
-
-        .goal-arrow {
-            width: 38px;
-            height: 38px;
-
-            flex-shrink: 0;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 13px;
-
-            color: #b7b0ff;
-            background: rgba(103,88,255,.10);
-
-            font-size: 22px;
-        }
-
-        .goal-stats {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 8px;
-            margin-top: 17px;
-        }
-
-        .goal-stat {
-            padding: 11px 5px;
-            text-align: center;
-            border-radius: 14px;
-
-            color: var(--muted);
-            background: rgba(255,255,255,.025);
-            border: 1px solid rgba(255,255,255,.045);
-
-            font-size: 9px;
-        }
-
-        .goal-stat strong {
-            display: block;
-            margin-bottom: 5px;
-            color: white;
-            font-size: 19px;
-        }
-
-        .goal-stat.fire strong {
-            color: #ff8a45;
-        }
-
-        .goal-stat.best strong {
-            color: #facc15;
-        }
-
-        .goal-button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 13px;
-
-            border: none;
-            border-radius: 15px;
-
-            color: white;
-
-            background:
-                linear-gradient(
-                    100deg,
-                    var(--primary),
-                    var(--primary-2)
-                );
-
-            cursor: pointer;
-
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .section {
-            padding-top: 16px;
-            scroll-margin-top: 20px;
-        }
-
-        .section-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 2px 13px;
-        }
-
-        .section-head h2 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .section-head span {
-            color: var(--muted);
-            font-size: 10px;
-        }
+
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        padding-bottom: 100px;
+        color: var(--text);
+
+        font-family:
+            Tahoma,
+            "Segoe UI",
+            Arial,
+            sans-serif;
+
+        background:
+            radial-gradient(
+                circle at 85% -5%,
+                rgba(103,88,255,.16),
+                transparent 28%
+            ),
+            radial-gradient(
+                circle at 0% 35%,
+                rgba(37,99,235,.07),
+                transparent 30%
+            ),
+            var(--bg);
+    }
+
+    button {
+        font-family: inherit;
+    }
+
+    .app {
+        width: min(760px, 94%);
+        margin: auto;
+        padding: 18px 0 50px;
+    }
+
+    .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 32px;
+        direction: ltr;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        direction: rtl;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+        border-radius: 16px;
+
+        background: rgba(103,88,255,.08);
+        border: 1px solid var(--border);
+    }
+
+    .logo img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+
+    .brand strong {
+        display: block;
+        font-size: 18px;
+    }
+
+    .brand small {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 10px;
+    }
+
+    .top-account {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        direction: rtl;
+        cursor: pointer;
+    }
+
+    .account-button {
+        width: 44px;
+        height: 44px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border: 1px solid var(--border);
+        border-radius: 14px;
+
+        color: white;
+        background: rgba(255,255,255,.035);
+
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .top-account-name {
+        max-width: 135px;
+
+        color: var(--text);
+
+        font-size: 13px;
+        font-weight: 700;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .hero {
+        margin-bottom: 23px;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+
+        padding: 7px 11px;
+        margin-bottom: 12px;
+
+        border-radius: 999px;
+
+        color: #c9c3ff;
+        background: rgba(103,88,255,.10);
+        border: 1px solid rgba(103,88,255,.20);
+
+        font-size: 11px;
+    }
+
+    .hero h1 {
+        margin: 0;
+        max-width: 600px;
+        font-size: clamp(32px,7vw,49px);
+        line-height: 1.35;
+    }
+
+    .hero h1 span {
+        color: #8b80ff;
+    }
+
+    .hero p {
+        margin: 10px 0 0;
+        max-width: 570px;
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 13px;
+    }
+
+    .banner {
+        width: 100%;
+        margin: 0 0 16px;
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: var(--card);
+
+        box-shadow:
+            0 16px 45px
+            rgba(0,0,0,.25);
+    }
+
+    .banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .card {
+        padding: 20px;
+        margin-bottom: 14px;
+
+        border-radius: 24px;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(18,22,34,.98),
+                rgba(11,14,22,.98)
+            );
+
+        border: 1px solid var(--border);
+
+        box-shadow:
+            0 16px 50px
+            rgba(0,0,0,.22);
+    }
+
+    .goal-card {
+        position: relative;
+        overflow: hidden;
+        background:
+            radial-gradient(
+                circle at 95% 0%,
+                rgba(103,88,255,.16),
+                transparent 35%
+            ),
+            linear-gradient(
+                145deg,
+                rgba(18,22,34,.98),
+                rgba(11,14,22,.98)
+            );
+
+        cursor: pointer;
+    }
+
+    .goal-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .goal-label {
+        color: var(--muted);
+        font-size: 10px;
+    }
+
+    .goal-name {
+        margin-top: 7px;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.7;
+    }
+
+    .goal-arrow {
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 13px;
+
+        color: #b7b0ff;
+        background: rgba(103,88,255,.10);
+
+        font-size: 22px;
+    }
+
+    .goal-stats {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 8px;
+        margin-top: 17px;
+    }
+
+    .goal-stat {
+        padding: 11px 5px;
+        text-align: center;
+        border-radius: 14px;
+
+        color: var(--muted);
+        background: rgba(255,255,255,.025);
+        border: 1px solid rgba(255,255,255,.045);
+
+        font-size: 9px;
+    }
+
+    .goal-stat strong {
+        display: block;
+        margin-bottom: 5px;
+        color: white;
+        font-size: 19px;
+    }
+
+    .goal-stat.fire strong {
+        color: #ff8a45;
+    }
+
+    .goal-stat.best strong {
+        color: #facc15;
+    }
+
+    .goal-button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 13px;
+
+        border: none;
+        border-radius: 15px;
+
+        color: white;
+
+        background:
+            linear-gradient(
+                100deg,
+                var(--primary),
+                var(--primary-2)
+            );
+
+        cursor: pointer;
+
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .section {
+        padding-top: 16px;
+        scroll-margin-top: 20px;
+    }
+
+    .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 2px 13px;
+    }
+
+    .section-head h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .section-head span {
+        color: var(--muted);
+        font-size: 10px;
+    }
+
+    .games {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 10px;
+    }
+
+    .game-card {
+        min-height: 150px;
+
+        padding: 16px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        border-radius: 21px;
+
+        border: 1px solid var(--border);
+
+        background:
+            radial-gradient(
+                circle at 100% 0%,
+                rgba(103,88,255,.10),
+                transparent 45%
+            ),
+            var(--card);
+
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .game-card:active {
+        transform: scale(.97);
+    }
+
+    .game-icon {
+        width: 47px;
+        height: 47px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 15px;
+        background: rgba(103,88,255,.10);
+
+        font-size: 22px;
+    }
+
+    .game-title {
+        margin-top: 18px;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .game-sub {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.7;
+    }
+
+    .tools {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 10px;
+    }
+
+    .tool-card {
+        min-height: 102px;
+
+        padding: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 10px;
+
+        border-radius: 20px;
+
+        border: 1px solid var(--border);
+
+        background: var(--card);
+
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .tool-card:active {
+        transform: scale(.98);
+    }
+
+    .tool-info {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        min-width: 0;
+    }
+
+    .tool-icon {
+        width: 45px;
+        height: 45px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        color: #c8c2ff;
+        background: rgba(103,88,255,.10);
+        border: 1px solid rgba(103,88,255,.12);
+
+        font-size: 20px;
+    }
+
+    .tool-title {
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.5;
+    }
+
+    .tool-sub {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.6;
+    }
+
+    .resalat-card {
+        background:
+            radial-gradient(
+                circle at 0% 100%,
+                rgba(34,197,94,.09),
+                transparent 55%
+            ),
+            var(--card);
+    }
+
+    .resalat-icon {
+        overflow: hidden;
+        background: rgba(34,197,94,.08);
+        border-color: rgba(34,197,94,.12);
+    }
+
+    .resalat-icon img {
+        width: 35px;
+        height: 35px;
+        object-fit: contain;
+    }
+
+    .qr-icon {
+        font-size: 23px;
+    }
+
+    .about {
+        margin-top: 26px;
+        text-align: center;
+    }
+
+    .about h2 {
+        margin: 0 0 8px;
+        font-size: 17px;
+    }
+
+    .about p {
+        max-width: 570px;
+        margin: auto;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 2;
+    }
+
+    .logout {
+        width: 100%;
+
+        margin-top: 17px;
+        padding: 13px;
+
+        border: 1px solid rgba(239,68,68,.12);
+        border-radius: 15px;
+
+        color: #fca5a5;
+        background: rgba(239,68,68,.045);
+
+        cursor: pointer;
+        font-size: 11px;
+    }
+
+    footer {
+        padding: 30px 0 8px;
+        text-align: center;
+        color: #596171;
+        font-size: 10px;
+    }
+
+    .bottom-nav {
+        position: fixed;
+
+        z-index: 100;
+
+        right: 50%;
+        bottom: max(12px, env(safe-area-inset-bottom));
+
+        transform: translateX(50%);
+
+        width: min(520px,92%);
+        height: 68px;
+
+        padding: 7px 8px;
+
+        display: grid;
+        grid-template-columns: repeat(6,1fr);
+        gap: 5px;
+
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 22px;
+
+        background: rgba(13,16,25,.93);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        box-shadow:
+            0 15px 45px
+            rgba(0,0,0,.45);
+    }
+
+    .nav-item {
+        border: none;
+        border-radius: 16px;
+
+        color: var(--muted);
+        background: transparent;
+
+        cursor: pointer;
+        font-size: 9px;
+    }
+
+    .nav-item span {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 18px;
+    }
+
+    .nav-item.active {
+        color: white;
+        background: rgba(103,88,255,.13);
+    }
+
+    @media(max-width:600px) {
 
         .games {
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 10px;
+            grid-template-columns: 1fr;
         }
 
         .game-card {
-            min-height: 150px;
+            min-height: 105px;
 
-            padding: 16px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            border-radius: 21px;
-
-            border: 1px solid var(--border);
-
-            background:
-                radial-gradient(
-                    circle at 100% 0%,
-                    rgba(103,88,255,.10),
-                    transparent 45%
-                ),
-                var(--card);
-
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        .game-card:active {
-            transform: scale(.97);
-        }
-
-        .game-icon {
-            width: 47px;
-            height: 47px;
-
-            display: flex;
+            flex-direction: row;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
 
-            border-radius: 15px;
-            background: rgba(103,88,255,.10);
-
-            font-size: 22px;
+            gap: 13px;
         }
 
         .game-title {
-            margin-top: 18px;
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        .game-sub {
-            margin-top: 5px;
-            color: var(--muted);
-            font-size: 9px;
-            line-height: 1.7;
+            margin-top: 0;
         }
 
         .tools {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 10px;
-        }
-
-        .tool-card {
-            min-height: 102px;
-
-            padding: 15px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 10px;
-
-            border-radius: 20px;
-
-            border: 1px solid var(--border);
-
-            background: var(--card);
-
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        .tool-card:active {
-            transform: scale(.98);
-        }
-
-        .tool-info {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            min-width: 0;
-        }
-
-        .tool-icon {
-            width: 45px;
-            height: 45px;
-
-            flex-shrink: 0;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 14px;
-
-            color: #c8c2ff;
-            background: rgba(103,88,255,.10);
-            border: 1px solid rgba(103,88,255,.12);
-
-            font-size: 20px;
-        }
-
-        .tool-title {
-            font-size: 13px;
-            font-weight: 800;
-            line-height: 1.5;
-        }
-
-        .tool-sub {
-            margin-top: 5px;
-            color: var(--muted);
-            font-size: 9px;
-            line-height: 1.6;
-        }
-
-        .resalat-card {
-            background:
-                radial-gradient(
-                    circle at 0% 100%,
-                    rgba(34,197,94,.09),
-                    transparent 55%
-                ),
-                var(--card);
-        }
-
-        .resalat-icon {
-            overflow: hidden;
-            background: rgba(34,197,94,.08);
-            border-color: rgba(34,197,94,.12);
-        }
-
-        .resalat-icon img {
-            width: 35px;
-            height: 35px;
-            object-fit: contain;
-        }
-
-        .qr-icon {
-            font-size: 23px;
-        }
-
-        .about {
-            margin-top: 26px;
-            text-align: center;
-        }
-
-        .about h2 {
-            margin: 0 0 8px;
-            font-size: 17px;
-        }
-
-        .about p {
-            max-width: 570px;
-            margin: auto;
-            color: var(--muted);
-            font-size: 11px;
-            line-height: 2;
-        }
-
-        .logout {
-            width: 100%;
-
-            margin-top: 17px;
-            padding: 13px;
-
-            border: 1px solid rgba(239,68,68,.12);
-            border-radius: 15px;
-
-            color: #fca5a5;
-            background: rgba(239,68,68,.045);
-
-            cursor: pointer;
-            font-size: 11px;
-        }
-
-        footer {
-            padding: 30px 0 8px;
-            text-align: center;
-            color: #596171;
-            font-size: 10px;
+            grid-template-columns: 1fr;
         }
 
         .bottom-nav {
-            position: fixed;
-
-            z-index: 100;
-
-            right: 50%;
-            bottom: max(12px, env(safe-area-inset-bottom));
-
-            transform: translateX(50%);
-
-            width: min(520px,92%);
-            height: 68px;
-
-            padding: 7px 8px;
-
-            display: grid;
-            grid-template-columns: repeat(5,1fr);
-            gap: 5px;
-
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 22px;
-
-            background: rgba(13,16,25,.93);
-
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-
-            box-shadow:
-                0 15px 45px
-                rgba(0,0,0,.45);
+            width: min(570px,96%);
+            gap: 2px;
         }
 
         .nav-item {
-            border: none;
-            border-radius: 16px;
-
-            color: var(--muted);
-            background: transparent;
-
-            cursor: pointer;
-            font-size: 9px;
+            font-size: 8px;
         }
 
         .nav-item span {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 18px;
+            font-size: 17px;
         }
 
-        .nav-item.active {
-            color: white;
-            background: rgba(103,88,255,.13);
+    }
+
+    @media(max-width:420px) {
+
+        .app {
+            width: 92%;
         }
 
-        @media(max-width:600px) {
-
-            .games {
-                grid-template-columns: 1fr;
-            }
-
-            .game-card {
-                min-height: 105px;
-
-                flex-direction: row;
-                align-items: center;
-                justify-content: flex-start;
-
-                gap: 13px;
-            }
-
-            .game-title {
-                margin-top: 0;
-            }
-
-            .tools {
-                grid-template-columns: 1fr;
-            }
-
+        .hero h1 {
+            font-size: 34px;
         }
 
-        @media(max-width:420px) {
-
-            .app {
-                width: 92%;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
-
-            .card {
-                padding: 17px;
-            }
-
-            .goal-name {
-                font-size: 16px;
-            }
-
-            .top-account-name {
-                max-width: 95px;
-                font-size: 12px;
-            }
-
-            .brand small {
-                display: none;
-            }
-
+        .card {
+            padding: 17px;
         }
 
-    </style>
+        .goal-name {
+            font-size: 16px;
+        }
 
-</head>
+        .top-account-name {
+            max-width: 95px;
+            font-size: 12px;
+        }
 
-<body>
+        .brand small {
+            display: none;
+        }
 
-<main class="app">
+        .bottom-nav {
+            height: 66px;
+            padding: 6px 5px;
+        }
 
-    <!-- HEADER -->
+        .nav-item {
+            font-size: 7px;
+        }
 
-    <header class="topbar">
+        .nav-item span {
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
 
-        <div
-            class="top-account"
-            onclick="goAccount()"
-        >
+    }
 
-            <button
-                class="account-button"
-                aria-label="حساب کاربری"
-            >
-                👤
-            </button>
+</style>
 
-            <div
-                class="top-account-name"
-                id="accountName"
-            >
-                مهمان
-            </div>
+</head><body><main class="app"><!-- HEADER -->
 
-        </div>
+<header class="topbar">
 
-        <div class="brand">
-
-            <div class="logo">
-
-                <img
-                    src="logo.png"
-                    alt="لوگوی سایت هدف"
-                >
-
-            </div>
-
-            <div>
-
-                <strong>
-                    هدف
-                </strong>
-
-                <small>
-                    هر روز یک قدم جلوتر
-                </small>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-badge">
-            سایت هدف
-        </div>
-
-        <h1>
-            روی هدفت
-            <span>
-                تمرکز کن.
-            </span>
-        </h1>
-
-        <p>
-            هدفت رو مشخص کن، هر روز ادامه بده،
-            Streak بساز و در کنارش از بازی‌ها
-            و ابزارهای سایت هدف استفاده کن.
-        </p>
-
-    </section>
-
-
-    <!-- BANNER -->
-
-    <section class="banner">
-
-        <img
-            src="banner.png"
-            alt="بنر سایت هدف"
-        >
-
-    </section>
-
-
-    <!-- GOAL -->
-
-    <section
-        class="card goal-card"
-        onclick="location.href='goals.html'"
+    <div
+        class="top-account"
+        onclick="goAccount()"
     >
 
-        <div class="goal-top">
+        <button
+            class="account-button"
+            aria-label="حساب کاربری"
+        >
+            👤
+        </button>
+
+        <div
+            class="top-account-name"
+            id="accountName"
+        >
+            مهمان
+        </div>
+
+    </div>
+
+    <div class="brand">
+
+        <div class="logo">
+
+            <img
+                src="logo.png"
+                alt="لوگوی سایت هدف"
+            >
+
+        </div>
+
+        <div>
+
+            <strong>
+                هدف
+            </strong>
+
+            <small>
+                هر روز یک قدم جلوتر
+            </small>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-badge">
+        سایت هدف
+    </div>
+
+    <h1>
+        روی هدفت
+        <span>
+            تمرکز کن.
+        </span>
+    </h1>
+
+    <p>
+        هدفت رو مشخص کن، هر روز ادامه بده،
+        Streak بساز و در کنارش از بازی‌ها
+        و ابزارهای سایت هدف استفاده کن.
+    </p>
+
+</section>
+
+
+<!-- BANNER -->
+
+<section class="banner">
+
+    <img
+        src="banner.png"
+        alt="بنر سایت هدف"
+    >
+
+</section>
+
+
+<!-- GOAL -->
+
+<section
+    class="card goal-card"
+    onclick="location.href='goals.html'"
+>
+
+    <div class="goal-top">
+
+        <div>
+
+            <div class="goal-label">
+                🎯 هدف من
+            </div>
+
+            <div
+                class="goal-name"
+                id="goalName"
+            >
+                در حال دریافت...
+            </div>
+
+        </div>
+
+        <div class="goal-arrow">
+            ‹
+        </div>
+
+    </div>
+
+    <div class="goal-stats">
+
+        <div class="goal-stat fire">
+
+            <strong id="streak">
+                0
+            </strong>
+
+            🔥 Streak
+
+        </div>
+
+        <div class="goal-stat best">
+
+            <strong id="bestStreak">
+                0
+            </strong>
+
+            🏆 رکورد
+
+        </div>
+
+        <div class="goal-stat">
+
+            <strong id="totalDays">
+                0
+            </strong>
+
+            روز انجام
+
+        </div>
+
+    </div>
+
+    <button
+        class="goal-button"
+        onclick="
+            event.stopPropagation();
+            location.href='goals.html';
+        "
+    >
+        رفتن به هدف من
+    </button>
+
+</section>
+
+
+<!-- GAMES -->
+
+<section
+    class="section"
+    id="games"
+>
+
+    <div class="section-head">
+
+        <h2>
+            بازی‌ها
+        </h2>
+
+        <span>
+            یه استراحت کوتاه 🎮
+        </span>
+
+    </div>
+
+    <div class="games">
+
+        <div
+            class="game-card"
+            onclick="goTo('Game/Car/car.html')"
+        >
+
+            <div class="game-icon">
+                🏎️
+            </div>
 
             <div>
 
-                <div class="goal-label">
-                    🎯 هدف من
+                <div class="game-title">
+                    ماشین
                 </div>
 
-                <div
-                    class="goal-name"
-                    id="goalName"
-                >
-                    در حال دریافت...
+                <div class="game-sub">
+                    سرعت و تمرکز
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="game-card"
+            onclick="goTo('Game/snake/snake.html')"
+        >
+
+            <div class="game-icon">
+                🐍
+            </div>
+
+            <div>
+
+                <div class="game-title">
+                    مار
+                </div>
+
+                <div class="game-sub">
+                    رکوردت رو بهتر کن
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="game-card"
+            onclick="goTo('Game/memory/memory.html')"
+        >
+
+            <div class="game-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <div class="game-title">
+                    حافظه
+                </div>
+
+                <div class="game-sub">
+                    حافظه‌ت رو به چالش بکش
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PICO CHALLENGE -->
+
+        <div
+            class="game-card"
+            onclick="goTo('pico-challenge.html')"
+        >
+
+            <div class="game-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <div class="game-title">
+                    پیکو چلنج
+                </div>
+
+                <div class="game-sub">
+                    چالش هفتگی پیکو را انجام بده!
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PICO AI LAB -->
+
+        <div
+            class="game-card"
+            onclick="goTo('pico-lab.html')"
+        >
+
+            <div class="game-icon">
+                🧪
+            </div>
+
+            <div>
+
+                <div class="game-title">
+                    آزمایشگاه پیکو
+                </div>
+
+                <div class="game-sub">
+                    با پیکو حرف بزن و چیزهای جدید کشف کن!
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TOOLS -->
+
+<section
+    class="section"
+    id="tools"
+>
+
+    <div class="section-head">
+
+        <h2>
+            ابزارها
+        </h2>
+
+        <span>
+            سریع و کاربردی
+        </span>
+
+    </div>
+
+    <div class="tools">
+
+        <!-- RESALAT -->
+
+        <div
+            class="tool-card resalat-card"
+            onclick="openResalat()"
+        >
+
+            <div class="tool-info">
+
+                <div class="tool-icon resalat-icon">
+
+                    <img
+                        src="resalat.png"
+                        alt="ام رسالت"
+                    >
+
+                </div>
+
+                <div>
+
+                    <div class="tool-title">
+                        ورود به ام رسالت
+                    </div>
+
+                    <div class="tool-sub">
+                        دسترسی سریع به وب‌سایت ام‌رسالت
+                    </div>
+
                 </div>
 
             </div>
@@ -867,419 +1138,170 @@
 
         </div>
 
-        <div class="goal-stats">
 
-            <div class="goal-stat fire">
+        <!-- QR -->
 
-                <strong id="streak">
-                    0
-                </strong>
-
-                🔥 Streak
-
-            </div>
-
-            <div class="goal-stat best">
-
-                <strong id="bestStreak">
-                    0
-                </strong>
-
-                🏆 رکورد
-
-            </div>
-
-            <div class="goal-stat">
-
-                <strong id="totalDays">
-                    0
-                </strong>
-
-                روز انجام
-
-            </div>
-
-        </div>
-
-        <button
-            class="goal-button"
-            onclick="
-                event.stopPropagation();
-                location.href='goals.html';
-            "
+        <div
+            class="tool-card"
+            onclick="goTo('qr.html')"
         >
-            رفتن به هدف من
-        </button>
 
-    </section>
+            <div class="tool-info">
 
-
-    <!-- GAMES -->
-
-    <section
-        class="section"
-        id="games"
-    >
-
-        <div class="section-head">
-
-            <h2>
-                بازی‌ها
-            </h2>
-
-            <span>
-                یه استراحت کوتاه 🎮
-            </span>
-
-        </div>
-
-        <div class="games">
-
-            <div
-                class="game-card"
-                onclick="goTo('Game/Car/car.html')"
-            >
-
-                <div class="game-icon">
-                    🏎️
+                <div class="tool-icon qr-icon">
+                    ▦
                 </div>
 
                 <div>
 
-                    <div class="game-title">
-                        ماشین
+                    <div class="tool-title">
+                        ساخت کیو آر کد
                     </div>
 
-                    <div class="game-sub">
-                        سرعت و تمرکز
+                    <div class="tool-sub">
+                        تبدیل متن و لینک به کیو آر کد
                     </div>
 
                 </div>
 
             </div>
 
-
-            <div
-                class="game-card"
-                onclick="goTo('Game/snake/snake.html')"
-            >
-
-                <div class="game-icon">
-                    🐍
-                </div>
-
-                <div>
-
-                    <div class="game-title">
-                        مار
-                    </div>
-
-                    <div class="game-sub">
-                        رکوردت رو بهتر کن
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="game-card"
-                onclick="goTo('Game/memory/memory.html')"
-            >
-
-                <div class="game-icon">
-                    🧠
-                </div>
-
-                <div>
-
-                    <div class="game-title">
-                        حافظه
-                    </div>
-
-                    <div class="game-sub">
-                        حافظه‌ت رو به چالش بکش
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- PICO CHALLENGE -->
-
-            <div
-                class="game-card"
-                onclick="goTo('pico-challenge.html')"
-            >
-
-                <div class="game-icon">
-                    🤖
-                </div>
-
-                <div>
-
-                    <div class="game-title">
-                        پیکو چلنج
-                    </div>
-
-                    <div class="game-sub">
-                        چالش هفتگی پیکو را انجام بده!
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- PICO AI LAB -->
-
-            <div
-                class="game-card"
-                onclick="goTo('pico-lab.html')"
-            >
-
-                <div class="game-icon">
-                    🧪
-                </div>
-
-                <div>
-
-                    <div class="game-title">
-                        آزمایشگاه پیکو
-                    </div>
-
-                    <div class="game-sub">
-                        با پیکو حرف بزن و چیزهای جدید کشف کن!
-                    </div>
-
-                </div>
-
+            <div class="goal-arrow">
+                ‹
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- TOOLS -->
+<!-- ABOUT -->
 
-    <section
-        class="section"
-        id="tools"
-    >
+<section class="about">
 
-        <div class="section-head">
+    <h2>
+        سایت هدف چیه؟
+    </h2>
 
-            <h2>
-                ابزارها
-            </h2>
-
-            <span>
-                سریع و کاربردی
-            </span>
-
-        </div>
-
-        <div class="tools">
-
-            <!-- RESALAT -->
-
-            <div
-                class="tool-card resalat-card"
-                onclick="openResalat()"
-            >
-
-                <div class="tool-info">
-
-                    <div class="tool-icon resalat-icon">
-
-                        <img
-                            src="resalat.png"
-                            alt="ام رسالت"
-                        >
-
-                    </div>
-
-                    <div>
-
-                        <div class="tool-title">
-                            ورود به ام رسالت
-                        </div>
-
-                        <div class="tool-sub">
-                            دسترسی سریع به وب‌سایت ام‌رسالت
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="goal-arrow">
-                    ‹
-                </div>
-
-            </div>
-
-
-            <!-- QR -->
-
-            <div
-                class="tool-card"
-                onclick="goTo('qr.html')"
-            >
-
-                <div class="tool-info">
-
-                    <div class="tool-icon qr-icon">
-                        ▦
-                    </div>
-
-                    <div>
-
-                        <div class="tool-title">
-                            ساخت کیو آر کد
-                        </div>
-
-                        <div class="tool-sub">
-                            تبدیل متن و لینک به کیو آر کد
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="goal-arrow">
-                    ‹
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ABOUT -->
-
-    <section class="about">
-
-        <h2>
-            سایت هدف چیه؟
-        </h2>
-
-        <p>
-            هدف یک فضای ساده برای ساخت عادت‌های بهتر،
-            پیگیری هدف‌های روزانه، بازی و استفاده از
-            ابزارهای کاربردی آنلاینه.
-        </p>
-
-        <button
-            class="logout"
-            onclick="location.href='download.html'"
-        >
-            📱 دانلود اپلیکیشن هدف
-        </button>
-
-        <button
-            class="logout"
-            id="logoutButton"
-            onclick="logout()"
-            style="display:none"
-        >
-            خروج از حساب
-        </button>
-
-    </section>
-
-
-    <footer>
-        سایت هدف • هر روز یک قدم جلوتر
-    </footer>
-
-</main>
-
-
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
+    <p>
+        هدف یک فضای ساده برای ساخت عادت‌های بهتر،
+        پیگیری هدف‌های روزانه، بازی و استفاده از
+        ابزارهای کاربردی آنلاینه.
+    </p>
 
     <button
-        class="nav-item active"
-        onclick="goHome()"
+        class="logout"
+        onclick="location.href='download.html'"
     >
-
-        <span>
-            ⌂
-        </span>
-
-        خانه
-
+        📱 دانلود اپلیکیشن هدف
     </button>
-
 
     <button
-        class="nav-item"
-        onclick="location.href='goals.html'"
+        class="logout"
+        id="logoutButton"
+        onclick="logout()"
+        style="display:none"
     >
-
-        <span>
-            ◎
-        </span>
-
-        هدف من
-
+        خروج از حساب
     </button>
 
-
-    <button
-        class="nav-item"
-        onclick="scrollToSection('games')"
-    >
-
-        <span>
-            🎮
-        </span>
-
-        بازی‌ها
-
-    </button>
+</section>
 
 
-    <button
-        class="nav-item"
-        onclick="scrollToSection('tools')"
-    >
+<footer>
+    سایت هدف • هر روز یک قدم جلوتر
+</footer>
 
-        <span>
-            ◈
-        </span>
+</main><!-- BOTTOM NAVIGATION --><nav class="bottom-nav"><button
+    class="nav-item active"
+    onclick="goHome()"
+>
 
-        ابزارها
+    <span>
+        ⌂
+    </span>
 
-    </button>
+    خانه
 
-
-    <!-- PICO LAB -->
-
-    <button
-        class="nav-item"
-        onclick="location.href='pico-lab.html'"
-    >
-
-        <span>
-            🤖
-        </span>
-
-        پیکو
-
-    </button>
-
-</nav>
+</button>
 
 
-<script>
+<button
+    class="nav-item"
+    onclick="location.href='goals.html'"
+>
+
+    <span>
+        ◎
+    </span>
+
+    هدف من
+
+</button>
+
+
+<button
+    class="nav-item"
+    onclick="scrollToSection('games')"
+>
+
+    <span>
+        🎮
+    </span>
+
+    بازی‌ها
+
+</button>
+
+
+<button
+    class="nav-item"
+    onclick="scrollToSection('tools')"
+>
+
+    <span>
+        ◈
+    </span>
+
+    ابزارها
+
+</button>
+
+
+<!-- MESSENGER -->
+
+<button
+    class="nav-item"
+    onclick="location.href='messenger.html'"
+>
+
+    <span>
+        💬
+    </span>
+
+    پیام‌رسان
+
+</button>
+
+
+<!-- PICO LAB -->
+
+<button
+    class="nav-item"
+    onclick="location.href='pico-lab.html'"
+>
+
+    <span>
+        🤖
+    </span>
+
+    پیکو
+
+</button>
+
+</nav><script>
 
     /* =========================
        API
@@ -1685,10 +1707,7 @@
         }
     );
 
-</script>
-
-
-<script>
+</script><script>
 
     if ("serviceWorker" in navigator) {
 
@@ -1721,9 +1740,4 @@
 
     }
 
-</script>
-
-
-</body>
-
-</html>
+</script></body></html>
