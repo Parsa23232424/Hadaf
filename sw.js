@@ -1,4 +1,4 @@
-const CACHE_NAME = "hadaf-pwa-v21";
+const CACHE_NAME = "hadaf-pwa-v22";
 
 const FILES_TO_CACHE = [
     "./",
