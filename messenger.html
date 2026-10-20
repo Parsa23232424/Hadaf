@@ -1,12 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
-<meta name="description" content="پیام‌رسان هدف؛ گفت‌وگو، گروه، کانال و ارسال عکس و فیلم">
+<meta name="description" content="پیام‌رسان هدف؛ گفت‌وگوی خصوصی، گروه‌ها و کانال‌ها">
 <title>پیام‌رسان هدف 💬</title>
-
 <style>
 :root{
   color-scheme:dark;
@@ -18,8 +18,6 @@
   --muted:#9ba2ba;
   --purple:#7665ff;
   --purple2:#5543df;
-  --green:#31d69a;
-  --red:#ff626f;
 }
 *{box-sizing:border-box}
 body{
@@ -84,7 +82,7 @@ header{
   margin-bottom:12px;
 }
 .section-title h2{font-size:16px;margin:0}
-button,.button{
+button{
   border:0;
   border-radius:12px;
   padding:10px 13px;
@@ -106,11 +104,7 @@ button.small{padding:8px 10px;font-size:12px}
   color:var(--text);
   outline:none;
 }
-.filters{
-  display:flex;
-  gap:6px;
-  margin-bottom:12px;
-}
+.filters{display:flex;gap:6px;margin-bottom:12px}
 .filters button{
   flex:1;
   padding:9px 4px;
@@ -218,7 +212,12 @@ button.small{padding:8px 10px;font-size:12px}
     radial-gradient(ellipse at top,#17152b55,transparent 55%),
     var(--bg);
 }
-.message-row{display:flex;flex-direction:column;max-width:85%;align-self:flex-start}
+.message-row{
+  display:flex;
+  flex-direction:column;
+  max-width:85%;
+  align-self:flex-start;
+}
 .message-row.mine{align-self:flex-end}
 .sender{
   font-size:11px;
@@ -245,34 +244,6 @@ button.small{padding:8px 10px;font-size:12px}
   font-size:10px;
   margin:4px 5px 0;
 }
-.media-message{white-space:normal}
-.media-message img{
-  display:block;
-  max-width:min(100%,420px);
-  max-height:360px;
-  object-fit:contain;
-  border-radius:10px;
-  cursor:pointer;
-}
-.media-message video{
-  display:block;
-  width:min(100%,420px);
-  max-height:360px;
-  border-radius:10px;
-  background:#000;
-}
-.media-caption{
-  margin-top:8px;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  line-height:1.7;
-}
-.media-name{
-  font-size:10px;
-  color:var(--muted);
-  margin-top:6px;
-  overflow-wrap:anywhere;
-}
 .composer{
   padding:12px;
   background:var(--panel);
@@ -280,7 +251,7 @@ button.small{padding:8px 10px;font-size:12px}
 }
 .composer-tools{
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   gap:8px;
 }
 #messageInput{
@@ -295,25 +266,12 @@ button.small{padding:8px 10px;font-size:12px}
   background:var(--bg);
   color:var(--text);
   outline:none;
+  line-height:1.7;
 }
 #messageInput:focus,.search:focus,input:focus,textarea:focus,select:focus{
   border-color:var(--purple);
 }
-.attach-btn{
-  flex-shrink:0;
-  width:46px;height:46px;
-  padding:0;
-  font-size:21px;
-  background:var(--panel2);
-  border:1px solid var(--line);
-}
 .send-btn{height:46px;min-width:64px}
-.composer-note{
-  font-size:10px;
-  color:var(--muted);
-  margin:9px 4px 0;
-  line-height:1.8;
-}
 .status{
   display:none;
   margin:10px 0 0;
@@ -357,7 +315,7 @@ button.small{padding:8px 10px;font-size:12px}
   color:var(--muted);
   margin-bottom:7px;
 }
-.form-row input,.form-row select,.form-row textarea{
+.form-row input,.form-row select{
   width:100%;
   border:1px solid var(--line);
   border-radius:12px;
@@ -375,7 +333,6 @@ footer{
   font-size:11px;
   border-top:1px solid var(--line);
 }
-#mediaInput{display:none}
 @media(max-width:760px){
   .main{grid-template-columns:1fr;min-height:0}
   .sidebar{border-left:0;border-bottom:1px solid var(--line)}
@@ -384,10 +341,7 @@ footer{
     overflow-x:auto;
     padding-bottom:4px;
   }
-  .chat-item{
-    min-width:175px;
-    max-width:230px;
-  }
+  .chat-item{min-width:175px;max-width:230px}
   .conversation{min-height:500px}
   .messages{max-height:55vh;min-height:250px;padding:13px}
   .message-row{max-width:92%}
@@ -400,10 +354,8 @@ footer{
 }
 </style>
 </head>
-
 <body>
 <div class="app">
-
 <header>
   <div class="brand">
     <div class="brand-icon">💬</div>
@@ -421,20 +373,17 @@ footer{
       <h2>گفت‌وگوها</h2>
       <button id="newChatBtn" class="small">＋ جدید</button>
     </div>
-
-    <input id="searchInput" class="search" type="search" placeholder="جست‌وجو...">
-
+    <input id="searchInput" class="search" type="search" placeholder="جست‌وجو..." autocomplete="off">
     <div class="filters">
-      <button class="active" data-filter="all">همه</button>
-      <button data-filter="private">خصوصی</button>
-      <button data-filter="group">گروه‌ها</button>
-      <button data-filter="channel">کانال‌ها</button>
+      <button type="button" class="active" data-filter="all">همه</button>
+      <button type="button" data-filter="private">خصوصی</button>
+      <button type="button" data-filter="group">گروه‌ها</button>
+      <button type="button" data-filter="channel">کانال‌ها</button>
     </div>
-
     <div id="chatList" class="chat-list">
       <div class="empty">در حال بارگذاری گفت‌وگوها...</div>
     </div>
-    <div id="chatStatus" class="status"></div>
+    <div id="chatStatus" class="status" role="status"></div>
   </aside>
 
   <section class="conversation">
@@ -447,20 +396,24 @@ footer{
         </div>
       </div>
       <div class="head-actions">
-        <button id="membersBtn" class="secondary small" hidden>＋ عضو</button>
-        <button id="refreshBtn" class="secondary small">↻ تازه‌سازی</button>
+        <button id="membersBtn" type="button" class="secondary small" hidden>＋ عضو</button>
+        <button id="refreshBtn" type="button" class="secondary small">↻ تازه‌سازی</button>
       </div>
     </div>
 
-    <div id="messages" class="messages">
+    <div id="messages" class="messages" aria-live="polite">
       <div class="empty">برای شروع، یک گفت‌وگو را انتخاب کن 💬</div>
     </div>
 
     <div class="composer">
       <div class="composer-tools">
-        <textarea id="messageInput" placeholder="پیامت را بنویس..." rows="1"></textarea>
-        <button id="sendBtn" class="send-btn">ارسال</button>
-      <div id="composerStatus" class="status"></div>
+        <textarea id="messageInput" placeholder="پیامت را بنویس..." rows="1" aria-label="متن پیام"></textarea>
+        <button id="sendBtn" type="button" class="send-btn">ارسال</button>
+      </div>
+      <div class="composer-note" style="font-size:10px;color:var(--muted);margin:9px 4px 0;line-height:1.8">
+        برای ارسال سریع Enter را بزن؛ برای رفتن به خط بعدی Shift + Enter را بزن.
+      </div>
+      <div id="composerStatus" class="status" role="status"></div>
     </div>
   </section>
 </main>
@@ -468,7 +421,6 @@ footer{
 <footer>🏹 Hadaf © 2026</footer>
 </div>
 
-<!-- پنجره ساخت گفت‌وگو -->
 <div id="newChatModal" class="modal-backdrop">
   <div class="modal">
     <h2>ساخت گفت‌وگوی جدید</h2>
@@ -497,12 +449,11 @@ footer{
         <button type="submit" id="createChatSubmit">ساختن</button>
         <button type="button" class="secondary" data-close="newChatModal">انصراف</button>
       </div>
-      <div id="newChatStatus" class="status"></div>
+      <div id="newChatStatus" class="status" role="status"></div>
     </form>
   </div>
 </div>
 
-<!-- پنجره افزودن عضو -->
 <div id="memberModal" class="modal-backdrop">
   <div class="modal">
     <h2>افزودن عضو</h2>
@@ -515,7 +466,7 @@ footer{
         <button type="submit" id="addMemberSubmit">افزودن</button>
         <button type="button" class="secondary" data-close="memberModal">انصراف</button>
       </div>
-      <div id="memberStatus" class="status"></div>
+      <div id="memberStatus" class="status" role="status"></div>
     </form>
   </div>
 </div>
@@ -523,61 +474,27 @@ footer{
 <script>
 "use strict";
 
-/* ===============================
-   تنظیمات پیام‌رسان هدف
-================================ */
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbz4dz-jTt2Pj6FZ1d2f44VKGPuLpHFuHXWJ40eWSF8CGRp-HMDCISfPvC-rCMtP1C-geg/exec";
+/* تنظیمات اتصال به Apps Script */
+const API_URL = "https://script.google.com/macros/s/AKfycbz4dz-jTt2Pj6FZ1d2f44VKGPuLpHFuHXWJ40eWSF8CGRp-HMDCISfPvC-rCMtP1C-geg/exec";
 
-const SUPABASE_URL =
-  "https://nzwgyvkbsznmpcilkpig.supabase.co";
-
-const SUPABASE_BUCKET = "hadaf-media";
-
-/*
-  این کلید عمومی Supabase است.
-  کلید secret یا service_role را هرگز در HTML قرار نده.
-*/
-const SUPABASE_PUBLIC_KEY =
-  "sb_publishable_JYygUq37Jf0EGZ3UD7TmOA_X4dNI6ll";
-
-const MAX_FILE_SIZE = 30 * 1024 * 1024;
-const MEDIA_PREFIX = "hadaf-media::";
-
-const ALLOWED_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-  "video/mp4",
-  "video/webm",
-  "video/quicktime"
-]);
-
-/* ===============================
-   وضعیت برنامه
-================================ */
+/* وضعیت برنامه */
 let currentUser = null;
 let chats = [];
 let activeChat = null;
 let currentFilter = "all";
 let loadingMessages = false;
 let sendingMessage = false;
-let uploadingMedia = false;
 let lastMessageSignature = "";
 let chatRefreshTimer = null;
 let messageRefreshTimer = null;
+let messageRequestVersion = 0;
 
-/* ===============================
-   ابزارهای عمومی
-================================ */
 const $ = id => document.getElementById(id);
 
 function getUser() {
   try {
     const raw = localStorage.getItem("hadafUser");
-    if (!raw) return null;
-    return JSON.parse(raw);
+    return raw ? JSON.parse(raw) : null;
   } catch (error) {
     console.error("خواندن حساب ناموفق بود:", error);
     return null;
@@ -609,12 +526,15 @@ function getChatId(chat) {
 }
 
 function getChatType(chat) {
-  return String(
+  const type = String(
     chat?.type ??
     chat?.conversation_type ??
     chat?.conversationType ??
     "private"
   ).toLowerCase();
+
+  if (["direct", "dm", "personal"].includes(type)) return "private";
+  return type;
 }
 
 function getChatName(chat) {
@@ -669,10 +589,6 @@ function formatTime(value) {
   });
 }
 
-function escapeText(value) {
-  return String(value ?? "");
-}
-
 function getMessageText(message) {
   return String(
     message?.message ??
@@ -690,7 +606,7 @@ function getSenderEmail(message) {
     message?.userEmail ??
     message?.email ??
     ""
-  ).toLowerCase();
+  ).trim().toLowerCase();
 }
 
 function getSenderName(message) {
@@ -700,7 +616,7 @@ function getSenderName(message) {
     message?.username ??
     message?.sender_name ??
     message?.senderName ??
-    getSenderEmail(message) ??
+    getSenderEmail(message) ||
     "کاربر"
   );
 }
@@ -715,13 +631,9 @@ function getMessageTime(message) {
   );
 }
 
-/* ===============================
-   ارتباط با Apps Script
-================================ */
+/* ارتباط با Apps Script */
 async function apiGet(params = {}) {
-  if (!getEmail()) {
-    throw new Error("ابتدا وارد حساب هدف شو.");
-  }
+  if (!getEmail()) throw new Error("ابتدا وارد حساب هدف شو.");
 
   const query = new URLSearchParams();
 
@@ -746,7 +658,7 @@ async function apiGet(params = {}) {
   try {
     data = JSON.parse(raw);
   } catch {
-    throw new Error("پاسخ سرور معتبر نیست. API پیام‌رسان را بررسی کن.");
+    throw new Error("پاسخ سرور معتبر نیست. تنظیمات API پیام‌رسان را بررسی کن.");
   }
 
   if (!response.ok || data?.ok === false || data?.success === false) {
@@ -761,9 +673,7 @@ async function apiGet(params = {}) {
 }
 
 async function apiPost(payload = {}) {
-  if (!getEmail()) {
-    throw new Error("ابتدا وارد حساب هدف شو.");
-  }
+  if (!getEmail()) throw new Error("ابتدا وارد حساب هدف شو.");
 
   const body = {
     ...payload,
@@ -775,9 +685,7 @@ async function apiPost(payload = {}) {
 
   const response = await fetch(API_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
+    headers: {"Content-Type":"text/plain;charset=utf-8"},
     body: JSON.stringify(body)
   });
 
@@ -787,7 +695,7 @@ async function apiPost(payload = {}) {
   try {
     data = JSON.parse(raw);
   } catch {
-    throw new Error("پاسخ سرور معتبر نیست. API پیام‌رسان را بررسی کن.");
+    throw new Error("پاسخ سرور معتبر نیست. تنظیمات API پیام‌رسان را بررسی کن.");
   }
 
   if (!response.ok || data?.ok === false || data?.success === false) {
@@ -811,32 +719,25 @@ function unwrapList(data, keys = []) {
 
   if (Array.isArray(data?.data)) return data.data;
   if (Array.isArray(data?.results)) return data.results;
-
   return [];
 }
 
-/* ===============================
-   گفت‌وگوها
-================================ */
+/* بارگذاری گفت‌وگوها */
 async function loadChats(options = {}) {
   const quiet = Boolean(options.quiet);
 
   try {
-    const data = await apiGet({ action: "chats" });
-
-    chats = unwrapList(data, [
-      "chats",
-      "conversations",
-      "items"
-    ]);
+    const data = await apiGet({action:"chats"});
+    chats = unwrapList(data, ["chats","conversations","items"]);
 
     renderChats();
 
     if (activeChat) {
-      const id = getChatId(activeChat);
-      const updated = chats.find(c => getChatId(c) === id);
-      if (updated) activeChat = updated;
-      updateConversationHeader();
+      const updated = chats.find(c => getChatId(c) === getChatId(activeChat));
+      if (updated) {
+        activeChat = updated;
+        updateConversationHeader();
+      }
     }
 
     hideStatus($("chatStatus"));
@@ -856,17 +757,14 @@ async function loadChats(options = {}) {
 function renderChats() {
   const list = $("chatList");
   const search = $("searchInput").value.trim().toLowerCase();
-
   list.replaceChildren();
 
   const filtered = chats.filter(chat => {
     const type = getChatType(chat);
     const name = getChatName(chat).toLowerCase();
-
     const typeMatches =
       currentFilter === "all" ||
-      type === currentFilter ||
-      (currentFilter === "private" && type === "direct");
+      type === currentFilter;
 
     return typeMatches && name.includes(search);
   });
@@ -882,20 +780,17 @@ function renderChats() {
   }
 
   for (const chat of filtered) {
-    const id = getChatId(chat);
     const type = getChatType(chat);
-    const selected = activeChat && getChatId(activeChat) === id;
-
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "chat-item" + (selected ? " selected" : "");
+    button.className = "chat-item" +
+      (activeChat && getChatId(activeChat) === getChatId(chat) ? " selected" : "");
 
     const avatar = document.createElement("div");
     avatar.className = "avatar";
     avatar.textContent =
       type === "group" ? "👥" :
-      type === "channel" ? "📢" :
-      "👤";
+      type === "channel" ? "📢" : "👤";
 
     const info = document.createElement("div");
     info.className = "chat-info";
@@ -922,19 +817,24 @@ function renderChats() {
 
     info.append(name, preview);
     button.append(avatar, info);
-
     button.addEventListener("click", () => selectChat(chat));
-
     list.appendChild(button);
   }
 }
 
 async function selectChat(chat) {
+  if (!getChatId(chat)) {
+    showStatus($("chatStatus"), "این گفت‌وگو شناسهٔ معتبر ندارد.", "error");
+    return;
+  }
+
   activeChat = chat;
   lastMessageSignature = "";
+  messageRequestVersion++;
 
   renderChats();
   updateConversationHeader();
+  hideStatus($("composerStatus"));
 
   $("messages").replaceChildren();
 
@@ -945,12 +845,10 @@ async function selectChat(chat) {
 
   await loadMessages();
 
-  if (messageRefreshTimer) {
-    clearInterval(messageRefreshTimer);
-  }
+  if (messageRefreshTimer) clearInterval(messageRefreshTimer);
 
   messageRefreshTimer = setInterval(() => {
-    if (activeChat) loadMessages({ quiet: true });
+    if (activeChat) loadMessages({quiet:true});
   }, 5000);
 }
 
@@ -964,76 +862,66 @@ function updateConversationHeader() {
   }
 
   const type = getChatType(activeChat);
-
   $("activeTitle").textContent = getChatName(activeChat);
   $("activeSubtitle").textContent =
     type === "group" ? "گروه" :
-    type === "channel" ? "کانال" :
-    "گفت‌وگوی خصوصی";
+    type === "channel" ? "کانال" : "گفت‌وگوی خصوصی";
 
   $("activeAvatar").textContent =
     type === "group" ? "👥" :
-    type === "channel" ? "📢" :
-    "👤";
+    type === "channel" ? "📢" : "👤";
 
-  $("membersBtn").hidden = !(
-    type === "group" ||
-    type === "channel"
-  );
+  $("membersBtn").hidden = !["group","channel"].includes(type);
 }
 
-/* ===============================
-   پیام‌ها
-================================ */
+/* بارگذاری پیام‌های متنی */
 async function loadMessages(options = {}) {
   if (!activeChat || loadingMessages) return;
 
+  const requestedChatId = getChatId(activeChat);
+  const requestVersion = messageRequestVersion;
   loadingMessages = true;
-
-  const quiet = Boolean(options.quiet);
-  const chatId = getChatId(activeChat);
 
   try {
     const data = await apiGet({
-      action: "messages",
-      conversationId: chatId,
-      conversation_id: chatId,
-      chatId: chatId
+      action:"messages",
+      conversationId:requestedChatId,
+      conversation_id:requestedChatId,
+      chatId:requestedChatId
     });
 
-    const messages = unwrapList(data, [
-      "messages",
-      "items"
-    ]);
+    if (
+      requestVersion !== messageRequestVersion ||
+      !activeChat ||
+      getChatId(activeChat) !== requestedChatId
+    ) return;
+
+    const messages = unwrapList(data, ["messages","items"]);
 
     const signature = JSON.stringify(
       messages.map(m => ({
-        id: m.id ?? m.message_id ?? "",
-        message: getMessageText(m),
-        time: getMessageTime(m),
-        sender: getSenderEmail(m)
+        id:m.id ?? m.message_id ?? "",
+        message:getMessageText(m),
+        time:getMessageTime(m),
+        sender:getSenderEmail(m)
       }))
     );
 
     if (signature !== lastMessageSignature) {
+      const container = $("messages");
       const shouldScroll =
-        $("messages").scrollHeight -
-        $("messages").scrollTop -
-        $("messages").clientHeight < 130;
+        container.scrollHeight - container.scrollTop - container.clientHeight < 130;
 
       renderMessages(messages);
       lastMessageSignature = signature;
 
-      if (shouldScroll) {
-        $("messages").scrollTop = $("messages").scrollHeight;
-      }
+      if (shouldScroll) container.scrollTop = container.scrollHeight;
     }
   } catch (error) {
     console.error("بارگذاری پیام‌ها ناموفق بود:", error);
 
-    if (!quiet) {
+    if (!options.quiet && requestVersion === messageRequestVersion) {
       $("messages").replaceChildren();
-
       const err = document.createElement("div");
       err.className = "empty";
       err.textContent = error.message || "بارگذاری پیام‌ها ناموفق بود.";
@@ -1041,42 +929,6 @@ async function loadMessages(options = {}) {
     }
   } finally {
     loadingMessages = false;
-  }
-}
-
-function parseMediaMessage(text) {
-  if (!text.startsWith(MEDIA_PREFIX)) return null;
-
-  try {
-    const media = JSON.parse(text.slice(MEDIA_PREFIX.length));
-
-    if (
-      media?.version !== 1 ||
-      !["image", "video"].includes(media.kind) ||
-      !isSafeMediaUrl(media.url)
-    ) {
-      return null;
-    }
-
-    return media;
-  } catch {
-    return null;
-  }
-}
-
-function isSafeMediaUrl(value) {
-  try {
-    const url = new URL(value);
-
-    return (
-      url.protocol === "https:" &&
-      url.hostname === "nzwgyvkbsznmpcilkpig.supabase.co" &&
-      url.pathname.startsWith(
-        "/storage/v1/object/public/" + SUPABASE_BUCKET + "/"
-      )
-    );
-  } catch {
-    return false;
   }
 }
 
@@ -1108,58 +960,7 @@ function renderMessages(messages) {
 
     const bubble = document.createElement("div");
     bubble.className = "bubble";
-
-    const text = getMessageText(message);
-    const media = parseMediaMessage(text);
-
-    if (media) {
-      bubble.classList.add("media-message");
-
-      if (media.kind === "image") {
-        const img = document.createElement("img");
-        img.src = media.url;
-        img.alt = media.name || "عکس ارسال‌شده";
-        img.loading = "lazy";
-        img.referrerPolicy = "no-referrer";
-
-        img.addEventListener("click", () => {
-          const opened = window.open(media.url, "_blank", "noopener");
-          if (opened) opened.opener = null;
-        });
-
-        img.addEventListener("error", () => {
-          img.alt = "نمایش عکس ممکن نیست";
-        });
-
-        bubble.appendChild(img);
-      } else {
-        const video = document.createElement("video");
-        video.src = media.url;
-        video.controls = true;
-        video.playsInline = true;
-        video.preload = "metadata";
-        video.setAttribute("controlsList", "nodownload");
-
-        bubble.appendChild(video);
-      }
-
-      if (media.caption) {
-        const caption = document.createElement("div");
-        caption.className = "media-caption";
-        caption.textContent = media.caption;
-        bubble.appendChild(caption);
-      }
-
-      if (media.name) {
-        const name = document.createElement("div");
-        name.className = "media-name";
-        name.textContent = media.name;
-        bubble.appendChild(name);
-      }
-    } else {
-      bubble.textContent = text;
-    }
-
+    bubble.textContent = getMessageText(message);
     row.appendChild(bubble);
 
     const timeValue = getMessageTime(message);
@@ -1174,9 +975,7 @@ function renderMessages(messages) {
   }
 }
 
-/* ===============================
-   ارسال پیام متنی
-================================ */
+/* ارسال پیام متنی */
 async function sendTextMessage() {
   if (!activeChat) {
     showStatus($("composerStatus"), "ابتدا یک گفت‌وگو انتخاب کن.", "error");
@@ -1186,30 +985,37 @@ async function sendTextMessage() {
   const input = $("messageInput");
   const message = input.value.trim();
 
-  if (!message) return;
-  if (sendingMessage || uploadingMedia) return;
+  if (!message || sendingMessage) return;
+
+  const chatId = getChatId(activeChat);
+  if (!chatId) {
+    showStatus($("composerStatus"), "شناسهٔ گفت‌وگو معتبر نیست.", "error");
+    return;
+  }
 
   sendingMessage = true;
   $("sendBtn").disabled = true;
+  input.disabled = true;
 
   try {
     hideStatus($("composerStatus"));
 
-    const id = getChatId(activeChat);
-
     await apiPost({
-      action: "sendMessage",
-      username: getUsername(),
-      conversationId: id,
-      conversation_id: id,
+      action:"sendMessage",
+      username:getUsername(),
+      conversationId:chatId,
+      conversation_id:chatId,
       message
     });
 
     input.value = "";
     input.style.height = "auto";
 
-    await loadMessages({ quiet: true });
-    await loadChats({ quiet: true });
+    showStatus($("composerStatus"), "پیام ارسال شد! ✓", "success");
+    lastMessageSignature = "";
+
+    await loadMessages({quiet:true});
+    await loadChats({quiet:true});
   } catch (error) {
     showStatus(
       $("composerStatus"),
@@ -1219,223 +1025,19 @@ async function sendTextMessage() {
   } finally {
     sendingMessage = false;
     $("sendBtn").disabled = false;
+    input.disabled = false;
     input.focus();
   }
 }
 
-/* ===============================
-   ارسال عکس و فیلم با Supabase
-================================ */
-function encodeObjectPath(path) {
-  return path
-    .split("/")
-    .map(segment => encodeURIComponent(segment))
-    .join("/");
-}
-
-function getFileExtension(file) {
-  const name = String(file.name || "");
-  const dot = name.lastIndexOf(".");
-
-  if (dot >= 0) {
-    const ext = name.slice(dot + 1).toLowerCase();
-    if (/^[a-z0-9]{1,10}$/.test(ext)) return ext;
-  }
-
-  const mimeExtensions = {
-    "image/jpeg": "jpg",
-    "image/png": "png",
-    "image/webp": "webp",
-    "image/gif": "gif",
-    "video/mp4": "mp4",
-    "video/webm": "webm",
-    "video/quicktime": "mov"
-  };
-
-  return mimeExtensions[file.type] || "bin";
-}
-
-function safeFileName(name) {
-  const base = String(name || "media")
-    .split(/[\\/]/)
-    .pop()
-    .replace(/[^\p{L}\p{N}._-]/gu, "_")
-    .slice(0, 90);
-
-  return base || "media";
-}
-
-async function uploadMedia(file) {
-  if (!ALLOWED_TYPES.has(file.type)) {
-    throw new Error(
-      "این نوع فایل پشتیبانی نمی‌شود. عکس JPG، PNG، WEBP، GIF یا فیلم MP4، WEBM و MOV انتخاب کن."
-    );
-  }
-
-  if (file.size <= 0) {
-    throw new Error("فایل انتخاب‌شده خالی است.");
-  }
-
-  if (file.size > MAX_FILE_SIZE) {
-    throw new Error("حجم فایل باید حداکثر ۳۰ مگابایت باشد.");
-  }
-
-  const extension = getFileExtension(file);
-  const random = Math.random().toString(36).slice(2, 10);
-  const objectName =
-    Date.now() + "-" + random + "." + extension;
-
-  const objectPath = "uploads/" + objectName;
-
-  const uploadUrl =
-    SUPABASE_URL +
-    "/storage/v1/object/" +
-    SUPABASE_BUCKET +
-    "/" +
-    encodeObjectPath(objectPath);
-
-  const response = await fetch(uploadUrl, {
-    method: "POST",
-    headers: {
-      "apikey": SUPABASE_PUBLIC_KEY,
-      "Authorization": "Bearer " + SUPABASE_PUBLIC_KEY,
-      "Content-Type": file.type,
-      "x-upsert": "false"
-    },
-    body: file
-  });
-
-  const raw = await response.text();
-
-  if (!response.ok) {
-    let reason = raw;
-
-    try {
-      const data = JSON.parse(raw);
-      reason =
-        data.message ||
-        data.error ||
-        data.error_description ||
-        raw;
-    } catch {}
-
-    if (response.status === 401 || response.status === 403) {
-      throw new Error(
-        "اجازه آپلود صادر نشد. سیاست‌های INSERT باکت hadaf-media را بررسی کن."
-      );
-    }
-
-    throw new Error("آپلود فایل ناموفق بود: " + reason);
-  }
-
-  const publicUrl =
-    SUPABASE_URL +
-    "/storage/v1/object/public/" +
-    SUPABASE_BUCKET +
-    "/" +
-    encodeObjectPath(objectPath);
-
-  return {
-    url: publicUrl,
-    name: safeFileName(file.name),
-    mime: file.type,
-    size: file.size,
-    kind: file.type.startsWith("image/") ? "image" : "video"
-  };
-}
-
-async function sendMediaFile(file) {
-  if (!activeChat) {
-    showStatus($("composerStatus"), "ابتدا یک گفت‌وگو انتخاب کن.", "error");
-    return;
-  }
-
-  if (uploadingMedia || sendingMessage) return;
-
-  uploadingMedia = true;
-  $("attachBtn").disabled = true;
-  $("sendBtn").disabled = true;
-
-  const captionInput = $("messageInput");
-  const caption = captionInput.value.trim();
-
-  try {
-    showStatus(
-      $("composerStatus"),
-      "در حال آپلود فایل... لطفاً صفحه را نبند.",
-      "info"
-    );
-
-    const media = await uploadMedia(file);
-
-    showStatus(
-      $("composerStatus"),
-      "فایل آپلود شد؛ در حال ارسال پیام...",
-      "info"
-    );
-
-    const mediaMessage = MEDIA_PREFIX + JSON.stringify({
-      version: 1,
-      kind: media.kind,
-      url: media.url,
-      name: media.name,
-      mime: media.mime,
-      size: media.size,
-      caption
-    });
-
-    const id = getChatId(activeChat);
-
-    await apiPost({
-      action: "sendMessage",
-      username: getUsername(),
-      conversationId: id,
-      conversation_id: id,
-      message: mediaMessage
-    });
-
-    captionInput.value = "";
-    captionInput.style.height = "auto";
-
-    showStatus(
-      $("composerStatus"),
-      media.kind === "image"
-        ? "عکس با موفقیت ارسال شد! 🖼️"
-        : "فیلم با موفقیت ارسال شد! 🎬",
-      "success"
-    );
-
-    await loadMessages({ quiet: true });
-    await loadChats({ quiet: true });
-  } catch (error) {
-    console.error("ارسال فایل ناموفق بود:", error);
-
-    showStatus(
-      $("composerStatus"),
-      error.message || "ارسال فایل ناموفق بود.",
-      "error"
-    );
-  } finally {
-    uploadingMedia = false;
-    $("attachBtn").disabled = false;
-    $("sendBtn").disabled = false;
-    $("mediaInput").value = "";
-  }
-}
-
-/* ===============================
-   ساخت گفت‌وگو
-================================ */
+/* ساخت گفت‌وگو */
 function updateNewChatForm() {
   const type = $("chatType").value;
   $("privateEmailRow").hidden = type !== "private";
   $("firstMemberRow").hidden = type === "private";
   $("chatName").placeholder =
-    type === "private"
-      ? "اختیاری"
-      : type === "group"
-        ? "مثلاً دوستان هدف"
-        : "مثلاً اخبار هدف";
+    type === "private" ? "اختیاری" :
+    type === "group" ? "مثلاً دوستان هدف" : "مثلاً اخبار هدف";
 }
 
 async function createChat(event) {
@@ -1451,7 +1053,6 @@ async function createChat(event) {
       showStatus($("newChatStatus"), "ایمیل طرف مقابل را وارد کن.", "error");
       return;
     }
-
     if (privateEmail === getEmail()) {
       showStatus($("newChatStatus"), "نمی‌توانی با خودت گفت‌وگو بسازی.", "error");
       return;
@@ -1468,17 +1069,16 @@ async function createChat(event) {
     hideStatus($("newChatStatus"));
 
     const data = await apiPost({
-      action: "createConversation",
+      action:"createConversation",
       type,
-      conversationType: type,
-      conversation_type: type,
+      conversationType:type,
+      conversation_type:type,
       name,
-      title: name,
-      recipientEmail: privateEmail,
-      recipient_email: privateEmail,
-      email: getEmail(),
-      memberEmail: firstMember,
-      member_email: firstMember
+      title:name,
+      recipientEmail:privateEmail,
+      recipient_email:privateEmail,
+      memberEmail:firstMember,
+      member_email:firstMember
     });
 
     await loadChats();
@@ -1491,21 +1091,17 @@ async function createChat(event) {
       data?.conversation?.id ??
       data?.id;
 
-    const created = chats.find(c => getChatId(c) === String(newId));
+    const created = newId != null
+      ? chats.find(c => getChatId(c) === String(newId))
+      : null;
 
-    if (created) {
-      await selectChat(created);
-    }
+    if (created) await selectChat(created);
 
     closeModal("newChatModal");
     $("newChatForm").reset();
     updateNewChatForm();
 
-    showStatus(
-      $("chatStatus"),
-      data?.message || "گفت‌وگو ساخته شد.",
-      "success"
-    );
+    showStatus($("chatStatus"), data?.message || "گفت‌وگو ساخته شد.", "success");
   } catch (error) {
     showStatus(
       $("newChatStatus"),
@@ -1517,13 +1113,20 @@ async function createChat(event) {
   }
 }
 
-/* ===============================
-   افزودن عضو به گروه/کانال
-================================ */
+/* افزودن عضو */
 async function addMember(event) {
   event.preventDefault();
 
-  if (!activeChat) return;
+  if (!activeChat) {
+    showStatus($("memberStatus"), "ابتدا یک گروه یا کانال انتخاب کن.", "error");
+    return;
+  }
+
+  const type = getChatType(activeChat);
+  if (!["group","channel"].includes(type)) {
+    showStatus($("memberStatus"), "افزودن عضو فقط برای گروه و کانال است.", "error");
+    return;
+  }
 
   const email = $("memberEmail").value.trim().toLowerCase();
 
@@ -1532,19 +1135,18 @@ async function addMember(event) {
     return;
   }
 
+  const id = getChatId(activeChat);
   const submit = $("addMemberSubmit");
   submit.disabled = true;
 
   try {
-    const id = getChatId(activeChat);
-
     const data = await apiPost({
-      action: "addMember",
-      conversationId: id,
-      conversation_id: id,
-      memberEmail: email,
-      member_email: email,
-      emailToAdd: email
+      action:"addMember",
+      conversationId:id,
+      conversation_id:id,
+      memberEmail:email,
+      member_email:email,
+      emailToAdd:email
     });
 
     showStatus(
@@ -1554,7 +1156,7 @@ async function addMember(event) {
     );
 
     $("memberEmail").value = "";
-    await loadChats({ quiet: true });
+    await loadChats({quiet:true});
   } catch (error) {
     showStatus(
       $("memberStatus"),
@@ -1566,9 +1168,7 @@ async function addMember(event) {
   }
 }
 
-/* ===============================
-   رویدادها
-================================ */
+/* رویدادها */
 $("sendBtn").addEventListener("click", sendTextMessage);
 
 $("messageInput").addEventListener("keydown", event => {
@@ -1584,27 +1184,12 @@ $("messageInput").addEventListener("input", () => {
   input.style.height = Math.min(input.scrollHeight, 130) + "px";
 });
 
-$("attachBtn").addEventListener("click", () => {
-  if (!activeChat) {
-    showStatus($("composerStatus"), "اول یک گفت‌وگو انتخاب کن.", "error");
-    return;
-  }
-
-  $("mediaInput").click();
-});
-
-$("mediaInput").addEventListener("change", async event => {
-  const file = event.target.files?.[0];
-  if (file) await sendMediaFile(file);
-});
-
 $("newChatBtn").addEventListener("click", () => {
   hideStatus($("newChatStatus"));
   openModal("newChatModal");
 });
 
 $("chatType").addEventListener("change", updateNewChatForm);
-
 $("newChatForm").addEventListener("submit", createChat);
 $("memberForm").addEventListener("submit", addMember);
 
@@ -1614,8 +1199,13 @@ $("membersBtn").addEventListener("click", () => {
 });
 
 $("refreshBtn").addEventListener("click", async () => {
-  await loadChats();
-  await loadMessages({ quiet: true });
+  $("refreshBtn").disabled = true;
+  try {
+    await loadChats();
+    await loadMessages({quiet:true});
+  } finally {
+    $("refreshBtn").disabled = false;
+  }
 });
 
 $("searchInput").addEventListener("input", renderChats);
@@ -1623,32 +1213,32 @@ $("searchInput").addEventListener("input", renderChats);
 document.querySelectorAll("[data-filter]").forEach(button => {
   button.addEventListener("click", () => {
     currentFilter = button.dataset.filter;
-
     document.querySelectorAll("[data-filter]").forEach(item => {
       item.classList.toggle("active", item === button);
     });
-
     renderChats();
   });
 });
 
 document.querySelectorAll("[data-close]").forEach(button => {
-  button.addEventListener("click", () => {
-    closeModal(button.dataset.close);
-  });
+  button.addEventListener("click", () => closeModal(button.dataset.close));
 });
 
 document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
   backdrop.addEventListener("click", event => {
-    if (event.target === backdrop) {
-      backdrop.classList.remove("show");
-    }
+    if (event.target === backdrop) backdrop.classList.remove("show");
   });
 });
 
-/* ===============================
-   شروع برنامه
-================================ */
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    document.querySelectorAll(".modal-backdrop.show").forEach(modal => {
+      modal.classList.remove("show");
+    });
+  }
+});
+
+/* شروع برنامه */
 async function startApp() {
   currentUser = getUser();
 
@@ -1662,29 +1252,26 @@ async function startApp() {
     $("chatList").appendChild(empty);
 
     $("messages").replaceChildren();
-
     const message = document.createElement("div");
     message.className = "empty";
     message.textContent = "ابتدا وارد حساب کاربری‌ات شو.";
     $("messages").appendChild(message);
 
     $("sendBtn").disabled = true;
-    $("attachBtn").disabled = true;
+    $("messageInput").disabled = true;
     $("newChatBtn").disabled = true;
+    $("refreshBtn").disabled = true;
     return;
   }
 
-  $("accountLabel").textContent =
-    getUsername() + " · " + getEmail();
-
+  $("accountLabel").textContent = getUsername() + " · " + getEmail();
   updateNewChatForm();
 
   await loadChats();
 
   if (chatRefreshTimer) clearInterval(chatRefreshTimer);
-
   chatRefreshTimer = setInterval(() => {
-    loadChats({ quiet: true });
+    loadChats({quiet:true});
   }, 10000);
 }
 
