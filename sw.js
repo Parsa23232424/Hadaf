@@ -1,4 +1,4 @@
-const CACHE_NAME = "hadaf-pwa-v13";
+const CACHE_NAME = "hadaf-pwa-v1";
 
 const FILES_TO_CACHE = [
     "./",
@@ -6,7 +6,8 @@ const FILES_TO_CACHE = [
     "./manifest.json",
     "./logo.png",
     "./resalat.png",
-    "./banner.png"
+    "./banner.png" ,
+    "./messenger.html"
 ];
 
 
