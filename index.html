@@ -1,58 +1,13 @@
-<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-
-<title>
-    سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی
-</title>
-
-<meta
-    name="description"
-    content="سایت هدف؛ جایی برای ساخت هدف‌های روزانه، حفظ Streak، بازی‌های آنلاین و استفاده از ابزارهای کاربردی مثل ماشین حساب و ساخت کیو آر کد."
->
-
-<meta
-    name="keywords"
-    content="سایت هدف, هدف من, هدف روزانه, استریک, بازی آنلاین, ابزار آنلاین, کیو آر کد"
->
-
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#07090f">
-
-<link
-    rel="canonical"
-    href="https://hadaf.site/"
->
-
-<meta
-    property="og:title"
-    content="سایت هدف | هر روز یک قدم جلوتر"
->
-
-<meta
-    property="og:description"
-    content="هدف روزانه بساز، Streak خودت رو حفظ کن، بازی کن و از ابزارهای کاربردی استفاده کن."
->
-
-<meta
-    property="og:image"
-    content="https://hadaf.site/logo.png"
->
-
-<meta
-    property="og:url"
-    content="https://hadaf.site/"
->
-
-<meta
-    property="og:type"
-    content="website"
->
-
-<script type="application/ld+json">
+<!DOCTYPE html><html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>سایت هدف | هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی</title><meta name="description" content="سایت هدف؛ جایی برای ساخت هدف‌های روزانه، حفظ Streak، بازی‌های آنلاین و استفاده از ابزارهای کاربردی مثل ساخت کیو آر کد."><meta name="keywords" content="سایت هدف, هدف من, هدف روزانه, استریک, بازی آنلاین, ابزار آنلاین, کیو آر کد"><meta name="robots" content="index, follow">
+<meta name="theme-color" content="#07090f"><link rel="canonical" href="https://hadaf.site/"><meta property="og:title" content="سایت هدف | هر روز یک قدم جلوتر">
+<meta property="og:description" content="هدف روزانه بساز، Streak خودت رو حفظ کن، بازی کن و از ابزارهای کاربردی استفاده کن.">
+<meta property="og:image" content="https://hadaf.site/logo.png">
+<meta property="og:url" content="https://hadaf.site/">
+<meta property="og:type" content="website"><script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -61,819 +16,879 @@
     "url": "https://hadaf.site/",
     "description": "هدف‌های روزانه، بازی آنلاین و ابزارهای کاربردی"
 }
-</script>
-
-<link rel="manifest" href="./manifest.json">
-
-<style>
-
-    :root {
-        --bg: #07090f;
-        --card: rgba(18,22,34,.95);
-        --border: rgba(255,255,255,.075);
-        --text: #f8fafc;
-        --muted: #8f98a9;
-        --primary: #6758ff;
-        --primary-2: #5146da;
-        --orange: #ff7a32;
-        --green: #22c55e;
-        --red: #ef4444;
-    }
-
-    * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        margin: 0;
-        min-height: 100vh;
-        padding-bottom: 100px;
-        color: var(--text);
-
-        font-family:
-            Tahoma,
-            "Segoe UI",
-            Arial,
-            sans-serif;
-
-        background:
-            radial-gradient(
-                circle at 85% -5%,
-                rgba(103,88,255,.16),
-                transparent 28%
-            ),
-            radial-gradient(
-                circle at 0% 35%,
-                rgba(37,99,235,.07),
-                transparent 30%
-            ),
-            var(--bg);
-    }
-
-    button {
-        font-family: inherit;
-    }
-
-    .app {
-        width: min(760px, 94%);
-        margin: auto;
-        padding: 18px 0 50px;
-    }
-
-    .topbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
-        margin-bottom: 32px;
-        direction: ltr;
-    }
-
-    .brand {
-        display: flex;
-        align-items: center;
-        gap: 11px;
-        direction: rtl;
-    }
-
-    .logo {
-        width: 48px;
-        height: 48px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        overflow: hidden;
-        border-radius: 16px;
-
-        background: rgba(103,88,255,.08);
-        border: 1px solid var(--border);
-    }
-
-    .logo img {
-        width: 40px;
-        height: 40px;
-        object-fit: contain;
-    }
-
-    .brand strong {
-        display: block;
-        font-size: 18px;
-    }
-
-    .brand small {
-        display: block;
-        margin-top: 3px;
-        color: var(--muted);
-        font-size: 10px;
-    }
-
-    .top-account {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        direction: rtl;
-        cursor: pointer;
-    }
-
-    .account-button {
-        width: 44px;
-        height: 44px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        flex-shrink: 0;
-
-        border: 1px solid var(--border);
-        border-radius: 14px;
-
-        color: white;
-        background: rgba(255,255,255,.035);
-
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-    .top-account-name {
-        max-width: 135px;
-
-        color: var(--text);
-
-        font-size: 13px;
-        font-weight: 700;
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .hero {
-        margin-bottom: 23px;
-    }
-
-    .hero-badge {
-        display: inline-flex;
-
-        padding: 7px 11px;
-        margin-bottom: 12px;
-
-        border-radius: 999px;
-
-        color: #c9c3ff;
-        background: rgba(103,88,255,.10);
-        border: 1px solid rgba(103,88,255,.20);
-
-        font-size: 11px;
-    }
-
-    .hero h1 {
-        margin: 0;
-        max-width: 600px;
-        font-size: clamp(32px,7vw,49px);
-        line-height: 1.35;
-    }
-
-    .hero h1 span {
-        color: #8b80ff;
-    }
-
-    .hero p {
-        margin: 10px 0 0;
-        max-width: 570px;
-        color: var(--muted);
-        line-height: 1.9;
-        font-size: 13px;
-    }
-
-    .banner {
-        width: 100%;
-        margin: 0 0 16px;
-        overflow: hidden;
-        border-radius: 22px;
-        border: 1px solid var(--border);
-        background: var(--card);
-
-        box-shadow:
-            0 16px 45px
-            rgba(0,0,0,.25);
-    }
-
-    .banner img {
-        display: block;
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-
-    .card {
-        padding: 20px;
-        margin-bottom: 14px;
-
-        border-radius: 24px;
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(18,22,34,.98),
-                rgba(11,14,22,.98)
-            );
-
-        border: 1px solid var(--border);
-
-        box-shadow:
-            0 16px 50px
-            rgba(0,0,0,.22);
-    }
-
-    .goal-card {
-        position: relative;
-        overflow: hidden;
-        background:
-            radial-gradient(
-                circle at 95% 0%,
-                rgba(103,88,255,.16),
-                transparent 35%
-            ),
-            linear-gradient(
-                145deg,
-                rgba(18,22,34,.98),
-                rgba(11,14,22,.98)
-            );
-
-        cursor: pointer;
-    }
-
-    .goal-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
-    }
-
-    .goal-label {
-        color: var(--muted);
-        font-size: 10px;
-    }
-
-    .goal-name {
-        margin-top: 7px;
-        font-size: 18px;
-        font-weight: 800;
-        line-height: 1.7;
-    }
-
-    .goal-arrow {
-        width: 38px;
-        height: 38px;
-
-        flex-shrink: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 13px;
-
-        color: #b7b0ff;
-        background: rgba(103,88,255,.10);
-
-        font-size: 22px;
-    }
-
-    .goal-stats {
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 8px;
-        margin-top: 17px;
-    }
-
-    .goal-stat {
-        padding: 11px 5px;
-        text-align: center;
-        border-radius: 14px;
-
-        color: var(--muted);
-        background: rgba(255,255,255,.025);
-        border: 1px solid rgba(255,255,255,.045);
-
-        font-size: 9px;
-    }
-
-    .goal-stat strong {
-        display: block;
-        margin-bottom: 5px;
-        color: white;
-        font-size: 19px;
-    }
-
-    .goal-stat.fire strong {
-        color: #ff8a45;
-    }
-
-    .goal-stat.best strong {
-        color: #facc15;
-    }
-
-    .goal-button {
-        width: 100%;
-        padding: 14px;
-        margin-top: 13px;
-
-        border: none;
-        border-radius: 15px;
-
-        color: white;
-
-        background:
-            linear-gradient(
-                100deg,
-                var(--primary),
-                var(--primary-2)
-            );
-
-        cursor: pointer;
-
-        font-size: 13px;
-        font-weight: 800;
-    }
-
-    .section {
-        padding-top: 16px;
-        scroll-margin-top: 20px;
-    }
-
-    .section-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 0 2px 13px;
-    }
-
-    .section-head h2 {
-        margin: 0;
-        font-size: 20px;
-    }
-
-    .section-head span {
-        color: var(--muted);
-        font-size: 10px;
-    }
-
+</script><link rel="manifest" href="./manifest.json"><style>
+:root {
+    --bg: #07090f;
+    --card: rgba(18,22,34,.95);
+    --border: rgba(255,255,255,.075);
+    --text: #f8fafc;
+    --muted: #8f98a9;
+    --primary: #6758ff;
+    --primary-2: #5146da;
+    --orange: #ff7a32;
+    --green: #22c55e;
+    --red: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding-bottom: 100px;
+    color: var(--text);
+    font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 85% -5%, rgba(103,88,255,.16), transparent 28%),
+        radial-gradient(circle at 0% 35%, rgba(37,99,235,.07), transparent 30%),
+        var(--bg);
+}
+
+button {
+    font-family: inherit;
+}
+
+.app {
+    width: min(760px, 94%);
+    margin: auto;
+    padding: 18px 0 50px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 32px;
+    direction: ltr;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    direction: rtl;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(103,88,255,.08);
+    border: 1px solid var(--border);
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.brand strong {
+    display: block;
+    font-size: 18px;
+}
+
+.brand small {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.top-account {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    direction: rtl;
+    cursor: pointer;
+}
+
+.account-button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: white;
+    background: rgba(255,255,255,.035);
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.top-account-name {
+    max-width: 135px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero {
+    margin-bottom: 23px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    padding: 7px 11px;
+    margin-bottom: 12px;
+    border-radius: 999px;
+    color: #c9c3ff;
+    background: rgba(103,88,255,.10);
+    border: 1px solid rgba(103,88,255,.20);
+    font-size: 11px;
+}
+
+.hero h1 {
+    margin: 0;
+    max-width: 600px;
+    font-size: clamp(32px,7vw,49px);
+    line-height: 1.35;
+}
+
+.hero h1 span {
+    color: #8b80ff;
+}
+
+.hero p {
+    margin: 10px 0 0;
+    max-width: 570px;
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 13px;
+}
+
+.banner {
+    width: 100%;
+    margin: 0 0 16px;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    box-shadow: 0 16px 45px rgba(0,0,0,.25);
+}
+
+.banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.card {
+    padding: 20px;
+    margin-bottom: 14px;
+    border-radius: 24px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,22,34,.98),
+            rgba(11,14,22,.98)
+        );
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 50px rgba(0,0,0,.22);
+}
+
+.goal-card {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 95% 0%,
+            rgba(103,88,255,.16),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(18,22,34,.98),
+            rgba(11,14,22,.98)
+        );
+    cursor: pointer;
+}
+
+.goal-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.goal-label {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.goal-name {
+    margin-top: 7px;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.7;
+}
+
+.goal-arrow {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    color: #b7b0ff;
+    background: rgba(103,88,255,.10);
+    font-size: 22px;
+}
+
+.goal-stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+    margin-top: 17px;
+}
+
+.goal-stat {
+    padding: 11px 5px;
+    text-align: center;
+    border-radius: 14px;
+    color: var(--muted);
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.045);
+    font-size: 9px;
+}
+
+.goal-stat strong {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 19px;
+}
+
+.goal-stat.fire strong {
+    color: #ff8a45;
+}
+
+.goal-stat.best strong {
+    color: #facc15;
+}
+
+.goal-button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 13px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    background: linear-gradient(100deg, var(--primary), var(--primary-2));
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.section {
+    padding-top: 16px;
+    scroll-margin-top: 20px;
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 2px 13px;
+}
+
+.section-head h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.section-head span {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.games {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+}
+
+.game-card {
+    min-height: 150px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 21px;
+    border: 1px solid var(--border);
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(103,88,255,.10),
+            transparent 45%
+        ),
+        var(--card);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.game-card:active {
+    transform: scale(.97);
+}
+
+.game-icon {
+    width: 47px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: rgba(103,88,255,.10);
+    font-size: 22px;
+}
+
+.game-title {
+    margin-top: 18px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.game-sub {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.tools {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+}
+
+.tool-card {
+    min-height: 102px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.tool-card:active {
+    transform: scale(.98);
+}
+
+.tool-info {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+}
+
+.tool-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    color: #c8c2ff;
+    background: rgba(103,88,255,.10);
+    border: 1px solid rgba(103,88,255,.12);
+    font-size: 20px;
+}
+
+.tool-title {
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.tool-sub {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+.resalat-card {
+    background:
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(34,197,94,.09),
+            transparent 55%
+        ),
+        var(--card);
+}
+
+.resalat-icon {
+    overflow: hidden;
+    background: rgba(34,197,94,.08);
+    border-color: rgba(34,197,94,.12);
+}
+
+.resalat-icon img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.qr-icon {
+    font-size: 23px;
+}
+
+.about {
+    margin-top: 26px;
+    text-align: center;
+}
+
+.about h2 {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.about p {
+    max-width: 570px;
+    margin: auto;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 2;
+}
+
+.logout {
+    width: 100%;
+    margin-top: 17px;
+    padding: 13px;
+    border: 1px solid rgba(239,68,68,.12);
+    border-radius: 15px;
+    color: #fca5a5;
+    background: rgba(239,68,68,.045);
+    cursor: pointer;
+    font-size: 11px;
+}
+
+footer {
+    padding: 30px 0 8px;
+    text-align: center;
+    color: #596171;
+    font-size: 10px;
+}
+
+.bottom-nav {
+    position: fixed;
+    z-index: 100;
+    right: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    transform: translateX(50%);
+    width: min(520px,92%);
+    height: 68px;
+    padding: 7px 8px;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 5px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 22px;
+    background: rgba(13,16,25,.93);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 15px 45px rgba(0,0,0,.45);
+}
+
+.nav-item {
+    border: none;
+    border-radius: 16px;
+    color: var(--muted);
+    background: transparent;
+    cursor: pointer;
+    font-size: 9px;
+}
+
+.nav-item span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.nav-item.active {
+    color: white;
+    background: rgba(103,88,255,.13);
+}
+
+@media(max-width:600px) {
     .games {
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 10px;
+        grid-template-columns: 1fr;
     }
 
     .game-card {
-        min-height: 150px;
-
-        padding: 16px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        border-radius: 21px;
-
-        border: 1px solid var(--border);
-
-        background:
-            radial-gradient(
-                circle at 100% 0%,
-                rgba(103,88,255,.10),
-                transparent 45%
-            ),
-            var(--card);
-
-        cursor: pointer;
-        transition: .2s;
-    }
-
-    .game-card:active {
-        transform: scale(.97);
-    }
-
-    .game-icon {
-        width: 47px;
-        height: 47px;
-
-        display: flex;
+        min-height: 105px;
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
-
-        border-radius: 15px;
-        background: rgba(103,88,255,.10);
-
-        font-size: 22px;
+        justify-content: flex-start;
+        gap: 13px;
     }
 
     .game-title {
-        margin-top: 18px;
-        font-size: 14px;
-        font-weight: 800;
-    }
-
-    .game-sub {
-        margin-top: 5px;
-        color: var(--muted);
-        font-size: 9px;
-        line-height: 1.7;
+        margin-top: 0;
     }
 
     .tools {
-        display: grid;
-        grid-template-columns: repeat(2,1fr);
-        gap: 10px;
-    }
-
-    .tool-card {
-        min-height: 102px;
-
-        padding: 15px;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        gap: 10px;
-
-        border-radius: 20px;
-
-        border: 1px solid var(--border);
-
-        background: var(--card);
-
-        cursor: pointer;
-        transition: .2s;
-    }
-
-    .tool-card:active {
-        transform: scale(.98);
-    }
-
-    .tool-info {
-        display: flex;
-        align-items: center;
-        gap: 11px;
-        min-width: 0;
-    }
-
-    .tool-icon {
-        width: 45px;
-        height: 45px;
-
-        flex-shrink: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 14px;
-
-        color: #c8c2ff;
-        background: rgba(103,88,255,.10);
-        border: 1px solid rgba(103,88,255,.12);
-
-        font-size: 20px;
-    }
-
-    .tool-title {
-        font-size: 13px;
-        font-weight: 800;
-        line-height: 1.5;
-    }
-
-    .tool-sub {
-        margin-top: 5px;
-        color: var(--muted);
-        font-size: 9px;
-        line-height: 1.6;
-    }
-
-    .resalat-card {
-        background:
-            radial-gradient(
-                circle at 0% 100%,
-                rgba(34,197,94,.09),
-                transparent 55%
-            ),
-            var(--card);
-    }
-
-    .resalat-icon {
-        overflow: hidden;
-        background: rgba(34,197,94,.08);
-        border-color: rgba(34,197,94,.12);
-    }
-
-    .resalat-icon img {
-        width: 35px;
-        height: 35px;
-        object-fit: contain;
-    }
-
-    .qr-icon {
-        font-size: 23px;
-    }
-
-    .about {
-        margin-top: 26px;
-        text-align: center;
-    }
-
-    .about h2 {
-        margin: 0 0 8px;
-        font-size: 17px;
-    }
-
-    .about p {
-        max-width: 570px;
-        margin: auto;
-        color: var(--muted);
-        font-size: 11px;
-        line-height: 2;
-    }
-
-    .logout {
-        width: 100%;
-
-        margin-top: 17px;
-        padding: 13px;
-
-        border: 1px solid rgba(239,68,68,.12);
-        border-radius: 15px;
-
-        color: #fca5a5;
-        background: rgba(239,68,68,.045);
-
-        cursor: pointer;
-        font-size: 11px;
-    }
-
-    footer {
-        padding: 30px 0 8px;
-        text-align: center;
-        color: #596171;
-        font-size: 10px;
+        grid-template-columns: 1fr;
     }
 
     .bottom-nav {
-        position: fixed;
-
-        z-index: 100;
-
-        right: 50%;
-        bottom: max(12px, env(safe-area-inset-bottom));
-
-        transform: translateX(50%);
-
-        width: min(520px,92%);
-        height: 68px;
-
-        padding: 7px 8px;
-
-        display: grid;
-        grid-template-columns: repeat(6,1fr);
-        gap: 5px;
-
-        border: 1px solid rgba(255,255,255,.08);
-        border-radius: 22px;
-
-        background: rgba(13,16,25,.93);
-
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-
-        box-shadow:
-            0 15px 45px
-            rgba(0,0,0,.45);
+        width: min(570px,96%);
+        gap: 2px;
     }
 
     .nav-item {
-        border: none;
-        border-radius: 16px;
-
-        color: var(--muted);
-        background: transparent;
-
-        cursor: pointer;
-        font-size: 9px;
+        font-size: 8px;
     }
 
     .nav-item span {
-        display: block;
-        margin-bottom: 4px;
-        font-size: 18px;
+        font-size: 17px;
+    }
+}
+
+@media(max-width:420px) {
+    .app {
+        width: 92%;
     }
 
-    .nav-item.active {
-        color: white;
-        background: rgba(103,88,255,.13);
+    .hero h1 {
+        font-size: 34px;
     }
 
-    @media(max-width:600px) {
-
-        .games {
-            grid-template-columns: 1fr;
-        }
-
-        .game-card {
-            min-height: 105px;
-
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-
-            gap: 13px;
-        }
-
-        .game-title {
-            margin-top: 0;
-        }
-
-        .tools {
-            grid-template-columns: 1fr;
-        }
-
-        .bottom-nav {
-            width: min(570px,96%);
-            gap: 2px;
-        }
-
-        .nav-item {
-            font-size: 8px;
-        }
-
-        .nav-item span {
-            font-size: 17px;
-        }
-
+    .card {
+        padding: 17px;
     }
 
-    @media(max-width:420px) {
-
-        .app {
-            width: 92%;
-        }
-
-        .hero h1 {
-            font-size: 34px;
-        }
-
-        .card {
-            padding: 17px;
-        }
-
-        .goal-name {
-            font-size: 16px;
-        }
-
-        .top-account-name {
-            max-width: 95px;
-            font-size: 12px;
-        }
-
-        .brand small {
-            display: none;
-        }
-
-        .bottom-nav {
-            height: 66px;
-            padding: 6px 5px;
-        }
-
-        .nav-item {
-            font-size: 7px;
-        }
-
-        .nav-item span {
-            font-size: 16px;
-            margin-bottom: 3px;
-        }
-
+    .goal-name {
+        font-size: 16px;
     }
 
-</style>
+    .top-account-name {
+        max-width: 95px;
+        font-size: 12px;
+    }
 
-</head><body><main class="app"><!-- HEADER -->
+    .brand small {
+        display: none;
+    }
 
-<header class="topbar">
+    .bottom-nav {
+        height: 66px;
+        padding: 6px 5px;
+    }
+
+    .nav-item {
+        font-size: 7px;
+    }
+
+    .nav-item span {
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+}
+</style></head><body><main class="app"><header class="topbar"><div class="top-account" onclick="goAccount()">
+
+    <button class="account-button" aria-label="حساب کاربری">
+        👤
+    </button>
+
+    <div class="top-account-name" id="accountName">
+        مهمان
+    </div>
+
+</div>
+
+<div class="brand">
+
+    <div class="logo">
+        <img src="logo.png" alt="لوگوی سایت هدف">
+    </div>
+
+    <div>
+        <strong>هدف</strong>
+        <small>هر روز یک قدم جلوتر</small>
+    </div>
+
+</div>
+
+</header><section class="hero"><div class="hero-badge">
+    سایت هدف
+</div>
+
+<h1>
+    روی هدفت
+    <span>تمرکز کن.</span>
+</h1>
+
+<p>
+    هدفت رو مشخص کن، هر روز ادامه بده،
+    Streak بساز و در کنارش از بازی‌ها
+    و ابزارهای سایت هدف استفاده کن.
+</p>
+
+</section><section class="banner"><img src="banner.png" alt="بنر سایت هدف">
+
+</section><div id="mediaad-aVMxe"></div><section class="card goal-card" onclick="location.href='goals.html'"><div class="goal-top">
+
+    <div>
+
+        <div class="goal-label">
+            🎯 هدف من
+        </div>
+
+        <div class="goal-name" id="goalName">
+            در حال دریافت...
+        </div>
+
+    </div>
+
+    <div class="goal-arrow">
+        ‹
+    </div>
+
+</div>
+
+<div class="goal-stats">
+
+    <div class="goal-stat fire">
+        <strong id="streak">0</strong>
+        🔥 Streak
+    </div>
+
+    <div class="goal-stat best">
+        <strong id="bestStreak">0</strong>
+        🏆 رکورد
+    </div>
+
+    <div class="goal-stat">
+        <strong id="totalDays">0</strong>
+        روز انجام
+    </div>
+
+</div>
+
+<button
+    class="goal-button"
+    onclick="
+        event.stopPropagation();
+        location.href='goals.html';
+    "
+>
+    رفتن به هدف من
+</button>
+
+</section><section class="section" id="games"><div class="section-head">
+
+    <h2>بازی‌ها</h2>
+
+    <span>
+        یه استراحت کوتاه 🎮
+    </span>
+
+</div>
+
+<div class="games">
 
     <div
-        class="top-account"
-        onclick="goAccount()"
+        class="game-card"
+        onclick="goTo('Game/Car/car.html')"
     >
 
-        <button
-            class="account-button"
-            aria-label="حساب کاربری"
-        >
-            👤
-        </button>
-
-        <div
-            class="top-account-name"
-            id="accountName"
-        >
-            مهمان
-        </div>
-
-    </div>
-
-    <div class="brand">
-
-        <div class="logo">
-
-            <img
-                src="logo.png"
-                alt="لوگوی سایت هدف"
-            >
-
+        <div class="game-icon">
+            🏎️
         </div>
 
         <div>
-
-            <strong>
-                هدف
-            </strong>
-
-            <small>
-                هر روز یک قدم جلوتر
-            </small>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <div class="hero-badge">
-        سایت هدف
-    </div>
-
-    <h1>
-        روی هدفت
-        <span>
-            تمرکز کن.
-        </span>
-    </h1>
-
-    <p>
-        هدفت رو مشخص کن، هر روز ادامه بده،
-        Streak بساز و در کنارش از بازی‌ها
-        و ابزارهای سایت هدف استفاده کن.
-    </p>
-
-</section>
-
-
-<!-- BANNER -->
-
-<section class="banner">
-
-    <img
-        src="banner.png"
-        alt="بنر سایت هدف"
-    >
-
-</section>
-    <div id="mediaad-aVMxe"></div>
-    
-
-<!-- GOAL -->
-
-<section
-    class="card goal-card"
-    onclick="location.href='goals.html'"
->
-
-    <div class="goal-top">
-
-        <div>
-
-            <div class="goal-label">
-                🎯 هدف من
+            <div class="game-title">
+                ماشین
             </div>
 
-            <div
-                class="goal-name"
-                id="goalName"
-            >
-                در حال دریافت...
+            <div class="game-sub">
+                سرعت و تمرکز
+            </div>
+        </div>
+
+    </div>
+
+    <div
+        class="game-card"
+        onclick="goTo('3dgame.html')"
+    >
+
+        <div class="game-icon">
+            🏎️
+        </div>
+
+        <div>
+            <div class="game-title">
+                مسابقه سه‌بعدی
+            </div>
+
+            <div class="game-sub">
+                وارد دنیای سه‌بعدی شو!
+            </div>
+        </div>
+
+    </div>
+
+    <div
+        class="game-card"
+        onclick="goTo('Game/snake/snake.html')"
+    >
+
+        <div class="game-icon">
+            🐍
+        </div>
+
+        <div>
+
+            <div class="game-title">
+                مار
+            </div>
+
+            <div class="game-sub">
+                رکوردت رو بهتر کن
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="game-card"
+        onclick="goTo('Game/memory/memory.html')"
+    >
+
+        <div class="game-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <div class="game-title">
+                حافظه
+            </div>
+
+            <div class="game-sub">
+                حافظه‌ت رو به چالش بکش
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="game-card"
+        onclick="goTo('pico-challenge.html')"
+    >
+
+        <div class="game-icon">
+            🤖
+        </div>
+
+        <div>
+
+            <div class="game-title">
+                پیکو چلنج
+            </div>
+
+            <div class="game-sub">
+                چالش هفتگی پیکو را انجام بده!
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="game-card"
+        onclick="goTo('pico-lab.html')"
+    >
+
+        <div class="game-icon">
+            🧪
+        </div>
+
+        <div>
+
+            <div class="game-title">
+                آزمایشگاه پیکو
+            </div>
+
+            <div class="game-sub">
+                با پیکو حرف بزن و چیزهای جدید کشف کن!
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section><section class="section" id="tools"><div class="section-head">
+
+    <h2>
+        ابزارها
+    </h2>
+
+    <span>
+        سریع و کاربردی
+    </span>
+
+</div>
+
+<div class="tools">
+
+    <div
+        class="tool-card resalat-card"
+        onclick="openResalat()"
+    >
+
+        <div class="tool-info">
+
+            <div class="tool-icon resalat-icon">
+
+                <img
+                    src="resalat.png"
+                    alt="ام رسالت"
+                >
+
+            </div>
+
+            <div>
+
+                <div class="tool-title">
+                    ورود به ام رسالت
+                </div>
+
+                <div class="tool-sub">
+                    دسترسی سریع به وب‌سایت ام‌رسالت
+                </div>
+
             </div>
 
         </div>
@@ -884,869 +899,491 @@
 
     </div>
 
-    <div class="goal-stats">
+    <div
+        class="tool-card"
+        onclick="goTo('qr.html')"
+    >
 
-        <div class="goal-stat fire">
+        <div class="tool-info">
 
-            <strong id="streak">
-                0
-            </strong>
+            <div class="tool-icon qr-icon">
+                ▦
+            </div>
 
-            🔥 Streak
+            <div>
+
+                <div class="tool-title">
+                    ساخت کیو آر کد
+                </div>
+
+                <div class="tool-sub">
+                    تبدیل متن و لینک به کیو آر کد
+                </div>
+
+            </div>
 
         </div>
 
-        <div class="goal-stat best">
-
-            <strong id="bestStreak">
-                0
-            </strong>
-
-            🏆 رکورد
-
-        </div>
-
-        <div class="goal-stat">
-
-            <strong id="totalDays">
-                0
-            </strong>
-
-            روز انجام
-
+        <div class="goal-arrow">
+            ‹
         </div>
 
     </div>
 
-    <button
-        class="goal-button"
-        onclick="
-            event.stopPropagation();
-            location.href='goals.html';
-        "
-    >
-        رفتن به هدف من
-    </button>
+</div>
 
-</section>
+</section><section class="about"><h2>
+    سایت هدف چیه؟
+</h2>
 
+<p>
+    هدف یک فضای ساده برای ساخت عادت‌های بهتر،
+    پیگیری هدف‌های روزانه، بازی و استفاده از
+    ابزارهای کاربردی آنلاینه.
+</p>
 
-<!-- GAMES -->
-
-<section
-    class="section"
-    id="games"
+<button
+    class="logout"
+    onclick="location.href='download.html'"
 >
+    📱 دانلود اپلیکیشن هدف
+</button>
 
-    <div class="section-head">
-
-        <h2>
-            بازی‌ها
-        </h2>
-
-        <span>
-            یه استراحت کوتاه 🎮
-        </span>
-
-    </div>
-
-    <div class="games">
-
-        <div
-            class="game-card"
-            onclick="goTo('Game/Car/car.html')"
-        >
-
-            <div class="game-icon">
-                🏎️
-            </div>
-
-            <div>
-
-                <div class="game-title">
-                    ماشین
-                </div>
-
-                <div class="game-sub">
-                    سرعت و تمرکز
-                </div>
-
-            </div>
-
-        </div>
-        <div class="game-card" onclick="goTo('3dgame.html')">
-    <div class="game-icon">🏎️</div>
-    <div>
-        <div class="game-title">مسابقه سه‌بعدی</div>
-        <div class="game-sub">وارد دنیای سه‌بعدی شو!</div>
-    </div>
-        </div>
-
-
-        <div
-            class="game-card"
-            onclick="goTo('Game/snake/snake.html')"
-        >
-
-            <div class="game-icon">
-                🐍
-            </div>
-
-            <div>
-
-                <div class="game-title">
-                    مار
-                </div>
-
-                <div class="game-sub">
-                    رکوردت رو بهتر کن
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="game-card"
-            onclick="goTo('Game/memory/memory.html')"
-        >
-
-            <div class="game-icon">
-                🧠
-            </div>
-
-            <div>
-
-                <div class="game-title">
-                    حافظه
-                </div>
-
-                <div class="game-sub">
-                    حافظه‌ت رو به چالش بکش
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PICO CHALLENGE -->
-
-        <div
-            class="game-card"
-            onclick="goTo('pico-challenge.html')"
-        >
-
-            <div class="game-icon">
-                🤖
-            </div>
-
-            <div>
-
-                <div class="game-title">
-                    پیکو چلنج
-                </div>
-
-                <div class="game-sub">
-                    چالش هفتگی پیکو را انجام بده!
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PICO AI LAB -->
-
-        <div
-            class="game-card"
-            onclick="goTo('pico-lab.html')"
-        >
-
-            <div class="game-icon">
-                🧪
-            </div>
-
-            <div>
-
-                <div class="game-title">
-                    آزمایشگاه پیکو
-                </div>
-
-                <div class="game-sub">
-                    با پیکو حرف بزن و چیزهای جدید کشف کن!
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- TOOLS -->
-
-<section
-    class="section"
-    id="tools"
+<button
+    class="logout"
+    id="logoutButton"
+    onclick="logout()"
+    style="display:none"
 >
+    خروج از حساب
+</button>
 
-    <div class="section-head">
-
-        <h2>
-            ابزارها
-        </h2>
-
-        <span>
-            سریع و کاربردی
-        </span>
-
-    </div>
-
-    <div class="tools">
-
-        <!-- RESALAT -->
-
-        <div
-            class="tool-card resalat-card"
-            onclick="openResalat()"
-        >
-
-            <div class="tool-info">
-
-                <div class="tool-icon resalat-icon">
-
-                    <img
-                        src="resalat.png"
-                        alt="ام رسالت"
-                    >
-
-                </div>
-
-                <div>
-
-                    <div class="tool-title">
-                        ورود به ام رسالت
-                    </div>
-
-                    <div class="tool-sub">
-                        دسترسی سریع به وب‌سایت ام‌رسالت
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="goal-arrow">
-                ‹
-            </div>
-
-        </div>
-
-
-        <!-- QR -->
-
-        <div
-            class="tool-card"
-            onclick="goTo('qr.html')"
-        >
-
-            <div class="tool-info">
-
-                <div class="tool-icon qr-icon">
-                    ▦
-                </div>
-
-                <div>
-
-                    <div class="tool-title">
-                        ساخت کیو آر کد
-                    </div>
-
-                    <div class="tool-sub">
-                        تبدیل متن و لینک به کیو آر کد
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="goal-arrow">
-                ‹
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ABOUT -->
-
-<section class="about">
-
-    <h2>
-        سایت هدف چیه؟
-    </h2>
-
-    <p>
-        هدف یک فضای ساده برای ساخت عادت‌های بهتر،
-        پیگیری هدف‌های روزانه، بازی و استفاده از
-        ابزارهای کاربردی آنلاینه.
-    </p>
-
-    <button
-        class="logout"
-        onclick="location.href='download.html'"
-    >
-        📱 دانلود اپلیکیشن هدف
-    </button>
-
-    <button
-        class="logout"
-        id="logoutButton"
-        onclick="logout()"
-        style="display:none"
-    >
-        خروج از حساب
-    </button>
-
-</section>
-
-
-<footer>
+</section><footer>
     سایت هدف • هر روز یک قدم جلوتر
-</footer>
-
-</main><!-- BOTTOM NAVIGATION --><nav class="bottom-nav"><button
+</footer></main><nav class="bottom-nav"><button
     class="nav-item active"
     onclick="goHome()"
 >
-
-    <span>
-        ⌂
-    </span>
-
+    <span>⌂</span>
     خانه
-
 </button>
-
 
 <button
     class="nav-item"
     onclick="location.href='goals.html'"
 >
-
-    <span>
-        ◎
-    </span>
-
+    <span>◎</span>
     هدف من
-
 </button>
-
 
 <button
     class="nav-item"
     onclick="scrollToSection('games')"
 >
-
-    <span>
-        🎮
-    </span>
-
+    <span>🎮</span>
     بازی‌ها
-
 </button>
-
 
 <button
     class="nav-item"
     onclick="scrollToSection('tools')"
 >
-
-    <span>
-        ◈
-    </span>
-
+    <span>◈</span>
     ابزارها
-
 </button>
-    <!-- 3D GAME -->
-<button class="nav-item" onclick="location.href='3dgame.html'">
+
+<button
+    class="nav-item"
+    onclick="location.href='3dgame.html'"
+>
     <span>🏎️</span>
     بازی سه‌بعدی
 </button>
-
-
-<!-- PICO LAB -->
 
 <button
     class="nav-item"
     onclick="location.href='pico-lab.html'"
 >
-
-    <span>
-        🤖
-    </span>
-
+    <span>🤖</span>
     پیکو
-
 </button>
 
-</nav><script>
+</nav><script type="text/javascript">
+(function () {
+    const head = document.getElementsByTagName("head")[0];
+    const script = document.createElement("script");
 
-    <script type="text/javascript">
-                (function (){
-                  const head = document.getElementsByTagName("head")[0];
-                  const script = document.createElement("script");
-                  script.type = "text/javascript";
-                  script.async = true;
-                  script.src = "https://s1.mediaad.org/serve/hadaf.site/loader.js";
-                  head.appendChild(script);
-                })();
-    </script>
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://s1.mediaad.org/serve/hadaf.site/loader.js";
+
+    head.appendChild(script);
+})();
+</script><script>
+
+/* =========================
+   API
+========================= */
+
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
 
 
-    /* =========================
-       API
-    ========================== */
+/* =========================
+   USER
+========================= */
 
-    const API_URL =
-        "https://script.google.com/macros/s/AKfycbx1UsE5KUPdEgjDKXNQHWglVVqgvCCs6uU47ZERKlyi7e4VfHI65gxemnf5EmHisxal/exec";
+function getUser() {
 
+    try {
 
-    /* =========================
-       USER
-    ========================== */
+        const saved =
+            localStorage.getItem("hadafUser");
 
-    function getUser() {
-
-        try {
-
-            const saved =
-                localStorage.getItem(
-                    "hadafUser"
-                );
-
-            if (!saved) {
-                return null;
-            }
-
-            return JSON.parse(saved);
-
-        }
-
-        catch (error) {
+        if (!saved) {
             return null;
         }
 
+        return JSON.parse(saved);
+
+    } catch (error) {
+
+        return null;
+
     }
 
+}
 
-    function getEmail() {
 
-        const user =
-            getUser();
+function getEmail() {
 
-        if (
-            !user ||
-            !user.email
-        ) {
-            return "";
-        }
+    const user = getUser();
 
-        return String(
-            user.email
-        )
+    if (!user || !user.email) {
+        return "";
+    }
+
+    return String(user.email)
         .trim()
         .toLowerCase();
 
+}
+
+
+/* =========================
+   ACCOUNT
+========================= */
+
+function showAccount() {
+
+    const user = getUser();
+
+    const name =
+        document.getElementById("accountName");
+
+    const logoutButton =
+        document.getElementById("logoutButton");
+
+    if (!user) {
+
+        name.textContent = "مهمان";
+
+        logoutButton.style.display = "none";
+
+        return;
+
     }
 
+    name.textContent =
+        user.username ||
+        user.name ||
+        "کاربر هدف";
 
-    /* =========================
-       ACCOUNT
-    ========================== */
+    logoutButton.style.display = "block";
 
-    function showAccount() {
+}
 
-        const user =
-            getUser();
 
-        const name =
-            document.getElementById(
-                "accountName"
-            );
+function goAccount() {
 
-        const logoutButton =
-            document.getElementById(
-                "logoutButton"
-            );
+    const user = getUser();
 
-        if (!user) {
+    if (!user) {
 
-            name.textContent =
-                "مهمان";
+        location.href = "login.html";
 
-            logoutButton.style.display =
-                "none";
+        return;
 
-            return;
+    }
 
-        }
-
-        name.textContent =
+    alert(
+        "سلام " +
+        (
             user.username ||
             user.name ||
-            "کاربر هدف";
+            "دوست هدف"
+        ) +
+        " 👋"
+    );
 
-        logoutButton.style.display =
-            "block";
-
-    }
+}
 
 
-    function goAccount() {
+function logout() {
 
-        const user =
-            getUser();
+    localStorage.removeItem("hadafUser");
 
-        if (!user) {
+    location.href = "login.html";
 
-            location.href =
-                "login.html";
+}
 
-            return;
 
-        }
+/* =========================
+   API CALL
+========================= */
 
-        alert(
-            "سلام " +
-            (
-                user.username ||
-                user.name ||
-                "دوست هدف"
-            ) +
-            " 👋"
+async function callAPI(data) {
+
+    const response =
+        await fetch(
+            API_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(data)
+            }
         );
 
-    }
+    return await response.json();
+
+}
 
 
-    function logout() {
+/* =========================
+   GOAL
+========================= */
 
-        localStorage.removeItem(
-            "hadafUser"
-        );
+async function loadGoal() {
 
-        location.href =
-            "login.html";
+    const goalName =
+        document.getElementById("goalName");
 
-    }
+    const streak =
+        document.getElementById("streak");
 
+    const bestStreak =
+        document.getElementById("bestStreak");
 
-    /* =========================
-       API CALL
-    ========================== */
+    const totalDays =
+        document.getElementById("totalDays");
 
-    async function callAPI(data) {
+    const email = getEmail();
 
-        const response =
-            await fetch(
-                API_URL,
-                {
-                    method:
-                        "POST",
+    if (!email) {
 
-                    headers: {
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-                    },
+        goalName.textContent =
+            "برای ساخت هدف وارد حساب شو";
 
-                    body:
-                        JSON.stringify(data)
-                }
-            );
+        streak.textContent = "0";
+        bestStreak.textContent = "0";
+        totalDays.textContent = "0";
 
-        return await response.json();
+        return;
 
     }
 
+    try {
 
-    /* =========================
-       GOAL
-    ========================== */
+        const result =
+            await callAPI({
 
-    async function loadGoal() {
+                action: "getGoal",
 
-        const goalName =
-            document.getElementById(
-                "goalName"
-            );
+                email: email
 
-        const streak =
-            document.getElementById(
-                "streak"
-            );
+            });
 
-        const bestStreak =
-            document.getElementById(
-                "bestStreak"
-            );
-
-        const totalDays =
-            document.getElementById(
-                "totalDays"
-            );
-
-        const email =
-            getEmail();
-
-        if (!email) {
+        if (
+            !result ||
+            !result.success ||
+            !result.goal
+        ) {
 
             goalName.textContent =
-                "برای ساخت هدف وارد حساب شو";
+                "هنوز هدفی نساختی";
 
-            streak.textContent =
-                "0";
-
-            bestStreak.textContent =
-                "0";
-
-            totalDays.textContent =
-                "0";
+            streak.textContent = "0";
+            bestStreak.textContent = "0";
+            totalDays.textContent = "0";
 
             return;
 
         }
 
-        try {
+        const goal = result.goal;
 
-            const result =
-                await callAPI({
+        goalName.textContent =
+            goal.goal ||
+            goal.name ||
+            "هدف من";
 
-                    action:
-                        "getGoal",
+        streak.textContent =
+            Number(goal.streak || 0);
 
-                    email:
-                        email
+        bestStreak.textContent =
+            Number(goal.bestStreak || 0);
+
+        totalDays.textContent =
+            Number(goal.totalDays || 0);
+
+    } catch (error) {
+
+        goalName.textContent = "هدف من";
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function goTo(path) {
+
+    location.href = path;
+
+}
+
+
+function openResalat() {
+
+    window.open(
+        "https://mresalat.ir/fa",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+function goHome() {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+    setActiveNav(0);
+
+}
+
+
+function scrollToSection(id) {
+
+    const section =
+        document.getElementById(id);
+
+    if (!section) {
+        return;
+    }
+
+    section.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+    });
+
+    if (id === "games") {
+        setActiveNav(2);
+    }
+
+    if (id === "tools") {
+        setActiveNav(3);
+    }
+
+}
+
+
+function setActiveNav(index) {
+
+    const items =
+        document.querySelectorAll(".nav-item");
+
+    items.forEach(function(item) {
+
+        item.classList.remove("active");
+
+    });
+
+    if (items[index]) {
+
+        items[index].classList.add("active");
+
+    }
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        showAccount();
+        loadGoal();
+
+    }
+);
+
+</script><script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register("./sw.js")
+
+                .then(() => {
+
+                    console.log(
+                        "✅ Hadaf PWA فعال شد"
+                    );
+
+                })
+
+                .catch(error => {
+
+                    console.error(
+                        "❌ خطای PWA:",
+                        error
+                    );
 
                 });
-
-            if (
-                !result ||
-                !result.success ||
-                !result.goal
-            ) {
-
-                goalName.textContent =
-                    "هنوز هدفی نساختی";
-
-                streak.textContent =
-                    "0";
-
-                bestStreak.textContent =
-                    "0";
-
-                totalDays.textContent =
-                    "0";
-
-                return;
-
-            }
-
-            const goal =
-                result.goal;
-
-            goalName.textContent =
-                goal.goal ||
-                goal.name ||
-                "هدف من";
-
-            streak.textContent =
-                Number(
-                    goal.streak || 0
-                );
-
-            bestStreak.textContent =
-                Number(
-                    goal.bestStreak || 0
-                );
-
-            totalDays.textContent =
-                Number(
-                    goal.totalDays || 0
-                );
-
-        }
-
-        catch (error) {
-
-            goalName.textContent =
-                "هدف من";
-
-            console.error(
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =========================
-       NAVIGATION
-    ========================== */
-
-    function goTo(path) {
-
-        location.href =
-            path;
-
-    }
-
-
-    function openResalat() {
-
-        window.open(
-            "https://mresalat.ir/fa",
-            "_blank",
-            "noopener,noreferrer"
-        );
-
-    }
-
-
-    function goHome() {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior:
-                "smooth"
-
-        });
-
-        setActiveNav(0);
-
-    }
-
-
-    function scrollToSection(id) {
-
-        const section =
-            document.getElementById(id);
-
-        if (!section) {
-            return;
-        }
-
-        section.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "start"
-
-        });
-
-        if (id === "games") {
-
-            setActiveNav(2);
-
-        }
-
-        if (id === "tools") {
-
-            setActiveNav(3);
-
-        }
-
-    }
-
-
-    function setActiveNav(index) {
-
-        const items =
-            document.querySelectorAll(
-                ".nav-item"
-            );
-
-        items.forEach(
-            function(item) {
-
-                item.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-        if (items[index]) {
-
-            items[index]
-                .classList
-                .add(
-                    "active"
-                );
-
-        }
-
-    }
-
-
-    /* =========================
-       START
-    ========================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function() {
-
-            showAccount();
-            loadGoal();
 
         }
     );
 
-</script><script>
+}
 
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                navigator.serviceWorker
-                    .register("./sw.js")
-
-                    .then(() => {
-
-                        console.log(
-                            "✅ Hadaf PWA فعال شد"
-                        );
-
-                    })
-
-                    .catch(error => {
-
-                        console.error(
-                            "❌ خطای PWA:",
-                            error
-                        );
-
-                    });
-
-            }
-        );
-
-    }
-
-</script></body></html>
+</script></body>
+</html>
