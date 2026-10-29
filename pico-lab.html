@@ -10,14 +10,17 @@
 <style>
 :root {
   --bg: #07090f;
-  --panel: #10131e;
   --primary: #6758ff;
   --orange: #ff7a32;
   --text: #f4f4fb;
   --muted: #a3a7bc;
   --border: #282d40;
 }
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -29,6 +32,7 @@ body {
   color: var(--text);
   font-family: Tahoma, Arial, sans-serif;
 }
+
 header {
   display: flex;
   align-items: center;
@@ -38,12 +42,14 @@ header {
   border-bottom: 1px solid var(--border);
   background: #07090fcc;
 }
+
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
   font-weight: bold;
 }
+
 .logo {
   width: 42px;
   height: 42px;
@@ -53,6 +59,7 @@ header {
   background: linear-gradient(135deg, var(--primary), #a44cff);
   font-size: 24px;
 }
+
 .brand small {
   display: block;
   margin-top: 5px;
@@ -60,6 +67,7 @@ header {
   font-size: 11px;
   font-weight: normal;
 }
+
 .header-link {
   color: white;
   text-decoration: none;
@@ -69,39 +77,66 @@ header {
   border-radius: 12px;
   font-size: 12px;
 }
+
 main {
   width: min(700px, 92%);
   margin: auto;
-  padding: 45px 0;
+  padding: 35px 0;
   text-align: center;
 }
+
 .orbit {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 28px;
+  width: 180px;
+  height: 180px;
+  max-width: 100%;
+  margin: 0 auto 25px;
   display: grid;
   place-items: center;
   position: relative;
   border-radius: 50%;
   background: radial-gradient(circle, #292052, #111321 70%);
   border: 1px solid #5145b9;
-  box-shadow: 0 0 65px #6758ff30;
+  box-shadow: 0 0 45px #6758ff30;
+  overflow: hidden;
 }
-.robot {
-  font-size: 75px;
+
+.pico-image {
+  display: block;
+  width: 150px;
+  height: 150px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
   animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px #00aaff55);
 }
+
 .spark {
   position: absolute;
+  z-index: 2;
   color: #c4b5fd;
-  font-size: 22px;
+  font-size: 20px;
+  pointer-events: none;
 }
-.spark.one { top: 12px; right: 18px; }
-.spark.two { bottom: 18px; left: 12px; color: var(--orange); }
+
+.spark.one {
+  top: 10px;
+  right: 15px;
+}
+
+.spark.two {
+  bottom: 12px;
+  left: 12px;
+  color: var(--orange);
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-5px); }
 }
+
 .status {
   display: inline-flex;
   align-items: center;
@@ -113,6 +148,7 @@ main {
   background: #17132b;
   font-size: 12px;
 }
+
 .status-dot {
   width: 8px;
   height: 8px;
@@ -120,12 +156,17 @@ main {
   background: var(--orange);
   box-shadow: 0 0 12px #ff7a3280;
 }
+
 h1 {
   margin: 22px 0 12px;
   font-size: clamp(27px, 6vw, 40px);
   line-height: 1.6;
 }
-h1 span { color: #a69dff; }
+
+h1 span {
+  color: #a69dff;
+}
+
 .description {
   max-width: 520px;
   margin: 0 auto;
@@ -133,12 +174,14 @@ h1 span { color: #a69dff; }
   font-size: 14px;
   line-height: 2.2;
 }
+
 .progress {
   display: flex;
   justify-content: center;
   gap: 7px;
   margin: 27px 0;
 }
+
 .progress span {
   width: 32px;
   height: 5px;
@@ -146,12 +189,20 @@ h1 span { color: #a69dff; }
   background: #393052;
   animation: glow 1.2s infinite alternate;
 }
-.progress span:nth-child(2) { animation-delay: .2s; }
-.progress span:nth-child(3) { animation-delay: .4s; }
+
+.progress span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.progress span:nth-child(3) {
+  animation-delay: .4s;
+}
+
 @keyframes glow {
   from { background: #393052; }
   to { background: #8b5cf6; }
 }
+
 .info {
   max-width: 460px;
   margin: 0 auto 25px;
@@ -163,6 +214,7 @@ h1 span { color: #a69dff; }
   font-size: 13px;
   line-height: 2;
 }
+
 .home {
   display: inline-block;
   padding: 13px 22px;
@@ -174,6 +226,7 @@ h1 span { color: #a69dff; }
   background: linear-gradient(135deg, var(--primary), #8b5cf6);
   box-shadow: 0 8px 25px #6758ff25;
 }
+
 footer {
   padding: 20px;
   border-top: 1px solid var(--border);
@@ -181,28 +234,42 @@ footer {
   color: var(--muted);
   font-size: 12px;
 }
-footer a { color: #a69dff; text-decoration: none; }
-@media (max-width: 430px) {
-  header { padding: 12px 4%; }
-  .header-link { padding: 9px; }
-  .brand { font-size: 13px; }
-  .orbit { width: 130px; height: 130px; }
-  .robot { font-size: 65px; }
+
+footer a {
+  color: #a69dff;
+  text-decoration: none;
 }
+
+@media (max-width: 430px) {
+  header {
+    padding: 12px 4%;
+  }
+
+  .header-link {
+    padding: 9px;
+  }
+
+  .brand {
+    font-size: 13px;
+  }
+
+  .orbit {
+    width: 160px;
+    height: 160px;
+  }
+
+  .pico-image {
+    width: 135px;
+    height: 135px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     scroll-behavior: auto !important;
-  }
-  .pico-image {
-  width: 150px;
-  height: 150px;
-  max-width: 100%;
-  object-fit: contain;
-  position: relative;
-  z-index: 1;
-  animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 18px #00aaff55);
   }
 }
 </style>
@@ -217,14 +284,23 @@ footer a { color: #a69dff; text-decoration: none; }
       <small>بخشی از سایت هدف</small>
     </div>
   </div>
-  <a class="header-link" href="index.html">صفحه اصلی هدف ↗</a>
+
+  <a class="header-link" href="index.html">
+    صفحه اصلی هدف ↗
+  </a>
 </header>
 
 <main>
   <div class="orbit">
-  <span class="spark one">✦</span>
-  <img src="pico.png" alt="پیکو، دستیار هوش مصنوعی سایت هدف" class="pico-image">
-  <span class="spark two">✧</span>
+    <span class="spark one">✦</span>
+    <img
+      src="pico.png"
+      alt="پیکو، دستیار هوش مصنوعی سایت هدف"
+      class="pico-image"
+      width="150"
+      height="150"
+    >
+    <span class="spark two">✧</span>
   </div>
 
   <div class="status">
@@ -237,7 +313,7 @@ footer a { color: #a69dff; text-decoration: none; }
   <p class="description">
     داریم آزمایشگاه هوش مصنوعی پیکو را ارتقا می‌دهیم تا تجربه‌ای بهتر و جذاب‌تر برایت بسازیم.
     <br>
-    پیکو فعلاً در استراحت کوتاهی است؛ به‌زودی دوباره می‌بینیمت! 💜
+    پیکو فعلاً در استراحت کوتاهی است؛ به‌زودی دوباره می‌بینیمت! 💙
   </p>
 
   <div class="progress" aria-label="در حال ارتقا">
@@ -252,7 +328,9 @@ footer a { color: #a69dff; text-decoration: none; }
     ممنون که برای بازگشت پیکو صبر می‌کنی!
   </div>
 
-  <a class="home" href="index.html">برگشت به سایت هدف ←</a>
+  <a class="home" href="index.html">
+    برگشت به سایت هدف ←
+  </a>
 </main>
 
 <footer>
