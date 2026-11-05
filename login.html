@@ -3,156 +3,326 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#171438">
-<title>ورود | هدف 🏹</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090f">
+<title>ورود و ثبت‌نام | هدف</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Tahoma,"Segoe UI",sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)}
-.container{width:100%;max-width:420px;padding:35px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.5);backdrop-filter:blur(12px)}
-h1{color:white;text-align:center;margin-bottom:10px}
-.subtitle{color:#aaa;text-align:center;margin-bottom:30px;line-height:1.8}
-.form-group{margin-bottom:18px}
-label{display:block;color:#ddd;margin-bottom:7px;font-size:14px}
-input{width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:white;font-size:16px;outline:none}
-input::placeholder{color:#aaa}
-input:focus{border-color:#6c63ff;box-shadow:0 0 0 3px rgba(108,99,255,.2)}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,#6c63ff,#3f3d9e);color:white;font-size:18px;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.6;cursor:wait}
-#message{display:none;margin-top:16px;padding:13px;border-radius:10px;text-align:center;line-height:1.9;white-space:pre-line;overflow-wrap:anywhere;font-size:14px}
-.register-link{text-align:center;color:#aaa;margin-top:20px;line-height:2}
-.register-link a{color:#8b83ff;text-decoration:none;font-weight:bold}
-@media(max-width:400px){.container{padding:25px 20px}}
+:root{
+ --bg:#07090f;
+ --card:rgba(18,22,34,.96);
+ --border:rgba(255,255,255,.08);
+ --text:#f8fafc;
+ --muted:#8f98a9;
+ --primary:#6758ff;
+ --primary2:#5146da;
+ --green:#22c55e;
+ --red:#ef4444;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+ margin:0;min-height:100vh;padding:20px;
+ display:flex;align-items:center;justify-content:center;
+ color:var(--text);
+ font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+ background:
+ radial-gradient(circle at 85% 0%,rgba(103,88,255,.19),transparent 32%),
+ radial-gradient(circle at 0% 100%,rgba(37,99,235,.08),transparent 35%),
+ var(--bg);
+}
+button,input{font-family:inherit}
+.container{width:min(430px,100%)}
+.brand{text-align:center;margin-bottom:25px}
+.logo{
+ width:68px;height:68px;margin:auto auto 12px;
+ display:flex;align-items:center;justify-content:center;
+ border-radius:22px;background:rgba(103,88,255,.10);
+ border:1px solid var(--border);overflow:hidden;
+}
+.logo img{width:55px;height:55px;object-fit:contain}
+.brand h1{font-size:25px;margin:0}
+.brand p{color:var(--muted);font-size:12px;margin:8px 0 0}
+.card{
+ padding:25px;border:1px solid var(--border);
+ border-radius:26px;background:var(--card);
+ box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+.tabs{
+ display:grid;grid-template-columns:1fr 1fr;gap:7px;
+ padding:5px;margin-bottom:23px;
+ border-radius:15px;background:rgba(255,255,255,.035);
+}
+.tab{
+ padding:12px;border:0;border-radius:11px;
+ color:var(--muted);background:transparent;
+ cursor:pointer;font-size:13px;
+}
+.tab.active{
+ color:white;background:linear-gradient(100deg,var(--primary),var(--primary2));
+ font-weight:bold;
+}
+h2{font-size:21px;margin:0 0 8px}
+.description{color:var(--muted);font-size:12px;margin:0 0 23px;line-height:1.8}
+.field{margin-bottom:16px}
+label{display:block;margin-bottom:8px;font-size:12px;color:#d5d9e3}
+input{
+ width:100%;height:49px;padding:0 14px;
+ border:1px solid var(--border);border-radius:14px;
+ outline:none;background:rgba(255,255,255,.035);
+ color:white;font-size:13px;direction:rtl;
+}
+input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(103,88,255,.12)}
+input::placeholder{color:#697386}
+.submit{
+ width:100%;height:51px;margin-top:7px;
+ border:0;border-radius:15px;color:white;
+ background:linear-gradient(100deg,var(--primary),var(--primary2));
+ font-size:14px;font-weight:bold;cursor:pointer;
+}
+.submit:disabled{opacity:.6;cursor:wait}
+.message{
+ display:none;margin-top:16px;padding:13px;
+ border-radius:13px;font-size:12px;line-height:1.9;
+}
+.message.error{display:block;color:#fecaca;background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.2)}
+.message.success{display:block;color:#bbf7d0;background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.2)}
+.switch{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
+.switch a{color:#a99fff;text-decoration:none;font-weight:bold}
+.back{text-align:center;margin-top:20px}
+.back a{color:var(--muted);font-size:11px;text-decoration:none}
+.footer{text-align:center;color:#596171;font-size:10px;margin-top:25px}
+.hidden{display:none}
 </style>
 </head>
+
 <body>
-<div class="container">
-<h1>🔐 ورود</h1>
-<p class="subtitle">به حساب هدف خوش آمدی!</p>
+<main class="container">
 
-<form id="loginForm">
-<div class="form-group">
-<label for="email">📧 ایمیل</label>
-<input id="email" name="email" type="email" placeholder="example@email.com" autocomplete="username" inputmode="email" maxlength="254" required>
-</div>
+ <header class="brand">
+  <div class="logo">
+   <img src="logo.png" alt="هدف">
+  </div>
+  <h1>هدف</h1>
+  <p>هر روز یک قدم جلوتر</p>
+ </header>
 
-<div class="form-group">
-<label for="password">🔒 رمز عبور</label>
-<input id="password" name="password" type="password" placeholder="رمز عبور" autocomplete="current-password" required>
-</div>
+ <section class="card">
 
-<button id="loginBtn" type="submit">ورود 🚀</button>
-</form>
+  <div class="tabs">
+   <button class="tab active" id="loginTab" type="button">ورود</button>
+   <button class="tab" id="signupTab" type="button">ثبت‌نام</button>
+  </div>
 
-<div id="message" role="status" aria-live="polite"></div>
+  <form id="loginForm">
+   <h2>خوش برگشتی! 👋</h2>
+   <p class="description">برای ادامه مسیرت وارد حساب هدف شو.</p>
 
-<div class="register-link">
-حساب نداری؟ <a href="signup.html">ثبت‌نام کن</a>
-</div>
-</div>
+   <div class="field">
+    <label for="loginEmail">ایمیل</label>
+    <input id="loginEmail" type="email" placeholder="example@email.com" autocomplete="email" required>
+   </div>
+
+   <div class="field">
+    <label for="loginPassword">رمز عبور</label>
+    <input id="loginPassword" type="password" placeholder="رمز عبورت را وارد کن" autocomplete="current-password" required>
+   </div>
+
+   <button class="submit" id="loginButton" type="submit">ورود به حساب</button>
+  </form>
+
+  <form id="signupForm" class="hidden">
+   <h2>به هدف خوش آمدی! 🚀</h2>
+   <p class="description">حساب خودت را بساز و قدم اول را بردار.</p>
+
+   <div class="field">
+    <label for="signupName">نام نمایشی</label>
+    <input id="signupName" type="text" placeholder="مثلاً پارسا" maxlength="40" autocomplete="name" required>
+   </div>
+
+   <div class="field">
+    <label for="signupEmail">ایمیل</label>
+    <input id="signupEmail" type="email" placeholder="example@email.com" autocomplete="email" required>
+   </div>
+
+   <div class="field">
+    <label for="signupPassword">رمز عبور</label>
+    <input id="signupPassword" type="password" placeholder="حداقل ۸ کاراکتر" minlength="8" autocomplete="new-password" required>
+   </div>
+
+   <div class="field">
+    <label for="signupPassword2">تکرار رمز عبور</label>
+    <input id="signupPassword2" type="password" placeholder="رمز عبور را دوباره وارد کن" minlength="8" autocomplete="new-password" required>
+   </div>
+
+   <button class="submit" id="signupButton" type="submit">ساخت حساب</button>
+  </form>
+
+  <div class="message" id="message" role="status" aria-live="polite"></div>
+
+  <div class="switch" id="switchText">
+   حساب نداری؟
+   <a href="?mode=signup" id="switchLink">ثبت‌نام کن</a>
+  </div>
+
+ </section>
+
+ <div class="back">
+  <a href="index.html">← بازگشت به صفحه اصلی</a>
+ </div>
+
+ <footer class="footer">هدف • هر روز یک قدم جلوتر</footer>
+
+</main>
 
 <script>
-"use strict";
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxA6cb5J_oVT-qqsEqfPhTIHT6H9uqIWAzs0lRqA64sfpZ9ElmcjzVbBCFkf1Q5GGrihQ/exec";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0PcukUBEiT0cb3joLPvbakKKkPND5z48gDcj7mcg6CnSb7RJ/exec";
+const $ = id => document.getElementById(id);
 
-const form = document.getElementById("loginForm");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const button = document.getElementById("loginBtn");
-const message = document.getElementById("message");
-
-let submitting = false;
-
-function showMessage(text, error = false) {
-    message.style.display = "block";
-    message.textContent = text;
-    message.style.background = error
-        ? "rgba(255,70,70,.15)"
-        : "rgba(70,255,70,.15)";
-    message.style.color = error ? "#ff8585" : "#8aff8a";
+function showMessage(text,type){
+ const box=$("message");
+ box.textContent=text;
+ box.className="message "+type;
 }
 
-form.addEventListener("submit", async event => {
-    event.preventDefault();
-    if (submitting) return;
+function clearMessage(){
+ $("message").textContent="";
+ $("message").className="message";
+}
 
-    const email = emailInput.value.trim().toLowerCase();
-    const password = passwordInput.value;
+function setMode(mode){
+ const signup=mode==="signup";
 
-    submitting = true;
-    button.disabled = true;
-    button.textContent = "در حال ورود...";
-    message.style.display = "none";
+ $("loginForm").classList.toggle("hidden",signup);
+ $("signupForm").classList.toggle("hidden",!signup);
+ $("loginTab").classList.toggle("active",!signup);
+ $("signupTab").classList.toggle("active",signup);
 
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "text/plain;charset=UTF-8",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                action: "login",
-                operation: "login",
-                email,
-                password
-            }),
-            cache: "no-store",
-            redirect: "follow"
-        });
+ $("switchText").innerHTML=signup
+ ? 'قبلاً حساب ساخته‌ای؟ <a href="?mode=login">وارد شو</a>'
+ : 'حساب نداری؟ <a href="?mode=signup">ثبت‌نام کن</a>';
 
-        const text = await response.text();
-        let result;
+ clearMessage();
+ history.replaceState(null,"",signup?"?mode=signup":"?mode=login");
+}
 
-        try {
-            result = JSON.parse(text);
-        } catch {
-            throw new Error("پاسخ API معتبر نیست. انتشار وب‌اپ را بررسی کن.");
-        }
+$("loginTab").addEventListener("click",()=>setMode("login"));
+$("signupTab").addEventListener("click",()=>setMode("signup"));
 
-        if (!response.ok || result.success !== true) {
-            throw new Error(result.message || result.error || "ایمیل یا رمز عبور اشتباه است.");
-        }
+async function callAPI(data){
+ const response=await fetch(API_URL,{
+  method:"POST",
+  headers:{"Content-Type":"text/plain;charset=utf-8"},
+  body:JSON.stringify(data)
+ });
 
-        const apiUser = result.user || result.data?.user || result.data || {};
+ const result=await response.json();
 
-        const userEmail = String(apiUser.email || result.email || email)
-            .trim().toLowerCase();
+ if(!response.ok || result.success===false){
+  throw new Error(result.error || result.message || "ارتباط با سرور ناموفق بود.");
+ }
 
-        const user = {
-            id: apiUser.id ?? result.id ?? "",
-            user_id: apiUser.user_id ?? result.user_id ?? "",
-            username: apiUser.username || result.username || "کاربر هدف",
-            email: userEmail,
-            score: Number(apiUser.score ?? result.score ?? 0)
-        };
+ return result;
+}
 
-        if (!user.email) {
-            throw new Error("ایمیل کاربر در پاسخ API وجود ندارد.");
-        }
+function saveSession(result){
+ const user=result.user || {};
+ const session=result.session || {};
 
-        localStorage.setItem("hadafUser", JSON.stringify(user));
-        localStorage.removeItem("hadafAccessToken");
+ if(!session.access_token){
+  throw new Error("توکن ورود دریافت نشد.");
+ }
 
-        const token = result.access_token || result.accessToken ||
-                      result.session?.access_token;
+ const displayName=
+  user.user_metadata?.display_name ||
+  user.user_metadata?.full_name ||
+  user.email?.split("@")[0] ||
+  "کاربر هدف";
 
-        if (token) localStorage.setItem("hadafAccessToken", token);
+ localStorage.setItem("hadafUser",JSON.stringify({
+  id:user.id,
+  email:user.email,
+  username:displayName,
+  name:displayName,
+  access_token:session.access_token,
+  refresh_token:session.refresh_token
+ }));
+}
 
-        showMessage("ورود موفق بود! در حال رفتن به سایت...");
-        button.textContent = "ورود موفق";
+$("loginForm").addEventListener("submit",async event=>{
+ event.preventDefault();
+ clearMessage();
 
-        setTimeout(() => location.href = "index.html", 800);
+ const button=$("loginButton");
+ button.disabled=true;
+ button.textContent="در حال ورود...";
 
-    } catch (error) {
-        showMessage(error.message || "ارتباط با سرور برقرار نشد.", true);
-        button.disabled = false;
-        button.textContent = "ورود 🚀";
-    } finally {
-        submitting = false;
-    }
+ try{
+  const result=await callAPI({
+   action:"login",
+   email:$("loginEmail").value.trim(),
+   password:$("loginPassword").value
+  });
+
+  saveSession(result);
+  showMessage("ورود موفق بود! در حال انتقال...","success");
+
+  setTimeout(()=>location.href="index.html",800);
+
+ }catch(error){
+  showMessage(error.message,"error");
+ }finally{
+  button.disabled=false;
+  button.textContent="ورود به حساب";
+ }
 });
+
+$("signupForm").addEventListener("submit",async event=>{
+ event.preventDefault();
+ clearMessage();
+
+ const password=$("signupPassword").value;
+ const password2=$("signupPassword2").value;
+
+ if(password!==password2){
+  showMessage("رمز عبور و تکرار آن یکسان نیستند.","error");
+  return;
+ }
+
+ const button=$("signupButton");
+ button.disabled=true;
+ button.textContent="در حال ساخت حساب...";
+
+ try{
+  const result=await callAPI({
+   action:"signup",
+   email:$("signupEmail").value.trim(),
+   password:password,
+   display_name:$("signupName").value.trim()
+  });
+
+  if(result.session?.access_token){
+   saveSession(result);
+   showMessage("حساب ساخته شد! در حال انتقال...","success");
+   setTimeout(()=>location.href="index.html",1000);
+  }else{
+   showMessage(
+    "ثبت‌نام انجام شد. ایمیلت را برای تأیید حساب بررسی کن؛ سپس از بخش ورود وارد شو.",
+    "success"
+   );
+  }
+
+ }catch(error){
+  showMessage(error.message,"error");
+ }finally{
+  button.disabled=false;
+  button.textContent="ساخت حساب";
+ }
+});
+
+const params=new URLSearchParams(location.search);
+setMode(params.get("mode")==="signup"?"signup":"login");
 </script>
 </body>
 </html>
