@@ -1,0 +1,770 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080a12">
+<title>جلسه آنلاین | Hadaf Meet</title>
+
+<style>
+:root {
+    --bg:#080a12;
+    --panel:#121624;
+    --border:rgba(255,255,255,.09);
+    --purple:#6758ff;
+    --text:#f8fafc;
+    --muted:#929bad;
+    --red:#ef4444;
+    --green:#22c55e;
+}
+
+* {
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body {
+    margin:0;
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+button,input {
+    font-family:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+.app {
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* Header */
+
+.header {
+    height:65px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    border-bottom:1px solid var(--border);
+    background:#0c0f19;
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo {
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:rgba(103,88,255,.15);
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+}
+
+.logo img {
+    width:32px;
+    height:32px;
+    object-fit:contain;
+}
+
+.brand strong {
+    font-size:14px;
+}
+
+.room-info {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.live-dot {
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+}
+
+.copy-room {
+    padding:9px 12px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:rgba(255,255,255,.04);
+    color:white;
+    font-size:10px;
+}
+
+/* Main */
+
+.main {
+    flex:1;
+    width:min(1200px,96%);
+    margin:auto;
+    padding:20px 0 115px;
+}
+
+.meeting-title {
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.meeting-title h1 {
+    font-size:18px;
+    margin:0;
+}
+
+.meeting-title p {
+    margin:6px 0 0;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.participant-count {
+    padding:10px 13px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:13px;
+    color:#c5c0ff;
+    font-size:11px;
+}
+
+/* Video grid */
+
+.video-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:13px;
+}
+
+.video-card {
+    position:relative;
+    overflow:hidden;
+    min-height:220px;
+    aspect-ratio:16/9;
+    border-radius:20px;
+    background:
+        radial-gradient(circle at center,rgba(103,88,255,.14),transparent 55%),
+        #141827;
+    border:1px solid var(--border);
+}
+
+.video-card video {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    background:#10131e;
+}
+
+.video-placeholder {
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+    color:var(--muted);
+}
+
+.avatar {
+    width:75px;
+    height:75px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    color:white;
+    background:linear-gradient(140deg,#6758ff,#30257d);
+    font-size:30px;
+}
+
+.video-placeholder small {
+    font-size:11px;
+}
+
+.video-name {
+    position:absolute;
+    bottom:12px;
+    right:12px;
+    z-index:2;
+    padding:8px 11px;
+    border-radius:10px;
+    background:rgba(0,0,0,.6);
+    color:white;
+    font-size:10px;
+}
+
+.video-status {
+    position:absolute;
+    top:12px;
+    left:12px;
+    z-index:2;
+    padding:7px 9px;
+    border-radius:9px;
+    background:rgba(0,0,0,.55);
+    color:#ddd;
+    font-size:9px;
+}
+
+.video-status.off {
+    color:#fca5a5;
+}
+
+/* Side panels */
+
+.panels {
+    display:grid;
+    grid-template-columns:1fr 300px;
+    gap:13px;
+    margin-top:15px;
+}
+
+.panel {
+    min-height:170px;
+    padding:17px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:18px;
+}
+
+.panel h3 {
+    margin:0 0 13px;
+    font-size:13px;
+}
+
+.panel-description {
+    color:var(--muted);
+    font-size:10px;
+    line-height:2;
+}
+
+.chat-messages {
+    height:115px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.chat-message {
+    padding:9px 11px;
+    max-width:90%;
+    border-radius:12px;
+    background:rgba(103,88,255,.12);
+    font-size:11px;
+    line-height:1.8;
+    align-self:flex-start;
+    overflow-wrap:anywhere;
+}
+
+.chat-message.me {
+    align-self:flex-end;
+    background:rgba(255,255,255,.07);
+}
+
+.chat-form {
+    display:flex;
+    gap:7px;
+    margin-top:12px;
+}
+
+.chat-form input {
+    min-width:0;
+    flex:1;
+    padding:11px;
+    color:white;
+    background:#090c15;
+    border:1px solid var(--border);
+    border-radius:11px;
+    outline:none;
+    font-size:11px;
+}
+
+.chat-form button {
+    width:43px;
+    border:0;
+    border-radius:11px;
+    color:white;
+    background:var(--purple);
+}
+
+/* Toolbar */
+
+.toolbar-wrap {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:10;
+    padding:12px 10px max(12px,env(safe-area-inset-bottom));
+    background:rgba(8,10,18,.95);
+    border-top:1px solid var(--border);
+    backdrop-filter:blur(15px);
+}
+
+.toolbar {
+    width:min(650px,100%);
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.control {
+    min-width:58px;
+    height:58px;
+    padding:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:#171c2b;
+    color:white;
+    font-size:19px;
+}
+
+.control small {
+    font-size:8px;
+    color:#c5cada;
+}
+
+.control.active {
+    background:rgba(103,88,255,.2);
+    border-color:rgba(103,88,255,.4);
+}
+
+.control.danger {
+    background:#b91c1c;
+    border-color:#dc2626;
+}
+
+.control.disabled {
+    background:#4b171e;
+    border-color:#7f1d1d;
+}
+
+.notice {
+    margin-top:15px;
+    padding:13px;
+    border-radius:13px;
+    color:#c7c3ff;
+    background:rgba(103,88,255,.08);
+    border:1px solid rgba(103,88,255,.15);
+    font-size:10px;
+    line-height:2;
+}
+
+/* Responsive */
+
+@media(max-width:700px) {
+    .panels {
+        grid-template-columns:1fr;
+    }
+
+    .video-grid {
+        grid-template-columns:1fr;
+    }
+
+    .video-card {
+        min-height:190px;
+    }
+
+    .toolbar {
+        gap:6px;
+    }
+
+    .control {
+        min-width:0;
+        flex:1;
+        height:56px;
+        border-radius:13px;
+    }
+
+    .header {
+        padding:0 12px;
+    }
+
+    .room-info {
+        font-size:9px;
+    }
+}
+
+@media(max-width:370px) {
+    .control {
+        font-size:16px;
+    }
+
+    .control small {
+        font-size:7px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <div class="brand">
+        <div class="logo">
+            <img src="logo.png" alt="هدف">
+        </div>
+        <strong>Hadaf Meet</strong>
+    </div>
+
+    <div class="room-info">
+        <span class="live-dot"></span>
+        <span>جلسه آزمایشی</span>
+        <button class="copy-room" onclick="copyInvite()">
+            🔗 دعوت
+        </button>
+    </div>
+
+</header>
+
+<main class="main">
+
+    <div class="meeting-title">
+        <div>
+            <h1>جلسه آنلاین</h1>
+            <p id="roomLabel">شناسه جلسه: در حال دریافت...</p>
+        </div>
+
+        <div class="participant-count">
+            👥 <span id="participantCount">1</span> نفر
+        </div>
+    </div>
+
+    <section class="video-grid">
+
+        <!-- تصویر خود کاربر -->
+
+        <div class="video-card">
+
+            <video id="localVideo" autoplay muted playsinline></video>
+
+            <div class="video-placeholder" id="localPlaceholder">
+                <div class="avatar">👤</div>
+                <small>تصویر دوربین شما</small>
+            </div>
+
+            <div class="video-name">شما</div>
+
+            <div class="video-status" id="cameraStatus">
+                دوربین خاموش
+            </div>
+
+        </div>
+
+        <!-- شرکت‌کنندگان دیگر -->
+
+        <div class="video-card">
+
+            <div class="video-placeholder">
+                <div class="avatar">👥</div>
+                <small>منتظر ورود شرکت‌کنندگان...</small>
+            </div>
+
+            <div class="video-name">شرکت‌کنندگان</div>
+
+            <div class="video-status">در انتظار</div>
+
+        </div>
+
+    </section>
+
+    <section class="panels">
+
+        <div class="panel">
+            <h3>💬 گفت‌وگوی جلسه</h3>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message">
+                    به جلسه هدف خوش آمدید!
+                </div>
+            </div>
+
+            <form class="chat-form" id="chatForm">
+                <input
+                    id="chatInput"
+                    placeholder="پیامت را بنویس..."
+                    maxlength="500"
+                    autocomplete="off"
+                >
+                <button type="submit">➤</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h3>👥 شرکت‌کنندگان</h3>
+
+            <div class="panel-description">
+                <p>👤 شما (میزبان این صفحه)</p>
+                <p>هنوز شخص دیگری وارد نشده است.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="notice">
+        این نسخه فعلاً محیط آزمایشی تماس است.
+        تصویر دوربین، میکروفون و اشتراک‌گذاری صفحه روی دستگاه شما
+        قابل آزمایش هستند؛ تماس با دیگران و چت همگام‌شده هنوز
+        به سرور ارتباطی نیاز دارند.
+    </div>
+
+</main>
+
+<div class="toolbar-wrap">
+
+    <div class="toolbar">
+
+        <button class="control" id="micButton" onclick="toggleMic()">
+            🎙️
+            <small>میکروفون</small>
+        </button>
+
+        <button class="control" id="cameraButton" onclick="toggleCamera()">
+            📷
+            <small>دوربین</small>
+        </button>
+
+        <button class="control" id="screenButton" onclick="toggleScreen()">
+            🖥️
+            <small>اشتراک صفحه</small>
+        </button>
+
+        <button class="control" onclick="copyInvite()">
+            🔗
+            <small>دعوت</small>
+        </button>
+
+        <button class="control danger" onclick="leaveMeeting()">
+            📞
+            <small>خروج</small>
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+const room = new URLSearchParams(location.search).get("room");
+
+const localVideo = document.getElementById("localVideo");
+const localPlaceholder = document.getElementById("localPlaceholder");
+const cameraStatus = document.getElementById("cameraStatus");
+
+let localStream = null;
+let cameraTrack = null;
+let micTrack = null;
+let screenStream = null;
+
+let cameraOn = false;
+let micOn = false;
+let screenOn = false;
+
+const micButton = document.getElementById("micButton");
+const cameraButton = document.getElementById("cameraButton");
+const screenButton = document.getElementById("screenButton");
+
+document.getElementById("roomLabel").textContent =
+    room ? "شناسه جلسه: " + room : "شناسه جلسه نامشخص";
+
+if (!room) {
+    document.querySelector(".notice").textContent =
+        "شناسه جلسه پیدا نشد. از صفحه جلسات هدف یک جلسه جدید بساز.";
+}
+
+async function startCamera() {
+    try {
+        localStream = await navigator.mediaDevices.getUserMedia({
+            video:true,
+            audio:true
+        });
+
+        cameraTrack = localStream.getVideoTracks()[0] || null;
+        micTrack = localStream.getAudioTracks()[0] || null;
+
+        if (cameraTrack) {
+            cameraTrack.enabled = false;
+        }
+
+        if (micTrack) {
+            micTrack.enabled = false;
+        }
+
+        localVideo.srcObject = localStream;
+
+        updateCamera();
+        updateMic();
+
+    } catch(error) {
+        showNotice(
+            "دسترسی به دوربین یا میکروفون ممکن نشد. مجوزهای مرورگر را بررسی کن."
+        );
+    }
+}
+
+async function toggleCamera() {
+    if (!localStream) {
+        await startCamera();
+    }
+
+    if (!cameraTrack) return;
+
+    cameraOn = !cameraOn;
+    cameraTrack.enabled = cameraOn;
+
+    updateCamera();
+}
+
+function updateCamera() {
+    localPlaceholder.style.display =
+        cameraOn ? "none" : "flex";
+
+    cameraStatus.textContent =
+        cameraOn ? "دوربین روشن" : "دوربین خاموش";
+
+    cameraStatus.classList.toggle("off",!cameraOn);
+    cameraButton.classList.toggle("active",cameraOn);
+}
+
+async function toggleMic() {
+    if (!localStream) {
+        await startCamera();
+    }
+
+    if (!micTrack) return;
+
+    micOn = !micOn;
+    micTrack.enabled = micOn;
+
+    updateMic();
+}
+
+function updateMic() {
+    micButton.classList.toggle("disabled",!micOn);
+    micButton.querySelector("small").textContent =
+        micOn ? "میکروفون روشن" : "میکروفون خاموش";
+}
+
+async function toggleScreen() {
+    if (screenOn) {
+        stopScreen();
+        return;
+    }
+
+    try {
+        screenStream = await navigator.mediaDevices.getDisplayMedia({
+            video:true
+        });
+
+        const screenTrack = screenStream.getVideoTracks()[0];
+
+        localVideo.srcObject = screenStream;
+        localPlaceholder.style.display = "none";
+
+        screenOn = true;
+        screenButton.classList.add("active");
+
+        screenTrack.onended = stopScreen;
+
+    } catch(error) {
+        showNotice("اشتراک‌گذاری صفحه شروع نشد.");
+    }
+}
+
+function stopScreen() {
+    if (screenStream) {
+        screenStream.getTracks().forEach(track => track.stop());
+    }
+
+    screenStream = null;
+    screenOn = false;
+
+    screenButton.classList.remove("active");
+
+    localVideo.srcObject = localStream;
+    updateCamera();
+}
+
+async function copyInvite() {
+    const link = location.href;
+
+    try {
+        await navigator.clipboard.writeText(link);
+        showNotice("لینک دعوت کپی شد.");
+    } catch(error) {
+        showNotice("کپی خودکار ممکن نشد. لینک صفحه را از نوار آدرس کپی کن.");
+    }
+}
+
+function showNotice(message) {
+    const notice = document.querySelector(".notice");
+    notice.textContent = message;
+}
+
+document.getElementById("chatForm").addEventListener(
+    "submit",
+    function(event) {
+        event.preventDefault();
+
+        const input = document.getElementById("chatInput");
+        const message = input.value.trim();
+
+        if (!message) return;
+
+        const item = document.createElement("div");
+        item.className = "chat-message me";
+        item.textContent = message;
+
+        const messages = document.getElementById("chatMessages");
+        messages.appendChild(item);
+
+        messages.scrollTop = messages.scrollHeight;
+        input.value = "";
+    }
+);
+
+function leaveMeeting() {
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+    }
+
+    if (screenStream) {
+        screenStream.getTracks().forEach(track => track.stop());
+    }
+
+    location.href = "meet.html";
+}
+</script>
+
+</body>
+</html>
