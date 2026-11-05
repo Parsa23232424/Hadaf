@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a12">
+<title>جلسات هدف | Hadaf Meet</title>
+
+<style>
+:root {
+    --bg:#080a12;
+    --card:#121624;
+    --border:rgba(255,255,255,.08);
+    --purple:#6758ff;
+    --purple2:#5146da;
+    --text:#f8fafc;
+    --muted:#929bad;
+    --green:#22c55e;
+}
+
+* {
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body {
+    margin:0;
+    min-height:100vh;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 50% -10%,rgba(103,88,255,.2),transparent 35%),
+        var(--bg);
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+button,input {
+    font-family:inherit;
+}
+
+.container {
+    width:min(950px,92%);
+    margin:auto;
+    padding:22px 0 55px;
+}
+
+header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:65px;
+}
+
+.brand {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo {
+    width:48px;
+    height:48px;
+    border-radius:16px;
+    background:rgba(103,88,255,.13);
+    border:1px solid rgba(103,88,255,.25);
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+}
+
+.logo img {
+    width:40px;
+    height:40px;
+    object-fit:contain;
+}
+
+.brand h2 {
+    font-size:17px;
+    margin:0;
+}
+
+.brand p {
+    color:var(--muted);
+    font-size:10px;
+    margin:5px 0 0;
+}
+
+.home-button {
+    padding:11px 15px;
+    color:#c5c0ff;
+    background:rgba(103,88,255,.1);
+    border:1px solid rgba(103,88,255,.2);
+    border-radius:13px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.hero {
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.badge {
+    display:inline-block;
+    padding:8px 13px;
+    border-radius:30px;
+    color:#bdb5ff;
+    background:rgba(103,88,255,.12);
+    border:1px solid rgba(103,88,255,.2);
+    font-size:11px;
+}
+
+.hero h1 {
+    margin:20px 0 12px;
+    font-size:clamp(32px,7vw,51px);
+    line-height:1.4;
+}
+
+.hero h1 span {
+    color:#897dff;
+}
+
+.hero p {
+    color:var(--muted);
+    font-size:13px;
+    line-height:2;
+    max-width:520px;
+    margin:auto;
+}
+
+.actions {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    max-width:750px;
+    margin:auto;
+}
+
+.card {
+    padding:25px;
+    border-radius:25px;
+    border:1px solid var(--border);
+    background:linear-gradient(145deg,#151a2a,#10131e);
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.card-icon {
+    width:55px;
+    height:55px;
+    display:grid;
+    place-items:center;
+    font-size:26px;
+    border-radius:17px;
+    background:rgba(103,88,255,.13);
+    margin-bottom:20px;
+}
+
+.card h2 {
+    font-size:19px;
+    margin:0 0 10px;
+}
+
+.card p {
+    color:var(--muted);
+    font-size:11px;
+    line-height:2;
+    min-height:44px;
+    margin:0 0 20px;
+}
+
+.primary-button {
+    width:100%;
+    padding:15px;
+    color:white;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(100deg,var(--purple),var(--purple2));
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary-button:active {
+    transform:scale(.98);
+}
+
+.input {
+    width:100%;
+    padding:15px;
+    color:white;
+    background:#090c15;
+    border:1px solid var(--border);
+    border-radius:13px;
+    outline:none;
+    direction:ltr;
+    text-align:left;
+    margin-bottom:12px;
+    font-size:12px;
+}
+
+.input:focus {
+    border-color:var(--purple);
+}
+
+.features {
+    margin-top:55px;
+}
+
+.features h2 {
+    text-align:center;
+    font-size:19px;
+    margin-bottom:22px;
+}
+
+.feature-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.feature {
+    padding:18px 10px;
+    text-align:center;
+    background:rgba(255,255,255,.025);
+    border:1px solid var(--border);
+    border-radius:17px;
+}
+
+.feature span {
+    display:block;
+    font-size:23px;
+    margin-bottom:12px;
+}
+
+.feature strong {
+    display:block;
+    font-size:11px;
+}
+
+.feature small {
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:7px;
+}
+
+.result {
+    display:none;
+    margin-top:20px;
+    padding:17px;
+    background:rgba(34,197,94,.06);
+    border:1px solid rgba(34,197,94,.2);
+    border-radius:17px;
+}
+
+.result h3 {
+    color:#86efac;
+    font-size:13px;
+    margin:0 0 12px;
+}
+
+.link-box {
+    display:flex;
+    gap:8px;
+}
+
+.link-box input {
+    min-width:0;
+    flex:1;
+    padding:12px;
+    direction:ltr;
+    text-align:left;
+    color:white;
+    background:#080c13;
+    border:1px solid var(--border);
+    border-radius:11px;
+    font-size:10px;
+}
+
+.copy-button {
+    padding:10px 13px;
+    color:white;
+    background:#198754;
+    border:0;
+    border-radius:11px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.note {
+    color:var(--muted);
+    font-size:10px;
+    line-height:2;
+    margin-top:12px;
+}
+
+footer {
+    text-align:center;
+    color:#626b7d;
+    font-size:10px;
+    margin-top:60px;
+}
+
+@media(max-width:650px) {
+    header {
+        margin-bottom:45px;
+    }
+
+    .actions {
+        grid-template-columns:1fr;
+    }
+
+    .feature-grid {
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .card {
+        padding:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <div class="brand">
+        <div class="logo">
+            <img src="logo.png" alt="هدف">
+        </div>
+        <div>
+            <h2>Hadaf Meet</h2>
+            <p>جلسات آنلاین هدف</p>
+        </div>
+    </div>
+
+    <button class="home-button" onclick="location.href='index.html'">
+        خانه هدف ←
+    </button>
+</header>
+
+<section class="hero">
+    <span class="badge">💜 ارتباط بدون مرز</span>
+
+    <h1>
+        با هم <span>جلسه بگذارید.</span>
+    </h1>
+
+    <p>
+        یک جلسه جدید بسازید یا با لینک دعوت وارد جلسه دوستانتان شوید.
+        ارتباط آسان، سریع و ساده با هدف.
+    </p>
+</section>
+
+<section class="actions">
+
+    <div class="card">
+        <div class="card-icon">🎥</div>
+
+        <h2>جلسه جدید</h2>
+
+        <p>
+            یک جلسه آنلاین جدید ایجاد کن و لینک دعوت را برای دوستانت بفرست.
+        </p>
+
+        <button class="primary-button" onclick="createMeeting()">
+            + ساخت جلسه جدید
+        </button>
+
+        <div class="result" id="result">
+            <h3>جلسه ساخته شد!</h3>
+
+            <div class="link-box">
+                <input id="meetingLink" readonly>
+                <button class="copy-button" onclick="copyLink()">
+                    کپی
+                </button>
+            </div>
+
+            <div class="note">
+                این فعلاً لینک آزمایشی است؛ برای ورود واقعی افراد،
+                باید سرور تماس را راه‌اندازی کنیم.
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">🔗</div>
+
+        <h2>پیوستن به جلسه</h2>
+
+        <p>
+            لینک دعوت جلسه را وارد کن و برای ورود به آن آماده شو.
+        </p>
+
+        <input
+            class="input"
+            id="joinLink"
+            placeholder="لینک یا شناسه جلسه"
+            autocomplete="off"
+        >
+
+        <button class="primary-button" onclick="joinMeeting()">
+            ورود به جلسه ←
+        </button>
+    </div>
+
+</section>
+
+<section class="features">
+
+    <h2>امکانات جلسات هدف</h2>
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <span>🎙️</span>
+            <strong>تماس صوتی</strong>
+            <small>گفت‌وگوی زنده</small>
+        </div>
+
+        <div class="feature">
+            <span>📹</span>
+            <strong>تماس تصویری</strong>
+            <small>ارتباط چهره‌به‌چهره</small>
+        </div>
+
+        <div class="feature">
+            <span>👥</span>
+            <strong>جلسات گروهی</strong>
+            <small>دعوت دوستان</small>
+        </div>
+
+        <div class="feature">
+            <span>🖥️</span>
+            <strong>اشتراک صفحه</strong>
+            <small>نمایش صفحه دستگاه</small>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    Hadaf Meet · بخشی از خانواده هدف 💜
+</footer>
+
+</div>
+
+<script>
+function createMeeting() {
+    const token = crypto.randomUUID().replaceAll("-", "");
+
+    const link = new URL(
+        "meeting.html?room=" + encodeURIComponent(token),
+        location.href
+    ).href;
+
+    document.getElementById("meetingLink").value = link;
+    document.getElementById("result").style.display = "block";
+}
+
+async function copyLink() {
+    const input = document.getElementById("meetingLink");
+
+    try {
+        await navigator.clipboard.writeText(input.value);
+        document.querySelector(".copy-button").textContent = "کپی شد ✓";
+    } catch(error) {
+        input.select();
+        document.execCommand("copy");
+        document.querySelector(".copy-button").textContent = "کپی شد ✓";
+    }
+}
+
+function joinMeeting() {
+    const value = document.getElementById("joinLink").value.trim();
+
+    if (!value) {
+        document.getElementById("joinLink").focus();
+        return;
+    }
+
+    try {
+        const url = new URL(value, location.href);
+
+        if (url.origin !== location.origin) {
+            alert("لطفاً لینک معتبر جلسه هدف را وارد کن.");
+            return;
+        }
+
+        const room = url.searchParams.get("room");
+
+        if (room) {
+            location.href = "meeting.html?room=" + encodeURIComponent(room);
+            return;
+        }
+
+        alert("شناسه جلسه در این لینک پیدا نشد.");
+    } catch(error) {
+        const token = value.replace(/[^a-zA-Z0-9_-]/g, "");
+
+        if (token.length < 8) {
+            alert("شناسه جلسه معتبر نیست.");
+            return;
+        }
+
+        location.href = "meeting.html?room=" + encodeURIComponent(token);
+    }
+}
+</script>
+
+</body>
+</html>
