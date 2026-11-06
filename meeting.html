@@ -3,7 +3,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#080a12">
 <title>جلسه آنلاین | Hadaf Meet</title>
 
@@ -31,6 +31,8 @@ body {
     color:var(--text);
     font-family:Tahoma,Arial,sans-serif;
 }
+
+body.modal-open {overflow:hidden}
 
 button,input {font-family:inherit}
 button {cursor:pointer}
@@ -306,12 +308,12 @@ button {cursor:pointer}
 }
 
 .toolbar {
-    width:min(650px,100%);
+    width:min(750px,100%);
     margin:auto;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:10px;
+    gap:8px;
 }
 
 .control {
@@ -362,24 +364,148 @@ button {cursor:pointer}
     overflow-wrap:anywhere;
 }
 
+/* Presentation */
+
+.presentation-modal {
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:#070910;
+    display:none;
+    flex-direction:column;
+}
+
+.presentation-modal.show {display:flex}
+
+.presentation-header {
+    min-height:60px;
+    padding:10px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    background:#101421;
+    border-bottom:1px solid var(--border);
+}
+
+.presentation-title {
+    min-width:0;
+    overflow:hidden;
+}
+
+.presentation-title strong {
+    display:block;
+    font-size:12px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.presentation-title small {
+    display:block;
+    margin-top:5px;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.presentation-close {
+    width:40px;
+    height:40px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    color:white;
+    background:#252b3b;
+    font-size:20px;
+}
+
+.presentation-stage {
+    flex:1;
+    min-height:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px;
+    overflow:hidden;
+    background:#080a12;
+}
+
+.presentation-stage img {
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    display:none;
+    border-radius:5px;
+    background:white;
+}
+
+.presentation-empty {
+    color:var(--muted);
+    font-size:12px;
+    text-align:center;
+    line-height:2.2;
+}
+
+.presentation-controls {
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    padding:10px;
+    background:#101421;
+    border-top:1px solid var(--border);
+}
+
+.slide-button {
+    min-width:100px;
+    padding:12px 16px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    background:var(--purple);
+    font-size:11px;
+}
+
+.slide-button.secondary {
+    background:#252b3b;
+    border:1px solid var(--border);
+}
+
+.slide-button:disabled {
+    opacity:.35;
+    cursor:not-allowed;
+}
+
+.slide-counter {
+    min-width:75px;
+    color:#d4d0ff;
+    text-align:center;
+    font-size:11px;
+}
+
+.file-input {display:none}
+
 @media(max-width:700px) {
     .panels {grid-template-columns:1fr}
     .video-grid {grid-template-columns:1fr}
     .video-card {min-height:190px}
-    .toolbar {gap:6px}
+    .toolbar {gap:5px}
     .control {
         min-width:0;
         flex:1;
-        height:56px;
+        height:55px;
         border-radius:13px;
     }
+    .control small {font-size:7px}
     .header {padding:0 12px}
     .room-info {font-size:9px}
+    .presentation-controls {gap:7px}
+    .slide-button {min-width:85px;padding:11px 8px}
 }
 
 @media(max-width:370px) {
     .control {font-size:16px}
-    .control small {font-size:7px}
+    .control small {font-size:6px}
 }
 </style>
 </head>
@@ -489,6 +615,11 @@ button {cursor:pointer}
             <small>اشتراک صفحه</small>
         </button>
 
+        <button class="control" onclick="choosePresentation()">
+            📁
+            <small>ارائه فایل</small>
+        </button>
+
         <button class="control" onclick="copyInvite()">
             🔗
             <small>دعوت</small>
@@ -504,11 +635,63 @@ button {cursor:pointer}
 
 </div>
 
+<!-- Presentation window -->
+
+<div class="presentation-modal" id="presentationModal">
+
+    <div class="presentation-header">
+        <div class="presentation-title">
+            <strong id="presentationFileName">ارائه جلسه</strong>
+            <small id="presentationStatus">در حال آماده‌سازی...</small>
+        </div>
+
+        <button class="presentation-close" onclick="closePresentation()">×</button>
+    </div>
+
+    <div class="presentation-stage">
+        <div class="presentation-empty" id="presentationEmpty">
+            هنوز اسلایدی دریافت نشده است.
+        </div>
+
+        <img id="presentationImage" alt="اسلاید ارائه">
+    </div>
+
+    <div class="presentation-controls">
+        <button class="slide-button secondary" id="previousSlide" onclick="changeSlide(-1)">
+            قبلی
+        </button>
+
+        <div class="slide-counter" id="slideCounter">۰ / ۰</div>
+
+        <button class="slide-button" id="nextSlide" onclick="changeSlide(1)">
+            بعدی
+        </button>
+    </div>
+
+</div>
+
+<input
+    type="file"
+    id="presentationFile"
+    class="file-input"
+    accept=".pdf,.pptx,.png,.jpg,.jpeg,.webp,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,image/png,image/jpeg,image/webp"
+>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="meet-config.js"></script>
 
 <script>
+"use strict";
+
+/* ------------------------------
+   Basic configuration
+------------------------------ */
+
 const room = new URLSearchParams(location.search).get("room");
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
+const DATA_CHUNK_SIZE = 16 * 1024;
+const DATA_BUFFER_LIMIT = 1024 * 1024;
 
 const localVideo = document.getElementById("localVideo");
 const localPlaceholder = document.getElementById("localPlaceholder");
@@ -522,7 +705,14 @@ const remoteVideos = document.getElementById("remoteVideos");
 const participantsList = document.getElementById("participantsList");
 const participantCount = document.getElementById("participantCount");
 
-const socketId = crypto.randomUUID();
+const presentationModal = document.getElementById("presentationModal");
+const presentationImage = document.getElementById("presentationImage");
+const presentationEmpty = document.getElementById("presentationEmpty");
+const presentationFileInput = document.getElementById("presentationFile");
+
+const socketId = crypto.randomUUID
+    ? crypto.randomUUID()
+    : "peer-" + Date.now() + "-" + Math.random().toString(36).slice(2);
 
 let channel = null;
 let localStream = null;
@@ -535,9 +725,20 @@ let cameraOn = false;
 let micOn = false;
 let screenOn = false;
 let joined = false;
+let leaving = false;
 
 const peers = new Map();
 const pendingIce = new Map();
+const dataChannels = new Map();
+const incomingTransfers = new Map();
+
+let presentation = null;
+let presentationPage = 1;
+let presentationBlob = null;
+let presentationObjectUrl = null;
+let presentationIsLocal = false;
+let pptxLibrary = null;
+let pdfLibrary = null;
 
 const peerConfig = {
     iceServers: [
@@ -545,6 +746,10 @@ const peerConfig = {
         { urls: "stun:stun1.l.google.com:19302" }
     ]
 };
+
+/* ------------------------------
+   Helpers
+------------------------------ */
 
 function showNotice(message) {
     document.getElementById("notice").textContent = message;
@@ -554,10 +759,36 @@ function setConnectionStatus(message) {
     document.getElementById("connectionStatus").textContent = message;
 }
 
+function showPresentationStatus(message) {
+    document.getElementById("presentationStatus").textContent = message;
+}
+
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function formatNumber(number) {
+    return Number(number).toLocaleString("fa-IR");
+}
+
+function safeFileName(name) {
+    return String(name || "presentation")
+        .replace(/[<>:"/\\|?*\x00-\x1F]/g, "_")
+        .slice(0, 100);
+}
+
+function isOfferer(id) {
+    return socketId.localeCompare(id) < 0;
+}
+
+/* ------------------------------
+   Participants
+------------------------------ */
+
 function updateParticipantList() {
     const ids = [...peers.keys()];
-    participantCount.textContent = ids.length + 1;
 
+    participantCount.textContent = ids.length + 1;
     participantsList.replaceChildren();
 
     const me = document.createElement("p");
@@ -571,8 +802,12 @@ function updateParticipantList() {
     });
 }
 
+/* ------------------------------
+   Supabase signaling
+------------------------------ */
+
 async function sendSignal(event, payload) {
-    if (!channel || !joined) return;
+    if (!channel || !joined) return false;
 
     try {
         const result = await channel.send({
@@ -586,16 +821,22 @@ async function sendSignal(event, payload) {
         });
 
         if (result !== "ok") {
-            showNotice("ارسال اطلاعات ارتباطی با مشکل مواجه شد.");
+            console.warn("Signal result:", result);
+            return false;
         }
+
+        return true;
+
     } catch (error) {
         console.error("Signal error:", error);
+        return false;
     }
 }
 
 async function connectRoom() {
     if (!room) {
         showNotice("شناسه جلسه پیدا نشد. از صفحه جلسات هدف یک جلسه بساز.");
+        setConnectionStatus("شناسه نامشخص");
         return;
     }
 
@@ -615,30 +856,45 @@ async function connectRoom() {
     channel
         .on("broadcast", { event: "peer-joined" }, async ({ payload }) => {
             if (!payload || payload.from === socketId) return;
-            await createOffer(payload.from);
+
+            if (isOfferer(payload.from)) {
+                await createOffer(payload.from);
+            }
         })
+
+        .on("broadcast", { event: "peer-left" }, ({ payload }) => {
+            if (!payload || payload.from === socketId) return;
+            removePeer(payload.from);
+        })
+
         .on("broadcast", { event: "offer" }, async ({ payload }) => {
             if (!payload || payload.to !== socketId) return;
             await receiveOffer(payload.from, payload.description);
         })
+
         .on("broadcast", { event: "answer" }, async ({ payload }) => {
             if (!payload || payload.to !== socketId) return;
             await receiveAnswer(payload.from, payload.description);
         })
+
         .on("broadcast", { event: "ice" }, async ({ payload }) => {
             if (!payload || payload.to !== socketId) return;
             await receiveIce(payload.from, payload.candidate);
         })
+
         .on("broadcast", { event: "chat" }, ({ payload }) => {
             if (!payload || payload.from === socketId) return;
             addChatMessage(payload.text, "شرکت‌کننده", false);
         })
+
         .on("presence", { event: "sync" }, () => {
             updateParticipantList();
         })
+
         .on("presence", { event: "join" }, () => {
             updateParticipantList();
         })
+
         .on("presence", { event: "leave" }, () => {
             updateParticipantList();
         });
@@ -655,16 +911,33 @@ async function connectRoom() {
             setConnectionStatus("متصل");
             showNotice("به سرور ارتباطی هدف وصل شدی.");
 
+            const presence = channel.presenceState();
+
+            for (const id of Object.keys(presence)) {
+                if (id !== socketId && isOfferer(id)) {
+                    await createOffer(id);
+                }
+            }
+
             await sendSignal("peer-joined", {});
             updateParticipantList();
         }
 
         if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+            joined = false;
             setConnectionStatus("قطع ارتباط");
-            showNotice("اتصال به Supabase برقرار نشد. دوباره تلاش کن.");
+            showNotice("اتصال به سرور ارتباطی برقرار نشد. اتصال اینترنت و تنظیمات را بررسی کن.");
+        }
+
+        if (status === "CLOSED") {
+            setConnectionStatus("قطع ارتباط");
         }
     });
 }
+
+/* ------------------------------
+   Remote video cards
+------------------------------ */
 
 function createRemoteCard(id) {
     let card = document.getElementById("remote-" + id);
@@ -681,8 +954,15 @@ function createRemoteCard(id) {
 
     const placeholder = document.createElement("div");
     placeholder.className = "video-placeholder";
-    placeholder.innerHTML =
-        '<div class="avatar">👤</div><small>در انتظار تصویر...</small>';
+
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.textContent = "👤";
+
+    const placeholderText = document.createElement("small");
+    placeholderText.textContent = "در انتظار تصویر...";
+
+    placeholder.append(avatar, placeholderText);
 
     const name = document.createElement("div");
     name.className = "video-name";
@@ -694,6 +974,28 @@ function createRemoteCard(id) {
     return card;
 }
 
+/* ------------------------------
+   WebRTC media helpers
+------------------------------ */
+
+function getVideoSender(pc) {
+    const transceiver = pc.getTransceivers().find(t =>
+        t.receiver && t.receiver.track &&
+        t.receiver.track.kind === "video"
+    );
+
+    return transceiver ? transceiver.sender : null;
+}
+
+function getAudioSender(pc) {
+    const transceiver = pc.getTransceivers().find(t =>
+        t.receiver && t.receiver.track &&
+        t.receiver.track.kind === "audio"
+    );
+
+    return transceiver ? transceiver.sender : null;
+}
+
 function getActiveVideoTrack() {
     if (screenOn && screenStream) {
         return screenStream.getVideoTracks()[0] || null;
@@ -702,24 +1004,258 @@ function getActiveVideoTrack() {
     return cameraTrack;
 }
 
-function getVideoSender(pc) {
-    const transceiver = pc.getTransceivers().find(t =>
-        t.receiver?.track?.kind === "video" ||
-        t.sender?.track?.kind === "video"
-    );
+async function setPeerVideoTrack(pc, track) {
+    const sender = getVideoSender(pc);
+    if (!sender) return;
 
-    return transceiver ? transceiver.sender : null;
+    await sender.replaceTrack(track || null);
 }
 
-async function setPeerVideoTrack(pc, track, stream) {
-    let sender = getVideoSender(pc);
+async function setPeerAudioTrack(pc, track) {
+    const sender = getAudioSender(pc);
+    if (!sender) return;
 
-    if (sender) {
-        await sender.replaceTrack(track || null);
-    } else if (track && stream) {
-        pc.addTrack(track, stream);
+    await sender.replaceTrack(track || null);
+}
+
+/* ------------------------------
+   WebRTC DataChannel
+------------------------------ */
+
+function setupDataChannel(id, dc) {
+    if (!dc) return;
+
+    dataChannels.set(id, dc);
+
+    dc.binaryType = "arraybuffer";
+    dc.bufferedAmountLowThreshold = 256 * 1024;
+
+    dc.onopen = () => {
+        console.log("Presentation channel open:", id);
+
+        if (presentationBlob && presentationIsLocal) {
+            sendPresentationToPeer(id);
+        }
+    };
+
+    dc.onclose = () => {
+        if (dataChannels.get(id) === dc) {
+            dataChannels.delete(id);
+        }
+    };
+
+    dc.onerror = error => {
+        console.error("DataChannel error:", error);
+    };
+
+    dc.onmessage = event => {
+        handlePresentationData(id, event.data);
+    };
+}
+
+function waitForDataChannelBuffer(dc) {
+    return new Promise(resolve => {
+        if (dc.bufferedAmount < DATA_BUFFER_LIMIT) {
+            resolve();
+            return;
+        }
+
+        const timeout = setTimeout(resolve, 10000);
+
+        const oldHandler = dc.onbufferedamountlow;
+
+        dc.onbufferedamountlow = () => {
+            clearTimeout(timeout);
+            dc.onbufferedamountlow = oldHandler;
+            resolve();
+        };
+    });
+}
+
+async function sendBlobToPeer(id, blob, meta) {
+    const dc = dataChannels.get(id);
+
+    if (!dc || dc.readyState !== "open") return false;
+
+    try {
+        const buffer = await blob.arrayBuffer();
+
+        const totalChunks = Math.ceil(buffer.byteLength / DATA_CHUNK_SIZE);
+
+        dc.send(JSON.stringify({
+            type: "presentation-meta",
+            transferId: meta.transferId,
+            fileName: meta.fileName,
+            page: meta.page,
+            totalPages: meta.totalPages,
+            mime: blob.type || "image/jpeg",
+            size: buffer.byteLength,
+            totalChunks
+        }));
+
+        for (let i = 0; i < totalChunks; i++) {
+            if (dc.readyState !== "open") {
+                throw new Error("اتصال انتقال فایل قطع شد.");
+            }
+
+            await waitForDataChannelBuffer(dc);
+
+            const start = i * DATA_CHUNK_SIZE;
+            const end = Math.min(start + DATA_CHUNK_SIZE, buffer.byteLength);
+
+            dc.send(buffer.slice(start, end));
+        }
+
+        return true;
+
+    } catch (error) {
+        console.error("Presentation send error:", error);
+        return false;
     }
 }
+
+async function sendPresentationToPeer(id) {
+    if (!presentationBlob || !presentationIsLocal) return;
+
+    const ok = await sendBlobToPeer(id, presentationBlob, {
+        transferId: crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now()) + Math.random(),
+        fileName: presentation.fileName,
+        page: presentationPage,
+        totalPages: presentation.totalPages
+    });
+
+    if (!ok) {
+        console.warn("Could not send presentation to:", id);
+    }
+}
+
+async function broadcastPresentation() {
+    if (!presentationBlob || !presentationIsLocal) return;
+
+    const ids = [...dataChannels.keys()];
+
+    for (const id of ids) {
+        await sendPresentationToPeer(id);
+    }
+}
+
+function handlePresentationData(id, data) {
+    if (typeof data === "string") {
+        let message;
+
+        try {
+            message = JSON.parse(data);
+        } catch (error) {
+            return;
+        }
+
+        if (message.type !== "presentation-meta") return;
+
+        if (
+            !Number.isFinite(message.size) ||
+            message.size < 0 ||
+            message.size > 8 * 1024 * 1024 ||
+            !Number.isFinite(message.totalChunks) ||
+            message.totalChunks < 0 ||
+            message.totalChunks > 1000
+        ) {
+            console.warn("Invalid presentation transfer metadata.");
+            return;
+        }
+
+        incomingTransfers.set(id, {
+            transferId: message.transferId,
+            fileName: message.fileName,
+            page: message.page,
+            totalPages: message.totalPages,
+            mime: message.mime || "image/jpeg",
+            expectedSize: message.size,
+            totalChunks: message.totalChunks,
+            chunks: [],
+            received: 0
+        });
+
+        showPresentationStatus("در حال دریافت اسلاید...");
+        return;
+    }
+
+    const transfer = incomingTransfers.get(id);
+    if (!transfer) return;
+
+    const chunk = data instanceof ArrayBuffer
+        ? data
+        : data instanceof Blob
+            ? null
+            : null;
+
+    if (!chunk) return;
+
+    transfer.chunks.push(chunk);
+    transfer.received += chunk.byteLength;
+
+    if (transfer.received > transfer.expectedSize) {
+        incomingTransfers.delete(id);
+        return;
+    }
+
+    if (transfer.chunks.length >= transfer.totalChunks) {
+        if (transfer.received !== transfer.expectedSize) {
+            incomingTransfers.delete(id);
+            showPresentationStatus("دریافت اسلاید ناقص بود.");
+            return;
+        }
+
+        const blob = new Blob(transfer.chunks, {
+            type: transfer.mime
+        });
+
+        incomingTransfers.delete(id);
+
+        presentationIsLocal = false;
+        presentationBlob = blob;
+
+        presentation = {
+            fileName: transfer.fileName,
+            totalPages: transfer.totalPages
+        };
+
+        presentationPage = transfer.page;
+
+        showReceivedPresentation(blob, transfer);
+    }
+}
+
+function showReceivedPresentation(blob, meta) {
+    if (presentationObjectUrl) {
+        URL.revokeObjectURL(presentationObjectUrl);
+    }
+
+    presentationObjectUrl = URL.createObjectURL(blob);
+
+    presentationImage.src = presentationObjectUrl;
+    presentationImage.style.display = "block";
+    presentationEmpty.style.display = "none";
+
+    document.getElementById("presentationFileName").textContent =
+        meta.fileName || "ارائه جلسه";
+
+    document.getElementById("slideCounter").textContent =
+        formatNumber(meta.page) + " / " + formatNumber(meta.totalPages);
+
+    showPresentationStatus("در حال مشاهده ارائه شرکت‌کننده");
+
+    presentationModal.classList.add("show");
+    document.body.classList.add("modal-open");
+
+    document.getElementById("previousSlide").disabled = true;
+    document.getElementById("nextSlide").disabled = true;
+}
+
+/* ------------------------------
+   Peer creation and signaling
+------------------------------ */
 
 function getPeer(id) {
     if (peers.has(id)) return peers.get(id);
@@ -729,18 +1265,13 @@ function getPeer(id) {
     peers.set(id, pc);
     createRemoteCard(id);
 
-    if (localStream) {
-        localStream.getAudioTracks().forEach(track => {
-            pc.addTrack(track, localStream);
-        });
-    }
+    /*
+       Create audio and video transceivers before the offer.
+       This allows later track replacement without renegotiation.
+    */
 
-    const activeVideo = getActiveVideoTrack();
-
-    if (activeVideo) {
-        const stream = screenOn ? screenStream : localStream;
-        pc.addTrack(activeVideo, stream);
-    }
+    pc.addTransceiver("audio", { direction: "sendrecv" });
+    pc.addTransceiver("video", { direction: "sendrecv" });
 
     pc.onicecandidate = event => {
         if (event.candidate) {
@@ -756,11 +1287,27 @@ function getPeer(id) {
         const video = card.querySelector("video");
         const placeholder = card.querySelector(".video-placeholder");
 
-        if (event.streams[0]) {
+        if (event.streams && event.streams[0]) {
             video.srcObject = event.streams[0];
+
             video.play().catch(() => {});
+
             placeholder.style.display = "none";
         }
+
+        event.track.onunmute = () => {
+            placeholder.style.display = "none";
+        };
+
+        event.track.onmute = () => {
+            if (!video.srcObject) {
+                placeholder.style.display = "flex";
+            }
+        };
+    };
+
+    pc.ondatachannel = event => {
+        setupDataChannel(id, event.channel);
     };
 
     pc.onconnectionstatechange = () => {
@@ -772,32 +1319,32 @@ function getPeer(id) {
         }
     };
 
-    pc.onnegotiationneeded = async () => {
-        if (pc.signalingState !== "stable") return;
-
-        try {
-            const offer = await pc.createOffer();
-            await pc.setLocalDescription(offer);
-
-            await sendSignal("offer", {
-                to: id,
-                description: pc.localDescription
-            });
-        } catch (error) {
-            console.error("Negotiation error:", error);
-        }
-    };
-
     updateParticipantList();
+
     return pc;
 }
 
 async function createOffer(id) {
+    if (!isOfferer(id)) return;
+
     const pc = getPeer(id);
 
     if (pc.signalingState !== "stable") return;
 
     try {
+        /*
+           Only one side creates the data channel.
+           This prevents duplicate data channels and offer collisions.
+        */
+
+        if (!dataChannels.has(id)) {
+            const dc = pc.createDataChannel("hadaf-presentation", {
+                ordered: true
+            });
+
+            setupDataChannel(id, dc);
+        }
+
         const offer = await pc.createOffer();
         await pc.setLocalDescription(offer);
 
@@ -805,8 +1352,10 @@ async function createOffer(id) {
             to: id,
             description: pc.localDescription
         });
+
     } catch (error) {
         console.error("Create offer error:", error);
+        showNotice("ساخت اتصال با یکی از شرکت‌کنندگان با مشکل روبه‌رو شد.");
     }
 }
 
@@ -831,6 +1380,7 @@ async function receiveOffer(id, description) {
             to: id,
             description: pc.localDescription
         });
+
     } catch (error) {
         console.error("Offer error:", error);
     }
@@ -850,6 +1400,7 @@ async function receiveAnswer(id, description) {
         }
 
         pendingIce.delete(id);
+
     } catch (error) {
         console.error("Answer error:", error);
     }
@@ -861,7 +1412,10 @@ async function receiveIce(id, candidate) {
     const pc = peers.get(id);
 
     if (!pc || !pc.remoteDescription) {
-        if (!pendingIce.has(id)) pendingIce.set(id, []);
+        if (!pendingIce.has(id)) {
+            pendingIce.set(id, []);
+        }
+
         pendingIce.get(id).push(candidate);
         return;
     }
@@ -881,16 +1435,35 @@ function removePeer(id) {
         peers.delete(id);
     }
 
+    const dc = dataChannels.get(id);
+
+    if (dc) {
+        try { dc.close(); } catch (error) {}
+        dataChannels.delete(id);
+    }
+
     pendingIce.delete(id);
+    incomingTransfers.delete(id);
 
     const card = document.getElementById("remote-" + id);
+
     if (card) card.remove();
 
     updateParticipantList();
 }
 
+/* ------------------------------
+   Camera and microphone
+------------------------------ */
+
 async function startMedia() {
     if (localStream) return true;
+
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia) {
+        showNotice("مرورگر شما امکان دسترسی به دوربین و میکروفون را ندارد.");
+        return false;
+    }
 
     try {
         localStream = await navigator.mediaDevices.getUserMedia({
@@ -901,28 +1474,23 @@ async function startMedia() {
         cameraTrack = localStream.getVideoTracks()[0] || null;
         micTrack = localStream.getAudioTracks()[0] || null;
 
-        if (cameraTrack) cameraTrack.enabled = cameraOn;
-        if (micTrack) micTrack.enabled = micOn;
+        if (cameraTrack) {
+            cameraTrack.enabled = cameraOn;
+        }
+
+        if (micTrack) {
+            micTrack.enabled = micOn;
+        }
 
         localVideo.srcObject = localStream;
 
         for (const pc of peers.values()) {
-            localStream.getAudioTracks().forEach(track => {
-                const exists = pc.getSenders().some(s =>
-                    s.track === track
-                );
-
-                if (!exists) pc.addTrack(track, localStream);
-            });
+            if (micTrack) {
+                await setPeerAudioTrack(pc, micTrack);
+            }
 
             if (!screenOn && cameraTrack) {
-                const sender = getVideoSender(pc);
-
-                if (sender) {
-                    await sender.replaceTrack(cameraTrack);
-                } else {
-                    pc.addTrack(cameraTrack, localStream);
-                }
+                await setPeerVideoTrack(pc, cameraTrack);
             }
         }
 
@@ -933,7 +1501,12 @@ async function startMedia() {
 
     } catch (error) {
         console.error("Media error:", error);
-        showNotice("دسترسی دوربین یا میکروفون داده نشد: " + error.message);
+
+        showNotice(
+            "دسترسی دوربین یا میکروفون داده نشد: " +
+            (error.message || error.name)
+        );
+
         return false;
     }
 }
@@ -987,6 +1560,10 @@ function updateMic() {
         micOn ? "میکروفون روشن" : "میکروفون خاموش";
 }
 
+/* ------------------------------
+   Screen sharing
+------------------------------ */
+
 async function toggleScreen() {
     if (screenOn) {
         await stopScreen();
@@ -1000,7 +1577,10 @@ async function toggleScreen() {
 
     if (!navigator.mediaDevices ||
         !navigator.mediaDevices.getDisplayMedia) {
-        showNotice("مرورگر شما از اشتراک‌گذاری صفحه پشتیبانی نمی‌کند. مرورگر Chrome به‌روز را امتحان کن.");
+        showNotice(
+            "اشتراک‌گذاری مستقیم صفحه در این مرورگر در دسترس نیست. " +
+            "برای تبلت از دکمه «ارائه فایل» استفاده کن."
+        );
         return;
     }
 
@@ -1027,7 +1607,7 @@ async function toggleScreen() {
         localPlaceholder.style.display = "none";
 
         for (const pc of peers.values()) {
-            await setPeerVideoTrack(pc, screenTrack, screenStream);
+            await setPeerVideoTrack(pc, screenTrack);
         }
 
         screenButton.classList.add("active");
@@ -1063,7 +1643,7 @@ async function toggleScreen() {
         } else if (error.name === "NotReadableError") {
             showNotice("مرورگر نتوانست صفحه را بخواند.");
         } else if (error.name === "InvalidStateError") {
-            showNotice("برای اشتراک‌گذاری باید صفحه جلسه فعال و در پیش‌زمینه باشد.");
+            showNotice("برای اشتراک‌گذاری باید صفحه جلسه فعال باشد.");
         } else {
             showNotice(
                 "خطای اشتراک‌گذاری: " +
@@ -1092,11 +1672,7 @@ async function stopScreen() {
 
     for (const pc of peers.values()) {
         try {
-            await setPeerVideoTrack(
-                pc,
-                cameraTrack,
-                localStream
-            );
+            await setPeerVideoTrack(pc, cameraTrack);
         } catch (error) {
             console.error("Restore camera error:", error);
         }
@@ -1112,19 +1688,475 @@ async function stopScreen() {
     showNotice("اشتراک‌گذاری صفحه متوقف شد.");
 }
 
+/* ------------------------------
+   Presentation libraries
+------------------------------ */
+
+async function loadPdfLibrary() {
+    if (pdfLibrary) return pdfLibrary;
+
+    pdfLibrary = await import(
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs"
+    );
+
+    pdfLibrary.GlobalWorkerOptions.workerSrc =
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs";
+
+    return pdfLibrary;
+}
+
+async function loadPptxLibrary() {
+    if (pptxLibrary) return pptxLibrary;
+
+    pptxLibrary = await import(
+        "https://esm.sh/@web-ppt/core@0.6.0?bundle"
+    );
+
+    return pptxLibrary;
+}
+
+/* ------------------------------
+   Presentation interface
+------------------------------ */
+
+function choosePresentation() {
+    if (!joined) {
+        showNotice("ابتدا باید به جلسه متصل شوی.");
+        return;
+    }
+
+    presentationFileInput.click();
+}
+
+function openPresentationWindow() {
+    presentationModal.classList.add("show");
+    document.body.classList.add("modal-open");
+}
+
+function closePresentation() {
+    presentationModal.classList.remove("show");
+    document.body.classList.remove("modal-open");
+}
+
+function updatePresentationControls() {
+    const previous = document.getElementById("previousSlide");
+    const next = document.getElementById("nextSlide");
+
+    if (!presentation || !presentationIsLocal) {
+        previous.disabled = true;
+        next.disabled = true;
+        return;
+    }
+
+    previous.disabled = presentationPage <= 1;
+    next.disabled = presentationPage >= presentation.totalPages;
+}
+
+function updateSlideCounter() {
+    if (!presentation) return;
+
+    document.getElementById("slideCounter").textContent =
+        formatNumber(presentationPage) +
+        " / " +
+        formatNumber(presentation.totalPages);
+
+    updatePresentationControls();
+}
+
+function showLocalSlide(blob) {
+    if (presentationObjectUrl) {
+        URL.revokeObjectURL(presentationObjectUrl);
+    }
+
+    presentationObjectUrl = URL.createObjectURL(blob);
+
+    presentationImage.src = presentationObjectUrl;
+    presentationImage.style.display = "block";
+    presentationEmpty.style.display = "none";
+
+    document.getElementById("presentationFileName").textContent =
+        presentation.fileName;
+
+    updateSlideCounter();
+
+    showPresentationStatus(
+        "ارائه شما فعال است؛ اسلایدها برای شرکت‌کنندگان ارسال می‌شوند."
+    );
+
+    openPresentationWindow();
+}
+
+async function changeSlide(direction) {
+    if (!presentation || !presentationIsLocal) return;
+
+    const nextPage = presentationPage + direction;
+
+    if (nextPage < 1 || nextPage > presentation.totalPages) {
+        return;
+    }
+
+    presentationPage = nextPage;
+
+    try {
+        await renderCurrentPresentationPage();
+    } catch (error) {
+        console.error("Slide render error:", error);
+        showNotice("نمایش این اسلاید با مشکل مواجه شد.");
+    }
+}
+
+/* ------------------------------
+   Image conversion
+------------------------------ */
+
+function canvasToBlob(canvas, type = "image/jpeg", quality = 0.82) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+            if (!blob) {
+                reject(new Error("ساخت تصویر اسلاید ناموفق بود."));
+                return;
+            }
+
+            resolve(blob);
+        }, type, quality);
+    });
+}
+
+async function imageFileToBlob(file) {
+    const image = await createImageBitmap(file);
+
+    const maxWidth = 1600;
+    const maxHeight = 1000;
+
+    const scale = Math.min(
+        1,
+        maxWidth / image.width,
+        maxHeight / image.height
+    );
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = Math.max(1, Math.round(image.width * scale));
+    canvas.height = Math.max(1, Math.round(image.height * scale));
+
+    const context = canvas.getContext("2d");
+
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.drawImage(
+        image,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    image.close();
+
+    return canvasToBlob(canvas);
+}
+
+/* ------------------------------
+   PDF rendering
+------------------------------ */
+
+async function loadPdfFile(file) {
+    showNotice("در حال باز کردن فایل PDF...");
+
+    const pdfjs = await loadPdfLibrary();
+
+    const bytes = await file.arrayBuffer();
+
+    const loadingTask = pdfjs.getDocument({
+        data: new Uint8Array(bytes)
+    });
+
+    const pdf = await loadingTask.promise;
+
+    presentation = {
+        type: "pdf",
+        fileName: safeFileName(file.name),
+        pdf,
+        totalPages: pdf.numPages
+    };
+
+    presentationPage = 1;
+
+    await renderCurrentPresentationPage();
+}
+
+/* ------------------------------
+   PPTX rendering
+------------------------------ */
+
+async function svgToImageBlob(svg) {
+    const svgBlob = new Blob([svg], {
+        type: "image/svg+xml;charset=utf-8"
+    });
+
+    const url = URL.createObjectURL(svgBlob);
+
+    try {
+        const image = new Image();
+
+        await new Promise((resolve, reject) => {
+            image.onload = resolve;
+            image.onerror = () => reject(
+                new Error("تبدیل اسلاید پاورپوینت ناموفق بود.")
+            );
+
+            image.src = url;
+        });
+
+        const width = image.naturalWidth || 1280;
+        const height = image.naturalHeight || 720;
+
+        const scale = Math.min(
+            1,
+            1600 / width,
+            1000 / height
+        );
+
+        const canvas = document.createElement("canvas");
+
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+
+        const context = canvas.getContext("2d");
+
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        context.drawImage(
+            image,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        return await canvasToBlob(canvas);
+
+    } finally {
+        URL.revokeObjectURL(url);
+    }
+}
+
+async function loadPptxFile(file) {
+    showNotice("در حال بارگذاری موتور نمایش پاورپوینت...");
+
+    const pptx = await loadPptxLibrary();
+
+    showNotice("در حال پردازش پاورپوینت روی دستگاه...");
+
+    const bytes = await file.arrayBuffer();
+
+    const parsed = await pptx.parse(bytes);
+
+    if (!parsed.slides || !parsed.slides.length) {
+        throw new Error("هیچ اسلایدی در پاورپوینت پیدا نشد.");
+    }
+
+    presentation = {
+        type: "pptx",
+        fileName: safeFileName(file.name),
+        parsed,
+        slides: parsed.slides,
+        totalPages: parsed.slides.length,
+        pptx
+    };
+
+    presentationPage = 1;
+
+    await renderCurrentPresentationPage();
+}
+
+/* ------------------------------
+   Render current page
+------------------------------ */
+
+async function renderCurrentPresentationPage() {
+    if (!presentation) return;
+
+    showPresentationStatus(
+        "در حال آماده‌سازی اسلاید " +
+        formatNumber(presentationPage) +
+        "..."
+    );
+
+    let blob;
+
+    if (presentation.type === "image") {
+        blob = presentation.imageBlob;
+    }
+
+    else if (presentation.type === "pdf") {
+        const page = await presentation.pdf.getPage(presentationPage);
+
+        const originalViewport = page.getViewport({ scale: 1 });
+
+        const scale = Math.min(
+            1.6,
+            1600 / originalViewport.width,
+            1000 / originalViewport.height
+        );
+
+        const viewport = page.getViewport({ scale });
+
+        const canvas = document.createElement("canvas");
+
+        canvas.width = Math.max(1, Math.ceil(viewport.width));
+        canvas.height = Math.max(1, Math.ceil(viewport.height));
+
+        const context = canvas.getContext("2d", {
+            alpha: false
+        });
+
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        await page.render({
+            canvasContext: context,
+            viewport
+        }).promise;
+
+        blob = await canvasToBlob(canvas);
+
+        page.cleanup();
+    }
+
+    else if (presentation.type === "pptx") {
+        const slide = presentation.slides[presentationPage - 1];
+
+        const svg = await presentation.pptx.slideToSvgFile(
+            presentation.parsed,
+            slide
+        );
+
+        blob = await svgToImageBlob(svg);
+    }
+
+    else {
+        throw new Error("نوع ارائه پشتیبانی نمی‌شود.");
+    }
+
+    if (!blob) {
+        throw new Error("تصویر اسلاید ساخته نشد.");
+    }
+
+    presentationBlob = blob;
+
+    showLocalSlide(blob);
+
+    await broadcastPresentation();
+
+    showNotice(
+        "اسلاید " +
+        formatNumber(presentationPage) +
+        " برای شرکت‌کنندگان ارسال شد."
+    );
+}
+
+/* ------------------------------
+   Select and load a file
+------------------------------ */
+
+presentationFileInput.addEventListener("change", async event => {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    presentationFileInput.value = "";
+
+    if (file.size > MAX_FILE_SIZE) {
+        showNotice("حجم فایل بیشتر از ۲۵ مگابایت است.");
+        return;
+    }
+
+    const name = file.name.toLowerCase();
+
+    const isPdf = name.endsWith(".pdf");
+    const isPptx = name.endsWith(".pptx");
+
+    const isImage =
+        name.endsWith(".png") ||
+        name.endsWith(".jpg") ||
+        name.endsWith(".jpeg") ||
+        name.endsWith(".webp");
+
+    if (!isPdf && !isPptx && !isImage) {
+        showNotice("فرمت فایل پشتیبانی نمی‌شود.");
+        return;
+    }
+
+    try {
+        presentationIsLocal = true;
+        presentationBlob = null;
+        presentation = null;
+        presentationPage = 1;
+
+        showPresentationStatus("در حال بارگذاری فایل...");
+        openPresentationWindow();
+
+        if (isPdf) {
+            await loadPdfFile(file);
+        }
+
+        else if (isPptx) {
+            await loadPptxFile(file);
+        }
+
+        else {
+            const blob = await imageFileToBlob(file);
+
+            presentation = {
+                type: "image",
+                fileName: safeFileName(file.name),
+                imageBlob: blob,
+                totalPages: 1
+            };
+
+            presentationPage = 1;
+
+            await renderCurrentPresentationPage();
+        }
+
+    } catch (error) {
+        console.error("Presentation error:", error);
+
+        presentation = null;
+        presentationBlob = null;
+        presentationIsLocal = false;
+
+        showPresentationStatus("خطا در باز کردن فایل.");
+
+        showNotice(
+            "باز کردن فایل ناموفق بود: " +
+            (error.message || "خطای نامشخص")
+        );
+    }
+});
+
+/* ------------------------------
+   Chat
+------------------------------ */
+
 function addChatMessage(text, name, mine) {
     const item = document.createElement("div");
+
     item.className = "chat-message" + (mine ? " me" : "");
 
     const author = document.createElement("strong");
     author.textContent = name;
 
     const content = document.createElement("span");
-    content.textContent = text;
+    content.textContent = String(text || "");
 
     item.append(author, content);
 
     const messages = document.getElementById("chatMessages");
+
     messages.appendChild(item);
     messages.scrollTop = messages.scrollHeight;
 }
@@ -1151,6 +2183,10 @@ document.getElementById("chatForm").addEventListener("submit", async event => {
     input.value = "";
 });
 
+/* ------------------------------
+   Invite and exit
+------------------------------ */
+
 async function copyInvite() {
     try {
         await navigator.clipboard.writeText(location.href);
@@ -1161,36 +2197,74 @@ async function copyInvite() {
 }
 
 async function leaveMeeting() {
+    if (leaving) return;
+
+    leaving = true;
     joined = false;
 
-    if (screenStream) {
-        screenStream.getTracks().forEach(track => track.stop());
-    }
+    try {
+        if (channel) {
+            try {
+                await channel.send({
+                    type: "broadcast",
+                    event: "peer-left",
+                    payload: { from: socketId, room }
+                });
+            } catch (error) {}
 
-    if (channel) {
-        try {
-            await channel.untrack();
-            await window.supabaseClient.removeChannel(channel);
-        } catch (error) {
-            console.error(error);
+            try {
+                await channel.untrack();
+                await window.supabaseClient.removeChannel(channel);
+            } catch (error) {
+                console.error(error);
+            }
+
+            channel = null;
         }
 
-        channel = null;
+        dataChannels.forEach(dc => {
+            try { dc.close(); } catch (error) {}
+        });
+
+        dataChannels.clear();
+
+        peers.forEach(pc => {
+            try { pc.close(); } catch (error) {}
+        });
+
+        peers.clear();
+        pendingIce.clear();
+        incomingTransfers.clear();
+
+        if (screenStream) {
+            screenStream.getTracks().forEach(track => track.stop());
+        }
+
+        if (localStream) {
+            localStream.getTracks().forEach(track => track.stop());
+        }
+
+        if (presentation && presentation.pdf) {
+            try { await presentation.pdf.destroy(); } catch (error) {}
+        }
+
+        if (presentationObjectUrl) {
+            URL.revokeObjectURL(presentationObjectUrl);
+        }
+
+    } finally {
+        location.href = "meet.html";
     }
-
-    peers.forEach(pc => pc.close());
-    peers.clear();
-    pendingIce.clear();
-
-    if (localStream) {
-        localStream.getTracks().forEach(track => track.stop());
-    }
-
-    location.href = "meet.html";
 }
 
+/* ------------------------------
+   Start
+------------------------------ */
+
 document.getElementById("roomLabel").textContent =
-    room ? "شناسه جلسه: " + room : "شناسه جلسه نامشخص";
+    room
+        ? "شناسه جلسه: " + room
+        : "شناسه جلسه نامشخص";
 
 connectRoom();
 </script>
