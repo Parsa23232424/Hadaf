@@ -484,6 +484,23 @@ button {
     font-size:23px;
 }
 
+/* Hadaf Meet */
+
+.meet-card {
+    background:
+        radial-gradient(circle at 0% 100%,rgba(59,130,246,.13),transparent 55%),
+        radial-gradient(circle at 100% 0%,rgba(103,88,255,.12),transparent 55%),
+        var(--card);
+    border-color:rgba(103,88,255,.18);
+}
+
+.meet-icon {
+    color:#b8d5ff;
+    background:rgba(59,130,246,.12);
+    border-color:rgba(59,130,246,.18);
+    font-size:22px;
+}
+
 /* About */
 
 .about {
@@ -849,8 +866,23 @@ footer {
             <div class="goal-arrow">‹</div>
         </div>
 
+        <!-- Hadaf Meet -->
+
+        <div class="tool-card meet-card" onclick="goTo('meet.html')">
+
+            <div class="tool-info">
+                <div class="tool-icon meet-icon">🎥</div>
+
+                <div>
+                    <div class="tool-title">جلسه آنلاین</div>
+                    <div class="tool-sub">ساخت جلسه و تماس تصویری</div>
+                </div>
+            </div>
+
+            <div class="goal-arrow">‹</div>
+        </div>
+
     </div>
-    <button href="meet.html"></button>
 </section>
 
 <section class="about">
