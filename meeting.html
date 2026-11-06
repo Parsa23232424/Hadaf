@@ -32,13 +32,8 @@ body {
     font-family:Tahoma,Arial,sans-serif;
 }
 
-button,input {
-    font-family:inherit;
-}
-
-button {
-    cursor:pointer;
-}
+button,input {font-family:inherit}
+button {cursor:pointer}
 
 .app {
     min-height:100vh;
@@ -46,10 +41,8 @@ button {
     flex-direction:column;
 }
 
-/* Header */
-
 .header {
-    height:65px;
+    min-height:65px;
     padding:0 20px;
     display:flex;
     align-items:center;
@@ -81,9 +74,7 @@ button {
     object-fit:contain;
 }
 
-.brand strong {
-    font-size:14px;
-}
+.brand strong {font-size:14px}
 
 .room-info {
     display:flex;
@@ -108,8 +99,6 @@ button {
     color:white;
     font-size:10px;
 }
-
-/* Main */
 
 .main {
     flex:1;
@@ -145,8 +134,6 @@ button {
     color:#c5c0ff;
     font-size:11px;
 }
-
-/* Video grid */
 
 .video-grid {
     display:grid;
@@ -196,9 +183,7 @@ button {
     font-size:30px;
 }
 
-.video-placeholder small {
-    font-size:11px;
-}
+.video-placeholder small {font-size:11px}
 
 .video-name {
     position:absolute;
@@ -224,11 +209,7 @@ button {
     font-size:9px;
 }
 
-.video-status.off {
-    color:#fca5a5;
-}
-
-/* Side panels */
+.video-status.off {color:#fca5a5}
 
 .panels {
     display:grid;
@@ -257,7 +238,7 @@ button {
 }
 
 .chat-messages {
-    height:115px;
+    height:160px;
     overflow-y:auto;
     display:flex;
     flex-direction:column;
@@ -278,6 +259,12 @@ button {
 .chat-message.me {
     align-self:flex-end;
     background:rgba(255,255,255,.07);
+}
+
+.chat-message strong {
+    display:block;
+    color:#c5c0ff;
+    font-size:9px;
 }
 
 .chat-form {
@@ -305,8 +292,6 @@ button {
     color:white;
     background:var(--purple);
 }
-
-/* Toolbar */
 
 .toolbar-wrap {
     position:fixed;
@@ -376,49 +361,24 @@ button {
     line-height:2;
 }
 
-/* Responsive */
-
 @media(max-width:700px) {
-    .panels {
-        grid-template-columns:1fr;
-    }
-
-    .video-grid {
-        grid-template-columns:1fr;
-    }
-
-    .video-card {
-        min-height:190px;
-    }
-
-    .toolbar {
-        gap:6px;
-    }
-
+    .panels {grid-template-columns:1fr}
+    .video-grid {grid-template-columns:1fr}
+    .video-card {min-height:190px}
+    .toolbar {gap:6px}
     .control {
         min-width:0;
         flex:1;
         height:56px;
         border-radius:13px;
     }
-
-    .header {
-        padding:0 12px;
-    }
-
-    .room-info {
-        font-size:9px;
-    }
+    .header {padding:0 12px}
+    .room-info {font-size:9px}
 }
 
 @media(max-width:370px) {
-    .control {
-        font-size:16px;
-    }
-
-    .control small {
-        font-size:7px;
-    }
+    .control {font-size:16px}
+    .control small {font-size:7px}
 }
 </style>
 </head>
@@ -428,7 +388,6 @@ button {
 <div class="app">
 
 <header class="header">
-
     <div class="brand">
         <div class="logo">
             <img src="logo.png" alt="هدف">
@@ -438,12 +397,9 @@ button {
 
     <div class="room-info">
         <span class="live-dot"></span>
-        <span>جلسه آزمایشی</span>
-        <button class="copy-room" onclick="copyInvite()">
-            🔗 دعوت
-        </button>
+        <span id="connectionStatus">در حال اتصال...</span>
+        <button class="copy-room" onclick="copyInvite()">🔗 دعوت</button>
     </div>
-
 </header>
 
 <main class="main">
@@ -461,10 +417,7 @@ button {
 
     <section class="video-grid">
 
-        <!-- تصویر خود کاربر -->
-
         <div class="video-card">
-
             <video id="localVideo" autoplay muted playsinline></video>
 
             <div class="video-placeholder" id="localPlaceholder">
@@ -473,27 +426,10 @@ button {
             </div>
 
             <div class="video-name">شما</div>
-
-            <div class="video-status" id="cameraStatus">
-                دوربین خاموش
-            </div>
-
+            <div class="video-status" id="cameraStatus">دوربین خاموش</div>
         </div>
 
-        <!-- شرکت‌کنندگان دیگر -->
-
-        <div class="video-card">
-
-            <div class="video-placeholder">
-                <div class="avatar">👥</div>
-                <small>منتظر ورود شرکت‌کنندگان...</small>
-            </div>
-
-            <div class="video-name">شرکت‌کنندگان</div>
-
-            <div class="video-status">در انتظار</div>
-
-        </div>
+        <div id="remoteVideos" style="display:contents"></div>
 
     </section>
 
@@ -521,36 +457,30 @@ button {
 
         <div class="panel">
             <h3>👥 شرکت‌کنندگان</h3>
-
-            <div class="panel-description">
-                <p>👤 شما (میزبان این صفحه)</p>
-                <p>هنوز شخص دیگری وارد نشده است.</p>
+            <div class="panel-description" id="participantsList">
+                در حال دریافت فهرست اعضا...
             </div>
         </div>
 
     </section>
 
-    <div class="notice">
-        این نسخه فعلاً محیط آزمایشی تماس است.
-        تصویر دوربین، میکروفون و اشتراک‌گذاری صفحه روی دستگاه شما
-        قابل آزمایش هستند؛ تماس با دیگران و چت همگام‌شده هنوز
-        به سرور ارتباطی نیاز دارند.
+    <div class="notice" id="notice">
+        در حال اتصال به سرور ارتباطی هدف...
     </div>
 
 </main>
 
 <div class="toolbar-wrap">
-
     <div class="toolbar">
 
-        <button class="control" id="micButton" onclick="toggleMic()">
+        <button class="control disabled" id="micButton" onclick="toggleMic()">
             🎙️
-            <small>میکروفون</small>
+            <small>میکروفون خاموش</small>
         </button>
 
         <button class="control" id="cameraButton" onclick="toggleCamera()">
             📷
-            <small>دوربین</small>
+            <small>دوربین خاموش</small>
         </button>
 
         <button class="control" id="screenButton" onclick="toggleScreen()">
@@ -569,10 +499,12 @@ button {
         </button>
 
     </div>
-
 </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="meet-config.js"></script>
 
 <script>
 const room = new URLSearchParams(location.search).get("room");
@@ -581,62 +513,352 @@ const localVideo = document.getElementById("localVideo");
 const localPlaceholder = document.getElementById("localPlaceholder");
 const cameraStatus = document.getElementById("cameraStatus");
 
-let localStream = null;
-let cameraTrack = null;
-let micTrack = null;
-let screenStream = null;
-
-let cameraOn = false;
-let micOn = false;
-let screenOn = false;
-
 const micButton = document.getElementById("micButton");
 const cameraButton = document.getElementById("cameraButton");
 const screenButton = document.getElementById("screenButton");
 
-document.getElementById("roomLabel").textContent =
-    room ? "شناسه جلسه: " + room : "شناسه جلسه نامشخص";
+const remoteVideos = document.getElementById("remoteVideos");
+const participantsList = document.getElementById("participantsList");
+const participantCount = document.getElementById("participantCount");
 
-if (!room) {
-    document.querySelector(".notice").textContent =
-        "شناسه جلسه پیدا نشد. از صفحه جلسات هدف یک جلسه جدید بساز.";
+const socketId = crypto.randomUUID();
+
+let channel = null;
+let localStream = null;
+let screenStream = null;
+
+let cameraTrack = null;
+let micTrack = null;
+
+let cameraOn = false;
+let micOn = false;
+let screenOn = false;
+let joined = false;
+
+const peers = new Map();
+const remoteNames = new Map();
+
+const peerConfig = {
+    iceServers: [
+        { urls: "stun:stun.l.google.com:19302" },
+        { urls: "stun:stun1.l.google.com:19302" }
+    ]
+};
+
+function showNotice(message) {
+    document.getElementById("notice").textContent = message;
 }
 
-async function startCamera() {
+function setConnectionStatus(message) {
+    document.getElementById("connectionStatus").textContent = message;
+}
+
+function updateParticipantList() {
+    const ids = [...peers.keys()];
+    participantCount.textContent = ids.length + 1;
+
+    participantsList.replaceChildren();
+
+    const me = document.createElement("p");
+    me.textContent = "👤 شما";
+    participantsList.appendChild(me);
+
+    ids.forEach(id => {
+        const item = document.createElement("p");
+        item.textContent = "👤 شرکت‌کننده " + id.slice(0, 5);
+        participantsList.appendChild(item);
+    });
+}
+
+async function sendSignal(event, payload) {
+    if (!channel || !joined) return;
+
+    const result = await channel.send({
+        type: "broadcast",
+        event,
+        payload: {
+            from: socketId,
+            room,
+            ...payload
+        }
+    });
+
+    if (result !== "ok") {
+        showNotice("ارسال اطلاعات ارتباطی با مشکل مواجه شد.");
+    }
+}
+
+async function connectRoom() {
+    if (!room) {
+        showNotice("شناسه جلسه پیدا نشد. از صفحه جلسات هدف یک جلسه بساز.");
+        return;
+    }
+
+    if (!window.supabaseClient) {
+        showNotice("اتصال Supabase پیدا نشد. فایل meet-config.js را بررسی کن.");
+        setConnectionStatus("خطای تنظیمات");
+        return;
+    }
+
+    channel = window.supabaseClient.channel("hadaf-meet-" + room, {
+        config: {
+            broadcast: { self: false },
+            presence: { key: socketId }
+        }
+    });
+
+    channel
+        .on("broadcast", { event: "peer-joined" }, async ({ payload }) => {
+            if (!payload || payload.from === socketId) return;
+            await createOffer(payload.from);
+        })
+        .on("broadcast", { event: "offer" }, async ({ payload }) => {
+            if (!payload || payload.to !== socketId) return;
+            await receiveOffer(payload.from, payload.description);
+        })
+        .on("broadcast", { event: "answer" }, async ({ payload }) => {
+            if (!payload || payload.to !== socketId) return;
+            await receiveAnswer(payload.from, payload.description);
+        })
+        .on("broadcast", { event: "ice" }, async ({ payload }) => {
+            if (!payload || payload.to !== socketId) return;
+            await receiveIce(payload.from, payload.candidate);
+        })
+        .on("broadcast", { event: "chat" }, ({ payload }) => {
+            if (!payload || payload.from === socketId) return;
+            addChatMessage(payload.text, "شرکت‌کننده", false);
+        })
+        .on("presence", { event: "sync" }, () => {
+            updateParticipantList();
+        })
+        .on("presence", { event: "join" }, () => {
+            updateParticipantList();
+        })
+        .on("presence", { event: "leave" }, () => {
+            updateParticipantList();
+        });
+
+    channel.subscribe(async status => {
+        if (status === "SUBSCRIBED") {
+            joined = true;
+
+            await channel.track({
+                userId: socketId,
+                joinedAt: new Date().toISOString()
+            });
+
+            setConnectionStatus("متصل");
+            showNotice("به سرور ارتباطی هدف وصل شدی.");
+
+            await sendSignal("peer-joined", {});
+            updateParticipantList();
+        }
+
+        if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+            setConnectionStatus("قطع ارتباط");
+            showNotice("اتصال به Supabase برقرار نشد. دوباره تلاش کن.");
+        }
+    });
+}
+
+function createRemoteCard(id) {
+    let card = document.getElementById("remote-" + id);
+
+    if (card) return card;
+
+    card = document.createElement("div");
+    card.className = "video-card";
+    card.id = "remote-" + id;
+
+    const video = document.createElement("video");
+    video.autoplay = true;
+    video.playsInline = true;
+
+    const placeholder = document.createElement("div");
+    placeholder.className = "video-placeholder";
+    placeholder.innerHTML =
+        '<div class="avatar">👤</div><small>در انتظار تصویر...</small>';
+
+    const name = document.createElement("div");
+    name.className = "video-name";
+    name.textContent = "شرکت‌کننده";
+
+    card.append(video, placeholder, name);
+    remoteVideos.appendChild(card);
+
+    return card;
+}
+
+function getPeer(id) {
+    if (peers.has(id)) return peers.get(id);
+
+    const pc = new RTCPeerConnection(peerConfig);
+
+    peers.set(id, pc);
+    createRemoteCard(id);
+
+    if (localStream) {
+        localStream.getTracks().forEach(track => {
+            pc.addTrack(track, localStream);
+        });
+    }
+
+    pc.onicecandidate = event => {
+        if (event.candidate) {
+            sendSignal("ice", {
+                to: id,
+                candidate: event.candidate
+            });
+        }
+    };
+
+    pc.ontrack = event => {
+        const card = createRemoteCard(id);
+        const video = card.querySelector("video");
+        const placeholder = card.querySelector(".video-placeholder");
+
+        if (event.streams[0]) {
+            video.srcObject = event.streams[0];
+            placeholder.style.display = "none";
+        }
+    };
+
+    pc.onconnectionstatechange = () => {
+        if (
+            pc.connectionState === "failed" ||
+            pc.connectionState === "closed"
+        ) {
+            removePeer(id);
+        }
+    };
+
+    pc.onnegotiationneeded = async () => {
+        if (pc.signalingState !== "stable") return;
+
+        try {
+            const offer = await pc.createOffer();
+            await pc.setLocalDescription(offer);
+
+            await sendSignal("offer", {
+                to: id,
+                description: pc.localDescription
+            });
+        } catch (error) {
+            console.error("Negotiation error:", error);
+        }
+    };
+
+    updateParticipantList();
+    return pc;
+}
+
+async function createOffer(id) {
+    const pc = getPeer(id);
+
+    if (pc.signalingState !== "stable") return;
+
+    try {
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+
+        await sendSignal("offer", {
+            to: id,
+            description: pc.localDescription
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function receiveOffer(id, description) {
+    const pc = getPeer(id);
+
+    try {
+        await pc.setRemoteDescription(description);
+
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+
+        await sendSignal("answer", {
+            to: id,
+            description: pc.localDescription
+        });
+    } catch (error) {
+        console.error("Offer error:", error);
+    }
+}
+
+async function receiveAnswer(id, description) {
+    const pc = peers.get(id);
+    if (!pc) return;
+
+    try {
+        await pc.setRemoteDescription(description);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function receiveIce(id, candidate) {
+    const pc = peers.get(id);
+    if (!pc || !candidate) return;
+
+    try {
+        await pc.addIceCandidate(candidate);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function removePeer(id) {
+    const pc = peers.get(id);
+
+    if (pc) {
+        pc.close();
+        peers.delete(id);
+    }
+
+    const card = document.getElementById("remote-" + id);
+    if (card) card.remove();
+
+    updateParticipantList();
+}
+
+async function startMedia() {
+    if (localStream) return true;
+
     try {
         localStream = await navigator.mediaDevices.getUserMedia({
-            video:true,
-            audio:true
+            video: true,
+            audio: true
         });
 
         cameraTrack = localStream.getVideoTracks()[0] || null;
         micTrack = localStream.getAudioTracks()[0] || null;
 
-        if (cameraTrack) {
-            cameraTrack.enabled = false;
-        }
-
-        if (micTrack) {
-            micTrack.enabled = false;
-        }
+        cameraTrack && (cameraTrack.enabled = cameraOn);
+        micTrack && (micTrack.enabled = micOn);
 
         localVideo.srcObject = localStream;
+
+        for (const [id, pc] of peers) {
+            localStream.getTracks().forEach(track => {
+                pc.addTrack(track, localStream);
+            });
+        }
 
         updateCamera();
         updateMic();
 
-    } catch(error) {
-        showNotice(
-            "دسترسی به دوربین یا میکروفون ممکن نشد. مجوزهای مرورگر را بررسی کن."
-        );
+        return true;
+    } catch (error) {
+        showNotice("دسترسی دوربین یا میکروفون داده نشد. مجوز مرورگر را بررسی کن.");
+        return false;
     }
 }
 
 async function toggleCamera() {
-    if (!localStream) {
-        await startCamera();
-    }
-
+    if (!localStream && !(await startMedia())) return;
     if (!cameraTrack) return;
 
     cameraOn = !cameraOn;
@@ -646,21 +868,18 @@ async function toggleCamera() {
 }
 
 function updateCamera() {
-    localPlaceholder.style.display =
-        cameraOn ? "none" : "flex";
+    localPlaceholder.style.display = cameraOn ? "none" : "flex";
 
-    cameraStatus.textContent =
+    cameraStatus.textContent = cameraOn ? "دوربین روشن" : "دوربین خاموش";
+    cameraStatus.classList.toggle("off", !cameraOn);
+
+    cameraButton.classList.toggle("active", cameraOn);
+    cameraButton.querySelector("small").textContent =
         cameraOn ? "دوربین روشن" : "دوربین خاموش";
-
-    cameraStatus.classList.toggle("off",!cameraOn);
-    cameraButton.classList.toggle("active",cameraOn);
 }
 
 async function toggleMic() {
-    if (!localStream) {
-        await startCamera();
-    }
-
+    if (!localStream && !(await startMedia())) return;
     if (!micTrack) return;
 
     micOn = !micOn;
@@ -670,7 +889,9 @@ async function toggleMic() {
 }
 
 function updateMic() {
-    micButton.classList.toggle("disabled",!micOn);
+    micButton.classList.toggle("disabled", !micOn);
+    micButton.classList.toggle("active", micOn);
+
     micButton.querySelector("small").textContent =
         micOn ? "میکروفون روشن" : "میکروفون خاموش";
 }
@@ -683,7 +904,7 @@ async function toggleScreen() {
 
     try {
         screenStream = await navigator.mediaDevices.getDisplayMedia({
-            video:true
+            video: true
         });
 
         const screenTrack = screenStream.getVideoTracks()[0];
@@ -691,17 +912,29 @@ async function toggleScreen() {
         localVideo.srcObject = screenStream;
         localPlaceholder.style.display = "none";
 
+        for (const [id, pc] of peers) {
+            const sender = pc.getSenders().find(s =>
+                s.track && s.track.kind === "video"
+            );
+
+            if (sender) {
+                await sender.replaceTrack(screenTrack);
+            } else {
+                pc.addTrack(screenTrack, screenStream);
+            }
+        }
+
         screenOn = true;
         screenButton.classList.add("active");
 
         screenTrack.onended = stopScreen;
 
-    } catch(error) {
+    } catch (error) {
         showNotice("اشتراک‌گذاری صفحه شروع نشد.");
     }
 }
 
-function stopScreen() {
+async function stopScreen() {
     if (screenStream) {
         screenStream.getTracks().forEach(track => track.stop());
     }
@@ -711,49 +944,83 @@ function stopScreen() {
 
     screenButton.classList.remove("active");
 
-    localVideo.srcObject = localStream;
+    if (localStream) {
+        for (const [id, pc] of peers) {
+            const sender = pc.getSenders().find(s =>
+                s.track && s.track.kind === "video"
+            );
+
+            if (sender && cameraTrack) {
+                await sender.replaceTrack(cameraTrack);
+            }
+        }
+
+        localVideo.srcObject = localStream;
+    }
+
     updateCamera();
 }
 
+function addChatMessage(text, name, mine) {
+    const item = document.createElement("div");
+    item.className = "chat-message" + (mine ? " me" : "");
+
+    const author = document.createElement("strong");
+    author.textContent = name;
+
+    const content = document.createElement("span");
+    content.textContent = text;
+
+    item.append(author, content);
+
+    const messages = document.getElementById("chatMessages");
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+document.getElementById("chatForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const input = document.getElementById("chatInput");
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    if (!joined) {
+        showNotice("هنوز به جلسه وصل نشده‌ای.");
+        return;
+    }
+
+    addChatMessage(message, "شما", true);
+
+    await sendSignal("chat", {
+        text: message.slice(0, 500)
+    });
+
+    input.value = "";
+});
+
 async function copyInvite() {
-    const link = location.href;
-
     try {
-        await navigator.clipboard.writeText(link);
+        await navigator.clipboard.writeText(location.href);
         showNotice("لینک دعوت کپی شد.");
-    } catch(error) {
-        showNotice("کپی خودکار ممکن نشد. لینک صفحه را از نوار آدرس کپی کن.");
+    } catch (error) {
+        showNotice("لینک را از نوار آدرس مرورگر کپی کن.");
     }
 }
 
-function showNotice(message) {
-    const notice = document.querySelector(".notice");
-    notice.textContent = message;
-}
+async function leaveMeeting() {
+    joined = false;
 
-document.getElementById("chatForm").addEventListener(
-    "submit",
-    function(event) {
-        event.preventDefault();
-
-        const input = document.getElementById("chatInput");
-        const message = input.value.trim();
-
-        if (!message) return;
-
-        const item = document.createElement("div");
-        item.className = "chat-message me";
-        item.textContent = message;
-
-        const messages = document.getElementById("chatMessages");
-        messages.appendChild(item);
-
-        messages.scrollTop = messages.scrollHeight;
-        input.value = "";
+    if (channel) {
+        await channel.untrack();
+        await window.supabaseClient.removeChannel(channel);
+        channel = null;
     }
-);
 
-function leaveMeeting() {
+    peers.forEach(pc => pc.close());
+    peers.clear();
+
     if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
     }
@@ -764,9 +1031,12 @@ function leaveMeeting() {
 
     location.href = "meet.html";
 }
+
+document.getElementById("roomLabel").textContent =
+    room ? "شناسه جلسه: " + room : "شناسه جلسه نامشخص";
+
+connectRoom();
 </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="meet-config.js"></script>
 
 </body>
 </html>
