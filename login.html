@@ -175,8 +175,9 @@ input::placeholder{color:#697386}
 </main>
 
 <script>
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxA6cb5J_oVT-qqsEqfPhTIHT6H9uqIWAzs0lRqA64sfpZ9ElmcjzVbBCFkf1Q5GGrihQ/exec";
+const SUPABASE_URL = "https://gxzllogjxcnvahtfduny.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_xSd8Pa_PThr2w8Q3v2FeFw_GUY7W7J9O";
 
 const $ = id => document.getElementById(id);
 
@@ -210,17 +211,32 @@ function setMode(mode){
 $("loginTab").addEventListener("click",()=>setMode("login"));
 $("signupTab").addEventListener("click",()=>setMode("signup"));
 
-async function callAPI(data){
- const response=await fetch(API_URL,{
+async function supabaseAuth(path,data){
+ const response=await fetch(SUPABASE_URL+path,{
   method:"POST",
-  headers:{"Content-Type":"text/plain;charset=utf-8"},
+  headers:{
+   "Content-Type":"application/json",
+   "apikey":SUPABASE_KEY
+  },
   body:JSON.stringify(data)
  });
 
- const result=await response.json();
+ let result;
 
- if(!response.ok || result.success===false){
-  throw new Error(result.error || result.message || "ارتباط با سرور ناموفق بود.");
+ try{
+  result=await response.json();
+ }catch{
+  throw new Error("پاسخ سرور قابل خواندن نیست.");
+ }
+
+ if(!response.ok){
+  throw new Error(
+   result.msg ||
+   result.message ||
+   result.error_description ||
+   result.error ||
+   "عملیات ناموفق بود."
+  );
  }
 
  return result;
@@ -228,10 +244,14 @@ async function callAPI(data){
 
 function saveSession(result){
  const user=result.user || {};
- const session=result.session || {};
+ const session=result.session || result;
 
  if(!session.access_token){
   throw new Error("توکن ورود دریافت نشد.");
+ }
+
+ if(!user.id){
+  throw new Error("اطلاعات حساب دریافت نشد.");
  }
 
  const displayName=
@@ -246,7 +266,7 @@ function saveSession(result){
   username:displayName,
   name:displayName,
   access_token:session.access_token,
-  refresh_token:session.refresh_token
+  refresh_token:session.refresh_token || null
  }));
 }
 
@@ -259,13 +279,16 @@ $("loginForm").addEventListener("submit",async event=>{
  button.textContent="در حال ورود...";
 
  try{
-  const result=await callAPI({
-   action:"login",
-   email:$("loginEmail").value.trim(),
-   password:$("loginPassword").value
-  });
+  const result=await supabaseAuth(
+   "/auth/v1/token?grant_type=password",
+   {
+    email:$("loginEmail").value.trim(),
+    password:$("loginPassword").value
+   }
+  );
 
   saveSession(result);
+
   showMessage("ورود موفق بود! در حال انتقال...","success");
 
   setTimeout(()=>location.href="index.html",800);
@@ -284,9 +307,15 @@ $("signupForm").addEventListener("submit",async event=>{
 
  const password=$("signupPassword").value;
  const password2=$("signupPassword2").value;
+ const displayName=$("signupName").value.trim();
 
  if(password!==password2){
   showMessage("رمز عبور و تکرار آن یکسان نیستند.","error");
+  return;
+ }
+
+ if(!displayName){
+  showMessage("نام نمایشی را وارد کن.","error");
   return;
  }
 
@@ -295,16 +324,24 @@ $("signupForm").addEventListener("submit",async event=>{
  button.textContent="در حال ساخت حساب...";
 
  try{
-  const result=await callAPI({
-   action:"signup",
-   email:$("signupEmail").value.trim(),
-   password:password,
-   display_name:$("signupName").value.trim()
-  });
+  const result=await supabaseAuth(
+   "/auth/v1/signup",
+   {
+    email:$("signupEmail").value.trim(),
+    password:password,
+    data:{
+     display_name:displayName
+    }
+   }
+  );
 
-  if(result.session?.access_token){
+  const session=result.session || result;
+
+  if(session.access_token){
    saveSession(result);
+
    showMessage("حساب ساخته شد! در حال انتقال...","success");
+
    setTimeout(()=>location.href="index.html",1000);
   }else{
    showMessage(
