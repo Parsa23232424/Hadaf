@@ -84,8 +84,16 @@ input::placeholder{color:#697386}
  display:none;margin-top:16px;padding:13px;
  border-radius:13px;font-size:12px;line-height:1.9;
 }
-.message.error{display:block;color:#fecaca;background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.2)}
-.message.success{display:block;color:#bbf7d0;background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.2)}
+.message.error{
+ display:block;color:#fecaca;
+ background:rgba(239,68,68,.10);
+ border:1px solid rgba(239,68,68,.2)
+}
+.message.success{
+ display:block;color:#bbf7d0;
+ background:rgba(34,197,94,.09);
+ border:1px solid rgba(34,197,94,.2)
+}
 .switch{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
 .switch a{color:#a99fff;text-decoration:none;font-weight:bold}
 .back{text-align:center;margin-top:20px}
@@ -119,15 +127,21 @@ input::placeholder{color:#697386}
 
    <div class="field">
     <label for="loginEmail">ایمیل</label>
-    <input id="loginEmail" type="email" placeholder="example@email.com" autocomplete="email" required>
+    <input id="loginEmail" type="email"
+     placeholder="example@email.com"
+     autocomplete="email" required>
    </div>
 
    <div class="field">
     <label for="loginPassword">رمز عبور</label>
-    <input id="loginPassword" type="password" placeholder="رمز عبورت را وارد کن" autocomplete="current-password" required>
+    <input id="loginPassword" type="password"
+     placeholder="رمز عبورت را وارد کن"
+     autocomplete="current-password" required>
    </div>
 
-   <button class="submit" id="loginButton" type="submit">ورود به حساب</button>
+   <button class="submit" id="loginButton" type="submit">
+    ورود به حساب
+   </button>
   </form>
 
   <form id="signupForm" class="hidden">
@@ -136,32 +150,43 @@ input::placeholder{color:#697386}
 
    <div class="field">
     <label for="signupName">نام نمایشی</label>
-    <input id="signupName" type="text" placeholder="مثلاً پارسا" maxlength="40" autocomplete="name" required>
+    <input id="signupName" type="text"
+     placeholder="مثلاً پارسا"
+     maxlength="40" autocomplete="name" required>
    </div>
 
    <div class="field">
     <label for="signupEmail">ایمیل</label>
-    <input id="signupEmail" type="email" placeholder="example@email.com" autocomplete="email" required>
+    <input id="signupEmail" type="email"
+     placeholder="example@email.com"
+     autocomplete="email" required>
    </div>
 
    <div class="field">
     <label for="signupPassword">رمز عبور</label>
-    <input id="signupPassword" type="password" placeholder="حداقل ۸ کاراکتر" minlength="8" autocomplete="new-password" required>
+    <input id="signupPassword" type="password"
+     placeholder="حداقل ۸ کاراکتر"
+     minlength="8" autocomplete="new-password" required>
    </div>
 
    <div class="field">
     <label for="signupPassword2">تکرار رمز عبور</label>
-    <input id="signupPassword2" type="password" placeholder="رمز عبور را دوباره وارد کن" minlength="8" autocomplete="new-password" required>
+    <input id="signupPassword2" type="password"
+     placeholder="رمز عبور را دوباره وارد کن"
+     minlength="8" autocomplete="new-password" required>
    </div>
 
-   <button class="submit" id="signupButton" type="submit">ساخت حساب</button>
+   <button class="submit" id="signupButton" type="submit">
+    ساخت حساب
+   </button>
   </form>
 
-  <div class="message" id="message" role="status" aria-live="polite"></div>
+  <div class="message" id="message"
+   role="status" aria-live="polite"></div>
 
   <div class="switch" id="switchText">
    حساب نداری؟
-   <a href="?mode=signup" id="switchLink">ثبت‌نام کن</a>
+   <a href="?mode=signup">ثبت‌نام کن</a>
   </div>
 
  </section>
@@ -175,11 +200,11 @@ input::placeholder{color:#697386}
 </main>
 
 <script>
-const SUPABASE_URL = "https://gxzllogjxcnvahtfduny.supabase.co";
-
-const SUPABASE_KEY = "sb_publishable_xSd8Pa_PThr2w8Q3v2FeFw_GUY7W7J9O";
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxA6cb5J_oVT-qqsEqfPhTIHT6H9uqIWAzs0lRqA64sfpZ9ElmcjzVbBCFkf1Q5GGrihQ/exec";
 
 const $ = id => document.getElementById(id);
+
 
 function showMessage(text,type){
  const box=$("message");
@@ -187,36 +212,51 @@ function showMessage(text,type){
  box.className="message "+type;
 }
 
+
 function clearMessage(){
  $("message").textContent="";
  $("message").className="message";
 }
+
 
 function setMode(mode){
  const signup=mode==="signup";
 
  $("loginForm").classList.toggle("hidden",signup);
  $("signupForm").classList.toggle("hidden",!signup);
+
  $("loginTab").classList.toggle("active",!signup);
  $("signupTab").classList.toggle("active",signup);
 
  $("switchText").innerHTML=signup
- ? 'قبلاً حساب ساخته‌ای؟ <a href="?mode=login">وارد شو</a>'
- : 'حساب نداری؟ <a href="?mode=signup">ثبت‌نام کن</a>';
+  ? 'قبلاً حساب ساخته‌ای؟ <a href="?mode=login">وارد شو</a>'
+  : 'حساب نداری؟ <a href="?mode=signup">ثبت‌نام کن</a>';
 
  clearMessage();
- history.replaceState(null,"",signup?"?mode=signup":"?mode=login");
+
+ history.replaceState(
+  null,
+  "",
+  signup ? "?mode=signup" : "?mode=login"
+ );
 }
 
-$("loginTab").addEventListener("click",()=>setMode("login"));
-$("signupTab").addEventListener("click",()=>setMode("signup"));
 
-async function supabaseAuth(path,data){
- const response=await fetch(SUPABASE_URL+path,{
+$("loginTab").addEventListener("click",()=>{
+ setMode("login");
+});
+
+$("signupTab").addEventListener("click",()=>{
+ setMode("signup");
+});
+
+
+async function callAPI(data){
+
+ const response=await fetch(API_URL,{
   method:"POST",
   headers:{
-   "Content-Type":"application/json",
-   "apikey":SUPABASE_KEY
+   "Content-Type":"text/plain;charset=utf-8"
   },
   body:JSON.stringify(data)
  });
@@ -225,26 +265,26 @@ async function supabaseAuth(path,data){
 
  try{
   result=await response.json();
- }catch{
-  throw new Error("پاسخ سرور قابل خواندن نیست.");
+ }catch(error){
+  throw new Error("پاسخ API قابل خواندن نیست.");
  }
 
- if(!response.ok){
+ if(!response.ok || result.success===false){
   throw new Error(
-   result.msg ||
-   result.message ||
-   result.error_description ||
    result.error ||
-   "عملیات ناموفق بود."
+   result.message ||
+   "ارتباط با سرور ناموفق بود."
   );
  }
 
  return result;
 }
 
+
 function saveSession(result){
+
  const user=result.user || {};
- const session=result.session || result;
+ const session=result.session || {};
 
  if(!session.access_token){
   throw new Error("توکن ورود دریافت نشد.");
@@ -270,38 +310,56 @@ function saveSession(result){
  }));
 }
 
+
+/* ورود */
+
 $("loginForm").addEventListener("submit",async event=>{
+
  event.preventDefault();
  clearMessage();
 
  const button=$("loginButton");
+
  button.disabled=true;
  button.textContent="در حال ورود...";
 
  try{
-  const result=await supabaseAuth(
-   "/auth/v1/token?grant_type=password",
-   {
-    email:$("loginEmail").value.trim(),
-    password:$("loginPassword").value
-   }
-  );
+
+  const result=await callAPI({
+   action:"login",
+   email:$("loginEmail").value.trim(),
+   password:$("loginPassword").value
+  });
 
   saveSession(result);
 
-  showMessage("ورود موفق بود! در حال انتقال...","success");
+  showMessage(
+   "ورود موفق بود! در حال انتقال...",
+   "success"
+  );
 
-  setTimeout(()=>location.href="index.html",800);
+  setTimeout(()=>{
+   location.href="index.html";
+  },800);
 
  }catch(error){
+
   showMessage(error.message,"error");
+
  }finally{
+
   button.disabled=false;
   button.textContent="ورود به حساب";
+
  }
+
 });
 
+
+/* ثبت‌نام */
+
 $("signupForm").addEventListener("submit",async event=>{
+
  event.preventDefault();
  clearMessage();
 
@@ -310,56 +368,81 @@ $("signupForm").addEventListener("submit",async event=>{
  const displayName=$("signupName").value.trim();
 
  if(password!==password2){
-  showMessage("رمز عبور و تکرار آن یکسان نیستند.","error");
+  showMessage(
+   "رمز عبور و تکرار آن یکسان نیستند.",
+   "error"
+  );
   return;
  }
 
- if(!displayName){
-  showMessage("نام نمایشی را وارد کن.","error");
+ if(password.length<8){
+  showMessage(
+   "رمز عبور باید حداقل ۸ کاراکتر باشد.",
+   "error"
+  );
   return;
  }
 
  const button=$("signupButton");
+
  button.disabled=true;
  button.textContent="در حال ساخت حساب...";
 
  try{
-  const result=await supabaseAuth(
-   "/auth/v1/signup",
-   {
-    email:$("signupEmail").value.trim(),
-    password:password,
-    data:{
-     display_name:displayName
-    }
-   }
-  );
 
-  const session=result.session || result;
+  const result=await callAPI({
+   action:"signup",
+   email:$("signupEmail").value.trim(),
+   password:password,
+   display_name:displayName
+  });
 
-  if(session.access_token){
+  if(result.session?.access_token){
+
    saveSession(result);
 
-   showMessage("حساب ساخته شد! در حال انتقال...","success");
+   showMessage(
+    "حساب ساخته شد! در حال انتقال...",
+    "success"
+   );
 
-   setTimeout(()=>location.href="index.html",1000);
+   setTimeout(()=>{
+    location.href="index.html";
+   },1000);
+
   }else{
+
    showMessage(
     "ثبت‌نام انجام شد. ایمیلت را برای تأیید حساب بررسی کن؛ سپس از بخش ورود وارد شو.",
     "success"
    );
+
   }
 
  }catch(error){
+
   showMessage(error.message,"error");
+
  }finally{
+
   button.disabled=false;
   button.textContent="ساخت حساب";
+
  }
+
 });
 
+
+/* حالت اولیه صفحه */
+
 const params=new URLSearchParams(location.search);
-setMode(params.get("mode")==="signup"?"signup":"login");
+
+setMode(
+ params.get("mode")==="signup"
+  ? "signup"
+  : "login"
+);
+
 </script>
 </body>
 </html>
