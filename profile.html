@@ -3,167 +3,164 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
 <title>پروفایل من | هدف</title>
 
 <style>
 :root{
-  --bg:#07090f;
-  --card:#121624;
-  --border:#252b3c;
-  --primary:#6758ff;
-  --primary2:#5146da;
-  --text:#f4f4f5;
-  --muted:#9298aa;
-  --green:#22c55e;
-  --orange:#ff7a32;
+ --bg:#07090f;
+ --card:#121624;
+ --border:#252b3c;
+ --primary:#6758ff;
+ --primary2:#5146da;
+ --text:#f4f4f5;
+ --muted:#9298aa;
+ --green:#22c55e;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Tahoma,Arial,sans-serif;
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Tahoma,Arial,sans-serif;
 }
 button,input{font:inherit}
 .container{
-  width:min(100% - 28px,650px);
-  margin:30px auto;
+ width:min(100% - 28px,650px);
+ margin:30px auto;
 }
 .header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:22px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:22px;
 }
 .header h1{font-size:23px;margin:0}
 .logo{color:#a99cff;font-weight:bold}
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px;
-  margin-bottom:16px;
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:20px;
+ padding:22px;
+ margin-bottom:16px;
 }
 .avatar-area{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
-  padding:12px 0 22px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:12px;
+ padding:12px 0 22px;
 }
 .avatar{
-  width:112px;
-  height:112px;
-  border-radius:50%;
-  border:3px solid var(--primary);
-  background:#29234d;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  font-size:38px;
-  color:#c4baff;
+ width:112px;
+ height:112px;
+ border-radius:50%;
+ border:3px solid var(--primary);
+ background:#29234d;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+ font-size:38px;
+ color:#c4baff;
 }
 .avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+ width:100%;
+ height:100%;
+ object-fit:cover;
 }
-.small{
-  color:var(--muted);
-  font-size:12px;
-}
-button{
-  border:0;
-  cursor:pointer;
-}
+.small{color:var(--muted);font-size:12px}
+button{border:0;cursor:pointer}
 .choose{
-  background:#27234c;
-  color:#c4baff;
-  padding:11px 18px;
-  border-radius:12px;
+ display:inline-block;
+ background:#27234c;
+ color:#c4baff;
+ padding:11px 18px;
+ border-radius:12px;
+ cursor:pointer;
+ font-size:13px;
 }
 .field{margin-top:18px}
 label{
-  display:block;
-  font-size:13px;
-  color:#b7bbca;
-  margin-bottom:9px;
+ display:block;
+ font-size:13px;
+ color:#b7bbca;
+ margin-bottom:9px;
 }
-input{
-  width:100%;
-  background:#0c101b;
-  border:1px solid var(--border);
-  color:white;
-  padding:14px;
-  border-radius:12px;
-  outline:none;
+input[type="text"]{
+ width:100%;
+ background:#0c101b;
+ border:1px solid var(--border);
+ color:white;
+ padding:14px;
+ border-radius:12px;
+ outline:none;
 }
 input:focus{border-color:var(--primary)}
 .username{
-  background:#0c101b;
-  border:1px solid var(--border);
-  padding:14px;
-  border-radius:12px;
-  color:var(--muted);
-  direction:ltr;
-  text-align:right;
+ background:#0c101b;
+ border:1px solid var(--border);
+ padding:14px;
+ border-radius:12px;
+ color:var(--muted);
+ direction:ltr;
+ text-align:right;
 }
 .save{
-  width:100%;
-  margin-top:22px;
-  background:linear-gradient(135deg,var(--primary),var(--primary2));
-  color:white;
-  padding:15px;
-  border-radius:13px;
-  font-weight:bold;
+ width:100%;
+ margin-top:22px;
+ background:linear-gradient(135deg,var(--primary),var(--primary2));
+ color:white;
+ padding:15px;
+ border-radius:13px;
+ font-weight:bold;
 }
 .save:disabled{opacity:.55;cursor:not-allowed}
 .message{
-  display:none;
-  padding:13px;
-  border-radius:12px;
-  margin-top:15px;
-  font-size:13px;
-  line-height:1.8;
+ display:none;
+ padding:13px;
+ border-radius:12px;
+ margin-top:15px;
+ font-size:13px;
+ line-height:1.9;
+ overflow-wrap:anywhere;
 }
 .message.success{
-  display:block;
-  color:#86efac;
-  background:#12301f;
+ display:block;
+ color:#86efac;
+ background:#12301f;
 }
 .message.error{
-  display:block;
-  color:#fca5a5;
-  background:#351919;
+ display:block;
+ color:#fca5a5;
+ background:#351919;
 }
 .nav{
-  display:flex;
-  justify-content:space-around;
-  gap:8px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:14px 5px;
-  margin-top:18px;
+ display:flex;
+ justify-content:space-around;
+ gap:8px;
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:14px 5px;
+ margin-top:18px;
 }
 .nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:12px;
+ color:var(--muted);
+ text-decoration:none;
+ font-size:12px;
 }
 .nav a.active{color:#a99cff}
 .footer{
-  text-align:center;
-  color:#686f80;
-  font-size:11px;
-  margin:25px 0;
+ text-align:center;
+ color:#686f80;
+ font-size:11px;
+ margin:25px 0;
 }
 @media(max-width:420px){
-  .container{margin-top:20px}
-  .card{padding:17px}
+ .container{margin-top:20px}
+ .card{padding:17px}
 }
 </style>
 </head>
@@ -172,68 +169,73 @@ input:focus{border-color:var(--primary)}
 
 <main class="container">
 
-  <header class="header">
-    <h1>پروفایل من</h1>
-    <span class="logo">HADAF</span>
-  </header>
+ <header class="header">
+  <h1>پروفایل من</h1>
+  <span class="logo">HADAF</span>
+ </header>
 
-  <section class="card">
+ <section class="card">
 
-    <div class="avatar-area">
-      <div class="avatar" id="avatarPreview">
-        <span>👤</span>
-      </div>
+  <div class="avatar-area">
 
-      <strong id="displayNameTitle">کاربر هدف</strong>
-      <span class="small" id="usernameTitle">در حال دریافت اطلاعات...</span>
+   <div class="avatar" id="avatarPreview">👤</div>
 
-      <label class="choose" for="avatarInput">
-        انتخاب عکس از گالری
-      </label>
+   <strong id="displayNameTitle">کاربر هدف</strong>
 
-      <input
-        id="avatarInput"
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        hidden
-      >
+   <span class="small" id="usernameTitle">
+    در حال دریافت اطلاعات...
+   </span>
 
-      <span class="small">عکس به‌صورت Base64 ذخیره می‌شود.</span>
-    </div>
+   <label class="choose" for="avatarInput">
+    انتخاب عکس از گالری
+   </label>
 
-    <div class="field">
-      <label for="displayName">نام نمایشی</label>
-      <input
-        id="displayName"
-        type="text"
-        maxlength="50"
-        placeholder="نام نمایشی خود را وارد کن"
-      >
-    </div>
+   <input
+    id="avatarInput"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+    hidden
+   >
 
-    <div class="field">
-      <label>نام کاربری</label>
-      <div class="username" id="username">---</div>
-    </div>
+   <span class="small">
+    عکس به‌صورت Base64 ذخیره می‌شود.
+   </span>
 
-    <button class="save" id="saveButton">
-      ذخیره تغییرات
-    </button>
+  </div>
 
-    <div class="message" id="message"></div>
+  <div class="field">
+   <label for="displayName">نام نمایشی</label>
+   <input
+    id="displayName"
+    type="text"
+    maxlength="50"
+    placeholder="نام نمایشی خود را وارد کن"
+   >
+  </div>
 
-  </section>
+  <div class="field">
+   <label>نام کاربری</label>
+   <div class="username" id="username">---</div>
+  </div>
 
-  <nav class="nav">
-    <a href="index.html">خانه</a>
-    <a href="goals.html">اهداف</a>
-    <a href="habits.html">عادت‌ها</a>
-    <a href="profile.html" class="active">پروفایل</a>
-  </nav>
+  <button class="save" id="saveButton" type="button">
+   ذخیره تغییرات
+  </button>
 
-  <footer class="footer">
-    سایت هدف • هر روز یک قدم جلوتر
-  </footer>
+  <div class="message" id="message" role="status"></div>
+
+ </section>
+
+ <nav class="nav">
+  <a href="index.html">خانه</a>
+  <a href="goals.html">اهداف</a>
+  <a href="habits.html">عادت‌ها</a>
+  <a href="profile.html" class="active">پروفایل</a>
+ </nav>
+
+ <footer class="footer">
+  سایت هدف • هر روز یک قدم جلوتر
+ </footer>
 
 </main>
 
@@ -241,217 +243,320 @@ input:focus{border-color:var(--primary)}
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxA6cb5J_oVT-qqsEqfPhTIHT6H9uqIWAzs0lRqA64sfpZ9ElmcjzVbBCFkf1Q5GGrihQ/exec";
 
-const avatarInput = document.getElementById("avatarInput");
-const avatarPreview = document.getElementById("avatarPreview");
-const displayNameInput = document.getElementById("displayName");
-const displayNameTitle = document.getElementById("displayNameTitle");
-const usernameTitle = document.getElementById("usernameTitle");
-const usernameElement = document.getElementById("username");
-const saveButton = document.getElementById("saveButton");
-const messageElement = document.getElementById("message");
+const $ = id => document.getElementById(id);
 
 let currentUser = null;
 let newAvatar = null;
+let savedAvatar = null;
 
+function showMessage(text,type){
+ const box = $("message");
+ box.textContent = text;
+ box.className = "message " + type;
+}
+
+function clearMessage(){
+ $("message").textContent = "";
+ $("message").className = "message";
+}
+
+/* دریافت نشست دقیقاً مطابق login.html */
 function getStoredUser(){
-  try{
-    return JSON.parse(localStorage.getItem("hadafUser") || "null");
-  }catch(error){
-    return null;
-  }
+ try{
+  return JSON.parse(localStorage.getItem("hadafUser") || "null");
+ }catch(error){
+  return null;
+ }
 }
 
 function getToken(){
-  return currentUser?.access_token ||
-    currentUser?.session?.access_token ||
-    currentUser?.user?.access_token ||
-    null;
+ return currentUser?.access_token || null;
 }
 
-function showMessage(text,type){
-  messageElement.textContent = text;
-  messageElement.className = "message " + type;
-}
+/* ارتباط با API */
+async function callAPI(data){
 
-async function callAPI(request){
-  const token = getToken();
+ const token = getToken();
 
-  if(!token){
-    throw new Error("نشست ورود پیدا نشد. دوباره وارد حساب شو.");
-  }
+ if(!token){
+  throw new Error("نشست ورود پیدا نشد. دوباره وارد حساب شو.");
+ }
 
-  const response = await fetch(API_URL,{
-    method:"POST",
-    headers:{
-      "Content-Type":"text/plain;charset=UTF-8"
-    },
-    body:JSON.stringify({
-      ...request,
-      access_token:token
-    }),
-    cache:"no-store",
-    redirect:"follow"
+ let response;
+
+ try{
+  response = await fetch(API_URL,{
+   method:"POST",
+   headers:{
+    "Content-Type":"text/plain;charset=utf-8"
+   },
+   body:JSON.stringify({
+    ...data,
+    access_token:token
+   }),
+   cache:"no-store",
+   redirect:"follow"
   });
+ }catch(error){
+  throw new Error("ارتباط با API برقرار نشد. اتصال اینترنت را بررسی کن.");
+ }
 
-  const result = await response.json();
+ let result;
 
-  if(!result.success){
-    throw new Error(result.error || "درخواست ناموفق بود.");
-  }
+ try{
+  result = await response.json();
+ }catch(error){
+  throw new Error("پاسخ API قابل خواندن نیست.");
+ }
 
-  return result;
+ if(!response.ok || result.success !== true){
+  throw new Error(
+   result.error ||
+   result.message ||
+   "درخواست ناموفق بود."
+  );
+ }
+
+ return result;
 }
 
+/* نمایش عکس */
 function showAvatar(value){
-  avatarPreview.innerHTML = "";
 
-  if(value){
-    const image = document.createElement("img");
-    image.src = value;
-    image.alt = "عکس پروفایل";
-    avatarPreview.appendChild(image);
-  }else{
-    avatarPreview.textContent = "👤";
-  }
-}
+ $("avatarPreview").innerHTML = "";
 
-async function loadProfile(){
-  currentUser = getStoredUser();
+ if(value){
+  const image = document.createElement("img");
+  image.src = value;
+  image.alt = "عکس پروفایل";
 
-  if(!getToken()){
-    showMessage("ابتدا وارد حساب هدف شو.","error");
-    saveButton.disabled = true;
-    return;
-  }
-
-  try{
-    const result = await callAPI({
-      action:"getDashboard"
-    });
-
-    const profile = result.data?.user || {};
-
-    displayNameInput.value = profile.display_name || "";
-    displayNameTitle.textContent =
-      profile.display_name || "کاربر هدف";
-
-    usernameElement.textContent =
-      profile.username || "---";
-
-    usernameTitle.textContent =
-      profile.username ? "@" + profile.username : "";
-
-    showAvatar(profile.avatar_url || null);
-
-  }catch(error){
-    showMessage(error.message,"error");
-  }
-}
-
-avatarInput.addEventListener("change",async function(){
-  const file = this.files?.[0];
-
-  if(!file) return;
-
-  if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
-    showMessage("فقط عکس JPG، PNG یا WebP انتخاب کن.","error");
-    this.value = "";
-    return;
-  }
-
-  if(file.size > 8 * 1024 * 1024){
-    showMessage("حجم عکس باید کمتر از ۸ مگابایت باشد.","error");
-    this.value = "";
-    return;
-  }
-
-  try{
-    const dataURL = await new Promise((resolve,reject)=>{
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = () => reject(new Error("خواندن عکس ناموفق بود."));
-      reader.readAsDataURL(file);
-    });
-
-    const image = await new Promise((resolve,reject)=>{
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = () => reject(new Error("بازکردن عکس ناموفق بود."));
-      img.src = dataURL;
-    });
-
-    const canvas = document.createElement("canvas");
-    const maxSize = 512;
-
-    let width = image.width;
-    let height = image.height;
-
-    const scale = Math.min(1,maxSize / Math.max(width,height));
-
-    width = Math.round(width * scale);
-    height = Math.round(height * scale);
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const context = canvas.getContext("2d");
-    context.drawImage(image,0,0,width,height);
-
-    newAvatar = canvas.toDataURL("image/jpeg",0.78);
-
-    showAvatar(newAvatar);
-    showMessage("عکس انتخاب شد. برای ذخیره، دکمه را بزن.","success");
-
-  }catch(error){
-    showMessage(error.message,"error");
-  }
-});
-
-saveButton.addEventListener("click",async function(){
-  const displayName = displayNameInput.value.trim();
-
-  if(!displayName){
-    showMessage("نام نمایشی را وارد کن.","error");
-    return;
-  }
-
-  const request = {
-    action:"updateProfile",
-    display_name:displayName
+  image.onerror = function(){
+   $("avatarPreview").textContent = "👤";
   };
 
-  if(newAvatar){
-    request.avatar_url = newAvatar;
+  $("avatarPreview").appendChild(image);
+ }else{
+  $("avatarPreview").textContent = "👤";
+ }
+}
+
+/* دریافت اطلاعات پروفایل */
+async function loadProfile(){
+
+ currentUser = getStoredUser();
+
+ if(!currentUser || !currentUser.id || !getToken()){
+  showMessage("نشست ورود معتبر نیست. دوباره وارد حساب شو.","error");
+  $("saveButton").disabled = true;
+  return;
+ }
+
+ $("saveButton").disabled = true;
+
+ try{
+
+  const result = await callAPI({
+   action:"getDashboard"
+  });
+
+  const profile = result.data?.user || {};
+
+  $("displayName").value =
+   profile.display_name || currentUser.name || "";
+
+  $("displayNameTitle").textContent =
+   profile.display_name || "کاربر هدف";
+
+  $("username").textContent =
+   profile.username || currentUser.username || "---";
+
+  $("usernameTitle").textContent =
+   profile.username ? "@" + profile.username : "";
+
+  savedAvatar = profile.avatar_url || null;
+
+  showAvatar(savedAvatar);
+
+  clearMessage();
+
+ }catch(error){
+
+  showMessage(error.message,"error");
+
+ }finally{
+
+  $("saveButton").disabled = false;
+
+ }
+
+}
+
+/* انتخاب عکس از گالری و تبدیل به Base64 */
+$("avatarInput").addEventListener("change",async function(){
+
+ const file = this.files && this.files[0];
+
+ if(!file) return;
+
+ if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+  showMessage("فقط عکس JPG، PNG یا WebP انتخاب کن.","error");
+  this.value = "";
+  return;
+ }
+
+ if(file.size > 8 * 1024 * 1024){
+  showMessage("حجم عکس باید کمتر از ۸ مگابایت باشد.","error");
+  this.value = "";
+  return;
+ }
+
+ try{
+
+  const dataURL = await new Promise((resolve,reject)=>{
+
+   const reader = new FileReader();
+
+   reader.onload = () => resolve(reader.result);
+   reader.onerror = () => reject(
+    new Error("خواندن عکس ناموفق بود.")
+   );
+
+   reader.readAsDataURL(file);
+
+  });
+
+  const image = await new Promise((resolve,reject)=>{
+
+   const img = new Image();
+
+   img.onload = () => resolve(img);
+   img.onerror = () => reject(
+    new Error("بازکردن عکس ناموفق بود.")
+   );
+
+   img.src = dataURL;
+
+  });
+
+  const canvas = document.createElement("canvas");
+  const maxSize = 512;
+
+  const scale = Math.min(
+   1,
+   maxSize / Math.max(image.width,image.height)
+  );
+
+  canvas.width = Math.round(image.width * scale);
+  canvas.height = Math.round(image.height * scale);
+
+  const context = canvas.getContext("2d");
+
+  if(!context){
+   throw new Error("پردازش عکس امکان‌پذیر نیست.");
   }
 
-  saveButton.disabled = true;
-  saveButton.textContent = "در حال ذخیره...";
+  context.drawImage(
+   image,
+   0,
+   0,
+   canvas.width,
+   canvas.height
+  );
 
-  try{
-    const result = await callAPI(request);
-    const profile = result.data || {};
+  newAvatar = canvas.toDataURL("image/jpeg",0.78);
 
-    displayNameTitle.textContent =
-      profile.display_name || displayName;
+  showAvatar(newAvatar);
 
-    if(profile.avatar_url){
-      showAvatar(profile.avatar_url);
-    }
+  showMessage(
+   "عکس انتخاب شد. برای ذخیره دکمه را بزن.",
+   "success"
+  );
 
-    newAvatar = null;
-    avatarInput.value = "";
+ }catch(error){
 
-    showMessage("تغییرات پروفایل با موفقیت ذخیره شد.","success");
+  showMessage(error.message,"error");
 
-  }catch(error){
-    showMessage(error.message,"error");
-  }finally{
-    saveButton.disabled = false;
-    saveButton.textContent = "ذخیره تغییرات";
-  }
+ }
+
 });
 
+/* ذخیره تغییرات */
+$("saveButton").addEventListener("click",async function(){
+
+ const displayName = $("displayName").value.trim();
+
+ if(!displayName){
+  showMessage("نام نمایشی را وارد کن.","error");
+  return;
+ }
+
+ if(displayName.length > 50){
+  showMessage("نام نمایشی نباید بیشتر از ۵۰ حرف باشد.","error");
+  return;
+ }
+
+ const request = {
+  action:"updateProfile",
+  display_name:displayName
+ };
+
+ if(newAvatar){
+  request.avatar_url = newAvatar;
+ }
+
+ const button = $("saveButton");
+
+ button.disabled = true;
+ button.textContent = "در حال ذخیره...";
+
+ try{
+
+  const result = await callAPI(request);
+
+  const profile = result.data || {};
+
+  $("displayNameTitle").textContent =
+   profile.display_name || displayName;
+
+  if(profile.avatar_url){
+   savedAvatar = profile.avatar_url;
+   showAvatar(savedAvatar);
+  }else if(newAvatar){
+   savedAvatar = newAvatar;
+   showAvatar(savedAvatar);
+  }
+
+  currentUser.name = displayName;
+
+  localStorage.setItem(
+   "hadafUser",
+   JSON.stringify(currentUser)
+  );
+
+  newAvatar = null;
+  $("avatarInput").value = "";
+
+  showMessage(
+   "تغییرات پروفایل با موفقیت ذخیره شد.",
+   "success"
+  );
+
+ }catch(error){
+
+  showMessage(error.message,"error");
+
+ }finally{
+
+  button.disabled = false;
+  button.textContent = "ذخیره تغییرات";
+
+ }
+
+});
+
+/* شروع صفحه */
 loadProfile();
+
 </script>
 
 </body>
