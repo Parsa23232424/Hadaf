@@ -3,91 +3,199 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090f">
-<meta name="description" content="هدف‌هایت را بساز، هر روز انجام بده و زنجیره‌ات را حفظ کن.">
+<meta name="description" content="هدف‌هایت را بساز و هر روز یک قدم جلوتر برو.">
 <title>هدف من 🎯 | سایت هدف</title>
 <link rel="manifest" href="./manifest.json">
 
 <style>
-:root{--bg:#07090f;--border:rgba(255,255,255,.075);--text:#f8fafc;--muted:#8f98a9;--primary:#6758ff;--primary2:#5146da;--orange:#ff7a32;--green:#22c55e;--red:#ef4444}
+:root{
+--bg:#07090f;--border:rgba(255,255,255,.075);
+--text:#f8fafc;--muted:#8f98a9;
+--primary:#6758ff;--primary2:#5146da;
+--orange:#ff7a32;--green:#22c55e;--red:#ef4444
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;padding-bottom:105px;color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 85% -5%,rgba(103,88,255,.16),transparent 28%),radial-gradient(circle at 0% 35%,rgba(37,99,235,.07),transparent 30%),var(--bg)}
+body{
+margin:0;min-height:100vh;padding-bottom:105px;color:var(--text);
+font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+background:
+radial-gradient(circle at 85% -5%,rgba(103,88,255,.16),transparent 28%),
+radial-gradient(circle at 0% 35%,rgba(37,99,235,.07),transparent 30%),
+var(--bg)
+}
 button,input{font-family:inherit}
 button{appearance:none}
 .app{width:min(760px,94%);margin:auto;padding:18px 0 45px}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:30px;direction:ltr}
 .brand{display:flex;align-items:center;gap:11px;direction:rtl}
-.logo{width:48px;height:48px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:16px;background:rgba(103,88,255,.08);border:1px solid var(--border)}
+.logo{
+width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+overflow:hidden;border-radius:16px;background:rgba(103,88,255,.08);
+border:1px solid var(--border)
+}
 .logo img{width:40px;height:40px;object-fit:contain}
 .brand strong{display:block;font-size:18px}
 .brand small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
 .top-account{display:flex;align-items:center;gap:9px;direction:rtl;cursor:pointer}
-.account-button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--border);border-radius:14px;color:white;background:rgba(255,255,255,.035);cursor:pointer;font-size:18px}
-.top-account-name{max-width:135px;color:var(--text);font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.account-button{
+width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+flex-shrink:0;border:1px solid var(--border);border-radius:14px;
+color:white;background:rgba(255,255,255,.035);cursor:pointer;font-size:18px
+}
+.top-account-name{
+max-width:135px;color:var(--text);font-size:13px;font-weight:700;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
 .page-header{margin-bottom:22px}
-.page-badge{display:inline-flex;padding:7px 11px;margin-bottom:12px;border-radius:999px;color:#c9c3ff;background:rgba(103,88,255,.10);border:1px solid rgba(103,88,255,.20);font-size:11px}
+.page-badge{
+display:inline-flex;padding:7px 11px;margin-bottom:12px;border-radius:999px;
+color:#c9c3ff;background:rgba(103,88,255,.10);
+border:1px solid rgba(103,88,255,.20);font-size:11px
+}
 .page-header h1{margin:0;font-size:clamp(32px,7vw,49px);line-height:1.35}
 .page-header h1 span{color:#8b80ff}
 .page-header p{margin:9px 0 0;color:var(--muted);line-height:1.9;font-size:13px}
-.streak-card{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:25px 28px;margin-bottom:15px;border-radius:24px;background:radial-gradient(circle at 100% 0%,rgba(255,122,50,.16),transparent 38%),radial-gradient(circle at 0% 100%,rgba(103,88,255,.12),transparent 40%),linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98));border:1px solid var(--border);box-shadow:0 16px 50px rgba(0,0,0,.22)}
+.streak-card{
+position:relative;overflow:hidden;display:flex;align-items:center;
+justify-content:space-between;gap:15px;padding:25px 28px;margin-bottom:15px;
+border-radius:24px;
+background:
+radial-gradient(circle at 100% 0%,rgba(255,122,50,.16),transparent 38%),
+radial-gradient(circle at 0% 100%,rgba(103,88,255,.12),transparent 40%),
+linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98));
+border:1px solid var(--border);box-shadow:0 16px 50px rgba(0,0,0,.22)
+}
 .streak-main{display:flex;align-items:center;gap:15px}
-.fire-icon{width:65px;height:65px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:20px;background:rgba(255,122,50,.09);border:1px solid rgba(255,122,50,.16);font-size:34px}
+.fire-icon{
+width:65px;height:65px;display:flex;align-items:center;justify-content:center;
+flex-shrink:0;border-radius:20px;background:rgba(255,122,50,.09);
+border:1px solid rgba(255,122,50,.16);font-size:34px
+}
 .streak-number{font-size:43px;line-height:1;font-weight:900}
 .streak-label{margin-top:7px;color:var(--muted);font-size:11px}
-.best-box{min-width:92px;padding:13px 10px;text-align:center;border-radius:16px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05)}
+.best-box{
+min-width:92px;padding:13px 10px;text-align:center;border-radius:16px;
+background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05)
+}
 .best-box strong{display:block;margin-top:5px;color:#facc15;font-size:22px}
 .best-box span{color:var(--muted);font-size:9px}
-.card{padding:20px;margin-bottom:14px;border-radius:24px;background:linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98));border:1px solid var(--border);box-shadow:0 16px 50px rgba(0,0,0,.22)}
+.card{
+padding:20px;margin-bottom:14px;border-radius:24px;
+background:linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98));
+border:1px solid var(--border);box-shadow:0 16px 50px rgba(0,0,0,.22)
+}
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
 .section-head h2{margin:0;font-size:19px}
 .section-head span{color:var(--muted);font-size:10px}
 .input-label{display:block;margin-bottom:8px;color:var(--muted);font-size:10px}
-.goal-input{width:100%;height:58px;padding:0 17px;outline:none;border-radius:16px;border:1px solid rgba(255,255,255,.07);color:white;background:rgba(255,255,255,.035);font-size:13px;direction:rtl}
+.goal-input{
+width:100%;height:58px;padding:0 17px;outline:none;border-radius:16px;
+border:1px solid rgba(255,255,255,.07);color:white;
+background:rgba(255,255,255,.035);font-size:13px;direction:rtl
+}
 .goal-input::placeholder{color:#687080}
-.goal-input:focus{border-color:rgba(103,88,255,.55);background:rgba(103,88,255,.055);box-shadow:0 0 0 3px rgba(103,88,255,.08)}
-.primary-button{width:100%;min-height:55px;margin-top:13px;padding:14px;border:0;border-radius:16px;color:white;background:linear-gradient(100deg,var(--primary),var(--primary2));cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 10px 25px rgba(103,88,255,.18)}
+.goal-input:focus{
+border-color:rgba(103,88,255,.55);background:rgba(103,88,255,.055);
+box-shadow:0 0 0 3px rgba(103,88,255,.08)
+}
+.primary-button{
+width:100%;min-height:55px;margin-top:13px;padding:14px;border:0;
+border-radius:16px;color:white;background:linear-gradient(100deg,var(--primary),var(--primary2));
+cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 10px 25px rgba(103,88,255,.18)
+}
 button:disabled{opacity:.65;cursor:wait}
-.current-goal{position:relative;overflow:hidden;background:radial-gradient(circle at 95% 0%,rgba(103,88,255,.16),transparent 35%),linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98))}
+.current-goal{
+position:relative;overflow:hidden;
+background:radial-gradient(circle at 95% 0%,rgba(103,88,255,.16),transparent 35%),
+linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98))
+}
 .goal-title-row{display:flex;align-items:center;justify-content:space-between;gap:15px}
 .goal-small-label{color:var(--muted);font-size:10px}
 .goal-title{margin-top:7px;font-size:20px;font-weight:900;line-height:1.7;overflow-wrap:anywhere}
-.goal-target-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:15px;background:rgba(103,88,255,.10);border:1px solid rgba(103,88,255,.12);font-size:23px}
+.goal-target-icon{
+width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+flex-shrink:0;border-radius:15px;background:rgba(103,88,255,.10);
+border:1px solid rgba(103,88,255,.12);font-size:23px
+}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
-.stat{padding:13px 5px;text-align:center;border-radius:15px;color:var(--muted);background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.045);font-size:9px}
-.stat strong{display:block;margin-bottom:5px;color:white;font-size:20px}
-.stat.fire strong{color:#ff8a45}.stat.best strong{color:#facc15}.stat.days strong{color:#8b80ff}
-.complete-button{width:100%;min-height:56px;margin-top:14px;border:0;border-radius:16px;color:white;background:linear-gradient(100deg,#22c55e,#16a34a);cursor:pointer;font-size:13px;font-weight:800}
-.complete-button.done{color:#86efac;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.16)}
-.delete-button{width:100%;margin-top:12px;padding:13px;border-radius:15px;border:1px solid rgba(239,68,68,.12);color:#fca5a5;background:rgba(239,68,68,.045);cursor:pointer;font-size:11px}
+.stat{
+padding:13px 5px;text-align:center;border-radius:15px;color:var(--muted);
+background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.045);font-size:9px
+}
+.stat strong{display:block;margin-bottom:5px;color:white;font-size:18px}
+.stat.progress strong{color:#8b80ff}
+.stat.status strong{color:#22c55e}
+.stat.date strong{color:#facc15;font-size:12px}
+.complete-button{
+width:100%;min-height:56px;margin-top:14px;border:0;border-radius:16px;
+color:white;background:linear-gradient(100deg,#22c55e,#16a34a);
+cursor:pointer;font-size:13px;font-weight:800
+}
+.complete-button.done{
+color:#86efac;background:rgba(34,197,94,.08);
+border:1px solid rgba(34,197,94,.16)
+}
+.delete-button{
+width:100%;margin-top:12px;padding:13px;border-radius:15px;
+border:1px solid rgba(239,68,68,.12);color:#fca5a5;
+background:rgba(239,68,68,.045);cursor:pointer;font-size:11px
+}
 .login-card,.empty-card{text-align:center;padding:28px 20px}
 .login-icon,.empty-icon{font-size:38px;margin-bottom:9px}
 .login-card h2,.empty-card h2{margin:0;font-size:17px}
 .login-card p,.empty-card p{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.9}
 .loading-card{text-align:center;padding:25px}
-.loading-spinner{width:32px;height:32px;margin:auto;border-radius:50%;border:3px solid rgba(255,255,255,.08);border-top-color:var(--primary);animation:spin .8s linear infinite}
+.loading-spinner{
+width:32px;height:32px;margin:auto;border-radius:50%;
+border:3px solid rgba(255,255,255,.08);
+border-top-color:var(--primary);animation:spin .8s linear infinite
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hidden{display:none!important}
 footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
-.bottom-nav{position:fixed;z-index:100;right:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(50%);width:min(520px,92%);height:68px;padding:7px 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;border:1px solid rgba(255,255,255,.08);border-radius:22px;background:rgba(13,16,25,.93);backdrop-filter:blur(18px);box-shadow:0 15px 45px rgba(0,0,0,.45)}
+.bottom-nav{
+position:fixed;z-index:100;right:50%;
+bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(50%);
+width:min(520px,92%);height:68px;padding:7px 8px;display:grid;
+grid-template-columns:repeat(5,1fr);gap:5px;
+border:1px solid rgba(255,255,255,.08);border-radius:22px;
+background:rgba(13,16,25,.93);backdrop-filter:blur(18px);
+box-shadow:0 15px 45px rgba(0,0,0,.45)
+}
 .nav-item{border:0;border-radius:16px;color:var(--muted);background:transparent;cursor:pointer;font-size:9px}
 .nav-item span{display:block;margin-bottom:4px;font-size:18px}
 .nav-item.active{color:white;background:rgba(103,88,255,.13)}
-.message{position:fixed;z-index:500;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);width:min(420px,88%);padding:13px 16px;text-align:center;border-radius:15px;color:white;background:rgba(20,24,36,.97);border:1px solid rgba(255,255,255,.08);box-shadow:0 15px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.25s;font-size:11px}
+.message{
+position:fixed;z-index:500;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);
+width:min(420px,88%);padding:13px 16px;text-align:center;border-radius:15px;
+color:white;background:rgba(20,24,36,.97);border:1px solid rgba(255,255,255,.08);
+box-shadow:0 15px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;
+transition:.25s;font-size:11px
+}
 .message.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:600px){.streak-card{padding:22px 19px}.best-box{min-width:78px}}
-@media(max-width:420px){.app{width:92%}.brand small{display:none}.top-account-name{max-width:95px;font-size:12px}.page-header h1{font-size:34px}.card{padding:17px}.goal-title{font-size:17px}.streak-number{font-size:37px}.fire-icon{width:58px;height:58px;font-size:29px}.stats{gap:6px}}
+@media(max-width:420px){
+.app{width:92%}.brand small{display:none}
+.top-account-name{max-width:95px;font-size:12px}
+.page-header h1{font-size:34px}.card{padding:17px}
+.goal-title{font-size:17px}.streak-number{font-size:37px}
+.fire-icon{width:58px;height:58px;font-size:29px}.stats{gap:6px}
+}
 </style>
 </head>
 
 <body>
 <main class="app">
+
 <header class="topbar">
     <div class="top-account" onclick="goAccount()">
         <button class="account-button" type="button" aria-label="حساب کاربری">👤</button>
         <div class="top-account-name" id="accountName">مهمان</div>
     </div>
+
     <div class="brand">
         <div class="logo"><img src="logo.png" alt="لوگوی سایت هدف"></div>
         <div><strong>هدف</strong><small>هر روز یک قدم جلوتر</small></div>
@@ -97,42 +205,59 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 <section class="page-header">
     <div class="page-badge">🎯 هدف روزانه</div>
     <h1>هدف <span>من</span></h1>
-    <p>هر روز یک قدم جلوتر برو، هدفت رو انجام بده و زنجیره‌ات رو حفظ کن 🔥</p>
+    <p>هر روز یک قدم جلوتر برو و برای رسیدن به هدف‌هایت تلاش کن.</p>
 </section>
 
 <section class="streak-card">
     <div class="streak-main">
-        <div class="fire-icon">🔥</div>
+        <div class="fire-icon">🎯</div>
         <div>
-            <div class="streak-number" id="mainStreak">0</div>
-            <div class="streak-label">بهترین زنجیره فعلی بین هدف‌ها</div>
+            <div class="streak-number" id="activeGoalsCount">0</div>
+            <div class="streak-label">هدف فعال من</div>
         </div>
     </div>
     <div class="best-box">
-        <span>🏆 بهترین رکورد</span>
-        <strong id="mainBest">0</strong>
+        <span>🏆 هدف تکمیل‌شده</span>
+        <strong id="completedGoalsCount">0</strong>
     </div>
 </section>
 
 <div id="content">
+
     <section class="card login-card hidden" id="loginCard">
         <div class="login-icon">🔐</div>
         <h2>اول وارد حساب شو</h2>
-        <p>برای ساخت و ذخیره هدف روزانه، وارد حساب کاربری هدف شو.</p>
-        <button class="primary-button" type="button" onclick="location.href='login.html'">ورود به حساب</button>
+        <p>برای ساخت و ذخیره هدف‌هایت، وارد حساب کاربری هدف شو.</p>
+        <button class="primary-button" type="button" onclick="location.href='login.html'">
+            ورود به حساب
+        </button>
     </section>
 
     <section class="card hidden" id="createCard">
-        <div class="section-head"><h2>🎯 هدف جدید</h2><span>روزانه</span></div>
+        <div class="section-head">
+            <h2>🎯 هدف جدید</h2>
+            <span>هدف تازه بساز</span>
+        </div>
+
         <label class="input-label" for="goalInput">هدفت رو بنویس</label>
-        <input id="goalInput" class="goal-input" type="text" maxlength="120" autocomplete="off" placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم...">
-        <button class="primary-button" id="createButton" type="button" onclick="createGoal()">🚀 ساختن هدف</button>
+        <input
+            id="goalInput"
+            class="goal-input"
+            type="text"
+            maxlength="120"
+            autocomplete="off"
+            placeholder="مثلاً هر روز ۲۰ دقیقه مطالعه کنم..."
+        >
+
+        <button class="primary-button" id="createButton" type="button" onclick="createGoal()">
+            🚀 ساختن هدف
+        </button>
     </section>
 
     <section class="card empty-card hidden" id="emptyCard">
         <div class="empty-icon">🎯</div>
         <h2>هنوز هدفی نساختی</h2>
-        <p>یک هدف کوچک برای امروز بنویس و از همین امروز شروع کن.</p>
+        <p>یک هدف کوچک بنویس و از همین امروز شروع کن.</p>
     </section>
 
     <section class="card loading-card hidden" id="loadingCard">
@@ -149,19 +274,30 @@ footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
 <div class="message" id="message" role="status" aria-live="polite"></div>
 
 <nav class="bottom-nav">
-    <button class="nav-item" type="button" onclick="location.href='index.html'"><span>⌂</span>خانه</button>
-    <button class="nav-item active" type="button"><span>◎</span>هدف من</button>
-    <button class="nav-item" type="button" onclick="location.href='index.html#games'"><span>🎮</span>بازی‌ها</button>
-    <button class="nav-item" type="button" onclick="location.href='index.html#tools'"><span>◈</span>ابزارها</button>
-    <button class="nav-item" type="button" onclick="location.href='pico.html'"><span>🤖</span>پیکو</button>
+    <button class="nav-item" type="button" onclick="location.href='index.html'">
+        <span>⌂</span>خانه
+    </button>
+    <button class="nav-item active" type="button">
+        <span>◎</span>هدف من
+    </button>
+    <button class="nav-item" type="button" onclick="location.href='index.html#games'">
+        <span>🎮</span>بازی‌ها
+    </button>
+    <button class="nav-item" type="button" onclick="location.href='index.html#tools'">
+        <span>◈</span>ابزارها
+    </button>
+    <button class="nav-item" type="button" onclick="location.href='pico.html'">
+        <span>🤖</span>پیکو
+    </button>
 </nav>
 
 <script>
 "use strict";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyYLVpP-NegJUJazhTr0PcukUBEiT0cb3joLPvbakKKkPND5z48gDcj7mcg6CnSb7RJ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxA6cb5J_oVT-qqsEqfPhTIHT6H9uqIWAzs0lRqA64sfpZ9ElmcjzVbBCFkf1Q5GGrihQ/exec";
 
 const $ = id => document.getElementById(id);
+
 let goals = [];
 let busyGoals = new Set();
 let creating = false;
@@ -176,24 +312,27 @@ function getUser() {
     }
 }
 
-function getEmail() {
+function getAccessToken() {
     const user = getUser();
-    return user?.email ? String(user.email).trim().toLowerCase() : "";
+    return user?.access_token || "";
 }
 
 function showAccount() {
     const user = getUser();
+
     $("accountName").textContent = user
-        ? user.username || user.name || user.email || "کاربر هدف"
+        ? user.username || user.name || user.display_name || user.email || "کاربر هدف"
         : "مهمان";
 }
 
 function goAccount() {
     const user = getUser();
-    if (!user) {
+
+    if (!user || !getAccessToken()) {
         location.href = "login.html";
         return;
     }
+
     showMessage("سلام " + (user.username || user.name || "دوست هدف") + " 👋");
 }
 
@@ -201,19 +340,34 @@ function showMessage(text) {
     const box = $("message");
     box.textContent = String(text || "");
     box.classList.add("show");
+
     clearTimeout(messageTimer);
-    messageTimer = setTimeout(() => box.classList.remove("show"), 3500);
+
+    messageTimer = setTimeout(() => {
+        box.classList.remove("show");
+    }, 3500);
 }
 
 async function callAPI(data) {
+    const accessToken = getAccessToken();
+
+    if (!accessToken) {
+        throw new Error("نشست ورود پیدا نشد. دوباره وارد حساب شو.");
+    }
+
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
 
     try {
         const response = await fetch(API_URL, {
             method: "POST",
-            headers: {"Content-Type": "text/plain;charset=UTF-8"},
-            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "text/plain;charset=UTF-8"
+            },
+            body: JSON.stringify({
+                ...data,
+                access_token: accessToken
+            }),
             cache: "no-store",
             redirect: "follow",
             signal: controller.signal
@@ -221,67 +375,59 @@ async function callAPI(data) {
 
         const text = await response.text();
 
-        if (!response.ok) throw new Error("خطای HTTP " + response.status);
-        if (!text.trim()) throw new Error("پاسخ API خالی است.");
+        if (!response.ok) {
+            throw new Error("خطای HTTP " + response.status);
+        }
+
+        if (!text.trim()) {
+            throw new Error("پاسخ API خالی است.");
+        }
 
         let result;
+
         try {
             result = JSON.parse(text);
         } catch {
-            throw new Error("پاسخ API معتبر نیست؛ انتشار API را بررسی کن.");
+            throw new Error("پاسخ API معتبر نیست.");
         }
 
         return result;
+
     } finally {
         clearTimeout(timeout);
     }
 }
 
 function apiSuccess(result) {
-    return !!result && (result.success === true || result.success === "true");
+    return !!result && (
+        result.success === true ||
+        result.success === "true"
+    );
 }
 
 function apiMessage(result, fallback) {
     return result?.message || result?.error || fallback;
 }
 
-function numberValue(value) {
-    const n = Number(value);
-    return Number.isFinite(n) ? n : 0;
-}
-
 function getGoalId(goal) {
-    return String(goal?.id ?? goal?.goal_id ?? goal?.goalId ?? goal?.ID ?? "").trim();
+    return String(goal?.id || "").trim();
 }
 
-function getGoalText(goal) {
-    return String(goal?.title ?? goal?.goal ?? goal?.name ?? goal?.text ?? "").trim();
+function getGoalTitle(goal) {
+    return String(goal?.title || "").trim();
 }
 
-function isTrue(value) {
-    return value === true || value === "true" || value === 1 || value === "1";
+function getGoalStatus(goal) {
+    return String(goal?.status || "active").toLowerCase();
 }
 
-function isCompletedToday(goal) {
-    return [
-        goal.completedToday,
-        goal.todayCompleted,
-        goal.isCompletedToday,
-        goal.completed_today,
-        goal.today_completed
-    ].some(isTrue);
+function isCompleted(goal) {
+    return getGoalStatus(goal) === "completed";
 }
 
-function getStreak(goal) {
-    return numberValue(goal.streak ?? goal.currentStreak ?? goal.current_streak);
-}
-
-function getBest(goal) {
-    return numberValue(goal.bestStreak ?? goal.best_streak ?? goal.best ?? goal.maxStreak);
-}
-
-function getTotal(goal) {
-    return numberValue(goal.totalDays ?? goal.total_days ?? goal.days ?? goal.completedDays);
+function getProgress(goal) {
+    const value = Number(goal?.progress);
+    return Number.isFinite(value) ? value : 0;
 }
 
 function escapeHTML(value) {
@@ -294,11 +440,28 @@ function escapeHTML(value) {
     })[char]);
 }
 
+function formatDate(value) {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "—";
+    }
+
+    return new Intl.DateTimeFormat("fa-IR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).format(date);
+}
+
 function updateSummary() {
-    const streaks = goals.map(getStreak);
-    const bests = goals.map(getBest);
-    $("mainStreak").textContent = streaks.length ? Math.max(...streaks) : 0;
-    $("mainBest").textContent = bests.length ? Math.max(...bests) : 0;
+    const active = goals.filter(goal => !isCompleted(goal)).length;
+    const completed = goals.filter(isCompleted).length;
+
+    $("activeGoalsCount").textContent = active;
+    $("completedGoalsCount").textContent = completed;
 }
 
 function renderGoals() {
@@ -307,12 +470,15 @@ function renderGoals() {
 
     goals.forEach((goal, index) => {
         const id = getGoalId(goal);
-        const title = getGoalText(goal) || "هدف من";
-        const completed = isCompletedToday(goal);
+        const title = getGoalTitle(goal) || "هدف من";
+        const completed = isCompleted(goal);
         const busy = busyGoals.has(id);
+        const progress = getProgress(goal);
+        const createdDate = formatDate(goal.created_at);
 
         const card = document.createElement("section");
         card.className = "card current-goal";
+
         card.innerHTML = `
             <div class="goal-title-row">
                 <div>
@@ -323,25 +489,52 @@ function renderGoals() {
             </div>
 
             <div class="stats">
-                <div class="stat fire"><strong>${getStreak(goal)}</strong>🔥 Streak</div>
-                <div class="stat best"><strong>${getBest(goal)}</strong>🏆 رکورد</div>
-                <div class="stat days"><strong>${getTotal(goal)}</strong>روز انجام</div>
+                <div class="stat progress">
+                    <strong>${escapeHTML(progress)}</strong>
+                    میزان پیشرفت
+                </div>
+
+                <div class="stat status">
+                    <strong>${completed ? "تکمیل‌شده" : "فعال"}</strong>
+                    وضعیت
+                </div>
+
+                <div class="stat date">
+                    <strong>${escapeHTML(createdDate)}</strong>
+                    تاریخ ساخت
+                </div>
             </div>
 
-            <button class="complete-button ${completed ? "done" : ""}"
-                    type="button" data-action="complete"
-                    ${completed || busy || !id ? "disabled" : ""}>
-                ${completed ? "✅ امروز انجام شده" : busy ? "در حال ثبت..." : "🔥 امروز انجامش دادم"}
+            <button
+                class="complete-button ${completed ? "done" : ""}"
+                type="button"
+                data-action="complete"
+                ${completed || busy || !id ? "disabled" : ""}
+            >
+                ${
+                    completed
+                    ? "✅ هدف تکمیل شده است"
+                    : busy
+                    ? "در حال ثبت..."
+                    : "🏆 تکمیل این هدف"
+                }
             </button>
 
-            <button class="delete-button" type="button" data-action="delete"
-                    ${busy || !id ? "disabled" : ""}>
+            <button
+                class="delete-button"
+                type="button"
+                data-action="delete"
+                ${busy || !id ? "disabled" : ""}
+            >
                 ${busy ? "در حال انجام..." : "حذف این هدف"}
             </button>
         `;
 
-        card.querySelector('[data-action="complete"]').addEventListener("click", () => completeGoal(id));
-        card.querySelector('[data-action="delete"]').addEventListener("click", () => deleteGoal(id));
+        card.querySelector('[data-action="complete"]')
+            .addEventListener("click", () => completeGoal(id));
+
+        card.querySelector('[data-action="delete"]')
+            .addEventListener("click", () => deleteGoal(id));
 
         list.appendChild(card);
     });
@@ -350,25 +543,31 @@ function renderGoals() {
 }
 
 function getGoalsFromResult(result) {
-    if (Array.isArray(result?.goals)) return result.goals;
-    if (Array.isArray(result?.data?.goals)) return result.data.goals;
+    if (Array.isArray(result?.data)) {
+        return result.data;
+    }
 
-    if (Array.isArray(result?.goal)) return result.goal;
-    if (result?.goal && typeof result.goal === "object") return [result.goal];
-    if (result?.data?.goal && typeof result.data.goal === "object") return [result.data.goal];
+    if (Array.isArray(result?.data?.goals)) {
+        return result.data.goals;
+    }
+
+    if (Array.isArray(result?.goals)) {
+        return result.goals;
+    }
 
     return [];
 }
 
-async function loadGoal() {
-    const email = getEmail();
+async function loadGoals() {
+    const accessToken = getAccessToken();
 
-    if (!email) {
+    if (!accessToken) {
         $("loginCard").classList.remove("hidden");
         $("createCard").classList.add("hidden");
         $("emptyCard").classList.add("hidden");
         $("loadingCard").classList.add("hidden");
         $("goalsList").replaceChildren();
+
         goals = [];
         updateSummary();
         return;
@@ -380,38 +579,47 @@ async function loadGoal() {
     $("loadingCard").classList.remove("hidden");
 
     try {
-        const result = await callAPI({action: "getGoal", email});
+        const result = await callAPI({
+            action: "getGoals"
+        });
 
         if (!apiSuccess(result)) {
             throw new Error(apiMessage(result, "دریافت هدف‌ها ناموفق بود."));
         }
 
         goals = getGoalsFromResult(result);
+
         $("loadingCard").classList.add("hidden");
 
         renderGoals();
-        $("emptyCard").classList.toggle("hidden", goals.length !== 0);
+
+        $("emptyCard").classList.toggle(
+            "hidden",
+            goals.length !== 0
+        );
 
     } catch (error) {
         $("loadingCard").classList.add("hidden");
-        console.error("loadGoal:", error);
-        showMessage(error.name === "AbortError"
-            ? "اتصال به سرور طول کشید."
-            : error.message || "خطا در دریافت هدف‌ها.");
+
+        console.error("loadGoals:", error);
+
+        showMessage(
+            error.name === "AbortError"
+                ? "اتصال به سرور طول کشید."
+                : error.message || "خطا در دریافت هدف‌ها."
+        );
     }
 }
 
 async function createGoal() {
-    const email = getEmail();
-
-    if (!email) {
+    if (!getAccessToken()) {
         location.href = "login.html";
         return;
     }
 
-    const goal = $("goalInput").value.trim();
+    const title = $("goalInput").value.trim();
 
-    if (goal.length < 2) {
+    if (title.length < 2) {
         showMessage("هدفت رو بنویس.");
         $("goalInput").focus();
         return;
@@ -420,23 +628,30 @@ async function createGoal() {
     if (creating) return;
 
     creating = true;
+
     $("createButton").disabled = true;
     $("createButton").textContent = "در حال ساخت...";
 
     try {
-        const result = await callAPI({action: "createGoal", email, goal});
+        const result = await callAPI({
+            action: "createGoal",
+            title: title
+        });
 
         if (!apiSuccess(result)) {
             throw new Error(apiMessage(result, "ساخت هدف انجام نشد."));
         }
 
         $("goalInput").value = "";
-        showMessage("هدف ساخته شد.");
-        await loadGoal();
+
+        showMessage("هدف با موفقیت ساخته شد.");
+
+        await loadGoals();
 
     } catch (error) {
         console.error("createGoal:", error);
         showMessage(error.message || "خطا در ساخت هدف.");
+
     } finally {
         creating = false;
         $("createButton").disabled = false;
@@ -445,23 +660,18 @@ async function createGoal() {
 }
 
 async function completeGoal(goalId) {
-    const email = getEmail();
-    if (!email) {
-        location.href = "login.html";
-        return;
-    }
-
     if (!goalId || busyGoals.has(goalId)) return;
 
     const goal = goals.find(item => getGoalId(item) === goalId);
+
     if (!goal) {
         showMessage("این هدف پیدا نشد.");
-        await loadGoal();
+        await loadGoals();
         return;
     }
 
-    if (isCompletedToday(goal)) {
-        showMessage("این هدف امروز قبلاً انجام شده است.");
+    if (isCompleted(goal)) {
+        showMessage("این هدف قبلاً تکمیل شده است.");
         return;
     }
 
@@ -469,18 +679,24 @@ async function completeGoal(goalId) {
     renderGoals();
 
     try {
-        const result = await callAPI({action: "completeGoal", email, goalId});
+        const result = await callAPI({
+            action: "updateGoal",
+            id: goalId,
+            status: "completed"
+        });
 
         if (!apiSuccess(result)) {
-            throw new Error(apiMessage(result, "ثبت انجام هدف ناموفق بود."));
+            throw new Error(apiMessage(result, "تکمیل هدف ناموفق بود."));
         }
 
-        showMessage(apiMessage(result, "انجام امروز ثبت شد."));
-        await loadGoal();
+        showMessage("🎉 هدف با موفقیت تکمیل شد.");
+
+        await loadGoals();
 
     } catch (error) {
         console.error("completeGoal:", error);
-        showMessage(error.message || "خطا در ثبت انجام هدف.");
+        showMessage(error.message || "خطا در تکمیل هدف.");
+
     } finally {
         busyGoals.delete(goalId);
         renderGoals();
@@ -488,32 +704,33 @@ async function completeGoal(goalId) {
 }
 
 async function deleteGoal(goalId) {
-    const email = getEmail();
-    if (!email) {
-        location.href = "login.html";
-        return;
-    }
-
     if (!goalId || busyGoals.has(goalId)) return;
 
-    if (!confirm("مطمئنی می‌خواهی این هدف را حذف کنی؟")) return;
+    const confirmed = confirm("مطمئنی می‌خواهی این هدف را حذف کنی؟");
+
+    if (!confirmed) return;
 
     busyGoals.add(goalId);
     renderGoals();
 
     try {
-        const result = await callAPI({action: "deleteGoal", email, goalId});
+        const result = await callAPI({
+            action: "deleteGoal",
+            id: goalId
+        });
 
         if (!apiSuccess(result)) {
             throw new Error(apiMessage(result, "حذف هدف انجام نشد."));
         }
 
-        showMessage(apiMessage(result, "هدف حذف شد."));
-        await loadGoal();
+        showMessage("هدف حذف شد.");
+
+        await loadGoals();
 
     } catch (error) {
         console.error("deleteGoal:", error);
         showMessage(error.message || "خطا در حذف هدف.");
+
     } finally {
         busyGoals.delete(goalId);
         renderGoals();
@@ -529,7 +746,7 @@ $("goalInput").addEventListener("keydown", event => {
 
 async function startPage() {
     showAccount();
-    await loadGoal();
+    await loadGoals();
 }
 
 if (document.readyState === "loading") {
