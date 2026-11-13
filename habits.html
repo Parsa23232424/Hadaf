@@ -1,0 +1,879 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090f">
+<meta name="description" content="عادت‌های خوب بساز و هر روز بهتر شو.">
+<title>عادت‌های من | سایت هدف</title>
+<link rel="manifest" href="./manifest.json">
+
+<style>
+:root{
+--bg:#07090f;--border:rgba(255,255,255,.075);
+--text:#f8fafc;--muted:#8f98a9;
+--primary:#6758ff;--primary2:#5146da;
+--orange:#ff7a32;--green:#22c55e;--red:#ef4444
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+margin:0;min-height:100vh;padding-bottom:105px;color:var(--text);
+font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+background:
+radial-gradient(circle at 85% -5%,rgba(103,88,255,.16),transparent 28%),
+radial-gradient(circle at 0% 35%,rgba(37,99,235,.07),transparent 30%),
+var(--bg)
+}
+button,input,textarea{font-family:inherit}
+button{appearance:none}
+.app{width:min(760px,94%);margin:auto;padding:18px 0 45px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:30px;direction:ltr}
+.brand{display:flex;align-items:center;gap:11px;direction:rtl}
+.logo{
+width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+overflow:hidden;border-radius:16px;background:rgba(103,88,255,.08);
+border:1px solid var(--border)
+}
+.logo img{width:40px;height:40px;object-fit:contain}
+.brand strong{display:block;font-size:18px}
+.brand small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+.top-account{display:flex;align-items:center;gap:9px;direction:rtl;cursor:pointer}
+.account-button{
+width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+flex-shrink:0;border:1px solid var(--border);border-radius:14px;
+color:white;background:rgba(255,255,255,.035);cursor:pointer;font-size:18px
+}
+.top-account-name{
+max-width:135px;color:var(--text);font-size:13px;font-weight:700;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.page-header{margin-bottom:22px}
+.page-badge{
+display:inline-flex;padding:7px 11px;margin-bottom:12px;border-radius:999px;
+color:#c9c3ff;background:rgba(103,88,255,.10);
+border:1px solid rgba(103,88,255,.20);font-size:11px
+}
+.page-header h1{margin:0;font-size:clamp(32px,7vw,49px);line-height:1.35}
+.page-header h1 span{color:#8b80ff}
+.page-header p{margin:9px 0 0;color:var(--muted);line-height:1.9;font-size:13px}
+.summary-card{
+display:flex;align-items:center;justify-content:space-between;gap:15px;
+padding:24px 25px;margin-bottom:15px;border-radius:24px;
+background:
+radial-gradient(circle at 100% 0%,rgba(255,122,50,.13),transparent 38%),
+radial-gradient(circle at 0% 100%,rgba(103,88,255,.12),transparent 40%),
+linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98));
+border:1px solid var(--border);box-shadow:0 16px 50px rgba(0,0,0,.22)
+}
+.summary-main{display:flex;align-items:center;gap:14px}
+.summary-icon{
+width:60px;height:60px;display:flex;align-items:center;justify-content:center;
+flex-shrink:0;border-radius:19px;background:rgba(103,88,255,.10);
+border:1px solid rgba(103,88,255,.16);font-size:30px
+}
+.summary-number{font-size:39px;line-height:1;font-weight:900}
+.summary-label{margin-top:7px;color:var(--muted);font-size:11px}
+.summary-box{
+min-width:95px;padding:13px 10px;text-align:center;border-radius:16px;
+background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.05)
+}
+.summary-box strong{display:block;margin-top:5px;color:#22c55e;font-size:22px}
+.summary-box span{color:var(--muted);font-size:9px}
+.card{
+padding:20px;margin-bottom:14px;border-radius:24px;
+background:linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98));
+border:1px solid var(--border);box-shadow:0 16px 50px rgba(0,0,0,.22)
+}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.section-head h2{margin:0;font-size:19px}
+.section-head span{color:var(--muted);font-size:10px}
+.input-label{display:block;margin-bottom:8px;color:var(--muted);font-size:10px}
+.field{
+width:100%;min-height:54px;padding:13px 16px;outline:none;
+border-radius:15px;border:1px solid rgba(255,255,255,.07);
+color:white;background:rgba(255,255,255,.035);font-size:13px;direction:rtl
+}
+textarea.field{height:82px;resize:vertical;line-height:1.8}
+.field::placeholder{color:#687080}
+.field:focus{
+border-color:rgba(103,88,255,.55);
+background:rgba(103,88,255,.055);
+box-shadow:0 0 0 3px rgba(103,88,255,.08)
+}
+.field-group{margin-bottom:15px}
+.days-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.day-option{
+display:flex;align-items:center;justify-content:center;gap:6px;
+min-height:42px;padding:8px;border-radius:13px;
+border:1px solid rgba(255,255,255,.07);
+color:var(--muted);background:rgba(255,255,255,.025);
+font-size:11px;cursor:pointer
+}
+.day-option input{accent-color:var(--primary);width:15px;height:15px}
+.day-option:has(input:checked){
+color:white;background:rgba(103,88,255,.13);
+border-color:rgba(103,88,255,.35)
+}
+.primary-button{
+width:100%;min-height:55px;margin-top:8px;padding:14px;border:0;
+border-radius:16px;color:white;background:linear-gradient(100deg,var(--primary),var(--primary2));
+cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 10px 25px rgba(103,88,255,.18)
+}
+button:disabled{opacity:.65;cursor:wait}
+.habit-card{
+position:relative;overflow:hidden;
+background:radial-gradient(circle at 95% 0%,rgba(103,88,255,.15),transparent 35%),
+linear-gradient(145deg,rgba(18,22,34,.98),rgba(11,14,22,.98))
+}
+.habit-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.habit-title{font-size:18px;font-weight:900;line-height:1.7;overflow-wrap:anywhere}
+.habit-description{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.8;overflow-wrap:anywhere}
+.habit-icon{
+width:47px;height:47px;display:flex;align-items:center;justify-content:center;
+flex-shrink:0;border-radius:15px;background:rgba(103,88,255,.10);
+border:1px solid rgba(103,88,255,.12);font-size:22px
+}
+.habit-days{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+.habit-day{
+padding:6px 9px;border-radius:9px;color:#c9c3ff;
+background:rgba(103,88,255,.09);font-size:9px
+}
+.habit-status{
+display:inline-flex;margin-top:13px;padding:6px 9px;border-radius:9px;
+font-size:9px;color:#86efac;background:rgba(34,197,94,.08)
+}
+.habit-status.inactive{color:#fca5a5;background:rgba(239,68,68,.08)}
+.done-button{
+width:100%;min-height:52px;margin-top:15px;border:0;border-radius:15px;
+color:white;background:linear-gradient(100deg,#22c55e,#16a34a);
+cursor:pointer;font-size:12px;font-weight:800
+}
+.done-button.done{
+color:#86efac;background:rgba(34,197,94,.08);
+border:1px solid rgba(34,197,94,.16)
+}
+.done-button:disabled{opacity:.55}
+.habit-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.action-button{
+min-height:43px;padding:10px;border-radius:13px;
+border:1px solid rgba(255,255,255,.08);
+color:#dbe0eb;background:rgba(255,255,255,.035);
+cursor:pointer;font-size:10px
+}
+.action-button.delete{
+color:#fca5a5;border-color:rgba(239,68,68,.14);
+background:rgba(239,68,68,.045)
+}
+.login-card,.empty-card{text-align:center;padding:28px 20px}
+.login-icon,.empty-icon{font-size:38px;margin-bottom:9px}
+.login-card h2,.empty-card h2{margin:0;font-size:17px}
+.login-card p,.empty-card p{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.9}
+.loading-card{text-align:center;padding:25px}
+.loading-spinner{
+width:32px;height:32px;margin:auto;border-radius:50%;
+border:3px solid rgba(255,255,255,.08);
+border-top-color:var(--primary);animation:spin .8s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
+footer{padding:28px 0 8px;text-align:center;color:#596171;font-size:10px}
+.bottom-nav{
+position:fixed;z-index:100;right:50%;
+bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(50%);
+width:min(520px,92%);height:68px;padding:7px 8px;display:grid;
+grid-template-columns:repeat(5,1fr);gap:5px;
+border:1px solid rgba(255,255,255,.08);border-radius:22px;
+background:rgba(13,16,25,.93);backdrop-filter:blur(18px);
+box-shadow:0 15px 45px rgba(0,0,0,.45)
+}
+.nav-item{border:0;border-radius:16px;color:var(--muted);background:transparent;cursor:pointer;font-size:9px}
+.nav-item span{display:block;margin-bottom:4px;font-size:18px}
+.nav-item.active{color:white;background:rgba(103,88,255,.13)}
+.message{
+position:fixed;z-index:500;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);
+width:min(420px,88%);padding:13px 16px;text-align:center;border-radius:15px;
+color:white;background:rgba(20,24,36,.97);border:1px solid rgba(255,255,255,.08);
+box-shadow:0 15px 40px rgba(0,0,0,.35);opacity:0;pointer-events:none;
+transition:.25s;font-size:11px
+}
+.message.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:420px){
+.app{width:92%}.brand small{display:none}
+.top-account-name{max-width:95px;font-size:12px}
+.page-header h1{font-size:34px}.card{padding:17px}
+.summary-card{padding:20px 16px}.summary-number{font-size:34px}
+.days-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+
+<body>
+<main class="app">
+
+<header class="topbar">
+    <div class="top-account" onclick="goAccount()">
+        <button class="account-button" type="button" aria-label="حساب کاربری">👤</button>
+        <div class="top-account-name" id="accountName">مهمان</div>
+    </div>
+
+    <div class="brand">
+        <div class="logo"><img src="logo.png" alt="لوگوی سایت هدف"></div>
+        <div><strong>هدف</strong><small>هر روز یک قدم جلوتر</small></div>
+    </div>
+</header>
+
+<section class="page-header">
+    <div class="page-badge">🌱 عادت‌های روزانه</div>
+    <h1>عادت‌های <span>من</span></h1>
+    <p>عادت‌های خوب بساز، هر روز انجامشان بده و قدم‌به‌قدم پیشرفت کن.</p>
+</section>
+
+<section class="summary-card">
+    <div class="summary-main">
+        <div class="summary-icon">🌱</div>
+        <div>
+            <div class="summary-number" id="activeCount">0</div>
+            <div class="summary-label">عادت فعال</div>
+        </div>
+    </div>
+
+    <div class="summary-box">
+        <span>✅ انجام امروز</span>
+        <strong id="doneCount">0</strong>
+    </div>
+</section>
+
+<div id="content">
+
+    <section class="card login-card hidden" id="loginCard">
+        <div class="login-icon">🔐</div>
+        <h2>اول وارد حساب شو</h2>
+        <p>برای ساخت و ذخیره عادت‌هایت، وارد حساب کاربری هدف شو.</p>
+        <button class="primary-button" type="button" onclick="location.href='login.html'">
+            ورود به حساب
+        </button>
+    </section>
+
+    <section class="card hidden" id="createCard">
+        <div class="section-head">
+            <h2>🌱 عادت جدید</h2>
+            <span>شروع یک تغییر خوب</span>
+        </div>
+
+        <div class="field-group">
+            <label class="input-label" for="habitTitle">نام عادت</label>
+            <input
+                id="habitTitle"
+                class="field"
+                type="text"
+                maxlength="150"
+                placeholder="مثلاً هر روز کتاب بخوانم..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="field-group">
+            <label class="input-label" for="habitDescription">توضیحات (اختیاری)</label>
+            <textarea
+                id="habitDescription"
+                class="field"
+                maxlength="500"
+                placeholder="توضیح کوتاهی درباره این عادت بنویس..."
+            ></textarea>
+        </div>
+
+        <div class="field-group">
+            <label class="input-label">این عادت را چه روزهایی انجام می‌دهی؟</label>
+
+            <div class="days-grid" id="daysGrid">
+                <label class="day-option"><input type="checkbox" value="1" checked> شنبه</label>
+                <label class="day-option"><input type="checkbox" value="2" checked> یکشنبه</label>
+                <label class="day-option"><input type="checkbox" value="3" checked> دوشنبه</label>
+                <label class="day-option"><input type="checkbox" value="4" checked> سه‌شنبه</label>
+                <label class="day-option"><input type="checkbox" value="5" checked> چهارشنبه</label>
+                <label class="day-option"><input type="checkbox" value="6" checked> پنجشنبه</label>
+                <label class="day-option"><input type="checkbox" value="7" checked> جمعه</label>
+            </div>
+        </div>
+
+        <button class="primary-button" id="createButton" type="button" onclick="createHabit()">
+            🚀 ساختن عادت
+        </button>
+    </section>
+
+    <section class="card empty-card hidden" id="emptyCard">
+        <div class="empty-icon">🌱</div>
+        <h2>هنوز عادتی نساختی</h2>
+        <p>اولین عادت خوبت را بساز و از امروز شروع کن.</p>
+    </section>
+
+    <section class="card loading-card hidden" id="loadingCard">
+        <div class="loading-spinner"></div>
+        <p style="color:var(--muted);font-size:11px">در حال دریافت عادت‌ها...</p>
+    </section>
+
+    <div id="habitsList"></div>
+</div>
+
+<footer>سایت هدف • هر روز یک قدم جلوتر</footer>
+</main>
+
+<div class="message" id="message" role="status" aria-live="polite"></div>
+
+<nav class="bottom-nav">
+    <button class="nav-item" type="button" onclick="location.href='index.html'">
+        <span>⌂</span>خانه
+    </button>
+    <button class="nav-item" type="button" onclick="location.href='goal.html'">
+        <span>◎</span>هدف من
+    </button>
+    <button class="nav-item active" type="button">
+        <span>🌱</span>عادت‌ها
+    </button>
+    <button class="nav-item" type="button" onclick="location.href='index.html#tools'">
+        <span>◈</span>ابزارها
+    </button>
+    <button class="nav-item" type="button" onclick="location.href='pico.html'">
+        <span>🤖</span>پیکو
+    </button>
+</nav>
+
+<script>
+"use strict";
+
+const API_URL = "https://script.google.com/macros/s/AKfycbxA6cb5J_oVT-qqsEqfPhTIHT6H9uqIWAzs0lRqA64sfpZ9ElmcjzVbBCFkf1Q5GGrihQ/exec";
+
+const $ = id => document.getElementById(id);
+
+let habits = [];
+let logs = [];
+let today = "";
+let busyHabits = new Set();
+let creating = false;
+let messageTimer = null;
+
+const DAY_NAMES = {
+    1:"شنبه",
+    2:"یکشنبه",
+    3:"دوشنبه",
+    4:"سه‌شنبه",
+    5:"چهارشنبه",
+    6:"پنجشنبه",
+    7:"جمعه"
+};
+
+function getUser() {
+    try {
+        const user = JSON.parse(localStorage.getItem("hadafUser") || "null");
+        return user && typeof user === "object" ? user : null;
+    } catch {
+        return null;
+    }
+}
+
+function getAccessToken() {
+    const user = getUser();
+    return user?.access_token || "";
+}
+
+function showAccount() {
+    const user = getUser();
+
+    $("accountName").textContent = user
+        ? user.username || user.name || user.display_name || user.email || "کاربر هدف"
+        : "مهمان";
+}
+
+function goAccount() {
+    const user = getUser();
+
+    if (!user || !getAccessToken()) {
+        location.href = "login.html";
+        return;
+    }
+
+    showMessage("سلام " + (user.username || user.name || "دوست هدف") + " 👋");
+}
+
+function showMessage(text) {
+    const box = $("message");
+    box.textContent = String(text || "");
+    box.classList.add("show");
+
+    clearTimeout(messageTimer);
+
+    messageTimer = setTimeout(() => {
+        box.classList.remove("show");
+    }, 3500);
+}
+
+async function callAPI(data) {
+    const accessToken = getAccessToken();
+
+    if (!accessToken) {
+        throw new Error("نشست ورود پیدا نشد. دوباره وارد حساب شو.");
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain;charset=UTF-8"
+            },
+            body: JSON.stringify({
+                ...data,
+                access_token: accessToken
+            }),
+            cache: "no-store",
+            redirect: "follow",
+            signal: controller.signal
+        });
+
+        const text = await response.text();
+
+        if (!response.ok) {
+            throw new Error("خطای HTTP " + response.status);
+        }
+
+        if (!text.trim()) {
+            throw new Error("پاسخ API خالی است.");
+        }
+
+        let result;
+
+        try {
+            result = JSON.parse(text);
+        } catch {
+            throw new Error("پاسخ API معتبر نیست.");
+        }
+
+        return result;
+
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+function apiSuccess(result) {
+    return !!result && (
+        result.success === true ||
+        result.success === "true"
+    );
+}
+
+function apiMessage(result, fallback) {
+    return result?.message || result?.error || fallback;
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[char]);
+}
+
+function getHabitId(habit) {
+    return String(habit?.id || "").trim();
+}
+
+function getHabitTitle(habit) {
+    return String(habit?.title || "").trim();
+}
+
+function getHabitDays(habit) {
+    return Array.isArray(habit?.days_of_week)
+        ? habit.days_of_week.map(Number)
+        : [];
+}
+
+function isActive(habit) {
+    return habit?.is_active === true ||
+           habit?.is_active === "true" ||
+           habit?.is_active === 1;
+}
+
+function isDoneToday(habit) {
+    const id = getHabitId(habit);
+
+    return logs.some(log =>
+        String(log.habit_id || "") === id &&
+        String(log.log_date || "").slice(0,10) === today &&
+        (
+            log.completed === true ||
+            log.completed === "true" ||
+            log.completed === 1
+        )
+    );
+}
+
+function updateSummary() {
+    const active = habits.filter(isActive);
+    const done = active.filter(isDoneToday);
+
+    $("activeCount").textContent = active.length;
+    $("doneCount").textContent = done.length;
+}
+
+function getDaysHTML(habit) {
+    const days = getHabitDays(habit);
+
+    if (!days.length) {
+        return '<span class="habit-day">روزهای تعیین‌نشده</span>';
+    }
+
+    return days
+        .sort((a,b) => a-b)
+        .map(day => DAY_NAMES[day])
+        .filter(Boolean)
+        .map(day => `<span class="habit-day">${day}</span>`)
+        .join("");
+}
+
+function renderHabits() {
+    const list = $("habitsList");
+    list.replaceChildren();
+
+    habits.forEach((habit,index) => {
+        const id = getHabitId(habit);
+        const title = getHabitTitle(habit) || "عادت من";
+        const description = String(habit.description || "");
+        const active = isActive(habit);
+        const done = isDoneToday(habit);
+        const busy = busyHabits.has(id);
+
+        const card = document.createElement("section");
+        card.className = "card habit-card";
+
+        card.innerHTML = `
+            <div class="habit-top">
+                <div>
+                    <div class="habit-title">${escapeHTML(title)}</div>
+                    ${
+                        description
+                        ? `<div class="habit-description">${escapeHTML(description)}</div>`
+                        : ""
+                    }
+                </div>
+                <div class="habit-icon">🌱</div>
+            </div>
+
+            <div class="habit-days">
+                ${getDaysHTML(habit)}
+            </div>
+
+            <div class="habit-status ${active ? "" : "inactive"}">
+                ${active ? "● عادت فعال است" : "● عادت غیرفعال است"}
+            </div>
+
+            <button
+                class="done-button ${done ? "done" : ""}"
+                type="button"
+                data-action="done"
+                ${!active || busy || !id ? "disabled" : ""}
+            >
+                ${
+                    !active
+                    ? "عادت غیرفعال است"
+                    : busy
+                    ? "در حال ثبت..."
+                    : done
+                    ? "↩ لغو انجام امروز"
+                    : "✅ امروز انجامش دادم"
+                }
+            </button>
+
+            <div class="habit-actions">
+                <button
+                    class="action-button"
+                    type="button"
+                    data-action="toggle"
+                    ${busy || !id ? "disabled" : ""}
+                >
+                    ${active ? "غیرفعال کردن" : "فعال کردن"}
+                </button>
+
+                <button
+                    class="action-button delete"
+                    type="button"
+                    data-action="delete"
+                    ${busy || !id ? "disabled" : ""}
+                >
+                    حذف عادت
+                </button>
+            </div>
+        `;
+
+        card.querySelector('[data-action="done"]')
+            .addEventListener("click", () => toggleDone(id));
+
+        card.querySelector('[data-action="toggle"]')
+            .addEventListener("click", () => toggleActive(id));
+
+        card.querySelector('[data-action="delete"]')
+            .addEventListener("click", () => deleteHabit(id));
+
+        list.appendChild(card);
+    });
+
+    updateSummary();
+}
+
+async function loadHabits() {
+    if (!getAccessToken()) {
+        $("loginCard").classList.remove("hidden");
+        $("createCard").classList.add("hidden");
+        $("emptyCard").classList.add("hidden");
+        $("loadingCard").classList.add("hidden");
+        $("habitsList").replaceChildren();
+
+        habits = [];
+        logs = [];
+        updateSummary();
+        return;
+    }
+
+    $("loginCard").classList.add("hidden");
+    $("createCard").classList.remove("hidden");
+    $("emptyCard").classList.add("hidden");
+    $("loadingCard").classList.remove("hidden");
+
+    try {
+        const result = await callAPI({
+            action:"getDashboard"
+        });
+
+        if (!apiSuccess(result)) {
+            throw new Error(apiMessage(result,"دریافت عادت‌ها ناموفق بود."));
+        }
+
+        const data = result.data || {};
+
+        habits = Array.isArray(data.habits) ? data.habits : [];
+        logs = Array.isArray(data.logs) ? data.logs : [];
+        today = String(data.today || "");
+
+        $("loadingCard").classList.add("hidden");
+
+        renderHabits();
+
+        $("emptyCard").classList.toggle(
+            "hidden",
+            habits.length !== 0
+        );
+
+    } catch (error) {
+        $("loadingCard").classList.add("hidden");
+
+        console.error("loadHabits:",error);
+
+        showMessage(
+            error.name === "AbortError"
+            ? "اتصال به سرور طول کشید."
+            : error.message || "خطا در دریافت عادت‌ها."
+        );
+    }
+}
+
+function getSelectedDays() {
+    return Array.from(
+        document.querySelectorAll('#daysGrid input:checked')
+    ).map(input => Number(input.value));
+}
+
+async function createHabit() {
+    if (!getAccessToken()) {
+        location.href = "login.html";
+        return;
+    }
+
+    const title = $("habitTitle").value.trim();
+    const description = $("habitDescription").value.trim();
+    const days = getSelectedDays();
+
+    if (!title) {
+        showMessage("نام عادت را بنویس.");
+        $("habitTitle").focus();
+        return;
+    }
+
+    if (!days.length) {
+        showMessage("حداقل یک روز را انتخاب کن.");
+        return;
+    }
+
+    if (creating) return;
+
+    creating = true;
+    $("createButton").disabled = true;
+    $("createButton").textContent = "در حال ساخت...";
+
+    try {
+        const result = await callAPI({
+            action:"createHabit",
+            title,
+            description,
+            days_of_week:days
+        });
+
+        if (!apiSuccess(result)) {
+            throw new Error(apiMessage(result,"ساخت عادت انجام نشد."));
+        }
+
+        $("habitTitle").value = "";
+        $("habitDescription").value = "";
+
+        document.querySelectorAll('#daysGrid input')
+            .forEach(input => input.checked = true);
+
+        showMessage("🌱 عادت جدید ساخته شد.");
+
+        await loadHabits();
+
+    } catch (error) {
+        console.error("createHabit:",error);
+        showMessage(error.message || "خطا در ساخت عادت.");
+
+    } finally {
+        creating = false;
+        $("createButton").disabled = false;
+        $("createButton").textContent = "🚀 ساختن عادت";
+    }
+}
+
+async function toggleDone(habitId) {
+    const habit = habits.find(item => getHabitId(item) === habitId);
+
+    if (!habit || !isActive(habit) || busyHabits.has(habitId)) return;
+
+    const done = isDoneToday(habit);
+
+    busyHabits.add(habitId);
+    renderHabits();
+
+    try {
+        const result = await callAPI({
+            action:"logHabit",
+            habit_id:habitId,
+            completed:!done
+        });
+
+        if (!apiSuccess(result)) {
+            throw new Error(apiMessage(result,"ثبت عادت ناموفق بود."));
+        }
+
+        showMessage(done ? "ثبت امروز لغو شد." : "آفرین! عادت امروز ثبت شد.");
+
+        await loadHabits();
+
+    } catch (error) {
+        console.error("toggleDone:",error);
+        showMessage(error.message || "خطا در ثبت عادت.");
+
+    } finally {
+        busyHabits.delete(habitId);
+        renderHabits();
+    }
+}
+
+async function toggleActive(habitId) {
+    const habit = habits.find(item => getHabitId(item) === habitId);
+
+    if (!habit || busyHabits.has(habitId)) return;
+
+    const nextState = !isActive(habit);
+
+    busyHabits.add(habitId);
+    renderHabits();
+
+    try {
+        const result = await callAPI({
+            action:"updateHabit",
+            id:habitId,
+            is_active:nextState
+        });
+
+        if (!apiSuccess(result)) {
+            throw new Error(apiMessage(result,"تغییر وضعیت عادت انجام نشد."));
+        }
+
+        showMessage(nextState ? "عادت فعال شد." : "عادت غیرفعال شد.");
+
+        await loadHabits();
+
+    } catch (error) {
+        console.error("toggleActive:",error);
+        showMessage(error.message || "خطا در تغییر وضعیت.");
+
+    } finally {
+        busyHabits.delete(habitId);
+        renderHabits();
+    }
+}
+
+async function deleteHabit(habitId) {
+    if (!habitId || busyHabits.has(habitId)) return;
+
+    if (!confirm("مطمئنی می‌خواهی این عادت را حذف کنی؟")) return;
+
+    busyHabits.add(habitId);
+    renderHabits();
+
+    try {
+        const result = await callAPI({
+            action:"deleteHabit",
+            id:habitId
+        });
+
+        if (!apiSuccess(result)) {
+            throw new Error(apiMessage(result,"حذف عادت انجام نشد."));
+        }
+
+        showMessage("عادت حذف شد.");
+
+        await loadHabits();
+
+    } catch (error) {
+        console.error("deleteHabit:",error);
+        showMessage(error.message || "خطا در حذف عادت.");
+
+    } finally {
+        busyHabits.delete(habitId);
+        renderHabits();
+    }
+}
+
+$("habitTitle").addEventListener("keydown",event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        createHabit();
+    }
+});
+
+async function startPage() {
+    showAccount();
+    await loadHabits();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded",startPage);
+} else {
+    startPage();
+}
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load",() => {
+        navigator.serviceWorker.register("./sw.js")
+            .catch(error => console.error("خطای PWA:",error));
+    });
+}
+</script>
+</body>
+</html>
