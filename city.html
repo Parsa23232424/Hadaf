@@ -3,216 +3,274 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Hadaf City: Tehran</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;overflow:hidden;background:#101820;font-family:tahoma}
-#game{width:100vw;height:100vh;display:block}
-#info{position:fixed;top:15px;left:15px;color:white;background:#101820cc;padding:12px 16px;border-radius:12px;z-index:2}
-#controls{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);display:grid;grid-template-columns:repeat(3,65px);gap:7px;z-index:3}
-.btn{height:60px;border:1px solid #ffffff55;border-radius:15px;background:#252b40dd;color:white;font-size:25px;touch-action:none}
-.btn:active{background:#6758ff}
-#run{position:fixed;bottom:35px;right:22px;width:75px;height:75px;border-radius:50%;background:#6758ff;color:white;border:0;font-size:15px;z-index:3;touch-action:none}
+body{margin:0;overflow:hidden;background:#101820;font-family:tahoma;touch-action:none}
+canvas{display:block}
+#info{position:fixed;top:14px;left:14px;z-index:5;color:white;background:#101820dd;padding:12px 15px;border-radius:12px;font-size:14px;pointer-events:none}
+#joystick{position:fixed;left:28px;bottom:30px;width:130px;height:130px;border-radius:50%;background:#202b40aa;border:2px solid #ffffff55;z-index:5;touch-action:none}
+#stick{position:absolute;width:54px;height:54px;border-radius:50%;background:#6758ff;border:2px solid #ffffff99;left:36px;top:36px;pointer-events:none}
+#run{position:fixed;right:28px;bottom:45px;width:76px;height:76px;border-radius:50%;border:2px solid #ffffff88;background:#6758ff;color:white;font-size:15px;z-index:5;touch-action:none}
+#hint{position:fixed;right:15px;top:90px;color:white;background:#10182099;padding:9px;border-radius:9px;font-size:11px;pointer-events:none}
 </style>
 </head>
 <body>
 <div id="info">🏙️ Hadaf City: Tehran<br><small>MISSION 001 | گشت در شهر</small></div>
-<div id="controls">
-  <div></div><button class="btn" data-key="up">▲</button><div></div>
-  <button class="btn" data-key="left">◀</button>
-  <button class="btn" data-key="down">▼</button>
-  <button class="btn" data-key="right">▶</button>
-</div>
-<button id="run">دویدن</button>
+<div id="hint">برای چرخاندن دوربین<br>صفحه را بکش</div>
+<div id="joystick"><div id="stick"></div></div>
+<button id="run">⚡ دویدن</button>
+
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x91b9d1);
-scene.fog = new THREE.Fog(0x91b9d1, 65, 210);
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x9abbd0);
+scene.fog=new THREE.Fog(0x9abbd0,75,210);
 
-const camera = new THREE.PerspectiveCamera(65, innerWidth/innerHeight, .1, 500);
-const renderer = new THREE.WebGLRenderer({antialias:true});
+const camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,.1,400);
+const renderer=new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(innerWidth,innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-document.body.prepend(renderer.domElement);
-renderer.domElement.id = "game";
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
 
-scene.add(new THREE.HemisphereLight(0xffffff,0x657080,2));
-const sun = new THREE.DirectionalLight(0xffedcf,3);
-sun.position.set(-40,70,30);
-sun.castShadow = true;
+scene.add(new THREE.HemisphereLight(0xffffff,0x68715f,2));
+
+const sun=new THREE.DirectionalLight(0xffedcf,2.5);
+sun.position.set(-35,65,35);
+sun.castShadow=true;
 sun.shadow.mapSize.set(1024,1024);
 scene.add(sun);
 
-function material(color,roughness=1){
- return new THREE.MeshStandardMaterial({color,roughness});
+function mat(color,rough=1){
+ return new THREE.MeshStandardMaterial({color,roughness:rough});
 }
-const groundMat=material(0x65705d);
-const roadMat=material(0x292d32);
-const sidewalkMat=material(0x999999);
-const whiteMat=material(0xffffff);
-const yellowMat=material(0xf0c83c);
-
-function block(w,h,d,x,y,z,color){
- const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material(color));
- mesh.position.set(x,y+h/2,z);
- mesh.castShadow=true;
- mesh.receiveShadow=true;
- scene.add(mesh);
- return mesh;
+function cube(w,h,d,x,y,z,color){
+ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(color));
+ m.position.set(x,y+h/2,z);
+ m.castShadow=true;
+ m.receiveShadow=true;
+ scene.add(m);
+ return m;
 }
 
-// زمین شهر
-const ground=new THREE.Mesh(new THREE.PlaneGeometry(240,240),groundMat);
+// زمین
+const ground=new THREE.Mesh(
+ new THREE.PlaneGeometry(250,250),
+ mat(0x727766)
+);
 ground.rotation.x=-Math.PI/2;
 ground.receiveShadow=true;
 scene.add(ground);
 
-// خیابان اصلی
-block(15,.08,220,0,.03,0,0x292d32);
-block(220,.08,15,0,.04,0,0x292d32);
+// خیابان‌ها
+cube(15,.08,230,0,.04,0,0x292d32);
+cube(230,.08,15,0,.04,0,0x292d32);
+for(const x of [-9,9])cube(3,.2,230,x,.1,0,0xa5a19a);
+for(const z of [-9,9])cube(230,.2,3,0,.1,z,0xa5a19a);
 
-// پیاده‌روها
-for(const x of [-9,9]) block(3,.2,220,x,.1,0,0x999999);
-for(const z of [-9,9]) block(220,.2,3,0,.1,z,0x999999);
-
-// خط‌کشی خیابان
-for(let i=-100;i<100;i+=10){
- block(.18,.03,4,0,.1,i,0xf4f0dc);
- block(4,.03,.18,i,.1,0,0xf4f0dc);
+for(let i=-105;i<110;i+=10){
+ cube(.15,.025,4,0,.1,i,0xf4e9c5);
+ cube(4,.025,.15,i,.1,0,0xf4e9c5);
 }
 
 // ساختمان‌ها
-const colors=[0xb7a28d,0xc2b9a7,0x9caaa9,0xb8b1a4,0xaaa08e,0x8f9b9e];
-for(let x=-48;x<=48;x+=16){
- for(let z=-48;z<=48;z+=16){
-  if(Math.abs(x)<13||Math.abs(z)<13) continue;
-  const w=9+Math.random()*3;
-  const d=9+Math.random()*3;
-  const h=9+Math.random()*25;
-  const color=colors[Math.floor(Math.random()*colors.length)];
-  block(w,h,d,x,h/2,z,color);
+const colors=[0xb9aa96,0xc2b8a5,0x9eaaa7,0xb5b0a5,0x9b9b91];
+for(let x=-52;x<=52;x+=17){
+ for(let z=-52;z<=52;z+=17){
+  if(Math.abs(x)<13||Math.abs(z)<13)continue;
+  const w=10+Math.random()*3;
+  const d=10+Math.random()*3;
+  const h=12+Math.random()*22;
+  cube(w,h,d,x,0,z,colors[Math.floor(Math.random()*colors.length)]);
 
-  // پنجره‌ها
   for(let yy=3;yy<h-2;yy+=3){
-   for(let xx=-w/2+1.5;xx<w/2;xx+=2.5){
-    const win=new THREE.Mesh(
-     new THREE.BoxGeometry(1.1,1.4,.08),
-     material(0x405b6b,.3)
+   for(let xx=-w/2+1.5;xx<w/2-1;xx+=2.5){
+    const windowMesh=new THREE.Mesh(
+     new THREE.BoxGeometry(1.2,1.4,.08),
+     mat(0x456273,.3)
     );
-    win.position.set(x+xx,yy,z-d/2-.05);
-    scene.add(win);
+    windowMesh.position.set(x+xx,yy,z-d/2-.05);
+    scene.add(windowMesh);
    }
   }
  }
 }
 
-// درخت‌های خیابانی
+// درخت‌ها
 for(let i=-90;i<=90;i+=12){
  for(const x of [-11,11]){
-  const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.25,.35,2,8),material(0x68472c));
+  const trunk=new THREE.Mesh(
+   new THREE.CylinderGeometry(.2,.3,2,8),mat(0x68472c)
+  );
   trunk.position.set(x,1,i);
   scene.add(trunk);
-  const leaves=new THREE.Mesh(new THREE.SphereGeometry(1.5,10,8),material(0x356b3c));
+  const leaves=new THREE.Mesh(
+   new THREE.SphereGeometry(1.5,10,8),mat(0x356b3c)
+  );
   leaves.position.set(x,3,i);
   scene.add(leaves);
  }
 }
 
-// شخصیت بازیکن
+// شخصیت
 const player=new THREE.Group();
 scene.add(player);
 
-const skin=material(0xd5a27b);
-const clothes=material(0x252d48);
-const pants=material(0x343a43);
-const shoes=material(0x171717);
-
-function part(parent,geo,mat,x,y,z){
- const m=new THREE.Mesh(geo,mat);
+function part(parent,geometry,material,x,y,z){
+ const m=new THREE.Mesh(geometry,material);
  m.position.set(x,y,z);
  m.castShadow=true;
  parent.add(m);
  return m;
 }
 
-part(player,new THREE.CylinderGeometry(.38,.48,1.1,12),clothes,0,1.35,0);
-part(player,new THREE.SphereGeometry(.34,16,12),skin,0,2.15,0);
-part(player,new THREE.BoxGeometry(.75,.9,.35),pants,0,.55,0);
-part(player,new THREE.BoxGeometry(.3,.18,.55),shoes,0,.12,.12);
+const shirt=mat(0x252d48);
+const skin=mat(0xd5a27b);
+const trousers=mat(0x343a43);
+const shoes=mat(0x171717);
 
-const armL=part(player,new THREE.CylinderGeometry(.13,.16,.85,10),clothes,-.52,1.35,0);
-const armR=part(player,new THREE.CylinderGeometry(.13,.16,.85,10),clothes,.52,1.35,0);
-armL.rotation.z=-.15;
-armR.rotation.z=.15;
+part(player,new THREE.CylinderGeometry(.35,.43,.9,12),shirt,0,1.35,0);
+part(player,new THREE.SphereGeometry(.3,16,12),skin,0,2.05,0);
+part(player,new THREE.BoxGeometry(.65,.8,.38),trousers,0,.5,0);
+part(player,new THREE.BoxGeometry(.32,.15,.5),shoes,0,.1,-.05);
 
-player.position.set(0,0,0);
+const leftArm=part(player,new THREE.CylinderGeometry(.12,.15,.75,10),shirt,-.45,1.35,0);
+const rightArm=part(player,new THREE.CylinderGeometry(.12,.15,.75,10),shirt,.45,1.35,0);
 
-// کنترل‌ها
-const keys={up:false,down:false,left:false,right:false,run:false};
-document.querySelectorAll('[data-key]').forEach(btn=>{
- const key=btn.dataset.key;
- btn.addEventListener('pointerdown',e=>{e.preventDefault();keys[key]=true;});
- ['pointerup','pointerleave','pointercancel'].forEach(ev=>
-  btn.addEventListener(ev,()=>keys[key]=false)
- );
+// کنترل جوی‌استیک
+const joystick=document.getElementById('joystick');
+const stick=document.getElementById('stick');
+const runButton=document.getElementById('run');
+
+let joyX=0,joyY=0,run=false;
+let joyPointer=null;
+let cameraYaw=0;
+let cameraPitch=.22;
+let cameraPointer=null;
+let lastX=0,lastY=0;
+
+function updateJoystick(e){
+ const r=joystick.getBoundingClientRect();
+ const cx=r.left+r.width/2;
+ const cy=r.top+r.height/2;
+ let dx=e.clientX-cx;
+ let dy=e.clientY-cy;
+ const max=42;
+ const length=Math.hypot(dx,dy);
+ if(length>max){dx=dx/length*max;dy=dy/length*max;}
+ joyX=dx/max;
+ joyY=dy/max;
+ stick.style.left=(36+dx)+'px';
+ stick.style.top=(36+dy)+'px';
+}
+
+joystick.addEventListener('pointerdown',e=>{
+ e.preventDefault();
+ joyPointer=e.pointerId;
+ joystick.setPointerCapture(e.pointerId);
+ updateJoystick(e);
 });
-const run=document.getElementById('run');
-run.addEventListener('pointerdown',()=>keys.run=true);
-['pointerup','pointerleave','pointercancel'].forEach(ev=>
- run.addEventListener(ev,()=>keys.run=false)
-);
-
-addEventListener('keydown',e=>{
- if(e.key==='w'||e.key==='ArrowUp')keys.up=true;
- if(e.key==='s'||e.key==='ArrowDown')keys.down=true;
- if(e.key==='a'||e.key==='ArrowLeft')keys.left=true;
- if(e.key==='d'||e.key==='ArrowRight')keys.right=true;
- if(e.shiftKey)keys.run=true;
+joystick.addEventListener('pointermove',e=>{
+ if(e.pointerId===joyPointer)updateJoystick(e);
 });
-addEventListener('keyup',e=>{
- if(e.key==='w'||e.key==='ArrowUp')keys.up=false;
- if(e.key==='s'||e.key==='ArrowDown')keys.down=false;
- if(e.key==='a'||e.key==='ArrowLeft')keys.left=false;
- if(e.key==='d'||e.key==='ArrowRight')keys.right=false;
- if(e.key==='Shift')keys.run=false;
-});
+function stopJoystick(e){
+ if(e.pointerId!==joyPointer)return;
+ joyPointer=null;
+ joyX=0;joyY=0;
+ stick.style.left='36px';
+ stick.style.top='36px';
+}
+joystick.addEventListener('pointerup',stopJoystick);
+joystick.addEventListener('pointercancel',stopJoystick);
 
+runButton.addEventListener('pointerdown',e=>{
+ e.preventDefault();run=true;
+});
+runButton.addEventListener('pointerup',()=>run=false);
+runButton.addEventListener('pointercancel',()=>run=false);
+runButton.addEventListener('pointerleave',()=>run=false);
+
+// چرخش دوربین با کشیدن انگشت
+renderer.domElement.addEventListener('pointerdown',e=>{
+ if(e.clientX<innerWidth*.35)return;
+ cameraPointer=e.pointerId;
+ lastX=e.clientX;
+ lastY=e.clientY;
+ renderer.domElement.setPointerCapture(e.pointerId);
+});
+renderer.domElement.addEventListener('pointermove',e=>{
+ if(e.pointerId!==cameraPointer)return;
+ const dx=e.clientX-lastX;
+ const dy=e.clientY-lastY;
+ cameraYaw-=dx*.006;
+ cameraPitch=Math.max(-.05,Math.min(.8,cameraPitch+dy*.004));
+ lastX=e.clientX;
+ lastY=e.clientY;
+});
+function stopCamera(e){
+ if(e.pointerId===cameraPointer)cameraPointer=null;
+}
+renderer.domElement.addEventListener('pointerup',stopCamera);
+renderer.domElement.addEventListener('pointercancel',stopCamera);
+
+// کیبورد
+const keyboard={};
+addEventListener('keydown',e=>keyboard[e.key.toLowerCase()]=true);
+addEventListener('keyup',e=>keyboard[e.key.toLowerCase()]=false);
+
+// حلقه بازی
 const clock=new THREE.Clock();
-const direction=new THREE.Vector3();
+const desiredCamera=new THREE.Vector3();
+const target=new THREE.Vector3();
+const move=new THREE.Vector3();
 
 function animate(){
  requestAnimationFrame(animate);
  const dt=Math.min(clock.getDelta(),.04);
 
- let x=0,z=0;
- if(keys.up)z-=1;
- if(keys.down)z+=1;
- if(keys.left)x-=1;
- if(keys.right)x+=1;
+ let forward=-joyY;
+ let side=joyX;
 
- direction.set(x,0,z);
- if(direction.length()>0){
-  direction.normalize();
-  const speed=keys.run?11:5;
-  player.position.addScaledVector(direction,speed*dt);
-  player.rotation.y=Math.atan2(direction.x,direction.z);
+ if(keyboard.w||keyboard.arrowup)forward=1;
+ if(keyboard.s||keyboard.arrowdown)forward=-1;
+ if(keyboard.a||keyboard.arrowleft)side=-1;
+ if(keyboard.d||keyboard.arrowright)side=1;
+
+ const speed=(run||keyboard.shift)?11:5;
+
+ const forwardX=-Math.sin(cameraYaw);
+ const forwardZ=-Math.cos(cameraYaw);
+ const rightX=Math.cos(cameraYaw);
+ const rightZ=-Math.sin(cameraYaw);
+
+ move.set(
+  forward*forwardX+side*rightX,
+  0,
+  forward*forwardZ+side*rightZ
+ );
+
+ if(move.length()>1)move.normalize();
+
+ if(move.length()>.05){
+  player.position.addScaledVector(move,speed*dt);
+  player.rotation.y=Math.atan2(move.x,move.z)+Math.PI;
  }
 
- // دوربین سوم‌شخص
- const behind=new THREE.Vector3(
-  Math.sin(player.rotation.y)*8,
-  5,
-  Math.cos(player.rotation.y)*8
+ // دوربین پشت شخصیت
+ const distance=8;
+ const horizontal=distance*Math.cos(cameraPitch);
+ desiredCamera.set(
+  player.position.x+Math.sin(cameraYaw)*horizontal,
+  player.position.y+3+distance*Math.sin(cameraPitch),
+  player.position.z+Math.cos(cameraYaw)*horizontal
  );
- const target=player.position.clone().add(new THREE.Vector3(0,2,0));
- const desired=player.position.clone().add(new THREE.Vector3(0,0,0)).add(behind);
- desired.y+=2;
- camera.position.lerp(desired,.09);
+
+ camera.position.lerp(desiredCamera,.14);
+ target.set(player.position.x,player.position.y+1.5,player.position.z);
  camera.lookAt(target);
 
  renderer.render(scene,camera);
